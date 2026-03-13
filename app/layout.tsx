@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import { initMocks } from "@/mocks";
-import { MSWComponent } from "@/src/providers/MSWComponent";
+import MSWInitializer from "@/mocks/MSWInitializer";
 import QueryProvider from "@/src/providers/QueryProvider";
 
 initMocks();
@@ -14,9 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MSWComponent>
+        <MSWInitializer>
           <QueryProvider>{children}</QueryProvider>
-        </MSWComponent>
+        </MSWInitializer>
       </body>
     </html>
   );
