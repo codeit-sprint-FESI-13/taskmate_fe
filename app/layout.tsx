@@ -1,16 +1,10 @@
 import "./globals.css";
 
-import { Geist, Geist_Mono } from "next/font/google";
+import { initMocks } from "@/mocks";
+import MSWInitializer from "@/mocks/MSWInitializer";
+import QueryProvider from "@/src/providers/QueryProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+initMocks();
 
 export default function RootLayout({
   children,
@@ -19,10 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body>
+        <MSWInitializer>
+          <QueryProvider>{children}</QueryProvider>
+        </MSWInitializer>
       </body>
     </html>
   );
