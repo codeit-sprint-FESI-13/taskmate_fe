@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { initMocks } from "@/mocks";
 import MSWInitializer from "@/mocks/MSWInitializer";
-import QueryProvider from "@/src/providers/QueryProvider";
+import { ReactQueryClientProvider } from "@/src/providers/ReactQueryProvider";
 
 initMocks();
 
@@ -18,9 +18,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <MSWInitializer>
-          <QueryProvider>{children}</QueryProvider>
+          <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
         </MSWInitializer>
-        {children}
         <Analytics />
         <SpeedInsights />
       </body>
