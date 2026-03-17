@@ -30,7 +30,7 @@ type User = {
 
 type AuthStore = {
   user: User | null;
-  setUser: (user: User) => void; // 유저 정보 + 토큰 같이 저장
+  setUser: (user: User) => void; // 유저 정보
   clearUser: () => void;
 };
 
