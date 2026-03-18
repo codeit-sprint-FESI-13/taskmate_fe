@@ -8,8 +8,10 @@ export interface RequestOptions extends Omit<RequestInit, "method" | "body"> {
   body?: unknown;
 }
 
+// API 에러 응답 형태 (공통 에러 처리용)
 export interface ApiError {
   status: number;
+  code: ErrorCode;
   message: string;
   data?: unknown;
 }
@@ -37,17 +39,33 @@ async function request<T>(
   options: RequestOptions = {},
 ): Promise<T> {
   const { params, body, headers, ...rest } = options;
+
+  // 1. FormData 여부 체크 (이미지 전송 대응 인터셉트 로직)
+  const isFormData = body instanceof FormData;
+
   const res = await fetch(buildUrl(path, params), {
     method,
-    headers: { "Content-Type": "application/json", ...headers },
-    body: body !== undefined ? JSON.stringify(body) : undefined,
+    headers: {
+      // FormData가 아닐 때만 JSON 헤더 추가 (브라우저가 boundary를 정하게 비워둠)
+      ...(!isFormData && { "Content-Type": "application/json" }),
+      ...headers,
+    },
+    // FormData가 아니면 직렬화, 맞으면 그대로 전달
+    body: isFormData
+      ? (body as FormData)
+      : body !== undefined
+        ? JSON.stringify(body)
+        : undefined,
     ...rest,
   });
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
+
+    // 2. 응답 가공 (Response Interceptor 역할)
     const error: ApiError = {
       status: res.status,
+      code: mapStatusToCode(res.status),
       message: errorData.message ?? res.statusText,
       data: errorData,
     };
@@ -71,3 +89,24 @@ export const apiClient = {
   delete: <T>(path: string, options?: RequestOptions) =>
     request<T>("DELETE", path, options),
 };
+
+// 1. 에러 코드 타입 정의
+export type ErrorCode =
+  | "VALIDATION_ERROR"
+  | "AUTH_REQUIRED"
+  | "FORBIDDEN"
+  | "NOT_FOUND"
+  | "INTERNAL_ERROR"
+  | "UNKNOWN_ERROR";
+
+// 2. 변환 함수를 작성
+export function mapStatusToCode(status: number): ErrorCode {
+  const statusMap: Record<number, ErrorCode> = {
+    400: "VALIDATION_ERROR",
+    401: "AUTH_REQUIRED",
+    403: "FORBIDDEN",
+    404: "NOT_FOUND",
+  };
+
+  return statusMap[status] ?? "INTERNAL_ERROR";
+}

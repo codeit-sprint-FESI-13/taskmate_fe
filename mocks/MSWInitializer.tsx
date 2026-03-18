@@ -10,11 +10,21 @@ export default function MSWInitializer({
   const [ready, setReady] = useState(process.env.NODE_ENV !== "development");
 
   useEffect(() => {
+    // 개발 환경이 아니면 즉시 종료
     if (process.env.NODE_ENV !== "development") return;
 
-    import("./browser")
-      .then(({ worker }) => worker.start({ onUnhandledRequest: "bypass" }))
-      .then(() => setReady(true));
+    // async 함수를 내부에서 정의하고 실행
+    const initMSW = async () => {
+      try {
+        const { worker } = await import("./browser");
+        await worker.start({ onUnhandledRequest: "bypass" });
+        setReady(true);
+      } catch (error) {
+        console.error("MSW 초기화 실패:", error);
+      }
+    };
+
+    initMSW();
   }, []);
 
   if (!ready) return null;
