@@ -15,6 +15,10 @@ const config: Config = {
 
   // 테스트 전에 실행할 설정 파일을 지정
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+
+  testEnvironmentOptions: {
+    customExportConditions: [""],
+  },
 };
 
 // createJestConfig는 비동기 방식으로 next/jest가 내부적으로 설정을 로드할 수 있도록 내보내짐

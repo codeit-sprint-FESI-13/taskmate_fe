@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { postsApi } from "@/lib/api/endpoints";
+
 type Post = {
   id: number;
   title: string;
@@ -13,20 +15,12 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/posts/1");
-        if (!response.ok) {
-          throw new Error("에러 발생");
-        }
-        const postData = await response.json();
-        setData(postData);
-      } catch {
-        setError("데이터를 불러오는데 실패했습니다.");
-      }
-    };
-    fetchData();
+    postsApi
+      .getById(1)
+      .then(setData)
+      .catch(() => setError("데이터를 불러오는데 실패했습니다."));
   }, []);
+
   return (
     <ul>
       {data && (

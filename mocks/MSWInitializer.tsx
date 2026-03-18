@@ -7,27 +7,16 @@ export default function MSWInitializer({
 }: {
   children: React.ReactNode;
 }) {
-  const [isMockingReady, setIsMockingReady] = useState(false);
+  const [ready, setReady] = useState(process.env.NODE_ENV !== "development");
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== "development") {
-      setIsMockingReady(true);
-      return;
-    }
+    if (process.env.NODE_ENV !== "development") return;
 
-    async function startMocking() {
-      if (typeof window !== "undefined") {
-        const { worker } = await import("./browser");
-        await worker.start({
-          onUnhandledRequest: "bypass",
-        });
-        setIsMockingReady(true);
-      }
-    }
-
-    startMocking();
+    import("./browser")
+      .then(({ worker }) => worker.start({ onUnhandledRequest: "bypass" }))
+      .then(() => setReady(true));
   }, []);
 
-  if (!isMockingReady) return null;
+  if (!ready) return null;
   return <>{children}</>;
 }
