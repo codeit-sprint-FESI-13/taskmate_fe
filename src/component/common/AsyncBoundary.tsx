@@ -2,13 +2,9 @@
 
 import { Component, ReactNode, Suspense } from "react";
 
-// ─────────────────────────────────────────────
-// ErrorBoundary
-// ─────────────────────────────────────────────
-
 interface ErrorBoundaryProps {
   children: ReactNode;
-  fallback: ReactNode;
+  fallback?: ReactNode;
 }
 
 interface ErrorBoundaryState {
@@ -27,12 +23,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   componentDidCatch(error: unknown, errorInfo: React.ErrorInfo) {
+    // commit phase - 로깅 등 side effect 처리
     console.error("[ErrorBoundary]", error, errorInfo.componentStack);
   }
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback;
+      return this.props.fallback ?? null;
     }
     return this.props.children;
   }
@@ -43,7 +40,7 @@ interface AsyncBoundaryProps {
   /** 데이터 로딩 중 보여줄 UI (기본값: "Loading...") */
   loadingFallback?: ReactNode;
   /** 에러 발생 시 보여줄 UI */
-  errorFallback: ReactNode;
+  errorFallback?: ReactNode;
 }
 
 /**
