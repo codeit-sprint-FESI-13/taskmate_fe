@@ -11,7 +11,10 @@ interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
@@ -58,7 +61,23 @@ interface AsyncBoundaryProps {
  * >
  *   <GoalList />
  * </AsyncBoundary>
+ *
+ * // 2. 에러는 페이지 레벨, 로딩은 컴포넌트 레벨로 분리할 때 (중첩)
+ * <AsyncBoundary errorFallback={<GoalErrorPage />}>
+ *   <AsyncBoundary loadingFallback={<GoalSkeleton />}>
+ *     <GoalList />
+ *   </AsyncBoundary>
+ * </AsyncBoundary>
+ *
+ * // 3. 에러/로딩 위치가 다를 때 (ErrorBoundary 분리 사용)
+ * <ErrorBoundary fallback={<GoalErrorPage />}>
+ *   <Header />
+ *   <AsyncBoundary loadingFallback={<GoalSkeleton />}>
+ *     <GoalList />
+ *   </AsyncBoundary>
+ * </ErrorBoundary>
  */
+
 export default function AsyncBoundary({
   children,
   loadingFallback = <div>Loading...</div>,
