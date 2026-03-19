@@ -1,36 +1,5 @@
-import { API_CONFIG } from "./config";
-
-// 타입 정의
-type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-
-export interface RequestOptions extends Omit<RequestInit, "method" | "body"> {
-  params?: Record<string, string | number>;
-  body?: unknown;
-}
-
-// API 에러 응답 형태 (공통 에러 처리용)
-export interface ApiError {
-  status: number;
-  code: ErrorCode;
-  message: string;
-  data?: unknown;
-}
-
-// URL 빌더
-function buildUrl(path: string, params?: Record<string, string | number>) {
-  const baseUrl = API_CONFIG.BASE_URL;
-  const url = new URL(path.startsWith("/") ? path.slice(1) : path, baseUrl);
-
-  // 쿼리 파라미터 처리
-  if (params) {
-    Object.entries(params).forEach(([key, value]) =>
-      url.searchParams.set(key, String(value)),
-    );
-  }
-
-  // 전체 URL 반환
-  return url.toString();
-}
+import { ApiError, HttpMethod, RequestOptions } from "./types";
+import { buildUrl, mapStatusToCode } from "./utils";
 
 // 핵심 request 함수
 async function request<T>(
@@ -89,24 +58,3 @@ export const apiClient = {
   delete: <T>(path: string, options?: RequestOptions) =>
     request<T>("DELETE", path, options),
 };
-
-// 1. 에러 코드 타입 정의
-export type ErrorCode =
-  | "VALIDATION_ERROR"
-  | "AUTH_REQUIRED"
-  | "FORBIDDEN"
-  | "NOT_FOUND"
-  | "INTERNAL_ERROR"
-  | "UNKNOWN_ERROR";
-
-// 2. 변환 함수를 작성
-export function mapStatusToCode(status: number): ErrorCode {
-  const statusMap: Record<number, ErrorCode> = {
-    400: "VALIDATION_ERROR",
-    401: "AUTH_REQUIRED",
-    403: "FORBIDDEN",
-    404: "NOT_FOUND",
-  };
-
-  return statusMap[status] ?? "INTERNAL_ERROR";
-}
