@@ -40,13 +40,13 @@
   --color-label-normal: #111827;
   --color-label-strong: #000000;
   --color-label-neutral: rgba(17, 24, 39, 0.88);
-  --color-label-disable: rgba(17, 24, 39, 0.4);
+  --color-label-alternative: rgba(17, 24, 39, 0.4);
   --color-label-assistive: rgba(17, 24, 39, 0.28);
   --color-label-disable: rgba(17, 24, 39, 0.16);
 
   --color-inverse-normal: #ffffff;
   --color-inverse-neutral: rgba(0, 0, 0, 0.88);
-  --color-inverse-disabled: rgba(0, 0, 0, 0.4);
+  --color-inverse-alternative: rgba(0, 0, 0, 0.4);
   --color-inverse-assistive: rgba(0, 0, 0, 0.28);
   --color-inverse-disable: rgba(0, 0, 0, 0.16);
 
