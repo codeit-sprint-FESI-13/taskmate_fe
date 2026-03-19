@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-import { postApi } from "@//features/post/api";
-import type { Post } from "@//features/post/types";
-import { ApiError } from "@//lib/api/types";
+import { postApi } from "@/features/post/api";
+import type { Post } from "@/features/post/types";
+import { ApiError } from "@/lib/api/types";
 
 export default function Home() {
   const [data, setData] = useState<Post | null>(null);
