@@ -36,7 +36,7 @@
     "immer": "^11.1.4",
     "jest-fixed-jsdom": "^0.0.11",
     "js-cookie": "^3.0.5",
-    "zustand": "^5.0.12",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

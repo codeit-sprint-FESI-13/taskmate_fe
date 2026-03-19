@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-import { cn } from "../../utils/utils";
+import { cn } from "../../../utils/utils";
 
 const buttonVariants = cva(
   // 기본 스타일 (항상 적용)

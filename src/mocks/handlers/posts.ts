@@ -1,6 +1,6 @@
 import { HttpResponse } from "msw";
 
-import { apiMock } from "@/mocks/apiMock";
+import { apiMock } from "@//mocks/apiMock";
 
 export const postsHandlers = [
   apiMock.get("*/posts/:id", ({ request, params }) => {

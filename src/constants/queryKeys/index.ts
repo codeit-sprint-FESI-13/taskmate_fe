@@ -1,1 +1,1 @@
-export { goalKeys } from "@/src/constants/queryKeys/task.queryKey";
+export { goalKeys } from "@//constants/queryKeys/task.queryKey";

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 
-import { server } from "@/mocks/server";
+import { server } from "@//mocks/server";
 
 import Home from "./page";
 
