@@ -2,45 +2,49 @@
 
 import { useEffect, useState } from "react";
 
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-};
+import { postApi } from "@/features/post/api";
+import type { Post } from "@/features/post/types";
+import { ApiError } from "@/lib/api/types";
 
 export default function Home() {
   const [data, setData] = useState<Post | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/posts/1");
-        if (!response.ok) {
-          throw new Error("에러 발생");
+    postApi
+      .getById(1)
+      .then(setData)
+      .catch((err: unknown) => {
+        const error = err as ApiError;
+
+        if (error.code === "AUTH_REQUIRED") {
+          setError("로그인이 필요한 서비스입니다.");
+        } else {
+          setError(error.message || "데이터를 불러오는데 실패했습니다.");
         }
-        const postData = await response.json();
-        setData(postData);
-      } catch {
-        setError("데이터를 불러오는데 실패했습니다.");
-      }
-    };
-    fetchData();
+
+        console.error(`[${error.code}] ${error.status}: ${error.message}`);
+      });
   }, []);
+
   return (
-    <ul>
+    <main className="p-8">
+      <h1 className="mb-4 text-2xl font-bold">게시글 상세</h1>
+
       {data && (
-        <li
-          key={data.id}
-          className="border p-4"
-        >
-          <h3 className="font-bold">
+        <article className="rounded-lg border p-4 shadow-sm">
+          <h3 className="text-lg font-bold">
             {data.id}: {data.title}
           </h3>
-          <p>{data.body}</p>
-        </li>
+          <p className="mt-2 text-gray-600">{data.body}</p>
+        </article>
       )}
-      {error && <p className="text-red-500">{error}</p>}
-    </ul>
+
+      {error && (
+        <div className="mt-4 rounded border border-red-200 bg-red-50 p-3 text-red-600">
+          {error}
+        </div>
+      )}
+    </main>
   );
 }
