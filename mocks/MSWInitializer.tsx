@@ -7,27 +7,26 @@ export default function MSWInitializer({
 }: {
   children: React.ReactNode;
 }) {
-  const [isMockingReady, setIsMockingReady] = useState(false);
+  const [ready, setReady] = useState(process.env.NODE_ENV !== "development");
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== "development") {
-      setIsMockingReady(true);
-      return;
-    }
+    // 개발 환경이 아니면 즉시 종료
+    if (process.env.NODE_ENV !== "development") return;
 
-    async function startMocking() {
-      if (typeof window !== "undefined") {
+    // async 함수를 내부에서 정의하고 실행
+    const initMSW = async () => {
+      try {
         const { worker } = await import("./browser");
-        await worker.start({
-          onUnhandledRequest: "bypass",
-        });
-        setIsMockingReady(true);
+        await worker.start({ onUnhandledRequest: "bypass" });
+        setReady(true);
+      } catch (error) {
+        console.error("MSW 초기화 실패:", error);
       }
-    }
+    };
 
-    startMocking();
+    initMSW();
   }, []);
 
-  if (!isMockingReady) return null;
+  if (!ready) return null;
   return <>{children}</>;
 }
