@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { initMocks } from "@/mocks";
 import MSWInitializer from "@/mocks/MSWInitializer";
-import { ReactQueryClientProvider } from "@/src/providers/ReactQueryProvider";
+import { ReactQueryClientProvider } from "@/providers/ReactQueryProvider";
 
 initMocks();
 

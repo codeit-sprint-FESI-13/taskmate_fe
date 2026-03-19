@@ -46,8 +46,8 @@ export function ReactQueryClientProvider({
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      <ReactQueryDevtools initialIsOpen={false} />{" "}
       {/* 개발 환경에서만 표시됨 */}
+      <ReactQueryDevtools initialIsOpen={false} />{" "}
     </QueryClientProvider>
   );
 }
