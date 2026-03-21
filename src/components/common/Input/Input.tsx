@@ -14,7 +14,7 @@ const InputVariants = cva(
       variant: {
         default: "",
         disabled:
-          "text-label-disable bg-background-normal-alternative hover:border-gray-300",
+          "text-gray-400 bg-background-normal-alternative hover:border-gray-300",
         error:
           "border border-red-500 focus:border-red-500 hover:border-red-500",
       },
@@ -61,6 +61,7 @@ const Input = ({
             "pr-6",
           )}
           value={value}
+          disabled={variant === "disabled"}
           {...props}
         ></input>
         <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-2">
