@@ -2,6 +2,9 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { InputHTMLAttributes, useState } from "react";
 
+import ClearIcon from "@/components/common/Icons/ClearIcon";
+import EyeOffIcon from "@/components/common/Icons/EyeOffIcon";
+import EyeOnIcon from "@/components/common/Icons/EyeOnIcon";
 import { cn } from "@/utils/utils";
 
 const InputVariants = cva(
@@ -60,6 +63,31 @@ const Input = ({
           value={value}
           {...props}
         ></input>
+        <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-2">
+          {/* type="password"일 때 눈 아이콘 */}
+          {type === "password" && variant !== "disabled" && (
+            <button
+              type="button"
+              onClick={toggleShow}
+            >
+              {showPassword ? (
+                <EyeOnIcon className="text-gray-300" />
+              ) : (
+                <EyeOffIcon className="text-gray-300" />
+              )}
+            </button>
+          )}
+
+          {/* 값이 있을 때 X 버튼 */}
+          {value && variant !== "disabled" && type !== "password" && (
+            <button
+              type="button"
+              onClick={onClear}
+            >
+              <ClearIcon className="text-gray-300" />
+            </button>
+          )}
+        </div>
       </div>
       {(errorMessage || supportingText) && (
         <div className="pl-3">
