@@ -1,4 +1,4 @@
-import { useOverlayStore } from "./index.store";
+import { useOverlayStore } from "./useOverlay.store";
 
 describe("useOverlayStore", () => {
   beforeEach(() => {

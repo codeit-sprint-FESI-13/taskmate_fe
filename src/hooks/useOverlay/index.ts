@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { useOverlayStore } from "./index.store";
+import { useOverlayStore } from "./useOverlay.store";
 
 interface Props {
   exitOnUnmount?: boolean;

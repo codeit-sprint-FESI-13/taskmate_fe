@@ -2,8 +2,8 @@ import { act, render, screen } from "@testing-library/react";
 
 import { OVERLAY_ZINDEX_BASE } from "@/constants/zIndex";
 
-import { useOverlayStore } from "./index.store";
 import Overlay from "./Overlay";
+import { useOverlayStore } from "./useOverlay.store";
 
 describe("Overlay", () => {
   beforeEach(() => {

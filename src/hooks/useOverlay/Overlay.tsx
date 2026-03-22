@@ -2,7 +2,7 @@
 
 import { OVERLAY_ZINDEX_BASE } from "@/constants/zIndex";
 
-import { useOverlayStore } from "./index.store";
+import { useOverlayStore } from "./useOverlay.store";
 
 export default function Overlay() {
   const layer = useOverlayStore((s) => s.layer);

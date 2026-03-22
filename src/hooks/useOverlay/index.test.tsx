@@ -1,7 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
 
 import { useOverlay } from ".";
-import { useOverlayStore } from "./index.store";
+import { useOverlayStore } from "./useOverlay.store";
 
 describe("useOverlay", () => {
   beforeEach(() => {
