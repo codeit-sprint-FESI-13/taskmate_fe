@@ -1,0 +1,1 @@
+export const OVERLAY_ZINDEX_BASE = 1000;
