@@ -1,6 +1,6 @@
 "use client";
 
-import { OVERLAY_ZINDEX_BASE } from "@/constants/overlay";
+import { OVERLAY_ZINDEX_BASE } from "@/constants/zIndex";
 
 import { useOverlayStore } from "./index.store";
 

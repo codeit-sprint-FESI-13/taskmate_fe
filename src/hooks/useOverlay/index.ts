@@ -1,12 +1,12 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 
 import { useOverlayStore } from "./index.store";
 
-interface Options {
+interface Props {
   exitOnUnmount?: boolean;
 }
 
-export const useOverlay = ({ exitOnUnmount = true }: Options = {}) => {
+export const useOverlay = ({ exitOnUnmount = true }: Props = {}) => {
   const { push, pop, clear } = useOverlayStore();
 
   useEffect(() => {
@@ -17,11 +17,8 @@ export const useOverlay = ({ exitOnUnmount = true }: Options = {}) => {
     };
   }, [exitOnUnmount, clear]);
 
-  return useMemo(
-    () => ({
-      open: (id: string, element: React.ReactNode) => push(id, element),
-      close: () => pop(),
-    }),
-    [push, pop],
-  );
+  return {
+    open: (id: string, element: React.ReactNode) => push(id, element),
+    close: () => pop(),
+  };
 };
