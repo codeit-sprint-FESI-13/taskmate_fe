@@ -3,6 +3,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+import { ToastProvider } from "@/components/common/Toast";
 import Overlay from "@/hooks/useOverlay/Overlay";
 import { pretendard } from "@/lib/fonts";
 import { initMocks } from "@/mocks";
@@ -24,8 +25,13 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <MSWInitializer>
           <ReactQueryClientProvider>
-            {children}
             <Overlay />
+            <ToastProvider
+              position="bottom-right"
+              max={5}
+            >
+              {children}
+            </ToastProvider>
           </ReactQueryClientProvider>
         </MSWInitializer>
         <Analytics />
