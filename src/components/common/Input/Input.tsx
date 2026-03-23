@@ -2,9 +2,7 @@
 import { cva, VariantProps } from "class-variance-authority";
 import { InputHTMLAttributes, useState } from "react";
 
-import ClearIcon from "@/components/common/Icons/ClearIcon";
-import EyeOffIcon from "@/components/common/Icons/EyeOffIcon";
-import EyeOnIcon from "@/components/common/Icons/EyeOnIcon";
+import { Icon } from "@/components/common/Icon";
 import { cn } from "@/utils/utils";
 
 const InputVariants = cva(
@@ -72,9 +70,15 @@ const Input = ({
               onClick={toggleShow}
             >
               {showPassword ? (
-                <EyeOnIcon className="text-gray-300" />
+                <Icon
+                  name="EyeOnIcon"
+                  className="text-gray-300"
+                />
               ) : (
-                <EyeOffIcon className="text-gray-300" />
+                <Icon
+                  name="EyeOffIcon"
+                  className="text-gray-300"
+                />
               )}
             </button>
           )}
@@ -88,7 +92,10 @@ const Input = ({
                 type="button"
                 onClick={onClear}
               >
-                <ClearIcon className="text-gray-300" />
+                <Icon
+                  name="FilledXCircle"
+                  className="text-gray-300"
+                />
               </button>
             )}
         </div>
