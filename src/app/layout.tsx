@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import { ToastProvider } from "@/components/common/Toast";
+import Overlay from "@/hooks/useOverlay/Overlay";
 import { pretendard } from "@/lib/fonts";
 import { initMocks } from "@/mocks";
 import MSWInitializer from "@/mocks/MSWInitializer";
@@ -30,6 +31,7 @@ export default function RootLayout({
             >
               {children}
             </ToastProvider>
+            <Overlay />
           </ReactQueryClientProvider>
         </MSWInitializer>
         <Analytics />
