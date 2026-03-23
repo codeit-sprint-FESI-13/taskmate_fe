@@ -80,14 +80,17 @@ const Input = ({
           )}
 
           {/* 값이 있을 때 X 버튼 */}
-          {value && variant !== "disabled" && type !== "password" && (
-            <button
-              type="button"
-              onClick={onClear}
-            >
-              <ClearIcon className="text-gray-300" />
-            </button>
-          )}
+          {value &&
+            variant !== "disabled" &&
+            type !== "password" &&
+            onClear && (
+              <button
+                type="button"
+                onClick={onClear}
+              >
+                <ClearIcon className="text-gray-300" />
+              </button>
+            )}
         </div>
       </div>
       {(errorMessage || supportingText) && (
