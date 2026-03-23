@@ -1,16 +1,35 @@
-"use client";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { useEffect, useRef } from "react";
-
-import { useDropdownStore } from "./index.store";
-
-export function useDropdown(initialValue?: string) {
-  const { selected, isOpen, open, close, toggle, setSelected, clear } =
-    useDropdownStore();
-
+export function useDropdown(options: string[], initialSelected?: string) {
+  const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [state, setState] = useState({
+    selected:
+      initialSelected && options.includes(initialSelected)
+        ? initialSelected
+        : "",
+    prevInitialSelected: initialSelected,
+  });
 
-  // 외부 클릭 시 닫기
+  if (initialSelected !== state.prevInitialSelected) {
+    setState({
+      selected:
+        initialSelected && options.includes(initialSelected)
+          ? initialSelected
+          : "",
+      prevInitialSelected: initialSelected,
+    });
+  }
+
+  const { selected } = state;
+  const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
+  const close = useCallback(() => setIsOpen(false), []);
+
+  const selectItem = (value: string) => {
+    setState((prev) => ({ ...prev, selected: value }));
+    close();
+  };
+
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
@@ -24,15 +43,5 @@ export function useDropdown(initialValue?: string) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [close]);
 
-  const selectItem = (value: string) => {
-    setSelected(value);
-    close();
-  };
-
-  // 초기값 반영
-  useEffect(() => {
-    if (initialValue) setSelected(initialValue);
-  }, [initialValue, setSelected]);
-
-  return { selected, isOpen, toggle, selectItem, containerRef, clear };
+  return { isOpen, selected, toggle, selectItem, containerRef };
 }

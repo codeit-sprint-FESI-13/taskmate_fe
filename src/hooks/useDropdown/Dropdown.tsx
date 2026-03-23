@@ -2,17 +2,17 @@
 
 import React from "react";
 
-import { useDropdown } from ".";
+import { useDropdown } from "./index";
 
 type DropdownProps = {
   options: string[];
-  selected?: string;
+  selected?: string; // 초기값
   onSelect?: (value: string) => void;
   className?: string;
 };
 
 export const Dropdown = ({
-  options = [],
+  options,
   selected,
   onSelect,
   className,
@@ -23,7 +23,7 @@ export const Dropdown = ({
     toggle,
     selectItem,
     containerRef,
-  } = useDropdown(selected);
+  } = useDropdown(options, selected);
 
   const handleSelect = (value: string) => {
     selectItem(value);
