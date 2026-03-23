@@ -16,6 +16,9 @@ jobs:
       - name: Github Repository 불러오기
         uses: actions/checkout@v5
 
+      - name: pnpm 설치
+        uses: pnpm/action-setup@v4
+
       - name: Node.js 설치
         uses: actions/setup-node@v4
         with:
