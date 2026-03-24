@@ -23,7 +23,7 @@ import { cn } from "@/utils/utils";
  */
 
 const InputVariants = cva(
-  "w-full h-11 pt-3 pr-3 pb-3 pl-4 gap-1 rounded-xl text-sm leading-5 text-label-normal font-medium border border-gray-300 placeholder:text-label-alternative lg:text-base lg:leading-6 lg:font-medium lg:h-14 lg:rounded-2xl focus:outline-none focus:border-blue-800 hover:border-blue-300",
+  "w-full h-11 pt-3 pr-3 pb-3 pl-4 gap-1 text-sm leading-5 text-label-normal font-medium border border-gray-300 placeholder:text-label-alternative lg:text-base lg:leading-6 lg:font-medium lg:h-14  focus:outline-none focus:border-blue-800 hover:border-blue-300",
   {
     variants: {
       variant: {
@@ -33,9 +33,14 @@ const InputVariants = cva(
         error:
           "border border-red-500 focus:border-red-500 hover:border-red-500",
       },
+      shape: {
+        default: "rounded-xl lg:rounded-2xl",
+        search: "rounded-full hover:border-blue-300 focus:border-blue-300",
+      },
     },
     defaultVariants: {
       variant: "default",
+      shape: "default",
     },
   },
 );
@@ -51,6 +56,7 @@ interface InputProps
 
 const Input = ({
   variant,
+  shape,
   value,
   className,
   errorMessage,
@@ -65,6 +71,7 @@ const Input = ({
           className={cn(
             InputVariants({
               variant: errorMessage ? "error" : variant,
+              shape,
               className,
             }),
             "pr-6",
