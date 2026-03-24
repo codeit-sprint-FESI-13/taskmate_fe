@@ -1,3 +1,5 @@
+import type { StoryObj } from "@storybook/nextjs-vite";
+
 import { Name } from "./Name";
 
 const meta = {
@@ -8,4 +10,8 @@ const meta = {
 
 export default meta;
 
-export const Default = () => <Name>Name 컴포넌트 테스트</Name>;
+export const Default: StoryObj<typeof Name> = {
+  args: {
+    children: "Name 컴포넌트 테스트",
+  },
+};
