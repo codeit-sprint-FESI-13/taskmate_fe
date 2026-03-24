@@ -4,7 +4,7 @@ interface Props {
 
 export const Name = ({ children }: Props) => {
   return (
-    <span className="text-label-neutral w-fit overflow-hidden text-base leading-6 font-medium text-ellipsis">
+    <span className="w-fit overflow-hidden text-xl leading-[30px] font-semibold text-ellipsis text-slate-800">
       {children}
     </span>
   );
