@@ -26,10 +26,15 @@ export default meta;
 export const Default: StoryObj<typeof meta> = {
   args: {
     children: (
-      <TodoItem.Row>
-        <TodoItem.Name>Name 컴포넌트 테스트</TodoItem.Name>
-        <TodoItem.Day color="blue">D-5</TodoItem.Day>
-      </TodoItem.Row>
+      <>
+        <TodoItem.Row>
+          <TodoItem.Name>Name 컴포넌트 테스트</TodoItem.Name>
+          <TodoItem.Day color="blue">D-5</TodoItem.Day>
+        </TodoItem.Row>
+        <TodoItem.Row>
+          <TodoItem.Goal>Goal 컴포넌트 테스트</TodoItem.Goal>
+        </TodoItem.Row>
+      </>
     ),
   },
 };
