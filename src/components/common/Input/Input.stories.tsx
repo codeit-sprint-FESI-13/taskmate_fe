@@ -16,6 +16,10 @@ const meta: Meta<typeof Input> = {
       control: { type: "radio" },
       options: ["default", "disabled", "error"],
     },
+    shape: {
+      control: { type: "radio" },
+      options: ["default", "search"],
+    },
   },
 };
 
@@ -75,6 +79,20 @@ export const Password: Story = {
       <button type="button">
         <EyeOnIcon className="text-gray-300" />
       </button>
+    ),
+  },
+};
+
+// Search 인풋
+// 아이콘 추가시 변경하겠습니다.
+export const Search: Story = {
+  args: {
+    placeholder: "검색어를 입력하세요",
+    shape: "search",
+    rightIcon: (
+      <div>
+        <EyeOnIcon className="text-gray-300" />
+      </div>
     ),
   },
 };
