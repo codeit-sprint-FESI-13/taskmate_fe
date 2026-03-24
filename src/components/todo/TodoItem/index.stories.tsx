@@ -32,6 +32,7 @@ export const Default: StoryObj<typeof meta> = {
           <TodoItem.Day color="blue">D-5</TodoItem.Day>
         </TodoItem.Row>
         <TodoItem.Row>
+          <TodoItem.Team>Team 1</TodoItem.Team>
           <TodoItem.Goal>Goal 컴포넌트 테스트</TodoItem.Goal>
         </TodoItem.Row>
       </>
