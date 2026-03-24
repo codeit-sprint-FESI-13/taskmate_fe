@@ -23,7 +23,7 @@ const dayVariants = cva(
 export const Day = ({ children, color }: Props) => {
   return (
     <div className={dayVariants({ color })}>
-      <span className="overflow-hidden text-[13px] leading-4 font-bold text-ellipsis whitespace-nowrap">
+      <span className="overflow-hidden text-[13px] leading-4 font-bold tracking-[-0.13px] text-ellipsis whitespace-nowrap">
         {children}
       </span>
     </div>
