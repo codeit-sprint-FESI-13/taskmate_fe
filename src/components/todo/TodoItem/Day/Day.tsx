@@ -1,8 +1,8 @@
 import { cva } from "class-variance-authority";
+import { VariantProps } from "class-variance-authority";
 
-interface Props {
+interface Props extends VariantProps<typeof dayVariants> {
   children: React.ReactNode;
-  color: "blue" | "red";
 }
 
 const dayVariants = cva(
