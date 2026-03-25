@@ -22,6 +22,7 @@
 
 # misc
 .DS_Store
+.vscode/settings.json
 *.pem
 
 # debug
