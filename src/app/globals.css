@@ -62,7 +62,7 @@
 
   /* 브레이크포인트 */
   --breakpoint-tablet: 744px;
-  --breakpoint-desktop: 1920px;
+  --breakpoint-desktop: 1280px;
 
   /* 폰트 굵기 */
   --font-weight-regular: 400;
