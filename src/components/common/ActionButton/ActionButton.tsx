@@ -20,12 +20,11 @@ const ActionButton = ({
   isSmall = false,
   className,
 }: ActionButtonProps) => {
-  // 기본(Default)은 40px, isSmall은 32px로 강제 고정
   const buttonSize = isSmall ? "w-8 h-8" : "w-10 h-10";
 
   const IconComponent = ICON_MAP[action];
   return (
-    <div
+    <button
       className={cn(
         "flex shrink-0 items-center justify-center rounded-full bg-blue-800 text-white",
         buttonSize,
@@ -33,7 +32,7 @@ const ActionButton = ({
       )}
     >
       <IconComponent />
-    </div>
+    </button>
   );
 };
 
