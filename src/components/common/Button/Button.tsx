@@ -1,5 +1,9 @@
+// React
+// 외부 라이브러리
 import { cva, type VariantProps } from "class-variance-authority";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 
+// 내부 코드
 import { cn } from "@/utils/utils";
 
 const buttonVariants = cva(
@@ -43,13 +47,12 @@ const buttonVariants = cva(
   },
 );
 
-interface ButtonProps extends VariantProps<typeof buttonVariants> {
-  children: React.ReactNode;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  isDisabled?: boolean;
-  className?: string;
-  onClick?: () => void;
+interface ButtonProps
+  extends
+    ComponentPropsWithoutRef<"button">,
+    VariantProps<typeof buttonVariants> {
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
 }
 
 const Button = ({
@@ -72,7 +75,7 @@ const Button = ({
           className,
         }),
       )}
-      disabled={isDisabled}
+      disabled={!!isDisabled}
       {...props}
     >
       {leftIcon && (

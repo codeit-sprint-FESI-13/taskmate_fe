@@ -1,4 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { cn } from "@/utils/utils";
 
@@ -26,13 +27,13 @@ const textButtonVariants = cva(
   },
 );
 
-interface TextButtonProps extends VariantProps<typeof textButtonVariants> {
-  children: React.ReactNode;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  isDisabled?: boolean;
-  className?: string;
-  onClick?: () => void;
+interface TextButtonProps
+  extends
+    ComponentPropsWithoutRef<"button">,
+    VariantProps<typeof textButtonVariants> {
+  children: ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
 }
 
 const TextButton = ({
@@ -55,7 +56,7 @@ const TextButton = ({
           className,
         }),
       )}
-      disabled={isDisabled}
+      disabled={!!isDisabled}
       {...props}
     >
       {leftIcon && (
