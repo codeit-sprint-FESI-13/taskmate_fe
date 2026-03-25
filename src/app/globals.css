@@ -108,84 +108,82 @@
   --text-caption-2--line-height: 14px;
 }
 
-@layer utilities {
-  .typography-display-1 {
-    font-size: var(--text-display-1);
-    line-height: var(--text-display-1--line-height);
-    letter-spacing: -0.00179em;
-  }
+@utility typography-display-1 {
+  font-size: var(--text-display-1);
+  line-height: var(--text-display-1--line-height);
+  letter-spacing: -0.00179em;
+}
 
-  .typography-display-2 {
-    font-size: var(--text-display-2);
-    line-height: var(--text-display-2--line-height);
-    letter-spacing: -0.0025em;
-  }
+@utility typography-display-2 {
+  font-size: var(--text-display-2);
+  line-height: var(--text-display-2--line-height);
+  letter-spacing: -0.0025em;
+}
 
-  .typography-title-1 {
-    font-size: var(--text-title-1);
-    line-height: var(--text-title-1--line-height);
-    letter-spacing: -0.00278em;
-  }
+@utility typography-title-1 {
+  font-size: var(--text-title-1);
+  line-height: var(--text-title-1--line-height);
+  letter-spacing: -0.00278em;
+}
 
-  .typography-title-2 {
-    font-size: var(--text-title-2);
-    line-height: var(--text-title-2--line-height);
-    letter-spacing: -0.00357em;
-  }
+@utility typography-title-2 {
+  font-size: var(--text-title-2);
+  line-height: var(--text-title-2--line-height);
+  letter-spacing: -0.00357em;
+}
 
-  .typography-title-3 {
-    font-size: var(--text-title-3);
-    line-height: var(--text-title-3--line-height);
-    letter-spacing: -0.00417em;
-  }
+@utility typography-title-3 {
+  font-size: var(--text-title-3);
+  line-height: var(--text-title-3--line-height);
+  letter-spacing: -0.00417em;
+}
 
-  .typography-heading-1 {
-    font-size: var(--text-heading-1);
-    line-height: var(--text-heading-1--line-height);
-    letter-spacing: -0.00455em;
-  }
+@utility typography-heading-1 {
+  font-size: var(--text-heading-1);
+  line-height: var(--text-heading-1--line-height);
+  letter-spacing: -0.00455em;
+}
 
-  .typography-heading-2 {
-    font-size: var(--text-heading-2);
-    line-height: var(--text-heading-2--line-height);
-    letter-spacing: -0.005em;
-  }
+@utility typography-heading-2 {
+  font-size: var(--text-heading-2);
+  line-height: var(--text-heading-2--line-height);
+  letter-spacing: -0.005em;
+}
 
-  .typography-body-1 {
-    font-size: var(--text-body-1);
-    line-height: var(--text-body-1--line-height);
-    letter-spacing: -0.0055em;
-  }
+@utility typography-body-1 {
+  font-size: var(--text-body-1);
+  line-height: var(--text-body-1--line-height);
+  letter-spacing: -0.0055em;
+}
 
-  .typography-body-2 {
-    font-size: var(--text-body-2);
-    line-height: var(--text-body-2--line-height);
-    letter-spacing: -0.00625em;
-  }
+@utility typography-body-2 {
+  font-size: var(--text-body-2);
+  line-height: var(--text-body-2--line-height);
+  letter-spacing: -0.00625em;
+}
 
-  .typography-label-1 {
-    font-size: var(--text-label-1);
-    line-height: var(--text-label-1--line-height);
-    letter-spacing: -0.0071em;
-  }
+@utility typography-label-1 {
+  font-size: var(--text-label-1);
+  line-height: var(--text-label-1--line-height);
+  letter-spacing: -0.0071em;
+}
 
-  .typography-label-2 {
-    font-size: var(--text-label-2);
-    line-height: var(--text-label-2--line-height);
-    letter-spacing: -0.00769em;
-  }
+@utility typography-label-2 {
+  font-size: var(--text-label-2);
+  line-height: var(--text-label-2--line-height);
+  letter-spacing: -0.00769em;
+}
 
-  .typography-caption-1 {
-    font-size: var(--text-caption-1);
-    line-height: var(--text-caption-1--line-height);
-    letter-spacing: -0.0083em;
-  }
+@utility typography-caption-1 {
+  font-size: var(--text-caption-1);
+  line-height: var(--text-caption-1--line-height);
+  letter-spacing: -0.0083em;
+}
 
-  .typography-caption-2 {
-    font-size: var(--text-caption-2);
-    line-height: var(--text-caption-2--line-height);
-    letter-spacing: -0.0083em;
-  }
+@utility typography-caption-2 {
+  font-size: var(--text-caption-2);
+  line-height: var(--text-caption-2--line-height);
+  letter-spacing: -0.0083em;
 }
 
 body {
