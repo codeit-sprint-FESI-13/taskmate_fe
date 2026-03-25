@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function useDropdown(options: string[], initialSelected?: string) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,8 +22,8 @@ export function useDropdown(options: string[], initialSelected?: string) {
   }
 
   const { selected } = state;
-  const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
-  const close = useCallback(() => setIsOpen(false), []);
+  const toggle = () => setIsOpen((prev) => !prev);
+  const close = () => setIsOpen(false);
 
   const selectItem = (value: string) => {
     setState((prev) => ({ ...prev, selected: value }));
@@ -41,7 +41,7 @@ export function useDropdown(options: string[], initialSelected?: string) {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [close]);
+  }, []);
 
   return { isOpen, selected, toggle, selectItem, containerRef };
 }
