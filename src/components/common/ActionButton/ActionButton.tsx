@@ -1,4 +1,5 @@
 "use client";
+import { ComponentPropsWithoutRef } from "react";
 
 import LikeIcon from "@/components/common/Icons/LikeIcon";
 import ProfileEditIcon from "@/components/common/Icons/ProfileEditIcon";
@@ -9,7 +10,7 @@ const ICON_MAP = {
   like: LikeIcon,
 } as const;
 
-interface ActionButtonProps {
+interface ActionButtonProps extends ComponentPropsWithoutRef<"button"> {
   action: keyof typeof ICON_MAP;
   isSmall?: boolean;
   className?: string;
