@@ -59,6 +59,133 @@
   --color-background-dim-normal: rgba(17, 24, 39, 0.2);
   --color-background-dim-neutral: rgba(17, 24, 39, 0.12);
   --color-background-dim-strong: rgba(17, 24, 39, 0.3);
+
+  /* 브레이크포인트 */
+  --breakpoint-tablet: 744px;
+  --breakpoint-desktop: 1920px;
+
+  /* 폰트 굵기 */
+  --font-weight-regular: 400;
+
+  /* 타이포그래피 */
+  --text-display-1: 56px;
+  --text-display-1--line-height: 72px;
+
+  --text-display-2: 40px;
+  --text-display-2--line-height: 52px;
+
+  --text-title-1: 36px;
+  --text-title-1--line-height: 48px;
+
+  --text-title-2: 28px;
+  --text-title-2--line-height: 38px;
+
+  --text-title-3: 24px;
+  --text-title-3--line-height: 32px;
+
+  --text-heading-1: 22px;
+  --text-heading-1--line-height: 30px;
+
+  --text-heading-2: 20px;
+  --text-heading-2--line-height: 28px;
+
+  --text-body-1: 18px;
+  --text-body-1--line-height: 26px;
+
+  --text-body-2: 16px;
+  --text-body-2--line-height: 24px;
+
+  --text-label-1: 14px;
+  --text-label-1--line-height: 20px;
+
+  --text-label-2: 13px;
+  --text-label-2--line-height: 18px;
+
+  --text-caption-1: 12px;
+  --text-caption-1--line-height: 16px;
+
+  --text-caption-2: 11px;
+  --text-caption-2--line-height: 14px;
+}
+
+@layer utilities {
+  .typography-display-1 {
+    font-size: var(--text-display-1);
+    line-height: var(--text-display-1--line-height);
+    letter-spacing: -0.00179em;
+  }
+
+  .typography-display-2 {
+    font-size: var(--text-display-2);
+    line-height: var(--text-display-2--line-height);
+    letter-spacing: -0.0025em;
+  }
+
+  .typography-title-1 {
+    font-size: var(--text-title-1);
+    line-height: var(--text-title-1--line-height);
+    letter-spacing: -0.00278em;
+  }
+
+  .typography-title-2 {
+    font-size: var(--text-title-2);
+    line-height: var(--text-title-2--line-height);
+    letter-spacing: -0.00357em;
+  }
+
+  .typography-title-3 {
+    font-size: var(--text-title-3);
+    line-height: var(--text-title-3--line-height);
+    letter-spacing: -0.00417em;
+  }
+
+  .typography-heading-1 {
+    font-size: var(--text-heading-1);
+    line-height: var(--text-heading-1--line-height);
+    letter-spacing: -0.00455em;
+  }
+
+  .typography-heading-2 {
+    font-size: var(--text-heading-2);
+    line-height: var(--text-heading-2--line-height);
+    letter-spacing: -0.005em;
+  }
+
+  .typography-body-1 {
+    font-size: var(--text-body-1);
+    line-height: var(--text-body-1--line-height);
+    letter-spacing: -0.0055em;
+  }
+
+  .typography-body-2 {
+    font-size: var(--text-body-2);
+    line-height: var(--text-body-2--line-height);
+    letter-spacing: -0.00625em;
+  }
+
+  .typography-label-1 {
+    font-size: var(--text-label-1);
+    line-height: var(--text-label-1--line-height);
+    letter-spacing: -0.0071em;
+  }
+
+  .typography-label-2 {
+    font-size: var(--text-label-2);
+    line-height: var(--text-label-2--line-height);
+    letter-spacing: -0.00769em;
+  }
+
+  .typography-caption-1 {
+    font-size: var(--text-caption-1);
+    line-height: var(--text-caption-1--line-height);
+    letter-spacing: -0.0083em;
+  }
+
+  .typography-caption-2 {
+    font-size: var(--text-caption-2);
+    line-height: var(--text-caption-2--line-height);
+    letter-spacing: -0.0083em;
+  }
 }
 
 body {
