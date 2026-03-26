@@ -1,13 +1,26 @@
+import { createContext, useContext } from "react";
+
 import { Icon as CommonIcon } from "@/components/common/Icon";
 import { IconName } from "@/components/common/Icon/iconMap";
+import { cn } from "@/utils/utils";
+
+import { NavigationBarContext } from "../provider";
+
+const ItemActiveContext = createContext(false);
 
 interface NameProps {
   children: React.ReactNode;
 }
 
 const Name = ({ children }: NameProps) => {
+  const active = useContext(ItemActiveContext);
   return (
-    <span className="typography-body-1 text-label-neutral font-semibold">
+    <span
+      className={cn(
+        "typography-body-1 font-semibold",
+        active ? "text-blue-800" : "text-label-neutral",
+      )}
+    >
       {children}
     </span>
   );
@@ -18,11 +31,12 @@ interface IconProps {
 }
 
 const Icon = ({ name }: IconProps) => {
+  const active = useContext(ItemActiveContext);
   return (
     <CommonIcon
       name={name}
       size={24}
-      className="text-gray-300"
+      className={cn("shrink-0", active ? "text-blue-700" : "text-gray-300")}
     />
   );
 };
@@ -41,13 +55,25 @@ const Label = ({ children }: LabelProps) => {
 
 interface WrapperProps {
   children: React.ReactNode;
+  value: string;
 }
 
-const Wrapper = ({ children }: WrapperProps) => {
+const Wrapper = ({ children, value }: WrapperProps) => {
+  const { currentTab, tabChange } = useContext(NavigationBarContext);
+  const active = currentTab === value;
+
   return (
-    <div className="flex items-center justify-start gap-[14px] p-4">
-      {children}
-    </div>
+    <ItemActiveContext value={active}>
+      <div
+        className={cn(
+          "flex cursor-pointer items-center justify-start gap-[14px] rounded-xl p-4",
+          active && "bg-blue-100",
+        )}
+        onClick={() => tabChange(value)}
+      >
+        {children}
+      </div>
+    </ItemActiveContext>
   );
 };
 

@@ -12,28 +12,53 @@ export const Team = () => {
       </List.Header>
       <Spacing size={10} />
 
-      <TeamComponent.Container>
+      <TeamComponent.Container value="team-1">
         <TeamComponent.Title>팀 1</TeamComponent.Title>
-      </TeamComponent.Container>
-      <TeamComponent.List>
-        <Item.Wrapper>
-          <Item.Icon name="Paper" />
-          <Item.Name>공부</Item.Name>
-          <Item.Label>5</Item.Label>
-        </Item.Wrapper>
-        <Item.Wrapper>
-          <Item.Icon name="Paper" />
-          <Item.Name>운동</Item.Name>
-          <Item.Label>5</Item.Label>
-        </Item.Wrapper>
-        <Item.Wrapper>
-          <Item.Icon name="Paper" />
-          <Item.Name>개인 일정</Item.Name>
-        </Item.Wrapper>
+        <TeamComponent.List>
+          <Item.Wrapper value="team-1-1">
+            <Item.Icon name="Paper" />
+            <Item.Name>공부</Item.Name>
+            <Item.Label>5</Item.Label>
+          </Item.Wrapper>
+          <Item.Wrapper value="team-1-2">
+            <Item.Icon name="Paper" />
+            <Item.Name>운동</Item.Name>
+            <Item.Label>5</Item.Label>
+          </Item.Wrapper>
+          <Item.Wrapper value="team-1-3">
+            <Item.Icon name="Paper" />
+            <Item.Name>개인 일정</Item.Name>
+          </Item.Wrapper>
 
-        <Spacing size={10} />
-        <List.GoalCreateButton />
-      </TeamComponent.List>
+          <Spacing size={10} />
+          <List.GoalCreateButton />
+        </TeamComponent.List>
+      </TeamComponent.Container>
+
+      <Spacing size={10} />
+
+      <TeamComponent.Container value="team-2">
+        <TeamComponent.Title>팀 2</TeamComponent.Title>
+        <TeamComponent.List>
+          <Item.Wrapper value="team-2-1">
+            <Item.Icon name="Paper" />
+            <Item.Name>공부</Item.Name>
+            <Item.Label>5</Item.Label>
+          </Item.Wrapper>
+          <Item.Wrapper value="team-2-2">
+            <Item.Icon name="Paper" />
+            <Item.Name>운동</Item.Name>
+            <Item.Label>5</Item.Label>
+          </Item.Wrapper>
+          <Item.Wrapper value="team-2-3">
+            <Item.Icon name="Paper" />
+            <Item.Name>개인 일정</Item.Name>
+          </Item.Wrapper>
+
+          <Spacing size={10} />
+          <List.GoalCreateButton />
+        </TeamComponent.List>
+      </TeamComponent.Container>
     </List.Container>
   );
 };

@@ -10,15 +10,15 @@ export const Personal = () => {
         <List.Title>개인 스페이스</List.Title>
       </List.Header>
       <Spacing size={10} />
-      <Item.Wrapper>
+      <Item.Wrapper value="personal-1">
         <Item.Icon name="Paper" />
         <Item.Name>공부</Item.Name>
       </Item.Wrapper>
-      <Item.Wrapper>
+      <Item.Wrapper value="personal-2">
         <Item.Icon name="Paper" />
         <Item.Name>운동</Item.Name>
       </Item.Wrapper>
-      <Item.Wrapper>
+      <Item.Wrapper value="personal-3">
         <Item.Icon name="Paper" />
         <Item.Name>개인 일정</Item.Name>
       </Item.Wrapper>

@@ -21,7 +21,6 @@ export function useBreakpoint(): Breakpoint {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log("handleResize", window.innerWidth);
       setBreakpoint(getBreakpoint(window.innerWidth));
     };
 

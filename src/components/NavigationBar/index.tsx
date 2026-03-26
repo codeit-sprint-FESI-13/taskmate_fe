@@ -15,7 +15,7 @@ import { NavigationBarContext } from "./provider";
 import { Team } from "./Team";
 
 export const NavigationBar = () => {
-  const { isOpen, currentTab } = useContext(NavigationBarContext);
+  const { isOpen } = useContext(NavigationBarContext);
 
   return (
     <aside
@@ -29,15 +29,16 @@ export const NavigationBar = () => {
       {isOpen && (
         <>
           <List.Container>
-            <Item.Wrapper>
+            <Item.Wrapper value="home">
               <Item.Icon name="Home" />
               <Item.Name>홈</Item.Name>
             </Item.Wrapper>
-            <Item.Wrapper>
+            <Item.Wrapper value="board">
               <Item.Icon name="Chat" />
               <Item.Name>게시판</Item.Name>
             </Item.Wrapper>
           </List.Container>
+
           <Spacing size={12} />
           <Line />
           <Spacing size={12} />
@@ -49,6 +50,7 @@ export const NavigationBar = () => {
 
           <Spacing size={28} />
 
+          {/* @TODO: 데이터 로딩 중 보여줄 UI 추가 */}
           <AsyncBoundary>
             <Team />
           </AsyncBoundary>

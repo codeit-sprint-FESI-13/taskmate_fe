@@ -1,4 +1,4 @@
-import { Icon } from "../common/Icon";
+import { Icon } from "@/components/common/Icon";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -56,7 +56,6 @@ interface ContainerProps {
 }
 
 const Container = ({ children }: ContainerProps) => {
-  /* ul은 li만 직계 자식으로 둘 수 있어 Spacing·버튼 등과 함께 쓰면 DOM이 깨질 수 있음 */
   return <div className="flex flex-col">{children}</div>;
 };
 

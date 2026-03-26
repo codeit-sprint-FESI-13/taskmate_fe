@@ -24,7 +24,7 @@ const NavigationBarProvider = ({ children }: { children: React.ReactNode }) => {
   const breakpoint = useBreakpoint();
   const [isOpen, setIsOpen] = useState<boolean>(breakpoint !== "desktop");
   const [currentTab, setCurrentTab] = useState<string>(
-    window.location.pathname.split("/")[1],
+    window.location.pathname === "/taskmate" ? "home" : "",
   );
 
   const tabChange = (tab: string) => {
