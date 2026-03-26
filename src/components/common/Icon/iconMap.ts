@@ -35,6 +35,7 @@ export const iconMap = {
   ),
   Pencil: dynamic(() => import("./svg/Pencil/Pencil.svg")),
   Meatball: dynamic(() => import("./svg/Meatball.svg")),
+  Plus: dynamic(() => import("./svg/Plus.svg")),
 } as const;
 
 export type IconName = keyof typeof iconMap;
