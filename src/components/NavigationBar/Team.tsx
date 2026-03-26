@@ -16,7 +16,7 @@ const Title = ({ children }: TitleProps) => {
   return (
     <div className="flex w-full items-center justify-start gap-[14px] p-4">
       <Icon
-        name="RightFilled"
+        name="RightFilledArrow"
         size={24}
         className="text-gray-300"
       />
@@ -33,9 +33,10 @@ interface ListProps {
 
 const List = ({ children }: ListProps) => {
   return (
-    <ol className="flex w-full flex-col justify-start pl-10">{children}</ol>
+    <div className="flex w-full flex-col justify-start pl-10">{children}</div>
   );
 };
+
 export const Team = {
   Container,
   Title,

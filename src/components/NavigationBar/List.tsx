@@ -37,7 +37,10 @@ const TeamAddIcon = () => {
 // @TODO: Button 공통 컴포넌트 반영후 수정
 const GoalCreateButton = () => {
   return (
-    <button className="flex items-center justify-start gap-[10px]">
+    <button
+      type="button"
+      className="flex items-center justify-start gap-[10px]"
+    >
       <Icon
         name="Plus"
         size={24}
@@ -53,7 +56,8 @@ interface ContainerProps {
 }
 
 const Container = ({ children }: ContainerProps) => {
-  return <ul className="flex flex-col">{children}</ul>;
+  /* ul은 li만 직계 자식으로 둘 수 있어 Spacing·버튼 등과 함께 쓰면 DOM이 깨질 수 있음 */
+  return <div className="flex flex-col">{children}</div>;
 };
 
 export const List = {
