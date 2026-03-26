@@ -27,6 +27,18 @@ const Icon = ({ name }: IconProps) => {
   );
 };
 
+interface LabelProps {
+  children: React.ReactNode;
+}
+
+const Label = ({ children }: LabelProps) => {
+  return (
+    <span className="typography-body-2 ml-[-2px] font-medium text-gray-400">
+      {children}
+    </span>
+  );
+};
+
 interface WrapperProps {
   children: React.ReactNode;
 }
@@ -43,4 +55,5 @@ export const Item = {
   Wrapper,
   Icon,
   Name,
+  Label,
 };
