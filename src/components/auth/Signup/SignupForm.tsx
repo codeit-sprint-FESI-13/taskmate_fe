@@ -25,13 +25,13 @@ const SignupForm = () => {
           <label
             htmlFor="email"
             className="typography-label-1 font-semibold"
-            placeholder=""
           >
             이메일
           </label>
           <Input
             id="email"
             name="email"
+            placeholder="이메일을 입력해주세요"
           />
         </div>
         <div className="flex flex-col gap-1.5">
@@ -45,6 +45,7 @@ const SignupForm = () => {
             id="password"
             name="password"
             type="password"
+            placeholder="비밀번호를 입력해주세요"
             rightIcon={
               <button>
                 <Icon
@@ -66,6 +67,7 @@ const SignupForm = () => {
             id="passwordConfirm"
             name="password"
             type="password"
+            placeholder="비밀번호를 한번 더 입력해주세요"
             rightIcon={
               <button>
                 <Icon
