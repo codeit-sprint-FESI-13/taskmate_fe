@@ -15,8 +15,8 @@ export default function Form() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const name = formData.get("name") as string;
+    const nameInput = e.currentTarget.elements.namedItem("name");
+    const name = nameInput instanceof HTMLInputElement ? nameInput.value : "";
 
     try {
       const response = await teamApi.create(name);
