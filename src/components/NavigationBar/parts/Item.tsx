@@ -45,9 +45,9 @@ interface WrapperProps {
 
 const Wrapper = ({ children }: WrapperProps) => {
   return (
-    <li className="flex items-center justify-start gap-[14px] p-4">
+    <div className="flex items-center justify-start gap-[14px] p-4">
       {children}
-    </li>
+    </div>
   );
 };
 

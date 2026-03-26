@@ -2,18 +2,20 @@
 
 import { useContext } from "react";
 
-import { Icon } from "@/components/common/Icon";
 import { Line } from "@/components/common/Line";
 import { Spacing } from "@/components/common/Spacing";
 import { cn } from "@/utils/utils";
 
-import { Item } from "./Item";
-import { List } from "./List";
+import AsyncBoundary from "../common/AsyncBoundary";
+import { Header } from "./Header";
+import { Item } from "./parts/Item";
+import { List } from "./parts/List";
+import { Personal } from "./Personal";
 import { NavigationBarContext } from "./provider";
 import { Team } from "./Team";
 
 export const NavigationBar = () => {
-  const { isOpen, open, close } = useContext(NavigationBarContext);
+  const { isOpen, currentTab } = useContext(NavigationBarContext);
 
   return (
     <aside
@@ -23,27 +25,7 @@ export const NavigationBar = () => {
       )}
       style={{ willChange: "width" }}
     >
-      <header
-        className={cn(
-          "flex flex-col items-center justify-start transition-[gap] duration-300 ease-in-out",
-          isOpen ? "gap-[10px]" : "gap-10",
-        )}
-      >
-        <Icon
-          name={isOpen ? "LeftDouble" : "RightDouble"}
-          size={24}
-          className={cn(
-            "cursor-pointer text-gray-300",
-            isOpen ? "self-end" : "self-center",
-          )}
-          onClick={isOpen ? close : open}
-        />
-
-        <h1 className="typography-body-2 flex h-[40px] items-center py-[10px] font-bold">
-          LOGO
-        </h1>
-      </header>
-
+      <Header />
       {isOpen && (
         <>
           <List.Container>
@@ -60,66 +42,16 @@ export const NavigationBar = () => {
           <Line />
           <Spacing size={12} />
 
-          <List.Container>
-            <List.Header>
-              <List.Title>개인 스페이스</List.Title>
-            </List.Header>
-            <Spacing size={10} />
-            <Item.Wrapper>
-              <Item.Icon name="Paper" />
-              <Item.Name>공부</Item.Name>
-            </Item.Wrapper>
-            <Item.Wrapper>
-              <Item.Icon name="Paper" />
-              <Item.Name>운동</Item.Name>
-            </Item.Wrapper>
-            <Item.Wrapper>
-              <Item.Icon name="Paper" />
-              <Item.Name>개인 일정</Item.Name>
-            </Item.Wrapper>
-
-            <Spacing size={10} />
-            <List.GoalCreateButton />
-          </List.Container>
+          {/* @TODO: 데이터 로딩 중 보여줄 UI 추가 */}
+          <AsyncBoundary>
+            <Personal />
+          </AsyncBoundary>
 
           <Spacing size={28} />
 
-          <List.Container>
-            <List.Header>
-              <List.Title>팀 스페이스</List.Title>
-              <List.TeamAddIcon />
-            </List.Header>
-            <Spacing size={10} />
-
-            <Team.Container>
-              <Team.Title>팀 1</Team.Title>
-            </Team.Container>
-            <Team.List>
-              <Item.Wrapper>
-                <Item.Icon name="Paper" />
-                <Item.Name>공부</Item.Name>
-                <Item.Label>5</Item.Label>
-              </Item.Wrapper>
-              <Item.Wrapper>
-                <Item.Icon name="Paper" />
-                <Item.Name>운동</Item.Name>
-                <Item.Label>5</Item.Label>
-              </Item.Wrapper>
-              <Item.Wrapper>
-                <Item.Icon name="Paper" />
-                <Item.Name>개인 일정</Item.Name>
-              </Item.Wrapper>
-
-              <Spacing size={10} />
-              <List.GoalCreateButton />
-            </Team.List>
-
-            <Spacing size={10} />
-
-            <Team.Container>
-              <Team.Title>팀 2</Team.Title>
-            </Team.Container>
-          </List.Container>
+          <AsyncBoundary>
+            <Team />
+          </AsyncBoundary>
         </>
       )}
     </aside>
