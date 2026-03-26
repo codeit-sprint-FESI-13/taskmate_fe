@@ -1,13 +1,29 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
+import useSignupForm from "@/features/auth/signup/hooks/useSignupForm";
 
 const SignupForm = () => {
+  const {
+    values,
+    errors,
+    showPassword,
+    showPasswordConfirm,
+    togglePassword,
+    togglePasswordConfirm,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+  } = useSignupForm();
   return (
     <>
-      <form className="tablet:gap-4 flex w-full flex-col gap-3.5">
+      <form
+        className="tablet:gap-4 flex w-full flex-col gap-3.5"
+        onSubmit={handleSubmit}
+      >
         <div className="flex flex-col gap-1.5">
           <label
             htmlFor="name"
@@ -19,6 +35,10 @@ const SignupForm = () => {
             id="name"
             name="name"
             placeholder="이름을 입력해주세요"
+            value={values.name}
+            onChange={handleChange}
+            errorMessage={errors.name}
+            onBlur={handleBlur}
           />
         </div>
         <div className="flex flex-col gap-1.5">
@@ -32,6 +52,10 @@ const SignupForm = () => {
             id="email"
             name="email"
             placeholder="이메일을 입력해주세요"
+            value={values.email}
+            onChange={handleChange}
+            errorMessage={errors.email}
+            onBlur={handleBlur}
           />
         </div>
         <div className="flex flex-col gap-1.5">
@@ -44,12 +68,16 @@ const SignupForm = () => {
           <Input
             id="password"
             name="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="비밀번호를 입력해주세요"
+            value={values.password}
+            onChange={handleChange}
+            errorMessage={errors.password}
+            onBlur={handleBlur}
             rightIcon={
-              <button>
+              <button onClick={togglePassword}>
                 <Icon
-                  name="EyeOnIcon"
+                  name={showPassword ? "EyeOnIcon" : "EyeOffIcon"}
                   className="text-gray-300"
                 />
               </button>
@@ -65,20 +93,29 @@ const SignupForm = () => {
           </label>
           <Input
             id="passwordConfirm"
-            name="password"
-            type="password"
+            name="passwordConfirm"
+            type={showPasswordConfirm ? "text" : "password"}
             placeholder="비밀번호를 한번 더 입력해주세요"
+            value={values.passwordConfirm}
+            onChange={handleChange}
+            errorMessage={errors.passwordConfirm}
+            onBlur={handleBlur}
             rightIcon={
-              <button>
+              <button onClick={togglePasswordConfirm}>
                 <Icon
-                  name="EyeOnIcon"
+                  name={showPasswordConfirm ? "EyeOnIcon" : "EyeOffIcon"}
                   className="text-gray-300"
                 />
               </button>
             }
           />
         </div>
-        <button className="mt-4">회원가입하기</button>
+        <button
+          type="submit"
+          className="mt-4"
+        >
+          회원가입하기
+        </button>
       </form>
       <p className="typography-body-2 mt-6 text-center font-medium">
         이미 회원이신가요?{" "}
