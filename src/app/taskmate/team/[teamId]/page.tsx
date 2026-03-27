@@ -5,7 +5,7 @@ import { Summary } from "@/components/team/Summary";
 
 export default function Page() {
   return (
-    <div className="mx-auto w-full space-y-6 p-6">
+    <div className="mx-auto w-full space-y-6 px-[40px] py-[80px]">
       {/* @TODO: Loading & Error 처리 */}
       <AsyncBoundary
         loadingFallback={<div>Loading...</div>}
