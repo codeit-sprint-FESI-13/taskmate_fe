@@ -1,11 +1,14 @@
 import { ComponentProps, useState } from "react";
 import z from "zod";
 
-import { SignupFormData, signupSchema } from "../types/signup.type";
+import {
+  SignupFormData,
+  signupSchema,
+} from "@/features/auth/signup/types/signup.type";
 
 const useSignupForm = () => {
   const [values, setValues] = useState<SignupFormData>({
-    name: "",
+    nickname: "",
     email: "",
     password: "",
     passwordConfirm: "",
@@ -14,6 +17,8 @@ const useSignupForm = () => {
   const [errors, setErrors] = useState<
     Partial<Record<keyof SignupFormData, string>>
   >({});
+
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
@@ -44,11 +49,16 @@ const useSignupForm = () => {
     if (!result.success) {
       const fieldErrors = z.flattenError(result.error).fieldErrors;
       setErrors({
-        name: fieldErrors.name?.[0] ?? "",
+        nickname: fieldErrors.nickname?.[0] ?? "",
         email: fieldErrors.email?.[0] ?? "",
         password: fieldErrors.password?.[0] ?? "",
         passwordConfirm: fieldErrors.passwordConfirm?.[0] ?? "",
       });
+      return;
+    }
+
+    if (!isEmailChecked) {
+      setErrors((prev) => ({ ...prev, email: "이메일 중복 확인을 해주세요." }));
       return;
     }
   };
@@ -58,12 +68,20 @@ const useSignupForm = () => {
     const newValues = { ...values, [name]: value };
     setValues(newValues);
 
+    if (name === "email") setIsEmailChecked(false);
+
     validateField(name as keyof SignupFormData, newValues);
   };
 
   const handleBlur: ComponentProps<"input">["onBlur"] = (e) => {
     const { name } = e.target;
     validateField(name as keyof SignupFormData, values);
+  };
+
+  const handleEmailDuplicate = async () => {
+    //API호출
+    //성공시
+    //실패시
   };
 
   return {
@@ -76,6 +94,7 @@ const useSignupForm = () => {
     handleSubmit,
     handleChange,
     handleBlur,
+    handleEmailDuplicate,
   };
 };
 
