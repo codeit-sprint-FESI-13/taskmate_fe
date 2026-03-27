@@ -67,7 +67,7 @@ const LoginForm = () => {
       <p className="typography-label-1 mt-6 text-center font-medium">
         테스트메이트가 처음이신가요?{" "}
         <Link
-          href="/singup"
+          href="/signup"
           className="typography-body-2 font-semibold text-blue-800"
         >
           회원가입
