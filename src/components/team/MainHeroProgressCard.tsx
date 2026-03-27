@@ -10,8 +10,10 @@ type HeroColor = "blue" | "green";
 
 interface MainHeroProgressCardProps {
   title: string;
+  progress: number;
   todoCount: number;
   completedCount: number;
+  overdueTodoCount: number;
   color?: HeroColor;
   className?: string;
   statusLabel?: string;
@@ -48,15 +50,14 @@ function StatItem({
 export const MainHeroProgressCard = ({
   title,
   todoCount,
+  progress,
   completedCount,
+  overdueTodoCount,
   color = "green",
   className,
   statusLabel = "거의 다 왔어요",
   statusIconSrc = FireIcon,
 }: MainHeroProgressCardProps) => {
-  const progress =
-    todoCount > 0 ? Math.round((completedCount / todoCount) * 100) : 0;
-
   return (
     <section
       className={cn(
@@ -88,6 +89,11 @@ export const MainHeroProgressCard = ({
         <StatItem
           label="오늘의 할 일"
           value={todoCount}
+          suffix="개"
+        />
+        <StatItem
+          label="밀린 할 일"
+          value={overdueTodoCount}
           suffix="개"
         />
         <StatItem
