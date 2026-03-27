@@ -41,4 +41,32 @@ export const teamsHandlers = [
       timestamp: new Date().toISOString(),
     });
   }),
+
+  apiMock.delete("*/api/teams/:teamId/leave", ({ params }) => {
+    const data = [
+      {
+        code: "SUCCESS",
+        message: "팀 나가기에 성공했습니다.",
+      },
+      {
+        code: "TEAM_LEAVE_ADMIN_TRANSFER_REQUIRED",
+        message: "탈퇴하려면 다른 멤버에게 ADMIN 권한을 위임해야 합니다.",
+      },
+      {
+        code: "TEAM_LEAVE_LAST_ADMIN_CANNOT_LEAVE",
+        message: "마지막 ADMIN은 팀을 나갈 수 없습니다.",
+      },
+    ];
+
+    const randomIndex = Math.floor(Math.random() * data.length);
+
+    return HttpResponse.json(
+      {
+        success: false,
+        code: data[randomIndex].code,
+        message: data[randomIndex].message,
+      },
+      { status: data[randomIndex].code === "SUCCESS" ? 200 : 400 },
+    );
+  }),
 ];
