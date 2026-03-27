@@ -4,7 +4,7 @@ import { AuthFormType } from "@/features/auth/types/auth.type";
 
 const SnsLoginButtons = ({
   label,
-  type,
+  type: _type,
 }: {
   label: string;
   type: AuthFormType;
