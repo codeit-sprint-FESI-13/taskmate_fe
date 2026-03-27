@@ -1,40 +1,63 @@
-import dynamic from "next/dynamic";
+import DownFilledArrow from "./svg/Arrow/DownFilled.svg";
+import LeftDoubleArrow from "./svg/Arrow/LeftDouble.svg";
+import LeftFilledArrow from "./svg/Arrow/LeftFilled.svg";
+import RightDoubleArrow from "./svg/Arrow/RightDouble.svg";
+import RightFilledArrow from "./svg/Arrow/RightFilled.svg";
+import UpFilledArrow from "./svg/Arrow/UpFilled.svg";
+import Bell from "./svg/Bell/Bell.svg";
+import BellDot from "./svg/Bell-dot/BellDot.svg";
+import Calendar from "./svg/Calendar/Line/Calendar.svg";
+import Chat from "./svg/Chat/Chat.svg";
+import ActiveCheckBox from "./svg/Checkbox/ActiveCheckBox.svg";
+import ActiveFilledCheckBox from "./svg/Checkbox/ActiveFilledCheckBox.svg";
+import InactiveCheckBox from "./svg/Checkbox/InactiveCheckBox.svg";
+import InactiveFilledCheckBox from "./svg/Checkbox/InactiveFilledCheckBox.svg";
+import EyeOffIcon from "./svg/EyeOffIcon.svg";
+import EyeOnIcon from "./svg/EyeOnIcon.svg";
+import FilledXCircle from "./svg/FilledXCircle.svg";
+import Home from "./svg/Home/Home.svg";
+import Kebab from "./svg/Kebab.svg";
+import Meatball from "./svg/Meatball.svg";
+import Menu from "./svg/Menu/Menu.svg";
+import Out from "./svg/Out/Line/Out.svg";
+import OutlineXCircle from "./svg/OutlineXCircle.svg";
+import Paper from "./svg/Paper/Paper.svg";
+import Pencil from "./svg/Pencil/Pencil.svg";
+import Plus from "./svg/Plus.svg";
+import Search from "./svg/Search/Search.svg";
+import Trash from "./svg/Trash.svg";
+import User from "./svg/User/User.svg";
 
 export const iconMap = {
-  DownFilled: dynamic(() => import("./svg/Arrow/DownFilled.svg")),
-  UpFilled: dynamic(() => import("./svg/Arrow/UpFilled.svg")),
-  LeftFilled: dynamic(() => import("./svg/Arrow/LeftFilled.svg")),
-  RightFilled: dynamic(() => import("./svg/Arrow/RightFilled.svg")),
-  LeftDouble: dynamic(() => import("./svg/Arrow/LeftDouble.svg")),
-  RightDouble: dynamic(() => import("./svg/Arrow/RightDouble.svg")),
-  Bell: dynamic(() => import("./svg/Bell/Bell.svg")),
-  BellDot: dynamic(() => import("./svg/Bell-dot/BellDot.svg")),
-  Calendar: dynamic(() => import("./svg/Calendar/Line/Calendar.svg")),
-  Chat: dynamic(() => import("./svg/Chat/Chat.svg")),
-  EyeOnIcon: dynamic(() => import("./svg/EyeOnIcon.svg")),
-  EyeOffIcon: dynamic(() => import("./svg/EyeOffIcon.svg")),
-  FilledXCircle: dynamic(() => import("./svg/FilledXCircle.svg")),
-  OutlineXCircle: dynamic(() => import("./svg/OutlineXCircle.svg")),
-  Kebab: dynamic(() => import("./svg/Kebab.svg")),
-  Home: dynamic(() => import("./svg/Home/Home.svg")),
-  Menu: dynamic(() => import("./svg/Menu/Menu.svg")),
-  Out: dynamic(() => import("./svg/Out/Line/Out.svg")),
-  Paper: dynamic(() => import("./svg/Paper/Paper.svg")),
-  Search: dynamic(() => import("./svg/Search/Search.svg")),
-  Trash: dynamic(() => import("./svg/Trash.svg")),
-  User: dynamic(() => import("./svg/User/User.svg")),
-  ActiveCheckBox: dynamic(() => import("./svg/Checkbox/ActiveCheckBox.svg")),
-  ActiveFilledCheckBox: dynamic(
-    () => import("./svg/Checkbox/ActiveFilledCheckBox.svg"),
-  ),
-  InactiveCheckBox: dynamic(
-    () => import("./svg/Checkbox/InactiveCheckBox.svg"),
-  ),
-  InactiveFilledCheckBox: dynamic(
-    () => import("./svg/Checkbox/InactiveFilledCheckBox.svg"),
-  ),
-  Pencil: dynamic(() => import("./svg/Pencil/Pencil.svg")),
-  Meatball: dynamic(() => import("./svg/Meatball.svg")),
+  DownFilledArrow,
+  UpFilledArrow,
+  LeftFilledArrow,
+  RightFilledArrow,
+  LeftDoubleArrow,
+  RightDoubleArrow,
+  Bell,
+  BellDot,
+  Calendar,
+  Chat,
+  EyeOnIcon,
+  EyeOffIcon,
+  FilledXCircle,
+  OutlineXCircle,
+  Kebab,
+  Home,
+  Menu,
+  Out,
+  Paper,
+  Search,
+  Trash,
+  User,
+  ActiveCheckBox,
+  ActiveFilledCheckBox,
+  InactiveCheckBox,
+  InactiveFilledCheckBox,
+  Pencil,
+  Meatball,
+  Plus,
 } as const;
 
 export type IconName = keyof typeof iconMap;
