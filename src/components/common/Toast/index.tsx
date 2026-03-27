@@ -5,7 +5,13 @@ import { createPortal } from "react-dom";
 
 import { cn } from "@/utils/utils";
 
-import { ToastContextValue } from "./types";
+import {
+  ToastContextValue,
+  ToastOptions,
+  ToastPosition,
+  ToastRecord,
+  ToastVariant,
+} from "./types";
 
 // 전역 상태관리 컨텍스트
 export const ToastContext = React.createContext<ToastContextValue | null>(null);
