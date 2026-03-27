@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { createContext, useState } from "react";
 
 import { useBreakpoint } from "@/hooks/useBreakpoint";
@@ -21,10 +22,11 @@ export const NavigationBarContext = createContext<NavigationBarContextType>({
 });
 
 const NavigationBarProvider = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname();
   const breakpoint = useBreakpoint();
   const [isOpen, setIsOpen] = useState<boolean>(breakpoint !== "desktop");
-  const [currentTab, setCurrentTab] = useState<string>(
-    window.location.pathname === "/taskmate" ? "home" : "",
+  const [currentTab, setCurrentTab] = useState<string>(() =>
+    pathname === "/taskmate" ? "home" : "",
   );
 
   const tabChange = (tab: string) => {
