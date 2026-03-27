@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React from "react";
 
+import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
 import useSignupForm from "@/features/auth/signup/hooks/useSignupForm";
@@ -26,18 +27,18 @@ const SignupForm = () => {
       >
         <div className="flex flex-col gap-1.5">
           <label
-            htmlFor="name"
+            htmlFor="nickname"
             className="typography-label-1 font-semibold"
           >
             이름
           </label>
           <Input
-            id="name"
-            name="name"
+            id="nickname"
+            name="nickname"
             placeholder="이름을 입력해주세요"
-            value={values.name}
+            value={values.nickname}
             onChange={handleChange}
-            errorMessage={errors.name}
+            errorMessage={errors.nickname}
             onBlur={handleBlur}
           />
         </div>
@@ -110,12 +111,13 @@ const SignupForm = () => {
             }
           />
         </div>
-        <button
+        <Button
           type="submit"
-          className="mt-4"
+          size="xl"
+          className="mt-4 w-full"
         >
           회원가입하기
-        </button>
+        </Button>
       </form>
       <p className="typography-body-2 mt-6 text-center font-medium">
         이미 회원이신가요?{" "}
