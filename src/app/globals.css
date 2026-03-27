@@ -55,6 +55,7 @@
 
   --color-background-normal: #ffffff;
   --color-background-normal-alternative: #f9fafb;
+  --color-background-normal-alternative-2: #f6f7fb;
 
   --color-background-elevated-normal: #f3f4f6;
   --color-background-elevated-normal-alternative: #dadde3;
@@ -191,4 +192,5 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background-normal-alternative-2);
 }
