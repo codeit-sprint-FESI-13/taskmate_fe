@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import { cn } from "@/utils/utils";
+
 import { useDropdown } from "./index";
 
 type DropdownProps = {
@@ -33,12 +35,15 @@ export const Dropdown = ({
   return (
     <div
       ref={containerRef}
-      className={`relative rounded-xl border border-gray-200 bg-white px-4 py-2 ${className || ""}`}
+      className={cn(
+        "relative self-start rounded-xl border border-gray-200 bg-white px-4 py-2",
+        className,
+      )}
     >
       <button
         type="button"
         onClick={toggle}
-        className="w-full cursor-pointer py-1 text-center"
+        className="w-full cursor-pointer text-center"
       >
         {current || "Select"}
       </button>
@@ -51,7 +56,7 @@ export const Dropdown = ({
               <li
                 key={option}
                 onClick={() => handleSelect(option)}
-                className="w-full cursor-pointer py-1 text-center hover:rounded-[16px] hover:bg-blue-800 hover:text-white"
+                className="w-full cursor-pointer py-1 text-center hover:rounded-2xl hover:bg-blue-800 hover:text-white"
               >
                 {option}
               </li>
@@ -61,3 +66,5 @@ export const Dropdown = ({
     </div>
   );
 };
+
+export default Dropdown;

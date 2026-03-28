@@ -67,23 +67,16 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={cn(
-        buttonVariants({
-          variant,
-          size,
-          isDisabled: isDisabled,
-          className,
-        }),
-      )}
+      className={cn(buttonVariants({ variant, size, isDisabled }), className)}
       disabled={!!isDisabled}
       {...props}
     >
       {leftIcon && (
-        <span className="flex flex-shrink-0 items-center">{leftIcon}</span>
+        <span className="flex shrink-0 items-center">{leftIcon}</span>
       )}
       <span>{children}</span>
       {rightIcon && (
-        <span className="flex flex-shrink-0 items-center">{rightIcon}</span>
+        <span className="flex shrink-0 items-center">{rightIcon}</span>
       )}
     </button>
   );
