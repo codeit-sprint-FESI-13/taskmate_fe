@@ -20,7 +20,7 @@ export const NavigationBar = () => {
   return (
     <aside
       className={cn(
-        "relative h-screen overflow-scroll rounded-tr-[48px] rounded-br-[48px] shadow-[0_0_4px_0_rgba(0,0,0,0.08)] transition-[width] duration-300 ease-in-out",
+        "relative h-screen shrink-0 overflow-scroll rounded-tr-[48px] rounded-br-[48px] shadow-[0_0_4px_0_rgba(0,0,0,0.08)] transition-[width] duration-300 ease-in-out",
         isOpen ? "w-[360px] p-8" : "w-[60px] px-3 py-8",
       )}
       style={{ willChange: "width" }}

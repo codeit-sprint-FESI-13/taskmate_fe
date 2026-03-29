@@ -18,6 +18,7 @@ import Deadline from "./svg/feature/Deadline.svg";
 import FlagBlue from "./svg/feature/Flag_Blue.svg";
 import FlagGreen from "./svg/feature/Flag_Green.svg";
 import Goal from "./svg/feature/Goal.svg";
+import GoalFlag from "./svg/feature/GoalFlag.svg";
 import People from "./svg/feature/People.svg";
 import PipeBlue from "./svg/feature/Pipe_Blue.svg";
 import PipeGreen from "./svg/feature/Pipe_Green.svg";
@@ -72,6 +73,7 @@ export const iconMap = {
   People,
   PipeBlue,
   PipeGreen,
+  GoalFlag,
 } as const;
 
 export type IconName = keyof typeof iconMap;

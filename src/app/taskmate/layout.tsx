@@ -12,9 +12,7 @@ export default function TaskmateLayout({
         <NavigationBar />
       </NavigationBarProvider>
 
-      <div className="mx-auto w-full space-y-6 px-[40px] py-[80px]">
-        {children}
-      </div>
+      <div className="mx-auto w-full px-[40px] py-[80px]">{children}</div>
     </div>
   );
 }
