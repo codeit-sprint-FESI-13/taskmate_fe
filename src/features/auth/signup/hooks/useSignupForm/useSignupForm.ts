@@ -1,6 +1,8 @@
 import { ComponentProps, useState } from "react";
 import z from "zod";
 
+import { useEmailDuplicate } from "@/features/auth/signup/hooks/useEmailDuplicate";
+import { useSignupMutation } from "@/features/auth/signup/hooks/useSignupMutation";
 import {
   SignupFormData,
   signupSchema,
@@ -18,13 +20,17 @@ const useSignupForm = () => {
     Partial<Record<keyof SignupFormData, string>>
   >({});
 
-  const [isEmailChecked, setIsEmailChecked] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
   const togglePassword = () => setShowPassword((prev) => !prev);
   const togglePasswordConfirm = () => setShowPasswordConfirm((prev) => !prev);
+
+  const [isEmailChecked, setIsEmailChecked] = useState(false);
+
+  const { mutateAsync: checkEmail, reset } = useEmailDuplicate();
+
+  const { mutate: signup } = useSignupMutation();
 
   const validateField = (
     name: keyof SignupFormData,
@@ -61,6 +67,9 @@ const useSignupForm = () => {
       setErrors((prev) => ({ ...prev, email: "이메일 중복 확인을 해주세요." }));
       return;
     }
+
+    const { passwordConfirm, ...signupData } = result.data;
+    signup(signupData);
   };
 
   const handleChange: ComponentProps<"input">["onChange"] = (e) => {
@@ -68,7 +77,7 @@ const useSignupForm = () => {
     const newValues = { ...values, [name]: value };
     setValues(newValues);
 
-    if (name === "email") setIsEmailChecked(false);
+    if (name === "email") reset();
 
     validateField(name as keyof SignupFormData, newValues);
   };
@@ -79,9 +88,14 @@ const useSignupForm = () => {
   };
 
   const handleEmailDuplicate = async () => {
-    //API호출
-    //성공시
-    //실패시
+    const result = await checkEmail(values.email);
+    if (result.data.exists) {
+      setErrors((prev) => ({ ...prev, email: "이미 사용중인 이메일입니다." }));
+      setIsEmailChecked(false);
+    } else {
+      setErrors((prev) => ({ ...prev, email: "" }));
+      setIsEmailChecked(true);
+    }
   };
 
   return {
@@ -95,6 +109,7 @@ const useSignupForm = () => {
     handleChange,
     handleBlur,
     handleEmailDuplicate,
+    isEmailChecked,
   };
 };
 
