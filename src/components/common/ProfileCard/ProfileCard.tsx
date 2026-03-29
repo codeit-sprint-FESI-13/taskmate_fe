@@ -5,6 +5,7 @@ import defaultAvatar from "@/assets/images/avatar.png";
 import Button from "@/components/common/Button/Button";
 import Crown from "@/components/common/Icons/Crown";
 import RightArrow from "@/components/common/Icons/RightArrow";
+import Dropdown from "@/hooks/useDropdown/Dropdown";
 // 내부 코드
 import { cn } from "@/utils/utils";
 
@@ -17,6 +18,7 @@ const profileCardVariants = cva(
         "gnb-sm":
           "pl-3 pr-[20px] border border-gray-300 h-[64px] rounded-full py-4",
         team: "",
+        "team-sm": "",
         admin: "",
         "admin-sm": "",
       },
@@ -30,7 +32,14 @@ type ProfileCardProps = {
   nickName: string;
   isMe?: boolean;
   email: string;
-  variant?: "default" | "gnb" | "gnb-sm" | "team" | "admin" | "admin-sm";
+  variant?:
+    | "default"
+    | "gnb"
+    | "gnb-sm"
+    | "team"
+    | "team-sm"
+    | "admin"
+    | "admin-sm";
 };
 
 const ProfileCard = ({
@@ -73,11 +82,15 @@ const ProfileCard = ({
         <div className="inline-flex items-center">
           {/* NickName */}
           <span className="text-sm">{nickName}</span>
-          {variant === "default" && isMe && (
-            <span className="ml-0.75 rounded-lg bg-gray-100 px-2.5 py-1 text-[12px] text-gray-400">
-              나
-            </span>
-          )}
+          {(variant === "team" ||
+            variant === "team-sm" ||
+            variant === "admin" ||
+            variant === "admin-sm") &&
+            isMe && (
+              <span className="ml-0.75 rounded-lg bg-gray-100 px-2.5 py-1 text-[12px] text-gray-400">
+                나
+              </span>
+            )}
 
           {/* Gnb Icon */}
           {isGnb && (
@@ -97,26 +110,27 @@ const ProfileCard = ({
       {(variant === "admin" || variant === "admin-sm") && (
         <div
           className={cn(
-            "flex gap-4",
+            "flex items-center gap-1.5",
             variant === "admin" && "ml-63.25",
             variant === "admin-sm" && "ml-16",
           )}
         >
           {/* 권한 선택 */}
+          <Dropdown
+            options={["Admin", "팀원"]}
+            selected="Admin"
+          />
 
           {/* 팀원 삭제 버튼 */}
           <Button
             variant="secondary"
             size="sm"
-            className="text-gray-500 ring-gray-200 hover:ring-gray-300"
+            className="rounded-lg text-gray-500 ring-gray-200 hover:ring-gray-300"
           >
             팀원 삭제
           </Button>
         </div>
       )}
-
-      {/* Admin Button */}
-      <div></div>
     </div>
   );
 };
