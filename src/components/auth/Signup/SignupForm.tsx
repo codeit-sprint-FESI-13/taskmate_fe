@@ -19,6 +19,7 @@ const SignupForm = () => {
     handleSubmit,
     handleChange,
     handleBlur,
+    handleEmailDuplicate,
   } = useSignupForm();
   useOAuthError("signup");
   return (
@@ -45,12 +46,21 @@ const SignupForm = () => {
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <label
-            htmlFor="email"
-            className="typography-label-1 font-semibold"
-          >
-            이메일
-          </label>
+          <div className="flex justify-between">
+            <label
+              htmlFor="email"
+              className="typography-label-1 font-semibold"
+            >
+              이메일
+            </label>
+            <button
+              type="button"
+              onClick={handleEmailDuplicate}
+            >
+              이메일중복체크
+            </button>
+          </div>
+
           <Input
             id="email"
             name="email"
