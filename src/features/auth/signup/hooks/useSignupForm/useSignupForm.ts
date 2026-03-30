@@ -7,6 +7,7 @@ import {
   SignupFormData,
   signupSchema,
 } from "@/features/auth/signup/types/signup.type";
+import { useToast } from "@/hooks/useToast";
 
 const useSignupForm = () => {
   const [values, setValues] = useState<SignupFormData>({
@@ -29,8 +30,9 @@ const useSignupForm = () => {
   const [isEmailChecked, setIsEmailChecked] = useState(false);
 
   const { mutateAsync: checkEmail, reset } = useEmailDuplicate();
-
   const { mutate: signup } = useSignupMutation();
+
+  const { toast } = useToast();
 
   const validateField = (
     name: keyof SignupFormData,
@@ -77,7 +79,10 @@ const useSignupForm = () => {
     const newValues = { ...values, [name]: value };
     setValues(newValues);
 
-    if (name === "email") reset();
+    if (name === "email") {
+      reset();
+      setIsEmailChecked(false);
+    }
 
     validateField(name as keyof SignupFormData, newValues);
   };
@@ -88,13 +93,20 @@ const useSignupForm = () => {
   };
 
   const handleEmailDuplicate = async () => {
-    const result = await checkEmail(values.email);
-    if (result.data.exists) {
-      setErrors((prev) => ({ ...prev, email: "이미 사용중인 이메일입니다." }));
-      setIsEmailChecked(false);
-    } else {
-      setErrors((prev) => ({ ...prev, email: "" }));
-      setIsEmailChecked(true);
+    try {
+      const result = await checkEmail(values.email);
+      if (result.data.exists) {
+        setErrors((prev) => ({
+          ...prev,
+          email: "이미 사용중인 이메일입니다.",
+        }));
+        setIsEmailChecked(false);
+      } else {
+        setErrors((prev) => ({ ...prev, email: undefined }));
+        setIsEmailChecked(true);
+      }
+    } catch (error) {
+      toast({ title: "이메일 확인 중 오류가 발생했습니다.", variant: "error" });
     }
   };
 
