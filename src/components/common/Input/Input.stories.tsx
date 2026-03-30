@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import ClearIcon from "../Icons/ClearIcon";
-import EyeOnIcon from "../Icons/EyeOnIcon";
-import Input from "./Input";
+import Input from "@/components/common/Input/Input";
+
+import { Icon } from "../Icon";
 
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
@@ -62,11 +62,7 @@ export const WithSupportingText: Story = {
 export const WithClearButton: Story = {
   args: {
     value: "입력된 텍스트",
-    rightIcon: (
-      <button type="button">
-        <ClearIcon className="text-gray-300" />
-      </button>
-    ),
+    rightIcon: <button type="button"></button>,
   },
 };
 
@@ -77,7 +73,10 @@ export const Password: Story = {
     placeholder: "비밀번호를 입력하세요",
     rightIcon: (
       <button type="button">
-        <EyeOnIcon className="text-gray-300" />
+        <Icon
+          name="EyeOffIcon"
+          className="text-gray-300"
+        />
       </button>
     ),
   },
@@ -91,7 +90,10 @@ export const Search: Story = {
     shape: "search",
     rightIcon: (
       <div>
-        <EyeOnIcon className="text-gray-300" />
+        <Icon
+          name="Search"
+          className="text-gray-300"
+        />
       </div>
     ),
   },

@@ -76,7 +76,10 @@ const SignupForm = () => {
             errorMessage={errors.password}
             onBlur={handleBlur}
             rightIcon={
-              <button onClick={togglePassword}>
+              <button
+                type="button"
+                onClick={togglePassword}
+              >
                 <Icon
                   name={showPassword ? "EyeOnIcon" : "EyeOffIcon"}
                   className="text-gray-300"
@@ -102,7 +105,10 @@ const SignupForm = () => {
             errorMessage={errors.passwordConfirm}
             onBlur={handleBlur}
             rightIcon={
-              <button onClick={togglePasswordConfirm}>
+              <button
+                type="button"
+                onClick={togglePasswordConfirm}
+              >
                 <Icon
                   name={showPasswordConfirm ? "EyeOnIcon" : "EyeOffIcon"}
                   className="text-gray-300"
@@ -113,7 +119,7 @@ const SignupForm = () => {
         </div>
         <Button
           type="submit"
-          size="xl"
+          size="lg"
           className="mt-4 w-full"
         >
           회원가입하기
@@ -122,7 +128,7 @@ const SignupForm = () => {
       <p className="typography-body-2 mt-6 text-center font-medium">
         이미 회원이신가요?{" "}
         <Link
-          href=""
+          href="/login"
           className="typography-body-2 font-semibold text-blue-800"
         >
           로그인하기
