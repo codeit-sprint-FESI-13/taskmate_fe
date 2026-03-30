@@ -4,46 +4,34 @@ import { useEffect, useState } from "react";
 
 import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input/Input";
-import { inviteApi } from "@/features/management/api";
 import { validateEmail } from "@/features/management/utils";
 
 interface InviteModalProps {
   onClose: () => void;
+  onSubmitInvite: (email: string) => Promise<void>;
 }
 
-const InviteModal = ({ onClose }: InviteModalProps) => {
+const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
   const [email, setEmail] = useState("");
   const emailError = validateEmail(email);
   const isDisabled = Boolean(emailError);
-  const teamId = "1";
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const error = validateEmail(email);
-
-    console.log("[invite] input:", email);
-    console.log("[invite] trimmed:", email.trim());
-    console.log("[invite] validation error:", error); // null이면 통과
-
     if (error) return;
 
-    console.log("[invite] validation passed, submit API");
-    // await inviteMember(...)
-
     try {
-      await inviteApi.create(teamId, email);
+      await onSubmitInvite(email);
       onClose();
     } catch {
       console.log("api 연결 실패");
     }
   };
 
-  // 모달 스크롤
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
     return () => {
       document.body.style.overflow = prevOverflow;
     };
@@ -70,7 +58,6 @@ const InviteModal = ({ onClose }: InviteModalProps) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-
           <Button
             type="submit"
             className="ml-auto w-fit rounded-xl"
