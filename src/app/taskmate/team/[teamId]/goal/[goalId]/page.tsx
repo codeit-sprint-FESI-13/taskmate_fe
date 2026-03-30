@@ -1,6 +1,6 @@
 import { Spacing } from "@/components/common/Spacing";
 import { Summary } from "@/components/goal/Summary";
-import { TodoList } from "@/components/todo/List";
+import { TodoSection } from "@/components/team/TodoSection";
 
 export default function Page() {
   return (
@@ -19,7 +19,7 @@ export default function Page() {
 
       <Spacing size={56} />
 
-      <TodoList />
+      <TodoSection />
     </>
   );
 }
