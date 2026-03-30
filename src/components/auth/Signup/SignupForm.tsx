@@ -20,6 +20,7 @@ const SignupForm = () => {
     handleChange,
     handleBlur,
     handleEmailDuplicate,
+    isEmailChecked,
   } = useSignupForm();
   useOAuthError("signup");
   return (
@@ -69,6 +70,9 @@ const SignupForm = () => {
             onChange={handleChange}
             errorMessage={errors.email}
             onBlur={handleBlur}
+            supportingText={
+              isEmailChecked ? "사용가능한 이메일입니다." : undefined
+            }
           />
         </div>
         <div className="flex flex-col gap-1.5">
