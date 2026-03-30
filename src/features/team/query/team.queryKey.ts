@@ -1,5 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 
+import { STALE_TIME } from "@/constants/staleTime";
+
 import { teamApi } from "../api";
 
 export const teamQueries = {
@@ -10,6 +12,6 @@ export const teamQueries = {
         const response = await teamApi.getSummary(teamId);
         return response.data;
       },
-      staleTime: 1000 * 60 * 60,
+      staleTime: STALE_TIME.DEFAULT,
     }),
 };
