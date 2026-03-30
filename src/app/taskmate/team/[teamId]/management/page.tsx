@@ -22,7 +22,7 @@ const TeamManagement = () => {
       <InviteModal
         onClose={() => close()}
         onSubmitInvite={async (email: string) => {
-          await inviteApi.create(teamId, email);
+          await inviteApi.create(teamId, email); // string 전달
         }}
       />,
     );
