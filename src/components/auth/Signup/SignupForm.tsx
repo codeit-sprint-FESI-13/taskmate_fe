@@ -8,6 +8,7 @@ import Input from "@/components/common/Input";
 import { useOAuthError } from "@/features/auth/hooks/useOAuthError";
 import useSignupForm from "@/features/auth/signup/hooks/useSignupForm";
 
+// TODO : 이메일 중복 체크 디자인 수정 예정
 const SignupForm = () => {
   const {
     values,
@@ -56,6 +57,7 @@ const SignupForm = () => {
             </label>
             <button
               type="button"
+              className="text-xs"
               onClick={handleEmailDuplicate}
             >
               이메일중복체크
