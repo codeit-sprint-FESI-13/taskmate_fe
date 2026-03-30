@@ -1,45 +1,56 @@
-import { Icon } from "@/components/common/Icon";
-import Input from "@/components/common/Input";
-import { Toggle } from "@/components/common/Toggle";
+"use client";
 
-export const TodoList = () => {
+import { useState } from "react";
+
+import { Spacing } from "@/components/common/Spacing";
+
+import { CreateButton } from "./CreateButton";
+import { Item } from "./Item";
+import { Order } from "./Order";
+
+interface ListProps {
+  keyword: string;
+  isMyTodo: boolean;
+  name: string;
+  children: React.ReactNode;
+  height: string;
+}
+
+const ListComponent = ({
+  keyword: _keyword,
+  isMyTodo: _isMyTodo,
+  name,
+  children,
+  height,
+}: ListProps) => {
+  const sortOptions = ["최신순", "마감일 순"];
+  const [selectedSort, setSelectedSort] = useState("최신순");
+
   return (
-    <div className="flex w-full flex-col gap-[32px]">
+    <div className="h-full w-full">
       <div className="flex w-full items-center justify-between">
-        <Input
-          placeholder="할 일을 이름으로 검색해보세요."
-          className="w-[360px]"
-          rightIcon={
-            <div>
-              <Icon
-                name="Search"
-                size={24}
-                className="text-gray-300"
-              />
-            </div>
-          }
+        <h3 className="typography-body-1 font-bold">{name}</h3>
+        <Order
+          options={sortOptions}
+          selected={selectedSort}
+          onSelect={setSelectedSort}
         />
-
-        <div className="flex items-center justify-center gap-[10px]">
-          <span className="typography-body-1 font-semibold text-blue-800">
-            내 할일만 보기
-          </span>
-
-          <Toggle />
-        </div>
       </div>
 
-      <div className="grid min-h-[480px] w-full grid-cols-2 grid-rows-[1fr_1fr] gap-[32px]">
-        <section className="row-span-2 flex min-h-0 flex-col rounded-4xl bg-white p-8">
-          {/* @TODO: 할 일 목록 */}
-        </section>
-        <section className="bg-background-normal-alternative min-h-0 rounded-4xl p-6">
-          {/* @TODO: 우측 상단 패널 */}
-        </section>
-        <section className="bg-background-normal-alternative min-h-0 rounded-4xl p-6">
-          {/* @TODO: 우측 하단 패널 */}
-        </section>
-      </div>
+      <Spacing size={20} />
+
+      <ul
+        style={{ height }}
+        className="relative w-full overflow-y-scroll rounded-4xl bg-white px-5 py-8"
+      >
+        {children}
+      </ul>
     </div>
   );
+};
+
+export const TodoList = {
+  Item,
+  CreateButton,
+  List: ListComponent,
 };

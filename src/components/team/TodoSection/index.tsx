@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
+import { Spacing } from "@/components/common/Spacing";
 import { Toggle } from "@/components/common/Toggle";
 import { TodoList } from "@/components/todo/List";
 
@@ -60,16 +61,37 @@ export const TodoSection = () => {
       </div>
 
       <div className="grid min-h-[480px] w-full grid-cols-2 grid-rows-[1fr_1fr] gap-[32px]">
+        {/* @TODO: 이후 각 상태에 대한 Todo List Data req/res 처리 에 따라 추상화 방법 및 처리 필요 */}
         <section className="row-span-2 h-[728px] w-full">
-          <TodoList {...todoSectionOption} />
+          <TodoList.List
+            {...todoSectionOption}
+            height="728px"
+            name="TODO"
+          >
+            <TodoList.Item />
+            <Spacing size={24} />
+            <TodoList.CreateButton />
+          </TodoList.List>
         </section>
-        <section className="bg-background-normal-alternative min-h-0 rounded-4xl p-6">
-          {/* @TODO: 우측 상단 패널 */}
-          {/* <TodoList {...todoSectionOption} /> */}
+        <section>
+          <TodoList.List
+            {...todoSectionOption}
+            height="320px"
+            name="DOING"
+          >
+            <TodoList.Item />
+            <Spacing size={24} />
+          </TodoList.List>
         </section>
-        <section className="bg-background-normal-alternative min-h-0 rounded-4xl p-6">
-          {/* @TODO: 우측 하단 패널 */}
-          {/* <TodoList {...todoSectionOption} /> */}
+        <section>
+          <TodoList.List
+            {...todoSectionOption}
+            height="320px"
+            name="DONE"
+          >
+            <TodoList.Item />
+            <Spacing size={24} />
+          </TodoList.List>
         </section>
       </div>
     </div>
