@@ -1,13 +1,18 @@
 import { Icon } from "@/components/common/Icon";
 import { useTodoDeleteModal } from "@/features/todo/hooks/useTodoDeleteModal";
+import { useTodoDetailModal } from "@/features/todo/hooks/useTodoDetailModal";
 
 import { TodoItem } from "../TodoItem";
 
 export const Item = () => {
   const { openTodoDeleteModal } = useTodoDeleteModal();
+  const { openTodoDetailModal } = useTodoDetailModal();
 
   return (
-    <li className="flex w-full items-center justify-between px-3 py-[10px]">
+    <li
+      className="flex w-full items-center justify-between px-3 py-[10px]"
+      onClick={openTodoDetailModal}
+    >
       <div className="flex items-center justify-start gap-2">
         {/* @TODO: 드롭다운 UI 추가 필요 */}
         <TodoItem.Name>Name 컴포넌트 테스트</TodoItem.Name>
