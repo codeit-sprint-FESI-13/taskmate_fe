@@ -12,21 +12,6 @@ const TeamNameEditor = () => {
   const [teamNamePlaceholder, setTeamNamePlaceholder] = useState("팀명");
   const params = useParams();
 
-  // teamId로 팀명 가져오기
-  useEffect(() => {
-    const teamId = Number(params.teamId);
-    if (!teamId || Number.isNaN(teamId)) return;
-
-    teamDetailApi
-      .read(teamId)
-      .then((res) => {
-        if (res?.data?.name) setTeamNamePlaceholder(res.data.name);
-      })
-      .catch(() => {
-        setTeamNamePlaceholder("팀명");
-      });
-  }, [params.teamId]);
-
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -43,6 +28,21 @@ const TeamNameEditor = () => {
       console.log("팀명 수정 실패", error);
     }
   };
+
+  // teamId로 팀명 가져오기
+  useEffect(() => {
+    const teamId = Number(params.teamId);
+    if (!teamId || Number.isNaN(teamId)) return;
+
+    teamDetailApi
+      .read(teamId)
+      .then((res) => {
+        if (res?.data?.name) setTeamNamePlaceholder(res.data.name);
+      })
+      .catch(() => {
+        setTeamNamePlaceholder("팀명");
+      });
+  }, [params.teamId]);
 
   return (
     <section className="bg-background-normal flex h-46.5 w-full flex-col gap-2 rounded-4xl px-6 pt-6 pb-5">

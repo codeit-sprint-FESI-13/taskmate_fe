@@ -22,6 +22,24 @@ export interface InviteResponseSuccess {
   timestamp: string;
 }
 
+export interface MemberData {
+  id: number;
+  userId: number;
+  profileImageUrl: string;
+  userEmail: string;
+  userNickname: string; // "나 팀장!";
+  role: string;
+  joinedAt: string;
+}
+
+export interface MemberListResponseSuccess {
+  success: true;
+  code: string;
+  message: string;
+  data: MemberData[];
+  timestamp: string;
+}
+
 export interface TeamDeleteResponseSuccess {
   success: true;
   code: string; // "SUCESS"

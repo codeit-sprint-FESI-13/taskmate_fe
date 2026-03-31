@@ -2,6 +2,7 @@ import { apiClient } from "@/lib/api/client";
 
 import type { TeamNameResponseSuccess } from "./types";
 import type { InviteResponseSuccess } from "./types";
+import type { MemberListResponseSuccess } from "./types";
 import type { TeamDeleteResponseSuccess } from "./types";
 
 // 팀 상세 정보 요청
@@ -15,6 +16,15 @@ export const teamDetailApi = {
     }),
   delete: (teamId: number) =>
     apiClient.delete<TeamDeleteResponseSuccess>(`/teams/${teamId}`, {}),
+};
+
+// 멤버 목록 상세 조회
+export const memberListApi = {
+  read: (teamId: number) =>
+    apiClient.get<MemberListResponseSuccess>(
+      `/api/teams/${teamId}/members`,
+      {},
+    ),
 };
 
 // 팀 초대 요청
