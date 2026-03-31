@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input/Input";
-import { teamDetailData } from "@/features/management/api";
+import { teamDetailApi } from "@/features/management/api";
 
 const TeamNameEditor = () => {
   const [value, setValue] = useState("");
@@ -17,7 +17,7 @@ const TeamNameEditor = () => {
     const teamId = Number(params.teamId);
     if (!teamId || Number.isNaN(teamId)) return;
 
-    teamDetailData
+    teamDetailApi
       .read(teamId)
       .then((res) => {
         if (res?.data?.name) setTeamNamePlaceholder(res.data.name);
@@ -36,7 +36,7 @@ const TeamNameEditor = () => {
     if (Number.isNaN(teamId) || !nextName) return;
 
     try {
-      await teamDetailData.create(teamId, nextName);
+      await teamDetailApi.create(teamId, nextName);
       setTeamNamePlaceholder(nextName);
       setValue("");
     } catch (error) {
