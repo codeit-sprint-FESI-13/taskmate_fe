@@ -27,11 +27,16 @@ const Title = ({ children }: TitleProps) => {
 };
 
 const TeamAddIcon = () => {
+  const router = useRouter();
+
   return (
     <Icon
       name="Plus"
       size={24}
-      className="absolute right-4 text-gray-400"
+      className="absolute right-4 cursor-pointer text-gray-400"
+      onClick={() => {
+        router.push("/taskmate/team/create");
+      }}
     />
   );
 };
