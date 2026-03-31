@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TaskMate
 
-## Getting Started
+## Description
 
-First, run the development server:
+모든 할 일을 한곳에서 관리하는 서비스. (링크)
+
+## Features
+
+- 메인 페이지: 팀과 유저의 할 일 한눈에 볼 수 있는 대시보드를 보여줍니다.
+- 목표 페이지 : 모든 할 일들은 목표에 포함됩니다. 목표의 진행률을 확인 할 수 있으며 목표 편집, 할 일 필터링 / sorting 기능이 있습니다.
+- 팀 페이지 : 팀을 생성하고 관리 / 초대 할 수 있으며, 개인과 마찬가지로 목표를 설정하고 할 일을 관리할 수 있습니다.
+- 공통
+  - 전체 반응형 페이지가 적용됩니다.
+  - (할 일 리스트)에 대해 무한 스크롤이 적용됩니다.
+  - (할 일과 팀 정보)에 브라우저 캐싱이 적용됩니다.
+  - 할 일을 클릭하면 할 일 상세 UI가 보이며, 목표 / 마감기한 / 메모 등 제공하는 다양한 속성을 설정할 수 있습니다.
+
+## Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 의존성 설치 (권장: pnpm)
+pnpm install
+
+# 또는
+npm install
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+# 또는
+npm run dev
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+브라우저에서 [http://localhost:3000](http://localhost:3000) 으로 접속합니다.
 
-## Learn More
+### 기타 스크립트
 
-To learn more about Next.js, take a look at the following resources:
+| 명령어       | 설명           |
+| ------------ | -------------- |
+| `pnpm build` | 프로덕션 빌드  |
+| `pnpm start` | 빌드된 앱 실행 |
+| `pnpm lint`  | ESLint 검사    |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack / Built With
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework**: [Next.js](https://nextjs.org/) 16 (App Router)
+- **UI**: [React](https://react.dev/) 19, [Tailwind CSS](https://tailwindcss.com/) 4
+- **Language**: [TypeScript](https://www.typescriptlang.org/) 5
+- **Code quality**: ESLint 9 (Flat Config), Prettier, [Husky](https://typicode.github.io/husky/) + [lint-staged](https://github.com/okonet/lint-staged) (pre-commit)
