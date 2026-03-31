@@ -21,3 +21,11 @@ export interface InviteResponseSuccess {
   data: null; // 명세에 data가 null로 되어 있음
   timestamp: string;
 }
+
+export interface TeamDeleteResponseSuccess {
+  success: true;
+  code: string; // "SUCESS"
+  message: string; // "팀 삭제에 성공했습니다"
+  data: null;
+  timestamp: string;
+}
