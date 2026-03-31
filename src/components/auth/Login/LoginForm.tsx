@@ -1,30 +1,18 @@
 "use client";
 import Link from "next/link";
-import React, { useActionState, useEffect } from "react";
+import React, { useActionState } from "react";
 
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
+import { useOAuthError } from "@/features/auth/hooks/useOAuthError";
 import { loginAction } from "@/features/auth/login/actions/loginAction";
 import useLoginForm from "@/features/auth/login/hooks/useLoginForm";
-import { useToast } from "@/hooks/useToast";
 
 const LoginForm = () => {
-  const { values, handleChange, showPassword, togglePassword } = useLoginForm();
+  const { values, showPassword, togglePassword, handleChange } = useLoginForm();
   const [state, formAction] = useActionState(loginAction, null);
-
-  const { toast } = useToast();
-
-  // TODO : 로그인 실패시 토스트처리
-  useEffect(() => {
-    if (state?.errors?.message) {
-      toast({
-        title: state.errors.message,
-        variant: "error",
-      });
-    }
-  }, [state, toast]);
-
+  useOAuthError("login");
   return (
     <>
       <form

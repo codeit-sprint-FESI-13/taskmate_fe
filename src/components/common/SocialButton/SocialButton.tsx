@@ -1,9 +1,8 @@
-// React
-import { ComponentPropsWithoutRef } from "react";
+import { ComponentProps } from "react";
 
-// 내부 코드
 import GoogleIcon from "@/components/common/Icons/GoogleIcon";
 import KakaoIcon from "@/components/common/Icons/KakaoIcon";
+import { AuthFormType } from "@/features/auth/types/auth.type";
 import { cn } from "@/utils/utils";
 
 const SOCIAL_CONFIG = {
@@ -19,22 +18,17 @@ const SOCIAL_CONFIG = {
   },
 } as const;
 
-interface SocialButtonProps extends ComponentPropsWithoutRef<"button"> {
+interface SocialButtonProps extends ComponentProps<"a"> {
   social: keyof typeof SOCIAL_CONFIG;
+  from: AuthFormType;
 }
 
-const SocialButton = ({
-  social,
-  className,
-  type = "button",
-  ...props
-}: SocialButtonProps) => {
+const SocialButton = ({ social, className, from }: SocialButtonProps) => {
   const config = SOCIAL_CONFIG[social];
 
   return (
-    <button
-      type={type}
-      {...props}
+    <a
+      href={`/api/auth/${social}?from=${from}`}
       className={cn(
         "relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full transition-opacity focus:outline-none active:opacity-80",
         config.bg,
@@ -43,7 +37,7 @@ const SocialButton = ({
       )}
     >
       {config.icon}
-    </button>
+    </a>
   );
 };
 
