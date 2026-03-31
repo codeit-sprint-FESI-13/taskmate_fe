@@ -1,6 +1,10 @@
 import { apiClient } from "@/lib/api/client";
 
-import type { ResponseCreateTeam, ResponseTeamSummary } from "./types";
+import type {
+  ResponseCreateTeam,
+  ResponseQuitTeam,
+  ResponseTeamSummary,
+} from "./types";
 
 export const teamApi = {
   // 팀 생성 요청
@@ -9,4 +13,7 @@ export const teamApi = {
 
   getSummary: (teamId: string) =>
     apiClient.get<ResponseTeamSummary>(`/teams/${teamId}/summary`),
+
+  quitTeam: (teamId: string) =>
+    apiClient.delete<ResponseQuitTeam>(`/teams/${teamId}/leave`),
 };

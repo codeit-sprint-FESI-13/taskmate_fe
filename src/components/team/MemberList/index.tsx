@@ -1,9 +1,16 @@
+"use client";
+
 import { Icon } from "@/components/common/Icon";
 import TextButton from "@/components/common/TextButton/TextButton";
+import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { useTeamLeaveModal } from "@/features/team/hooks/useTeamLeaveModal";
 
 // @TODO: GET memberList API 및 useSuspenseInfiniteQuery 적용
 // @TODO: 목표 목록 조회 시 무한 스크롤 처리
 export const MemberList = () => {
+  const teamId = useTeamId();
+  const { openLeaveTeamModal } = useTeamLeaveModal(teamId);
+
   return (
     <div className="flex w-full flex-col items-start gap-5">
       <div className="flex w-full items-center justify-between">
@@ -19,7 +26,7 @@ export const MemberList = () => {
             6명
           </span>
         </div>
-        <TextButton className="">
+        <TextButton onClick={openLeaveTeamModal}>
           <span className="typography-body-2 flex shrink-0 items-center justify-center gap-[5px] font-semibold">
             <Icon
               name="Out"

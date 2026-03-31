@@ -26,3 +26,7 @@ export interface ResponseTeamSummary {
   data: TeamSummary;
   timestamp: Date;
 }
+
+export interface ResponseQuitTeam {
+  success: boolean;
+}
