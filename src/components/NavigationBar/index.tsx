@@ -55,10 +55,7 @@ export const NavigationBar = () => {
             <Spacing size={28} />
 
             {/* @TODO: 데이터 로딩 중 보여줄 UI 추가 */}
-            <AsyncBoundary
-              loadingFallback={<div>Loading...</div>}
-              errorFallback={<div>Error</div>}
-            >
+            <AsyncBoundary>
               <Team />
             </AsyncBoundary>
           </div>

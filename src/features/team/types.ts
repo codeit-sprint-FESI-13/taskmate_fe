@@ -60,3 +60,17 @@ export interface ResponseMemberList {
   message: string;
   data: Member[];
 }
+
+export interface ResponseTeamList {
+  success: boolean;
+  code: string;
+  message: string;
+  data: {
+    teamId: number;
+    teamName: string;
+    goals: {
+      goalId: number;
+      goalName: string;
+    }[];
+  }[];
+}
