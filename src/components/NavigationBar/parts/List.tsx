@@ -46,7 +46,7 @@ const GoalCreateButton = ({ teamId }: GoalCreateButtonProps) => {
   return (
     <button
       type="button"
-      className="flex w-full items-center justify-start gap-2 rounded-2xl border border-gray-200 px-7 py-3 shadow-[0_0_14px_0_rgba(138,138,138,0.08)]"
+      className="flex w-full cursor-pointer items-center justify-start gap-2 rounded-2xl border border-gray-200 px-7 py-3 shadow-[0_0_14px_0_rgba(138,138,138,0.08)]"
       onClick={() => {
         if (teamId) {
           router.push(`/taskmate/team/${teamId}/goal/create`);
