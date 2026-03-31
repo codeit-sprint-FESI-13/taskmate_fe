@@ -22,7 +22,8 @@ export const StarToggleButton = ({
 }: StarToggleButtonProps) => {
   const [isFilled, setIsFilled] = useState(initialState);
 
-  const handleToggle = () => {
+  const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     const newState = !isFilled;
     setIsFilled(newState);
     onToggle?.(newState);

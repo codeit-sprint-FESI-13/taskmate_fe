@@ -1,6 +1,8 @@
 import Image, { StaticImageData } from "next/image";
+import { useRouter } from "next/navigation";
 
 import { goalApi } from "@/features/goal/api";
+import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { cn } from "@/utils/utils";
 
 import { ProgressBar } from "../common/ProgressBar";
@@ -32,6 +34,8 @@ export const MainSecondaryProgressCard = ({
   iconSrc,
   goalId,
 }: MainSecondaryProgressCardProps) => {
+  const router = useRouter();
+  const teamId = useTeamId();
   const theme = THEME[color];
 
   // @TODO: 낙관적 업데이트 추가 필요 ( 중간 이후 )
@@ -42,9 +46,12 @@ export const MainSecondaryProgressCard = ({
   return (
     <section
       className={cn(
-        "w-full rounded-[28px] bg-white p-7 pb-8 shadow-sm ring-1 ring-black/5",
+        "w-full cursor-pointer rounded-[28px] bg-white p-7 pb-8 shadow-sm ring-1 ring-black/5",
         className,
       )}
+      onClick={() => {
+        router.push(`/taskmate/team/${teamId}/goal/${goalId}`);
+      }}
     >
       <div className="mb-5 flex items-center justify-between gap-4">
         <h3 className="text-lg font-semibold text-zinc-900">{title}</h3>
