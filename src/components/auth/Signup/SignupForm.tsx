@@ -5,6 +5,7 @@ import React from "react";
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
+import { useOAuthError } from "@/features/auth/hooks/useOAuthError";
 import useSignupForm from "@/features/auth/signup/hooks/useSignupForm";
 
 const SignupForm = () => {
@@ -19,6 +20,7 @@ const SignupForm = () => {
     handleChange,
     handleBlur,
   } = useSignupForm();
+  useOAuthError("signup");
   return (
     <>
       <form

@@ -4,7 +4,7 @@ import { AuthFormType } from "@/features/auth/types/auth.type";
 
 const SnsLoginButtons = ({
   label,
-  type: _type,
+  type,
 }: {
   label: string;
   type: AuthFormType;
@@ -19,8 +19,14 @@ const SnsLoginButtons = ({
         <div className="h-px flex-1 bg-gray-200" />
       </div>
       <div className="flex gap-4">
-        <SocialButton social="google" />
-        <SocialButton social="kakao" />
+        <SocialButton
+          social="google"
+          from={type}
+        />
+        {/* <SocialButton
+          social="kakao"
+          from={type}
+        /> */}
       </div>
     </div>
   );

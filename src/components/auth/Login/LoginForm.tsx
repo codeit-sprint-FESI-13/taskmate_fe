@@ -5,6 +5,7 @@ import React from "react";
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
+import { useOAuthError } from "@/features/auth/hooks/useOAuthError";
 import useLoginForm from "@/features/auth/login/hooks/useLoginForm";
 
 const LoginForm = () => {
@@ -16,6 +17,7 @@ const LoginForm = () => {
     handleChange,
     handleSubmit,
   } = useLoginForm();
+  useOAuthError("login");
   return (
     <>
       <form
