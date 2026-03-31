@@ -1,0 +1,68 @@
+import { Icon } from "@/components/common/Icon";
+
+interface HeaderProps {
+  children: React.ReactNode;
+}
+
+const Header = ({ children }: HeaderProps) => {
+  return (
+    <div className="relative flex h-[40px] items-center justify-start px-4">
+      {children}
+    </div>
+  );
+};
+
+interface TitleProps {
+  children: React.ReactNode;
+}
+
+const Title = ({ children }: TitleProps) => {
+  return (
+    <h4 className="typography-body-2 font-semibold text-gray-400">
+      {children}
+    </h4>
+  );
+};
+
+const TeamAddIcon = () => {
+  return (
+    <Icon
+      name="Plus"
+      size={24}
+      className="absolute right-4 text-gray-400"
+    />
+  );
+};
+
+// @TODO: Button 공통 컴포넌트 반영후 수정
+const GoalCreateButton = () => {
+  return (
+    <button
+      type="button"
+      className="flex items-center justify-start gap-[10px]"
+    >
+      <Icon
+        name="Plus"
+        size={24}
+        className="text-gray-300"
+      />
+      새 목표 추가
+    </button>
+  );
+};
+
+interface ContainerProps {
+  children: React.ReactNode;
+}
+
+const Container = ({ children }: ContainerProps) => {
+  return <div className="flex flex-col">{children}</div>;
+};
+
+export const List = {
+  Container,
+  Header,
+  Title,
+  GoalCreateButton,
+  TeamAddIcon,
+};
