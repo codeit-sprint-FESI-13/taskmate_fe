@@ -14,4 +14,15 @@ export const teamQueries = {
       },
       staleTime: STALE_TIME.DEFAULT,
     }),
+
+  memberList: (teamId: string) =>
+    queryOptions({
+      queryKey: ["team", teamId, "memberList"],
+      queryFn: async () => {
+        const response = await teamApi.getMemberList(teamId);
+
+        return response.data;
+      },
+      staleTime: 1000 * 60 * 60,
+    }),
 };

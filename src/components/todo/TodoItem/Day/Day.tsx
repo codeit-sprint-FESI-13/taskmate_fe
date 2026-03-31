@@ -12,6 +12,7 @@ const dayVariants = cva(
       color: {
         blue: "bg-blue-100 text-blue-700",
         red: "bg-red-light text-red-normal",
+        gray: "bg-gray-100 text-gray-400",
       },
     },
     defaultVariants: {
