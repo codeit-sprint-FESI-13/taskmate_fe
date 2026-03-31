@@ -23,4 +23,7 @@ export const goalApi = {
     apiClient.get<TeamGoalListResponse>(`/teams/${teamId}/goals`, {
       params: { sort },
     }),
+
+  toggleFavorite: (goalId: number) =>
+    apiClient.post<{ success: boolean }>(`/goals/${goalId}/favorite`),
 };

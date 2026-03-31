@@ -57,9 +57,11 @@ export const GoalList = () => {
         {goalList.map((goal) => (
           <MainSecondaryProgressCard
             key={goal.goalId}
+            goalId={goal.goalId}
             title={goal.name}
             progress={goal.progressPercent}
             color="green"
+            isFavorite={goal.isFavorite}
           />
         ))}
       </div>
