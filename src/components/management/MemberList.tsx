@@ -41,7 +41,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
         const list = res.data;
         setMembers(Array.isArray(list) && list.length > 0 ? list : mockMembers);
       } catch (error) {
-        console.error("멤버 조회 실패 → mock fallback", error);
+        console.error(console.log("error"));
         setMembers(mockMembers);
       }
     };
