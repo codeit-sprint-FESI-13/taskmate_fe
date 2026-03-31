@@ -1,26 +1,35 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useActionState, useEffect } from "react";
 
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
+import { loginAction } from "@/features/auth/login/actions/loginAction";
 import useLoginForm from "@/features/auth/login/hooks/useLoginForm";
+import { useToast } from "@/hooks/useToast";
 
 const LoginForm = () => {
-  const {
-    values,
-    errors,
-    showPassword,
-    togglePassword,
-    handleChange,
-    handleSubmit,
-  } = useLoginForm();
+  const { values, handleChange, showPassword, togglePassword } = useLoginForm();
+  const [state, formAction] = useActionState(loginAction, null);
+
+  const { toast } = useToast();
+
+  // TODO : 로그인 실패시 토스트처리
+  useEffect(() => {
+    if (state?.errors?.message) {
+      toast({
+        title: state.errors.message,
+        variant: "error",
+      });
+    }
+  }, [state, toast]);
+
   return (
     <>
       <form
         className="tablet:gap-4 flex flex-col gap-2.5"
-        onSubmit={handleSubmit}
+        action={formAction}
       >
         <Input
           type="text"
@@ -28,7 +37,7 @@ const LoginForm = () => {
           placeholder="이메일을 입력해주세요"
           value={values.email}
           onChange={handleChange}
-          errorMessage={errors.email}
+          errorMessage={state?.errors?.email}
         />
         <Input
           name="password"
@@ -36,7 +45,7 @@ const LoginForm = () => {
           placeholder="비밀번호를 입력해주세요"
           value={values.password}
           onChange={handleChange}
-          errorMessage={errors.password}
+          errorMessage={state?.errors?.password}
           rightIcon={
             <button
               type="button"
