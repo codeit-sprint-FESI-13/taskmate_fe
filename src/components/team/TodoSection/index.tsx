@@ -36,7 +36,7 @@ export const TodoSection = () => {
           placeholder="할 일을 이름으로 검색해보세요."
           className="w-[360px]"
           onChange={handleKeywordChange}
-          value={searchParams.get("keyword") || ""}
+          value={todoSectionOption.keyword}
           rightIcon={
             <div>
               <Icon
@@ -54,7 +54,7 @@ export const TodoSection = () => {
           </span>
 
           <Toggle
-            pressed={searchParams.get("isMyTodo") === "true" ? true : false}
+            pressed={todoSectionOption.isMyTodo}
             onPressedChange={handleIsMyTodoChange}
           />
         </div>
