@@ -3,6 +3,29 @@ import { HttpResponse } from "msw";
 import { apiMock } from "@/mocks/apiMock";
 
 export const teamsHandlers = [
+  apiMock.get("*/api/teams/me", () => {
+    return HttpResponse.json({
+      success: true,
+      code: "OK",
+      message: "내 팀 목록 조회 성공",
+      data: [
+        {
+          teamId: 1,
+          teamName: "프론트엔드 1팀",
+          goals: [
+            { goalId: 101, goalName: "디자인시스템 정리" },
+            { goalId: 102, goalName: "컴포넌트 QA" },
+          ],
+        },
+        {
+          teamId: 2,
+          teamName: "프론트엔드 2팀",
+          goals: [{ goalId: 201, goalName: "대시보드 개선" }],
+        },
+      ],
+    });
+  }),
+
   apiMock.post("*/api/teams", async ({ request }) => {
     const body = (await request.json().catch(() => ({}))) as { name?: string };
     const name = body.name?.trim();
@@ -42,7 +65,7 @@ export const teamsHandlers = [
     });
   }),
 
-  apiMock.delete("*/api/teams/:teamId/leave", ({ params }) => {
+  apiMock.delete("*/api/teams/:teamId/leave", () => {
     const data = [
       {
         code: "SUCCESS",

@@ -35,10 +35,10 @@ export const NavigationBar = () => {
               <Item.Icon name="Home" />
               <Item.Name>홈</Item.Name>
             </Item.Wrapper>
-            <Item.Wrapper value="board">
+            {/* <Item.Wrapper value="board">
               <Item.Icon name="Chat" />
               <Item.Name>게시판</Item.Name>
-            </Item.Wrapper>
+            </Item.Wrapper> */}
           </List.Container>
 
           <Spacing size={12} />
@@ -53,7 +53,10 @@ export const NavigationBar = () => {
           <Spacing size={28} />
 
           {/* @TODO: 데이터 로딩 중 보여줄 UI 추가 */}
-          <AsyncBoundary>
+          <AsyncBoundary
+            loadingFallback={<div>Loading...</div>}
+            errorFallback={<div>Error</div>}
+          >
             <Team />
           </AsyncBoundary>
         </>

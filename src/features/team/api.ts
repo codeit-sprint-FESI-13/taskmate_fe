@@ -3,6 +3,7 @@ import { apiClient } from "@/lib/api/client";
 import type {
   ResponseCreateTeam,
   ResponseQuitTeam,
+  ResponseTeamList,
   ResponseTeamSummary,
 } from "./types";
 
@@ -16,4 +17,6 @@ export const teamApi = {
 
   quitTeam: (teamId: string) =>
     apiClient.delete<ResponseQuitTeam>(`/teams/${teamId}/leave`),
+
+  getAll: () => apiClient.get<ResponseTeamList>(`/teams/me`),
 };

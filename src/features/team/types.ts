@@ -30,3 +30,17 @@ export interface ResponseTeamSummary {
 export interface ResponseQuitTeam {
   success: boolean;
 }
+
+export interface ResponseTeamList {
+  success: boolean;
+  code: string;
+  message: string;
+  data: {
+    teamId: number;
+    teamName: string;
+    goals: {
+      goalId: number;
+      goalName: string;
+    }[];
+  }[];
+}
