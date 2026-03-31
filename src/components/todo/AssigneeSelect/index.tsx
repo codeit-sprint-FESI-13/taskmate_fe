@@ -1,17 +1,12 @@
 "use client";
 
 import { Icon } from "@/components/common/Icon";
+import { Member } from "@/features/team/types";
 import { useDropdown } from "@/hooks/useDropdown";
 import { cn } from "@/utils/utils";
 
-export type AssigneeMember = {
-  id: string;
-  name: string;
-  imageUrl: string;
-};
-
 interface AssigneeSelectProps {
-  members: AssigneeMember[];
+  members: Member[];
   value: string[];
   onChange: (memberIds: string[]) => void;
   placeholder?: string;
@@ -24,12 +19,12 @@ export function AssigneeSelect({
   placeholder = "담당자를 선택해주세요",
 }: AssigneeSelectProps) {
   const { isOpen, toggle, containerRef } = useDropdown(
-    members.map((member) => member.id),
+    members.map((member) => String(member.userId)),
   );
 
   const selectedMembers = () => {
-    const byId = new Map(members.map((member) => [member.id, member]));
-    return value.map((id) => byId.get(id)).filter(Boolean) as AssigneeMember[];
+    const byId = new Map(members.map((member) => [member.userId, member]));
+    return value.map((id) => byId.get(Number(id))).filter(Boolean) as Member[];
   };
 
   const toggleMember = (id: string) => {
@@ -40,8 +35,8 @@ export function AssigneeSelect({
     }
   };
 
-  const removeMember = (id: string) => {
-    onChange(value.filter((x) => x !== id));
+  const removeMember = (userId: number) => {
+    onChange(value.filter((x) => x !== String(userId)));
   };
 
   return (
@@ -59,13 +54,14 @@ export function AssigneeSelect({
           ) : (
             selectedMembers().map((member) => (
               <span
-                key={member.id}
+                key={member.userId}
                 className="flex items-center gap-1"
               >
                 {/* @TODO: Member Profile Image or Default Profile Image */}
+                {/* @TODO: Profile Image 응답값 수정 이후 작업 필요 */}
 
                 <span className="typography-label-1 text-label-normal max-w-[140px] truncate font-semibold">
-                  {member.name}
+                  {member.userNickname}
                 </span>
 
                 <button
@@ -73,7 +69,7 @@ export function AssigneeSelect({
                   className={`flex shrink-0 cursor-pointer items-center p-0.5 text-gray-400 hover:text-gray-600`}
                   onClick={(e) => {
                     e.stopPropagation();
-                    removeMember(member.id);
+                    removeMember(member.userId);
                   }}
                 >
                   <Icon
@@ -99,16 +95,16 @@ export function AssigneeSelect({
       {isOpen && (
         <ul className="absolute right-0 left-0 z-20 mt-1 max-h-52 overflow-y-auto rounded-2xl border border-gray-200 bg-white py-1 shadow-lg">
           {members.map((member) => (
-            <li key={member.id}>
+            <li key={member.userId}>
               <button
                 type="button"
                 className="flex w-full items-center gap-3 px-4 py-2.5 text-left hover:bg-blue-800 hover:text-white"
-                onClick={() => toggleMember(member.id)}
+                onClick={() => toggleMember(String(member.userId))}
               >
                 {/* @TODO: Member Profile Image or Default Profile Image */}
 
                 <span className="typography-body-2 font-medium wrap-break-word">
-                  {member.name}
+                  {member.userNickname}
                 </span>
               </button>
             </li>

@@ -30,3 +30,19 @@ export interface ResponseTeamSummary {
 export interface ResponseQuitTeam {
   success: boolean;
 }
+
+export interface Member {
+  id: number;
+  userId: number;
+  userEmail: string;
+  userNickname: string;
+  role: "ADMIN" | "MEMBER";
+  joinedAt: string;
+}
+
+export interface ResponseMemberList {
+  success: boolean;
+  code: string;
+  message: string;
+  data: Member[];
+}
