@@ -17,7 +17,7 @@ const Name = ({ children }: NameProps) => {
   return (
     <span
       className={cn(
-        "typography-body-1 font-semibold",
+        "typography-body-1 truncate font-semibold",
         active ? "text-blue-800" : "text-label-neutral",
       )}
     >

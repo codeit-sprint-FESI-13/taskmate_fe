@@ -4,6 +4,7 @@ import type {
   CreateGoalResponse,
   CreatePersonalGoalInput,
   CreateTeamGoalInput,
+  PersonalGoalListResponse,
 } from "./types";
 
 export const goalApi = {
@@ -12,4 +13,7 @@ export const goalApi = {
 
   createTeamGoal: (data: CreateTeamGoalInput) =>
     apiClient.post<CreateGoalResponse>("/goals", data),
+
+  getPersonalGoalList: () =>
+    apiClient.get<PersonalGoalListResponse>("/goals/personal"),
 };

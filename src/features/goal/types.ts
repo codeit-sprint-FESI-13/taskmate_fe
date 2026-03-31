@@ -26,3 +26,13 @@ export interface CreateTeamGoalInput extends CreateGoalInput {
 export interface CreateGoalResponse {
   success: boolean;
 }
+
+export interface PersonalGoalListResponse {
+  success: boolean;
+  code: string;
+  message: string;
+  data: {
+    goalId: number;
+    goalName: string;
+  }[];
+}
