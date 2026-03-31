@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+
 import { Icon } from "@/components/common/Icon";
 
 interface HeaderProps {
@@ -34,19 +36,33 @@ const TeamAddIcon = () => {
   );
 };
 
-// @TODO: Button 공통 컴포넌트 반영후 수정
-const GoalCreateButton = () => {
+interface GoalCreateButtonProps {
+  teamId?: number;
+}
+
+const GoalCreateButton = ({ teamId }: GoalCreateButtonProps) => {
+  const router = useRouter();
+
   return (
     <button
       type="button"
-      className="flex items-center justify-start gap-[10px]"
+      className="flex w-full items-center justify-start gap-2 rounded-2xl border border-gray-200 px-7 py-3 shadow-[0_0_14px_0_rgba(138,138,138,0.08)]"
+      onClick={() => {
+        if (teamId) {
+          router.push(`/taskmate/team/${teamId}/goal/create`);
+        } else {
+          router.push("/taskmate/personal/goal/create");
+        }
+      }}
     >
       <Icon
         name="Plus"
         size={24}
-        className="text-gray-300"
+        className="text-gray-200"
       />
-      새 목표 추가
+      <span className="text-label-1 font-semibold text-gray-500">
+        새 목표 추가
+      </span>
     </button>
   );
 };
