@@ -56,9 +56,10 @@ const Label = ({ children }: LabelProps) => {
 interface WrapperProps {
   children: React.ReactNode;
   value: string;
+  onClick?: () => void;
 }
 
-const Wrapper = ({ children, value }: WrapperProps) => {
+const Wrapper = ({ children, value, onClick }: WrapperProps) => {
   const { currentTab, tabChange } = useContext(NavigationBarContext);
   const active = currentTab === value;
 
@@ -69,7 +70,10 @@ const Wrapper = ({ children, value }: WrapperProps) => {
           "flex cursor-pointer items-center justify-start gap-[14px] rounded-xl p-4",
           active && "bg-blue-100",
         )}
-        onClick={() => tabChange(value)}
+        onClick={() => {
+          tabChange(value);
+          onClick?.();
+        }}
       >
         {children}
       </div>

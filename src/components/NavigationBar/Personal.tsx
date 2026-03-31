@@ -1,4 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import { goalQueries } from "@/features/goal/query/goal.queryKey";
 
@@ -7,6 +8,7 @@ import { Item } from "./parts/Item";
 import { List } from "./parts/List";
 
 export const Personal = () => {
+  const router = useRouter();
   const { data: goalList } = useSuspenseQuery(
     goalQueries.getPersonalGoalList(),
   );
@@ -21,6 +23,9 @@ export const Personal = () => {
         <Item.Wrapper
           key={goal.goalId}
           value={`personal-${goal.goalId}`}
+          onClick={() => {
+            router.push(`/taskmate/personal/goal/${goal.goalId}`);
+          }}
         >
           <Item.Icon name="Paper" />
           <Item.Name>{goal.goalName}</Item.Name>
