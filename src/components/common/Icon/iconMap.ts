@@ -80,6 +80,8 @@ export const iconMap = {
   LogoText,
   Flag,
   GoalFlag,
+  LogoIcon,
+  LogoText,
 } as const;
 
 export type IconName = keyof typeof iconMap;
