@@ -31,12 +31,12 @@ export const Summary = () => {
         {/* @TODO: 메뉴 버튼 > 삭제 기능  */}
         <button
           type="button"
-          className="shrink-0"
+          className="absolute top-[52px] right-8 shrink-0"
         >
           <Icon
             name="Kebab"
             size={24}
-            className="absolute top-[52px] right-8 text-gray-300"
+            className="text-gray-300"
           />
         </button>
       </div>
