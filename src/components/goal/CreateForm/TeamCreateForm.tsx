@@ -8,7 +8,7 @@ import Input from "@/components/common/Input";
 import { Spacing } from "@/components/common/Spacing";
 import TextButton from "@/components/common/TextButton/TextButton";
 import { goalApi } from "@/features/goal/api";
-import { createTeamGoalSchema } from "@/features/goal/types";
+import { createGoalCreateSchema } from "@/features/goal/types";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 
 export const TeamCreateForm = () => {
@@ -20,7 +20,7 @@ export const TeamCreateForm = () => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const parsed = createTeamGoalSchema.safeParse({
+    const parsed = createGoalCreateSchema.safeParse({
       name: String(formData.get("name") ?? ""),
       date: String(formData.get("date") ?? ""),
     });

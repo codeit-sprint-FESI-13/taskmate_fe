@@ -42,7 +42,7 @@ export const Team = () => {
                 })}
 
                 <Spacing size={10} />
-                <List.GoalCreateButton />
+                <List.GoalCreateButton teamId={team.teamId} />
               </TeamComponent.List>
             </TeamComponent.Container>
             {index !== teamList.length - 1 && <Spacing size={10} />}
