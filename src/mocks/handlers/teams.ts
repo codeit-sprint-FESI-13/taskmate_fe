@@ -21,4 +21,24 @@ export const teamsHandlers = [
       success: true,
     });
   }),
+
+  apiMock.get("*/api/teams/:teamId/summary", ({ params }) => {
+    const teamId = Number(params.teamId);
+
+    return HttpResponse.json({
+      success: true,
+      code: "OK",
+      message: "팀 요약 조회 성공",
+      data: {
+        teamId: Number.isNaN(teamId) ? 1 : teamId,
+        teamName: "프론트엔드 1팀",
+        isAdmin: true,
+        todayProgressPercentage: 70,
+        todayTodoCount: 10,
+        overdueTodoCount: 2,
+        doneTodoCount: 8,
+      },
+      timestamp: new Date().toISOString(),
+    });
+  }),
 ];

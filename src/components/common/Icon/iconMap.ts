@@ -14,6 +14,13 @@ import InactiveCheckBox from "./svg/Checkbox/InactiveCheckBox.svg";
 import InactiveFilledCheckBox from "./svg/Checkbox/InactiveFilledCheckBox.svg";
 import EyeOffIcon from "./svg/EyeOffIcon.svg";
 import EyeOnIcon from "./svg/EyeOnIcon.svg";
+import Deadline from "./svg/feature/Deadline.svg";
+import FlagBlue from "./svg/feature/Flag_Blue.svg";
+import FlagGreen from "./svg/feature/Flag_Green.svg";
+import Goal from "./svg/feature/Goal.svg";
+import People from "./svg/feature/People.svg";
+import PipeBlue from "./svg/feature/Pipe_Blue.svg";
+import PipeGreen from "./svg/feature/Pipe_Green.svg";
 import FilledXCircle from "./svg/FilledXCircle.svg";
 import Home from "./svg/Home/Home.svg";
 import Kebab from "./svg/Kebab.svg";
@@ -58,6 +65,13 @@ export const iconMap = {
   Pencil,
   Meatball,
   Plus,
+  Deadline,
+  FlagBlue,
+  FlagGreen,
+  Goal,
+  People,
+  PipeBlue,
+  PipeGreen,
 } as const;
 
 export type IconName = keyof typeof iconMap;
