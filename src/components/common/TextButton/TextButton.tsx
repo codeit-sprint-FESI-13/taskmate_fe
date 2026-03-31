@@ -60,13 +60,13 @@ const TextButton = ({
       {...props}
     >
       {leftIcon && (
-        <span className="flex flex-shrink-0 items-center justify-center">
+        <span className="flex shrink-0 items-center justify-center">
           {leftIcon}
         </span>
       )}
       <span className="leading-none">{children}</span>
       {rightIcon && (
-        <span className="flex flex-shrink-0 items-center justify-center">
+        <span className="flex shrink-0 items-center justify-center">
           {rightIcon}
         </span>
       )}
