@@ -5,30 +5,21 @@ import { Summary } from "@/components/team/Summary";
 
 export default function Page() {
   return (
-    <>
+    <div className="flex flex-col gap-10">
       {/* @TODO: Loading & Error 처리 */}
-      <AsyncBoundary
-        loadingFallback={<div>Loading...</div>}
-        errorFallback={<div>Error</div>}
-      >
+      <AsyncBoundary>
         <Summary />
       </AsyncBoundary>
 
       {/* @TODO: Loading & Error 처리 */}
-      <AsyncBoundary
-        loadingFallback={<div>Loading...</div>}
-        errorFallback={<div>Error</div>}
-      >
+      <AsyncBoundary>
         <GoalList />
       </AsyncBoundary>
 
       {/* @TODO: Loading & Error 처리 */}
-      <AsyncBoundary
-        loadingFallback={<div>Loading...</div>}
-        errorFallback={<div>Error</div>}
-      >
+      <AsyncBoundary>
         <MemberList />
       </AsyncBoundary>
-    </>
+    </div>
   );
 }

@@ -36,3 +36,19 @@ export interface PersonalGoalListResponse {
     goalName: string;
   }[];
 }
+
+export type SortType = "LATEST" | "OLDEST";
+
+export interface TeamGoalListResponse {
+  success: boolean;
+  code: string;
+  message: string;
+  data: {
+    items: {
+      goalId: number;
+      name: string;
+      progressPercent: number;
+      isFavorite: boolean;
+    }[];
+  };
+}

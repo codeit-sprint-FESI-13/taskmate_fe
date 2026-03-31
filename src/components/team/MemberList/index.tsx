@@ -17,7 +17,7 @@ export const MemberList = () => {
         <div className="flex items-center justify-start gap-3">
           <Icon
             name="People"
-            size={24}
+            size={40}
           />
           <h2 className="typography-body-1 text-label-neutral font-medium">
             멤버

@@ -5,6 +5,8 @@ import type {
   CreatePersonalGoalInput,
   CreateTeamGoalInput,
   PersonalGoalListResponse,
+  SortType,
+  TeamGoalListResponse,
 } from "./types";
 
 export const goalApi = {
@@ -16,4 +18,9 @@ export const goalApi = {
 
   getPersonalGoalList: () =>
     apiClient.get<PersonalGoalListResponse>("/goals/personal"),
+
+  getTeamGoalList: (teamId: string, sort: SortType) =>
+    apiClient.get<TeamGoalListResponse>(`/teams/${teamId}/goals`, {
+      params: { sort },
+    }),
 };
