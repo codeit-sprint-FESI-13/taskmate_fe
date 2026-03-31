@@ -11,30 +11,30 @@ export async function GET(request: Request) {
 
   if (error || !code) {
     return Response.redirect(
-      `${baseUrl}${redirectPath}?error=${error ?? "unknown"}&social=google`,
+      `${baseUrl}${redirectPath}?error=${error ?? "unknown"}&social=kakao`,
     );
   }
 
   if (!process.env.BACKEND_URL) {
     return Response.redirect(
-      `${baseUrl}${redirectPath}?error=oauth_failed&social=google`,
+      `${baseUrl}${redirectPath}?error=oauth_failed&social=kakao`,
     );
   }
 
   try {
     const response = await fetch(
-      `${process.env.BACKEND_URL}/api/auth/google?code=${code}&redirectUri=${baseUrl}/api/auth/callback/google`,
+      `${process.env.BACKEND_URL}/api/auth/kakao?code=${code}&redirectUri=${baseUrl}/api/auth/callback/kakao`,
     );
     if (!response.ok) {
       return Response.redirect(
-        `${baseUrl}${redirectPath}?error=oauth_failed&social=google`,
+        `${baseUrl}${redirectPath}?error=oauth_failed&social=kakao`,
       );
     }
     const data = await response.json();
 
     if (!data?.data?.accessToken || !data?.data?.refreshToken) {
       return Response.redirect(
-        `${baseUrl}${redirectPath}?error=oauth_failed&social=google`,
+        `${baseUrl}${redirectPath}?error=oauth_failed&social=kakao`,
       );
     }
 
@@ -56,7 +56,7 @@ export async function GET(request: Request) {
     return res;
   } catch {
     return Response.redirect(
-      `${baseUrl}${redirectPath}?error=oauth_failed&social=google`,
+      `${baseUrl}${redirectPath}?error=oauth_failed&social=kakao`,
     );
   }
 }
