@@ -7,6 +7,7 @@ import { useOverlay } from "@/hooks/useOverlay";
 
 const TODO_DETAIL_MODAL_ID = "todo-detail-modal";
 
+// @TODO: 데이터 연결 필요
 const TodoDetailModal = ({ onClose }: { onClose: () => void }) => {
   return (
     <Modal.Root onClose={onClose}>
