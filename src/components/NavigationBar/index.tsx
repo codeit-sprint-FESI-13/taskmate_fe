@@ -26,6 +26,8 @@ export const NavigationBar = () => {
       style={{ willChange: "width" }}
     >
       <Header />
+      <Spacing size={20} />
+
       {isOpen && (
         <>
           <List.Container>

@@ -24,6 +24,8 @@ import PipeGreen from "./svg/feature/Pipe_Green.svg";
 import FilledXCircle from "./svg/FilledXCircle.svg";
 import Home from "./svg/Home/Home.svg";
 import Kebab from "./svg/Kebab.svg";
+import LogoIcon from "./svg/Logo/Icon.svg";
+import LogoText from "./svg/Logo/Text.svg";
 import Meatball from "./svg/Meatball.svg";
 import Menu from "./svg/Menu/Menu.svg";
 import Out from "./svg/Out/Line/Out.svg";
@@ -72,6 +74,8 @@ export const iconMap = {
   People,
   PipeBlue,
   PipeGreen,
+  LogoIcon,
+  LogoText,
 } as const;
 
 export type IconName = keyof typeof iconMap;
