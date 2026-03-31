@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+// import { formatMemberList } from "@/utils/formatMemberList";
 import Button from "@/components/common/Button/Button";
 import ProfileCard from "@/components/common/ProfileCard/ProfileCard";
 import { memberListApi } from "@/features/management/api";
@@ -39,6 +40,9 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
       try {
         const res = await memberListApi.read(teamId);
         const list = res.data;
+        // const safeList =
+        // Array.isArray(list) && list.length > 0 ? list : mockMembers;
+        // const formatted = formatMemberList(safeList, currentUserId);
         setMembers(Array.isArray(list) && list.length > 0 ? list : mockMembers);
       } catch (error) {
         console.error(console.log("error"));
