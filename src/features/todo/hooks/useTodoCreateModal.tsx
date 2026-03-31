@@ -1,60 +1,44 @@
 "use client";
 
-import { useState } from "react";
-
 import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input";
 import { Modal } from "@/components/common/Modal";
 import { Spacing } from "@/components/common/Spacing";
-import {
-  type AssigneeMember,
-  AssigneeSelect,
-} from "@/components/todo/AssigneeSelect";
+import { AssigneeSelect } from "@/components/todo/AssigneeSelect";
+import { useGoalId } from "@/features/goal/hooks/useGoalId";
+import { Member } from "@/features/team/types";
 import { useOverlay } from "@/hooks/useOverlay";
+
+import { useCreateTodoForm } from "./useCreateTodoForm";
 
 const TODO_CREATE_MODAL_ID = "todo-create-modal";
 
-const MOCK_TEAM_MEMBERS: AssigneeMember[] = [
-  {
-    id: "1",
-    name: "두잉두딩",
-    imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=doing",
-  },
-  {
-    id: "2",
-    name: "김프론",
-    imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=kim",
-  },
-  {
-    id: "3",
-    name: "이백엔드",
-    imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=lee",
-  },
-  {
-    id: "4",
-    name: "박풀스택",
-    imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=park",
-  },
-  {
-    id: "5",
-    name: "이백엔드",
-    imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=lee",
-  },
-  {
-    id: "6",
-    name: "박풀스택",
-    imageUrl: "https://api.dicebear.com/7.x/avataaars/svg?seed=park",
-  },
-];
-
-// @TODO: 데이터 연결 필요
+// @TODO: 할일 생성 실패 시, 처리 빠짐
+// @TODO: 목표 이름 가져워서 전달하기
 const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
-  const [assigneeIds, setAssigneeIds] = useState<string[]>([]);
+  const goalId = useGoalId();
+  // const { data: memberList } = useSuspenseQuery(teamQueries.memberList(goalId));
+  const memberList: Member[] = [];
+
+  const {
+    assigneeIds,
+    setAssigneeIds,
+    startDate,
+    handleStartDateChange,
+    handleSubmit,
+    isPending,
+  } = useCreateTodoForm({
+    goalId,
+    onSuccess: onClose,
+  });
 
   return (
     <Modal.Root onClose={onClose}>
       <Modal.Backdrop />
-      <form className="relative z-10 flex w-full max-w-[488px] flex-col items-start rounded-2xl bg-white p-8 shadow-xl">
+      <form
+        onSubmit={handleSubmit}
+        className="relative z-10 flex max-h-[90vh] w-full max-w-[488px] flex-col items-start overflow-y-scroll rounded-2xl bg-white p-8 shadow-xl"
+      >
         <div className="flex w-fit items-center justify-start gap-[6px]">
           <h2 className="typography-heading-2 font-semibold">
             자바스크립트 기초 챕터1 듣기
@@ -109,6 +93,8 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
                 name="startDate"
                 className="w-full"
                 placeholder="시작 날짜를 선택해주세요"
+                value={startDate}
+                onChange={handleStartDateChange}
                 required
               />
             </div>
@@ -125,6 +111,7 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
                 name="endDate"
                 className="w-full"
                 placeholder="마감 날짜를 선택해주세요"
+                min={startDate}
                 required
               />
             </div>
@@ -136,7 +123,7 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
             </label>
             <div className="w-full">
               <AssigneeSelect
-                members={MOCK_TEAM_MEMBERS}
+                members={memberList}
                 value={assigneeIds}
                 onChange={setAssigneeIds}
                 placeholder="담당자를 선택해주세요"
@@ -150,7 +137,7 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
             </label>
             <div className="w-full">
               <textarea
-                name="description"
+                name="memo"
                 className="h-[120px] w-full resize-none rounded-xl border border-gray-300 p-3"
                 placeholder="80자 이내로 입력해주세요"
                 maxLength={80}
@@ -175,8 +162,10 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
             color="gray"
             size="xxl"
             className="w-full"
+            type="submit"
+            isDisabled={isPending}
           >
-            목표 생성
+            할일 생성
           </Button>
         </div>
       </form>
