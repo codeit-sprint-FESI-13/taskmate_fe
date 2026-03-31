@@ -7,6 +7,7 @@ import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
 import useSignupForm from "@/features/auth/signup/hooks/useSignupForm";
 
+// TODO : 이메일 중복 체크 디자인 수정 예정
 const SignupForm = () => {
   const {
     values,
@@ -18,6 +19,8 @@ const SignupForm = () => {
     handleSubmit,
     handleChange,
     handleBlur,
+    handleEmailDuplicate,
+    isEmailChecked,
   } = useSignupForm();
   return (
     <>
@@ -43,12 +46,22 @@ const SignupForm = () => {
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <label
-            htmlFor="email"
-            className="typography-label-1 font-semibold"
-          >
-            이메일
-          </label>
+          <div className="flex justify-between">
+            <label
+              htmlFor="email"
+              className="typography-label-1 font-semibold"
+            >
+              이메일
+            </label>
+            <button
+              type="button"
+              className="text-xs"
+              onClick={handleEmailDuplicate}
+            >
+              이메일중복체크
+            </button>
+          </div>
+
           <Input
             id="email"
             name="email"
@@ -57,6 +70,9 @@ const SignupForm = () => {
             onChange={handleChange}
             errorMessage={errors.email}
             onBlur={handleBlur}
+            supportingText={
+              isEmailChecked ? "사용가능한 이메일입니다." : undefined
+            }
           />
         </div>
         <div className="flex flex-col gap-1.5">
