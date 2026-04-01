@@ -3,5 +3,5 @@ import { postsHandlers } from "./posts";
 import { teamsHandlers } from "./teams";
 import { todosHandlers } from "./todos";
 
-export const handlers = [...postsHandlers, ...teamsHandlers, ...todosHandlers, ...authHandlers]];
+export const handlers = [...postsHandlers, ...teamsHandlers, ...todosHandlers, ...authHandlers];
 
