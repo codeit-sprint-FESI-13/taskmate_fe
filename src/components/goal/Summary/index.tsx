@@ -7,7 +7,6 @@ import { Icon } from "@/components/common/Icon";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { goalQueries } from "@/features/goal/query/goal.queryKey";
 
-// @TODO: 목표 정보 가져오기 (목표 이름 / 목표 기간 / 남은 날짜 / 진행률 )
 // @TODO: 사용자 정보(이름) 가져오기
 export const Summary = () => {
   const goalId = useGoalId();
