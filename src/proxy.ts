@@ -10,6 +10,10 @@ export function proxy(request: NextRequest) {
   const refreshToken = request.cookies.get("refreshToken")?.value;
 
   const isAuthenticated = Boolean(accessToken || refreshToken);
+  // 루트 경로는 항상 login으로
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
   // 토큰 있는데 랜더링/로그인/회원가입
   if (isAuthenticated && PUBLIC_PATHS.includes(pathname)) {
