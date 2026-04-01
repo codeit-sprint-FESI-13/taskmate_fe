@@ -9,7 +9,7 @@ import { teamDetailApi } from "@/features/management/api";
 
 const TeamNameEditor = () => {
   const [value, setValue] = useState("");
-  const [teamNamePlaceholder, setTeamNamePlaceholder] = useState("팀명");
+  const [teamNameDefaultValue, setTeamNameDefaultValue] = useState("팀명");
   const params = useParams();
 
   // teamId로 팀명 가져오기
@@ -20,10 +20,10 @@ const TeamNameEditor = () => {
     teamDetailApi
       .read(teamId)
       .then((res) => {
-        if (res?.data?.name) setTeamNamePlaceholder(res.data.name);
+        if (res?.data?.name) setTeamNameDefaultValue(res.data.name);
       })
       .catch(() => {
-        setTeamNamePlaceholder("팀명");
+        setTeamNameDefaultValue("팀명");
       });
   }, [params.teamId]);
 
@@ -37,7 +37,7 @@ const TeamNameEditor = () => {
 
     try {
       await teamDetailApi.create(teamId, nextName);
-      setTeamNamePlaceholder(nextName);
+      setTeamNameDefaultValue(nextName);
       setValue("");
     } catch (error) {
       console.log("팀명 수정 실패", error);
@@ -52,7 +52,7 @@ const TeamNameEditor = () => {
         onSubmit={handleSubmit}
       >
         <Input
-          placeholder={teamNamePlaceholder}
+          placeholder={teamNameDefaultValue}
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
