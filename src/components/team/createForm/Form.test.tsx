@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import { teamApi } from "@/features/team/api";
@@ -18,6 +19,18 @@ jest.mock("next/navigation", () => ({
   }),
 }));
 
+const renderWithQueryClient = (ui: React.ReactElement) => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+    },
+  });
+
+  return render(
+    <QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>,
+  );
+};
+
 describe("TeamCreateForm", () => {
   beforeEach(() => {
     backMock.mockClear();
@@ -27,7 +40,7 @@ describe("TeamCreateForm", () => {
   test("팀 생성 요청은 제대로 전달되는지 확인", async () => {
     (teamApi.create as jest.Mock).mockResolvedValue({ success: true });
 
-    render(<Form />);
+    renderWithQueryClient(<Form />);
 
     const input = screen.getByPlaceholderText("팀 이름을 입력해주세요");
     fireEvent.change(input, { target: { value: "새로운 팀" } });
@@ -47,7 +60,7 @@ describe("TeamCreateForm", () => {
       message: "이미 존재하는 팀 이름입니다.",
     });
 
-    render(<Form />);
+    renderWithQueryClient(<Form />);
 
     const input = screen.getByPlaceholderText("팀 이름을 입력해주세요");
     fireEvent.change(input, { target: { value: "중복팀" } });
