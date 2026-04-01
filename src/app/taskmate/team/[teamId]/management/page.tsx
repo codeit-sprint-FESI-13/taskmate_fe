@@ -17,8 +17,6 @@ const TeamManagement = () => {
   const teamId = params.teamId;
 
   const handleOpenInvite = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
     open(
       "invite-modal",
       <InviteModal
@@ -31,8 +29,6 @@ const TeamManagement = () => {
   };
 
   const handleOpenDelete = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
     open(
       "delete-modal",
       <DeleteModal
