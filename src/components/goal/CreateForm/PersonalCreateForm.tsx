@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -12,9 +13,10 @@ import { createGoalCreateSchema } from "@/features/goal/types";
 
 export const PersonalCreateForm = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [goalNameError, setGoalNameError] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -28,11 +30,12 @@ export const PersonalCreateForm = () => {
       return;
     }
 
-    goalApi.createPersonalGoal({
+    await goalApi.createPersonalGoal({
       name: formData.get("name") as string,
       dueDate: formData.get("date") as string,
       type: "PERSONAL",
     });
+    await queryClient.invalidateQueries({ queryKey: ["personal", "goals"] });
 
     router.back();
   };

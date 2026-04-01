@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -11,6 +12,7 @@ import type { ApiError } from "@/lib/api/types";
 
 export default function Form() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,6 +24,7 @@ export default function Form() {
       const response = await teamApi.create(name);
 
       if (response.success) {
+        await queryClient.invalidateQueries({ queryKey: ["teams", "all"] });
         router.back();
       }
     } catch (error) {
