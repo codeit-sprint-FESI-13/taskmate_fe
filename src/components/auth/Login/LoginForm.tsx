@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useActionState } from "react";
+import React, { Suspense, useActionState } from "react";
 
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
@@ -12,9 +12,18 @@ import useLoginForm from "@/features/auth/login/hooks/useLoginForm";
 const LoginForm = () => {
   const { values, showPassword, togglePassword, handleChange } = useLoginForm();
   const [state, formAction] = useActionState(loginAction, null);
-  useOAuthError("login");
+
+  // useSearchParams() 사용으로 인한 CSR Suspense 추가
+  const OAuthErrorHandler = () => {
+    useOAuthError("signup");
+    return null;
+  };
+
   return (
     <>
+      <Suspense fallback={null}>
+        <OAuthErrorHandler />
+      </Suspense>
       <form
         className="tablet:gap-4 flex flex-col gap-2.5"
         action={formAction}

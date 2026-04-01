@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
@@ -23,9 +23,18 @@ const SignupForm = () => {
     handleEmailDuplicate,
     isEmailChecked,
   } = useSignupForm();
-  useOAuthError("signup");
+
+  // useSearchParams() 사용으로 인한 CSR Suspense 추가
+  const OAuthErrorHandler = () => {
+    useOAuthError("signup");
+    return null;
+  };
+
   return (
     <>
+      <Suspense fallback={null}>
+        <OAuthErrorHandler />
+      </Suspense>
       <form
         className="tablet:gap-4 flex w-full flex-col gap-3.5"
         onSubmit={handleSubmit}
