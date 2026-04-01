@@ -17,4 +17,7 @@ export const todoApi = {
   patch: (goalId: string, todoId: string, todoData: UpdateTodoInput) => {
     apiClient.patch(`/goals/${goalId}/todos/${todoId}`, { todoData });
   },
+
+  delete: (goalId: string, todoId: string) =>
+    apiClient.delete<{ success: boolean }>(`/goals/${goalId}/todos/${todoId}`),
 };

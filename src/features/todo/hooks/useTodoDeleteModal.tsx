@@ -2,7 +2,10 @@
 
 import Button from "@/components/common/Button/Button";
 import { Modal } from "@/components/common/Modal";
+import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useOverlay } from "@/hooks/useOverlay";
+
+import { todoApi } from "../api";
 
 const TODO_DELETE_MODAL_ID = "todo-delete-confirm-modal";
 
@@ -41,16 +44,17 @@ const TodoDeleteModal = ({
   );
 };
 
-export const useTodoDeleteModal = () => {
+export const useTodoDeleteModal = ({ todoId }: { todoId: string }) => {
   const overlay = useOverlay();
+  const goalId = useGoalId();
 
   const closeTodoDeleteModal = () => {
     overlay.close();
   };
 
   const openTodoDeleteModal = () => {
-    const handleConfirm = () => {
-      // @TODO: DELETE todo API 연동
+    const handleConfirm = async () => {
+      await todoApi.delete(goalId, todoId);
       closeTodoDeleteModal();
     };
 

@@ -15,7 +15,9 @@ interface ItemProps {
 }
 
 export const Item = ({ todo }: ItemProps) => {
-  const { openTodoDeleteModal } = useTodoDeleteModal();
+  const { openTodoDeleteModal } = useTodoDeleteModal({
+    todoId: todo.id.toString(),
+  });
   const { openTodoDetailModal } = useTodoDetailModal({ todo });
 
   return (
