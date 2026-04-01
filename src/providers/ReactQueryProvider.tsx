@@ -18,7 +18,7 @@ function makeQueryClient() {
         throwOnError: true, // 에러를 ErrorBoundary로 던짐
       },
       mutations: {
-        throwOnError: true, // mutation 에러도 ErrorBoundary로 던짐
+        throwOnError: false, // mutation 에러도 ErrorBoundary로 던지지않음
       },
     },
   });

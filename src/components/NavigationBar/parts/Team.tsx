@@ -51,7 +51,13 @@ function Container({ value, children }: ContainerProps) {
   );
 }
 
-function Title({ children }: { children: ReactNode }) {
+function Title({
+  children,
+  onClick,
+}: {
+  children: ReactNode;
+  onClick?: () => void;
+}) {
   const { currentTab, tabChange } = useContext(NavigationBarContext);
   const { id, isOpen, listOpen, setListOpen } =
     useContext(TeamSectionIdContext);
@@ -59,6 +65,8 @@ function Title({ children }: { children: ReactNode }) {
   const isTitleSelectedValue = isTitleSelected(currentTab, id);
 
   const handleClick = () => {
+    onClick?.();
+
     if (isChildActive(currentTab, id)) {
       setListOpen(false);
       tabChange(id);

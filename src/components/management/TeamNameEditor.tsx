@@ -1,23 +1,35 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input/Input";
 import { teamDetailApi } from "@/features/management/api";
+import { useTeamId } from "@/features/team/hooks/useTeamId";
 
 const TeamNameEditor = () => {
   const [value, setValue] = useState("");
   const [teamNameDefaultValue, setTeamNameDefaultValue] = useState("팀명");
-  const params = useParams();
+  const teamId = Number(useTeamId());
+
+  // teamId로 팀명 가져오기
+  useEffect(() => {
+    if (Number.isNaN(teamId)) return;
+
+    teamDetailApi
+      .read(teamId)
+      .then((res) => {
+        if (res?.data?.name) setTeamNameDefaultValue(res.data.name);
+      })
+      .catch(() => {
+        setTeamNameDefaultValue("팀명");
+      });
+  }, [teamId]);
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const teamId = Number(params.teamId);
     const nextName = value.trim();
-
     if (Number.isNaN(teamId) || !nextName) return;
 
     try {
@@ -28,20 +40,6 @@ const TeamNameEditor = () => {
       console.log("팀명 수정 실패", error);
     }
   };
-
-  useEffect(() => {
-    const teamId = Number(params.teamId);
-    if (!teamId || Number.isNaN(teamId)) return;
-
-    teamDetailApi
-      .read(teamId)
-      .then((res) => {
-        if (res?.data?.name) setTeamNameDefaultValue(res.data.name);
-      })
-      .catch(() => {
-        setTeamNameDefaultValue("팀명");
-      });
-  }, [params.teamId]);
 
   return (
     <section className="bg-background-normal flex h-46.5 w-full flex-col gap-2 rounded-4xl px-6 pt-6 pb-5">

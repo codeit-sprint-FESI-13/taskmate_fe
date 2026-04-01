@@ -17,22 +17,18 @@ const TeamManagement = () => {
   const teamId = params.teamId;
 
   const handleOpenInvite = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
     open(
       "invite-modal",
       <InviteModal
         onClose={() => close()}
         onSubmitInvite={async (email: string) => {
-          await inviteApi.create(teamId, email);
+          await inviteApi.create(teamId, email); // string 전달
         }}
       />,
     );
   };
 
   const handleOpenDelete = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
     open(
       "delete-modal",
       <DeleteModal

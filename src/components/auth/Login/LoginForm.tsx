@@ -1,26 +1,32 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense, useActionState } from "react";
 
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
+import { useOAuthError } from "@/features/auth/hooks/useOAuthError";
+import { loginAction } from "@/features/auth/login/actions/loginAction";
 import useLoginForm from "@/features/auth/login/hooks/useLoginForm";
 
+// useSearchParams() 사용으로 인한 CSR Suspense 추가
+const OAuthErrorHandler = () => {
+  useOAuthError("login");
+  return null;
+};
+
 const LoginForm = () => {
-  const {
-    values,
-    errors,
-    showPassword,
-    togglePassword,
-    handleChange,
-    handleSubmit,
-  } = useLoginForm();
+  const { values, showPassword, togglePassword, handleChange } = useLoginForm();
+  const [state, formAction] = useActionState(loginAction, null);
+
   return (
     <>
+      <Suspense fallback={null}>
+        <OAuthErrorHandler />
+      </Suspense>
       <form
         className="tablet:gap-4 flex flex-col gap-2.5"
-        onSubmit={handleSubmit}
+        action={formAction}
       >
         <Input
           type="text"
@@ -28,7 +34,7 @@ const LoginForm = () => {
           placeholder="이메일을 입력해주세요"
           value={values.email}
           onChange={handleChange}
-          errorMessage={errors.email}
+          errorMessage={state?.errors?.email}
         />
         <Input
           name="password"
@@ -36,7 +42,7 @@ const LoginForm = () => {
           placeholder="비밀번호를 입력해주세요"
           value={values.password}
           onChange={handleChange}
-          errorMessage={errors.password}
+          errorMessage={state?.errors?.password}
           rightIcon={
             <button
               type="button"

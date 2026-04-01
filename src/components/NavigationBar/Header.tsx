@@ -5,7 +5,6 @@ import { cn } from "@/utils/utils";
 import { Icon } from "../common/Icon";
 import { NavigationBarContext } from "./provider";
 
-// @TODO: Logo 추가 후 수정
 export const Header = () => {
   const { isOpen, open, close } = useContext(NavigationBarContext);
 
@@ -26,9 +25,20 @@ export const Header = () => {
         onClick={isOpen ? close : open}
       />
 
-      <h1 className="typography-body-2 flex h-[40px] items-center py-[10px] font-bold">
-        LOGO
-      </h1>
+      <div className="flex w-full items-center justify-start gap-[6px] pl-2">
+        <Icon
+          name="LogoIcon"
+          size={40}
+        />
+
+        {isOpen && (
+          <Icon
+            name="LogoText"
+            size={121}
+            className="h-[25px]"
+          />
+        )}
+      </div>
     </header>
   );
 };

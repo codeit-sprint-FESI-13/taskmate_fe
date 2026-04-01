@@ -19,3 +19,11 @@ export interface ApiError {
   message: string;
   data?: unknown;
 }
+
+export type ApiResponse<T> = {
+  success: boolean;
+  code: string;
+  message: string;
+  data: T;
+  timestamp: string;
+};
