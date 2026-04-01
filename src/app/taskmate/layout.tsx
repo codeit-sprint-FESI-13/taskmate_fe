@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import UserInitializer from "@/components/auth/UserInitializer";
 import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { NavigationBar } from "@/components/NavigationBar";
