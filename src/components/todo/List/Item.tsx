@@ -10,6 +10,7 @@ import { teamQueries } from "@/features/team/query/team.queryKey";
 import { useTodoDeleteModal } from "@/features/todo/hooks/useTodoDeleteModal";
 import { useTodoDetailModal } from "@/features/todo/hooks/useTodoDetailModal";
 import { Todo } from "@/features/todo/types";
+import { formatDDay } from "@/features/todo/utils/formatDDay";
 
 import { TodoItem } from "../TodoItem";
 import { TodoAssigneeAvatars } from "./TodoAssigneeAvatars";
@@ -45,8 +46,7 @@ export const Item = ({ todo }: ItemProps) => {
       <div className="flex min-w-0 flex-1 items-center justify-start gap-2">
         <TodoStatusSelect todo={todo} />
         <TodoItem.Name>{todo.title}</TodoItem.Name>
-        {/* @TODO: DDay  */}
-        <TodoItem.Day color="gray">D-5</TodoItem.Day>
+        <TodoItem.Day color="gray">{formatDDay(todo.dueDate)}</TodoItem.Day>
       </div>
       <div className="flex items-center justify-end gap-3">
         <TodoAssigneeAvatars assignees={todo.assignees} />
