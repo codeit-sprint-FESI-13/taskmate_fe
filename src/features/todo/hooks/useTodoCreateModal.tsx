@@ -1,11 +1,16 @@
 "use client";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
+
 import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input";
 import { Modal } from "@/components/common/Modal";
 import { Spacing } from "@/components/common/Spacing";
 import { AssigneeSelect } from "@/components/todo/AssigneeSelect";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
+import { goalQueries } from "@/features/goal/query/goal.queryKey";
+import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { teamQueries } from "@/features/team/query/team.queryKey";
 import { Member } from "@/features/team/types";
 import { useOverlay } from "@/hooks/useOverlay";
 
@@ -14,10 +19,18 @@ import { useCreateTodoForm } from "./useCreateTodoForm";
 const TODO_CREATE_MODAL_ID = "todo-create-modal";
 
 // @TODO: 할일 생성 실패 시, 처리 빠짐
-// @TODO: 목표 이름 가져워서 전달하기
-const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
+// @TODO: 멤버 리스트 가져와서 처리하기 ( 효진님 작업 이후 )
+const TodoCreateModal = ({
+  onClose,
+  goalName,
+  teamName,
+}: {
+  onClose: () => void;
+  goalName: string;
+  teamName: string;
+}) => {
   const goalId = useGoalId();
-  // const { data: memberList } = useSuspenseQuery(teamQueries.memberList(goalId));
+
   const memberList: Member[] = [];
 
   const {
@@ -40,11 +53,9 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
         className="relative z-10 flex max-h-[90vh] w-full max-w-[488px] flex-col items-start overflow-y-scroll rounded-2xl bg-white p-8 shadow-xl"
       >
         <div className="flex w-fit items-center justify-start gap-[6px]">
-          <h2 className="typography-heading-2 font-semibold">
-            자바스크립트 기초 챕터1 듣기
-          </h2>
+          <h2 className="typography-heading-2 font-semibold">{goalName}</h2>
           <span className="typography-label-2 rounded-lg bg-gray-100 px-[10px] py-1 font-semibold text-gray-400">
-            프론트엔드 1팀
+            {teamName}
           </span>
         </div>
 
@@ -61,7 +72,7 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
                 type="text"
                 name="goal"
                 className="w-full"
-                value="자바스크립트로 웹서비스 만들기"
+                value={goalName}
                 disabled
               />
             </div>
@@ -84,7 +95,7 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
 
           <div className="flex w-full flex-col items-start gap-1">
             <label className="typography-body-2 text-label-neutral font-semibold">
-              시작 날짜{" "}
+              시작 날짜
               <span className="typography-body-2 text-red-normal">*</span>
             </label>
             <div className="w-full">
@@ -102,7 +113,7 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
 
           <div className="flex w-full flex-col items-start gap-1">
             <label className="typography-body-2 text-label-neutral font-semibold">
-              마감 날짜{" "}
+              마감 날짜
               <span className="typography-body-2 text-red-normal">*</span>
             </label>
             <div className="w-full">
@@ -176,6 +187,15 @@ const TodoCreateModal = ({ onClose }: { onClose: () => void }) => {
 export const useTodoCreateModal = () => {
   const overlay = useOverlay();
 
+  const goalId = useGoalId();
+  const {
+    data: { goalName },
+  } = useSuspenseQuery(goalQueries.getSummary(goalId));
+  const teamId = useTeamId();
+  const {
+    data: { teamName },
+  } = useSuspenseQuery(teamQueries.summary(teamId));
+
   const closeTodoCreateModal = () => {
     overlay.close();
   };
@@ -183,7 +203,11 @@ export const useTodoCreateModal = () => {
   const openTodoCreateModal = () => {
     overlay.open(
       TODO_CREATE_MODAL_ID,
-      <TodoCreateModal onClose={closeTodoCreateModal} />,
+      <TodoCreateModal
+        onClose={closeTodoCreateModal}
+        goalName={goalName}
+        teamName={teamName}
+      />,
     );
   };
 

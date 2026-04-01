@@ -1,12 +1,6 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
-
 import { Icon } from "@/components/common/Icon";
-import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { goalQueries } from "@/features/goal/query/goal.queryKey";
-import { useTeamId } from "@/features/team/hooks/useTeamId";
-import { teamQueries } from "@/features/team/query/team.queryKey";
 import { useTodoDeleteModal } from "@/features/todo/hooks/useTodoDeleteModal";
 import { useTodoDetailModal } from "@/features/todo/hooks/useTodoDetailModal";
 import { Todo } from "@/features/todo/types";
@@ -21,22 +15,8 @@ interface ItemProps {
 }
 
 export const Item = ({ todo }: ItemProps) => {
-  const goalId = useGoalId();
-  const teamId = useTeamId();
-  const {
-    data: { goalName },
-  } = useSuspenseQuery(goalQueries.getSummary(goalId));
-
-  const {
-    data: { teamName },
-  } = useSuspenseQuery(teamQueries.summary(teamId));
-
   const { openTodoDeleteModal } = useTodoDeleteModal();
-  const { openTodoDetailModal } = useTodoDetailModal({
-    todo,
-    goalName,
-    teamName,
-  });
+  const { openTodoDetailModal } = useTodoDetailModal({ todo });
 
   return (
     <li

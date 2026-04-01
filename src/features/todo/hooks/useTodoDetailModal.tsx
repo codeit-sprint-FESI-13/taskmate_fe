@@ -1,11 +1,16 @@
 "use client";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
 
 import defaultAvatar from "@/assets/images/avatar.png";
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import { Modal } from "@/components/common/Modal";
+import { useGoalId } from "@/features/goal/hooks/useGoalId";
+import { goalQueries } from "@/features/goal/query/goal.queryKey";
+import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { teamQueries } from "@/features/team/query/team.queryKey";
 import { useOverlay } from "@/hooks/useOverlay";
 
 import { Todo } from "../types";
@@ -124,16 +129,17 @@ const TodoDetailModal = ({
   );
 };
 
-export const useTodoDetailModal = ({
-  todo,
-  goalName,
-  teamName,
-}: {
-  todo: Todo;
-  goalName: string;
-  teamName: string;
-}) => {
+export const useTodoDetailModal = ({ todo }: { todo: Todo }) => {
   const overlay = useOverlay();
+
+  const goalId = useGoalId();
+  const {
+    data: { goalName },
+  } = useSuspenseQuery(goalQueries.getSummary(goalId));
+  const teamId = useTeamId();
+  const {
+    data: { teamName },
+  } = useSuspenseQuery(teamQueries.summary(teamId));
 
   const closeTodoDetailModal = () => {
     overlay.close();
