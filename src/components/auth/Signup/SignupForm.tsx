@@ -8,6 +8,12 @@ import Input from "@/components/common/Input";
 import { useOAuthError } from "@/features/auth/hooks/useOAuthError";
 import useSignupForm from "@/features/auth/signup/hooks/useSignupForm";
 
+// useSearchParams() 사용으로 인한 CSR Suspense 추가
+const OAuthErrorHandler = () => {
+  useOAuthError("signup");
+  return null;
+};
+
 // TODO : 이메일 중복 체크 디자인 수정 예정
 const SignupForm = () => {
   const {
@@ -23,12 +29,6 @@ const SignupForm = () => {
     handleEmailDuplicate,
     isEmailChecked,
   } = useSignupForm();
-
-  // useSearchParams() 사용으로 인한 CSR Suspense 추가
-  const OAuthErrorHandler = () => {
-    useOAuthError("signup");
-    return null;
-  };
 
   return (
     <>

@@ -9,15 +9,15 @@ import { useOAuthError } from "@/features/auth/hooks/useOAuthError";
 import { loginAction } from "@/features/auth/login/actions/loginAction";
 import useLoginForm from "@/features/auth/login/hooks/useLoginForm";
 
+// useSearchParams() 사용으로 인한 CSR Suspense 추가
+const OAuthErrorHandler = () => {
+  useOAuthError("login");
+  return null;
+};
+
 const LoginForm = () => {
   const { values, showPassword, togglePassword, handleChange } = useLoginForm();
   const [state, formAction] = useActionState(loginAction, null);
-
-  // useSearchParams() 사용으로 인한 CSR Suspense 추가
-  const OAuthErrorHandler = () => {
-    useOAuthError("signup");
-    return null;
-  };
 
   return (
     <>
