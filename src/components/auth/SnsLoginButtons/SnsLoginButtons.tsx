@@ -23,10 +23,10 @@ const SnsLoginButtons = ({
           social="google"
           from={type}
         />
-        {/* <SocialButton
+        <SocialButton
           social="kakao"
           from={type}
-        /> */}
+        />
       </div>
     </div>
   );
