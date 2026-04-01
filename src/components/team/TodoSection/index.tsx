@@ -73,7 +73,6 @@ export const TodoSection = () => {
       </div>
 
       <div className="grid min-h-[480px] w-full grid-cols-2 grid-rows-[1fr_1fr] gap-[32px]">
-        {/* @TODO: 이후 각 상태에 대한 Todo List Data req/res 처리 에 따라 추상화 방법 및 처리 필요 */}
         <section className="row-span-2 h-[728px] w-full">
           <TodoList.List
             {...todoSectionOption}
