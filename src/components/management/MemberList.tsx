@@ -13,18 +13,6 @@ interface MemberListProps {
   onInviteClick: () => void;
 }
 
-const mockMembers: MemberData[] = [
-  {
-    id: 1,
-    userId: 101,
-    profileImageUrl: "",
-    userEmail: "leader@taskmate.com",
-    userNickname: "나 팀장!",
-    role: "ADMIN",
-    joinedAt: "2026-03-31T09:00:00.000Z",
-  },
-];
-
 const MemberList = ({ onInviteClick }: MemberListProps) => {
   const [members, setMembers] = useState<MemberData[]>([]);
   const params = useParams<{ teamId: string }>();
@@ -32,21 +20,12 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
 
   useEffect(() => {
     const loadMemberList = async (): Promise<void> => {
-      if (Number.isNaN(teamId)) {
-        setMembers(mockMembers);
-        return;
-      }
-
       try {
         const res = await memberListApi.read(teamId);
         const list = res.data;
-        // const safeList =
-        // Array.isArray(list) && list.length > 0 ? list : mockMembers;
-        // const formatted = formatMemberList(safeList, currentUserId);
-        setMembers(Array.isArray(list) && list.length > 0 ? list : mockMembers);
+        setMembers(Array.isArray(list) && list.length > 0 ? list : []);
       } catch (error) {
-        console.error(console.log("error"));
-        setMembers(mockMembers);
+        console.error(console.log("member list error"));
       }
     };
 
