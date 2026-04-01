@@ -49,7 +49,7 @@ const TeamNameEditor = () => {
         onSubmit={handleSubmit}
       >
         <Input
-          placeholder={teamNameDefaultValue}
+          defaultValue={teamNameDefaultValue}
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
