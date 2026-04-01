@@ -52,7 +52,7 @@ export const PersonalCreateForm = () => {
 
           <div className="w-full">
             <Input
-              name="goalName"
+              name="name"
               required
               type="text"
               placeholder="목표 이름을 입력해주세요"
