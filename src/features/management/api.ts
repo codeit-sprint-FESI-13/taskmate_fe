@@ -11,7 +11,7 @@ export const teamDetailApi = {
   read: (teamId: number) =>
     apiClient.get<TeamResponseSuccess>(`/api/teams/${teamId}`, {}),
   create: (teamId: number, name: string) =>
-    apiClient.patch<TeamNameResponseSuccess>(`/api/teams/${teamId}`, {
+    apiClient.patch<TeamResponseSuccess>(`/api/teams/${teamId}`, {
       name,
     }),
   delete: (teamId: number) =>
