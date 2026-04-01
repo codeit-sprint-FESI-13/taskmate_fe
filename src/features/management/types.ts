@@ -6,7 +6,7 @@ export interface TeamDetailData {
   updatedAt: string;
 }
 
-export interface TeamNameResponseSuccess {
+export interface TeamResponseSuccess {
   success: true;
   code: string; // "SUCCESS"
   message: string; // "팀 상세 정보 조회에 성공했습니다."
