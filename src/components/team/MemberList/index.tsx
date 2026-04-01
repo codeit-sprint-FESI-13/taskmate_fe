@@ -5,8 +5,8 @@ import TextButton from "@/components/common/TextButton/TextButton";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { useTeamLeaveModal } from "@/features/team/hooks/useTeamLeaveModal";
 
-// @TODO: GET memberList API 및 useSuspenseInfiniteQuery 적용
-// @TODO: 목표 목록 조회 시 무한 스크롤 처리
+// @TODO: GET memberList API 적용 ( 효진님 작업 이후 반영 => 중복 작업 )
+// @TODO: 목표 목록 조회 시 무한 스크롤 처리 (useSuspenseInfiniteQuery)
 export const MemberList = () => {
   const teamId = useTeamId();
   const { openLeaveTeamModal } = useTeamLeaveModal(teamId);
@@ -17,7 +17,7 @@ export const MemberList = () => {
         <div className="flex items-center justify-start gap-3">
           <Icon
             name="People"
-            size={24}
+            size={40}
           />
           <h2 className="typography-body-1 text-label-neutral font-medium">
             멤버

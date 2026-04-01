@@ -1,5 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 
+import { goalApi } from "@/features/goal/api";
 import { cn } from "@/utils/utils";
 
 import { ProgressBar } from "../common/ProgressBar";
@@ -8,11 +9,13 @@ import { StarToggleButton } from "../common/StarToggleButton";
 type SecondaryColor = "blue" | "green";
 
 interface MainSecondaryProgressCardProps {
+  goalId: number;
   title: string;
   progress: number;
   color?: SecondaryColor;
   className?: string;
   iconSrc?: StaticImageData | string;
+  isFavorite: boolean;
 }
 
 const THEME = {
@@ -25,9 +28,16 @@ export const MainSecondaryProgressCard = ({
   progress,
   color = "green",
   className,
+  isFavorite,
   iconSrc,
+  goalId,
 }: MainSecondaryProgressCardProps) => {
   const theme = THEME[color];
+
+  // @TODO: 낙관적 업데이트 추가 필요 ( 중간 이후 )
+  const handleToggleFavorite = async () => {
+    await goalApi.toggleFavorite(goalId);
+  };
 
   return (
     <section
@@ -47,7 +57,10 @@ export const MainSecondaryProgressCard = ({
             className="size-6 shrink-0 object-contain"
           />
         ) : (
-          <StarToggleButton />
+          <StarToggleButton
+            onToggle={handleToggleFavorite}
+            initialState={isFavorite}
+          />
         )}
       </div>
 
