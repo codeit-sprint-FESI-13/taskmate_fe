@@ -1,21 +1,20 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input/Input";
 import { teamDetailApi } from "@/features/management/api";
+import { useTeamId } from "@/features/team/hooks/useTeamId";
 
 const TeamNameEditor = () => {
   const [value, setValue] = useState("");
   const [teamNameDefaultValue, setTeamNameDefaultValue] = useState("팀명");
-  const params = useParams();
+  const teamId = Number(useTeamId());
 
   // teamId로 팀명 가져오기
   useEffect(() => {
-    const teamId = Number(params.teamId);
-    if (!teamId || Number.isNaN(teamId)) return;
+    if (Number.isNaN(teamId)) return;
 
     teamDetailApi
       .read(teamId)
@@ -25,14 +24,12 @@ const TeamNameEditor = () => {
       .catch(() => {
         setTeamNameDefaultValue("팀명");
       });
-  }, [params.teamId]);
+  }, [teamId]);
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const teamId = Number(params.teamId);
     const nextName = value.trim();
-
     if (Number.isNaN(teamId) || !nextName) return;
 
     try {
