@@ -1,12 +1,18 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
 import { useOAuthError } from "@/features/auth/hooks/useOAuthError";
 import useSignupForm from "@/features/auth/signup/hooks/useSignupForm";
+
+// useSearchParams() 사용으로 인한 CSR Suspense 추가
+const OAuthErrorHandler = () => {
+  useOAuthError("signup");
+  return null;
+};
 
 // TODO : 이메일 중복 체크 디자인 수정 예정
 const SignupForm = () => {
@@ -23,9 +29,12 @@ const SignupForm = () => {
     handleEmailDuplicate,
     isEmailChecked,
   } = useSignupForm();
-  useOAuthError("signup");
+
   return (
     <>
+      <Suspense fallback={null}>
+        <OAuthErrorHandler />
+      </Suspense>
       <form
         className="tablet:gap-4 flex w-full flex-col gap-3.5"
         onSubmit={handleSubmit}
