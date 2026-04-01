@@ -35,18 +35,3 @@ export type CheckEmailResponse = {
   data: { exists: boolean };
   timestamp: string;
 };
-
-export type SignupResponse = {
-  success: boolean;
-  code: string;
-  message: string;
-  data: {
-    id: number;
-    email: string;
-    nickname: string;
-    profileImageUrl: string | null;
-    provider: string;
-    createdAt: string;
-  };
-  timestamp: string;
-};

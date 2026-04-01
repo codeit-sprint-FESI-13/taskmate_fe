@@ -1,9 +1,10 @@
 import {
   CheckEmailResponse,
   SignupFormData,
-  SignupResponse,
 } from "@/features/auth/signup/types/signup.type";
 import { apiClient } from "@/lib/api/client";
+
+import { UserProfile } from "../../types/auth.type";
 
 type SignupRequest = Omit<SignupFormData, "passwordConfirm">;
 
@@ -14,5 +15,5 @@ export async function checkEmailDuplicate(email: string) {
 }
 
 export async function signupMutationFn(data: SignupRequest) {
-  return apiClient.post<SignupResponse>(`/api/users`, data);
+  return apiClient.post<UserProfile>(`/api/users`, data);
 }
