@@ -10,7 +10,6 @@ export function proxy(request: NextRequest) {
   const refreshToken = request.cookies.get("refreshToken")?.value;
 
   const isAuthenticated = Boolean(accessToken || refreshToken);
-  console.log("isAuthenticated : ", isAuthenticated);
 
   // 토큰 있는데 랜더링/로그인/회원가입
   if (isAuthenticated && PUBLIC_PATHS.includes(pathname)) {
@@ -26,5 +25,7 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|mockServiceWorker).*)",
+  ],
 };
