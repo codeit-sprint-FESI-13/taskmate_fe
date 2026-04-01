@@ -4,6 +4,7 @@ import type {
   CreateTodoInput,
   ResponseCreateTodo,
   TodoListResponse,
+  UpdateTodoInput,
 } from "./types.ts";
 
 export const todoApi = {
@@ -12,4 +13,8 @@ export const todoApi = {
 
   getList: (goalId: string) =>
     apiClient.get<TodoListResponse>(`/goals/${goalId}/todos`),
+
+  patch: (goalId: string, todoId: string, todoData: UpdateTodoInput) => {
+    apiClient.patch(`/goals/${goalId}/todos/${todoId}`, { todoData });
+  },
 };

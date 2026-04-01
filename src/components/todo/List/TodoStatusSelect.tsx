@@ -4,7 +4,8 @@ import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 
 import { Icon } from "@/components/common/Icon";
-import type { TodoStatus } from "@/features/todo/types";
+import { todoApi } from "@/features/todo/api";
+import type { Todo, TodoStatus } from "@/features/todo/types";
 import { useDropdown } from "@/hooks/useDropdown";
 
 const todoStatusBadgeVariants = cva(
@@ -45,24 +46,28 @@ const STATUS_OPTIONS = [
 ] as const satisfies readonly TodoStatus[];
 
 interface TodoStatusSelectProps {
-  initialStatus: TodoStatus;
-  onChange?: (status: TodoStatus) => void;
+  todo: Todo;
 }
 
-export const TodoStatusSelect = ({
-  initialStatus,
-  onChange,
-}: TodoStatusSelectProps) => {
+export const TodoStatusSelect = ({ todo }: TodoStatusSelectProps) => {
   const { isOpen, selected, toggle, selectItem, containerRef } = useDropdown(
     [...STATUS_OPTIONS],
-    initialStatus,
+    todo.status,
   );
 
-  const currentStatus = (selected || initialStatus) as TodoStatus;
+  const currentStatus = (selected || todo.status) as TodoStatus;
 
   const handleSelect = (value: string) => {
     selectItem(value);
-    onChange?.(value as TodoStatus);
+
+    todoApi.patch(todo.goalId.toString(), todo.id.toString(), {
+      title: todo.title,
+      startDate: todo.startDate,
+      dueDate: todo.dueDate,
+      status: selected as TodoStatus,
+      memo: todo.memo,
+      assigneeIds: todo.assignees.map((assignee) => assignee.userId),
+    });
   };
 
   return (

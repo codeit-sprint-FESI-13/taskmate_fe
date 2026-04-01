@@ -23,12 +23,7 @@ export const Item = ({ todo }: ItemProps) => {
       onClick={openTodoDetailModal}
     >
       <div className="flex min-w-0 flex-1 items-center justify-start gap-2">
-        <TodoStatusSelect
-          initialStatus={todo.status}
-          onChange={() => {
-            // @TODO: PATCH todo status API 연동
-          }}
-        />
+        <TodoStatusSelect todo={todo} />
         <TodoItem.Name>{todo.title}</TodoItem.Name>
         <TodoItem.Day color="gray">D-5</TodoItem.Day>
       </div>

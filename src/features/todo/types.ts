@@ -8,6 +8,15 @@ export type CreateTodoInput = {
   memo: string;
 };
 
+export type UpdateTodoInput = {
+  title: string;
+  startDate: string;
+  dueDate: string;
+  status: TodoStatus;
+  memo: string;
+  assigneeIds: number[];
+};
+
 export type ResponseCreateTodo = {
   success: boolean;
   code: string;
