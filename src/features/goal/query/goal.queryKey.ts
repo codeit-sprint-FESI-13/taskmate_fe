@@ -25,4 +25,14 @@ export const goalQueries = {
       },
       staleTime: STALE_TIME.DEFAULT,
     }),
+
+  getSummary: (goalId: string) =>
+    queryOptions({
+      queryKey: ["goal", goalId, "summary"],
+      queryFn: async () => {
+        const response = await goalApi.getSummary(goalId);
+        return response.data;
+      },
+      staleTime: STALE_TIME.DEFAULT,
+    }),
 };

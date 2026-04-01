@@ -1,45 +1,45 @@
+"use client";
+
 import { Icon } from "@/components/common/Icon";
 import { useTodoDeleteModal } from "@/features/todo/hooks/useTodoDeleteModal";
 import { useTodoDetailModal } from "@/features/todo/hooks/useTodoDetailModal";
+import { Todo } from "@/features/todo/types";
+import { formatDDay } from "@/features/todo/utils/formatDDay";
 
 import { TodoItem } from "../TodoItem";
+import { TodoAssigneeAvatars } from "./TodoAssigneeAvatars";
+import { TodoStatusSelect } from "./TodoStatusSelect";
 
-export const Item = () => {
-  const { openTodoDeleteModal } = useTodoDeleteModal();
-  const { openTodoDetailModal } = useTodoDetailModal();
+interface ItemProps {
+  todo: Todo;
+}
+
+export const Item = ({ todo }: ItemProps) => {
+  const { openTodoDeleteModal } = useTodoDeleteModal({
+    todoId: todo.id.toString(),
+  });
+  const { openTodoDetailModal } = useTodoDetailModal({ todo });
 
   return (
     <li
       className="flex w-full items-center justify-between px-3 py-[10px]"
       onClick={openTodoDetailModal}
     >
-      <div className="flex items-center justify-start gap-2">
-        {/* @TODO: 드롭다운 UI 추가 필요 */}
-        <TodoItem.Name>Name 컴포넌트 테스트</TodoItem.Name>
-        <TodoItem.Day color="gray">D-5</TodoItem.Day>
+      <div className="flex min-w-0 flex-1 items-center justify-start gap-2">
+        <TodoStatusSelect todo={todo} />
+        <TodoItem.Name>{todo.title}</TodoItem.Name>
+        <TodoItem.Day color="gray">{formatDDay(todo.dueDate)}</TodoItem.Day>
       </div>
-      <div>
-        {/* @TODO: User Profile Image List 이후 이미지 받아서 처리 */}
-        {/* <div className="flex items-center">
-              {Array.from({ length: 5 }, (_, i) => (
-                <span
-                  key={i}
-                  className="relative -ml-[14px] shrink-0 first:ml-0"
-                  style={{ zIndex: i + 1 }}
-                >
-                  <Icon
-                    name="FlagBlue"
-                    size={32}
-                    className="text-gray-300"
-                  />
-                </span>
-              ))}
-            </div> */}
+      <div className="flex items-center justify-end gap-3">
+        <TodoAssigneeAvatars assignees={todo.assignees} />
 
         <button
           type="button"
           className="shrink-0 cursor-pointer"
-          onClick={openTodoDeleteModal}
+          onClick={(e) => {
+            e.stopPropagation();
+            openTodoDeleteModal();
+          }}
         >
           <Icon
             name="Trash"

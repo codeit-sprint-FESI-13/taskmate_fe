@@ -52,3 +52,16 @@ export interface TeamGoalListResponse {
     }[];
   };
 }
+
+export interface GoalSummaryResponse {
+  success: boolean;
+  code: string;
+  message: string;
+  data: {
+    goalId: number;
+    goalName: string;
+    dueDate: string;
+    dDay: number;
+    progressPercent: number;
+  };
+}

@@ -3,6 +3,24 @@ import { HttpResponse } from "msw";
 import { apiMock } from "@/mocks/apiMock";
 
 export const goalsHandlers = [
+  apiMock.get("*/api/goals/:goalId/summary", ({ params }) => {
+    const goalId = Number(params.goalId);
+    const resolvedGoalId = Number.isNaN(goalId) ? 1 : goalId;
+
+    return HttpResponse.json({
+      success: true,
+      code: "OK",
+      message: "목표 요약 조회 성공",
+      data: {
+        goalId: resolvedGoalId,
+        goalName: "디자인 시스템 완성",
+        dueDate: "2026-12-31",
+        dDay: 42,
+        progressPercent: 68,
+      },
+    });
+  }),
+
   apiMock.get("*/api/teams/:teamId/goals", ({ params, request }) => {
     const teamId = Number(params.teamId);
     const sort = new URL(request.url).searchParams.get("sort");

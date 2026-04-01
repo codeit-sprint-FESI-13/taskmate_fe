@@ -1,24 +1,43 @@
 "use client";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
+import Image from "next/image";
+
+import defaultAvatar from "@/assets/images/avatar.png";
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import { Modal } from "@/components/common/Modal";
+import { useGoalId } from "@/features/goal/hooks/useGoalId";
+import { goalQueries } from "@/features/goal/query/goal.queryKey";
+import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { teamQueries } from "@/features/team/query/team.queryKey";
 import { useOverlay } from "@/hooks/useOverlay";
+
+import { Todo } from "../types";
 
 const TODO_DETAIL_MODAL_ID = "todo-detail-modal";
 
-// @TODO: 데이터 연결 필요
-const TodoDetailModal = ({ onClose }: { onClose: () => void }) => {
+interface TodoDetailModalProps {
+  onClose: () => void;
+  todo: Todo;
+  goalName: string;
+  teamName: string;
+}
+
+const TodoDetailModal = ({
+  onClose,
+  todo,
+  goalName,
+  teamName,
+}: TodoDetailModalProps) => {
   return (
     <Modal.Root onClose={onClose}>
       <Modal.Backdrop />
       <div className="relative z-10 flex w-full max-w-[488px] flex-col items-start gap-8 rounded-2xl bg-white p-8 shadow-xl">
         <div className="flex w-fit items-center justify-start gap-[6px]">
-          <h2 className="typography-heading-2 font-semibold">
-            자바스크립트 기초 챕터1 듣기
-          </h2>
+          <h2 className="typography-heading-2 font-semibold">{todo.title}</h2>
           <span className="typography-label-2 rounded-lg bg-gray-100 px-[10px] py-1 font-semibold text-gray-400">
-            프론트엔드 1팀
+            {teamName}
           </span>
         </div>
 
@@ -34,7 +53,7 @@ const TodoDetailModal = ({ onClose }: { onClose: () => void }) => {
             </span>
           </div>
           <span className="typography-label-1 text-label-neutral font-medium">
-            자바스크립트로 웹서비스 만들기
+            {goalName}
           </span>
 
           <div className="flex items-center justify-start gap-[6px]">
@@ -48,7 +67,7 @@ const TodoDetailModal = ({ onClose }: { onClose: () => void }) => {
             </span>
           </div>
           <span className="typography-label-1 text-label-neutral font-medium">
-            2026. 03. 30
+            {todo.startDate}
           </span>
 
           <div className="flex items-center justify-start gap-[6px]">
@@ -62,25 +81,27 @@ const TodoDetailModal = ({ onClose }: { onClose: () => void }) => {
             </span>
           </div>
           <span className="typography-label-1 text-label-neutral font-medium">
-            2026. 03. 30
+            {todo.dueDate}
           </span>
         </div>
 
         <div className="flex w-full flex-col items-start gap-[5px]">
           <h3 className="typography-body-2 font-semibold">담당자</h3>
           <div className="flex max-h-[120px] w-full flex-wrap items-start justify-start gap-4 overflow-y-scroll rounded-2xl border border-gray-300 px-4 py-3">
-            {Array.from({ length: 6 }).map((_, index) => (
+            {todo.assignees.map((assignee) => (
               <div
-                key={index}
+                key={assignee.userId}
                 className="flex shrink-0 items-center gap-1"
               >
-                <Icon
-                  name="User"
-                  size={32}
-                  className="text-gray-400"
+                <Image
+                  src={defaultAvatar.src}
+                  alt="Avatar Image"
+                  width={32}
+                  height={32}
+                  className="shrink-0 rounded-full object-cover"
                 />
                 <span className="typography-label-1 shrink-0 font-semibold">
-                  두잉두딩
+                  {assignee.nickname}
                 </span>
               </div>
             ))}
@@ -91,7 +112,7 @@ const TodoDetailModal = ({ onClose }: { onClose: () => void }) => {
           <h3 className="typography-body-2 font-semibold">메모</h3>
           <div className="flex max-h-[120px] w-full flex-wrap items-start justify-start gap-4 overflow-y-scroll rounded-2xl border border-gray-300 px-4 py-3">
             <span className="typography-body-2 text-label-normal">
-              자바스크립트 기초 챕터1 듣기
+              {todo.memo}
             </span>
           </div>
         </div>
@@ -108,8 +129,17 @@ const TodoDetailModal = ({ onClose }: { onClose: () => void }) => {
   );
 };
 
-export const useTodoDetailModal = () => {
+export const useTodoDetailModal = ({ todo }: { todo: Todo }) => {
   const overlay = useOverlay();
+
+  const goalId = useGoalId();
+  const {
+    data: { goalName },
+  } = useSuspenseQuery(goalQueries.getSummary(goalId));
+  const teamId = useTeamId();
+  const {
+    data: { teamName },
+  } = useSuspenseQuery(teamQueries.summary(teamId));
 
   const closeTodoDetailModal = () => {
     overlay.close();
@@ -118,7 +148,12 @@ export const useTodoDetailModal = () => {
   const openTodoDetailModal = () => {
     overlay.open(
       TODO_DETAIL_MODAL_ID,
-      <TodoDetailModal onClose={closeTodoDetailModal} />,
+      <TodoDetailModal
+        onClose={closeTodoDetailModal}
+        todo={todo}
+        goalName={goalName}
+        teamName={teamName}
+      />,
     );
   };
 

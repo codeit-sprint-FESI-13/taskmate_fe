@@ -4,6 +4,7 @@ import type {
   CreateGoalResponse,
   CreatePersonalGoalInput,
   CreateTeamGoalInput,
+  GoalSummaryResponse,
   PersonalGoalListResponse,
   SortType,
   TeamGoalListResponse,
@@ -26,4 +27,7 @@ export const goalApi = {
 
   toggleFavorite: (goalId: number) =>
     apiClient.post<{ success: boolean }>(`/goals/${goalId}/favorite`),
+
+  getSummary: (goalId: string) =>
+    apiClient.get<GoalSummaryResponse>(`/goals/${goalId}/summary`),
 };

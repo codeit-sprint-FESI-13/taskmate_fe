@@ -5,7 +5,7 @@ import { TodoSection } from "@/components/team/TodoSection";
 export default function Page() {
   return (
     <>
-      {/* @TODO: 사용자 정보(닉네임) 데이터와 연결하기 */}
+      {/* @TODO: 사용자 정보(닉네임) 데이터와 연결하기 ( 재인님 설정 )*/}
       <div className="flex flex-col items-start gap-[6px] px-2">
         <h1 className="typography-title-2 text-gray-400">두잉두잉님</h1>
         <span className="typography-title-2 text-label-neutral">

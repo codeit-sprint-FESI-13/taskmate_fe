@@ -23,6 +23,7 @@ const ListComponent = ({
   children,
   height,
 }: ListProps) => {
+  // @TODO: 정렬 옵션 백엔드 추가 필요
   const sortOptions = ["최신순", "마감일 순"];
   const [selectedSort, setSelectedSort] = useState("최신순");
 
