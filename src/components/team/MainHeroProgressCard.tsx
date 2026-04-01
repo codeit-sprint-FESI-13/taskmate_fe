@@ -1,7 +1,9 @@
 import Image, { StaticImageData } from "next/image";
+import { useRouter } from "next/navigation";
 
 import FireIcon from "@/assets/images/fire.png";
 import SettingIcon from "@/assets/images/setting.png";
+import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { cn } from "@/utils/utils";
 
 import { ProgressBar } from "../common/ProgressBar";
@@ -162,6 +164,9 @@ export const MainHeroProgressCard = ({
   statusLabel = "거의 다 왔어요",
   statusIconSrc = FireIcon,
 }: MainHeroProgressCardProps) => {
+  const router = useRouter();
+  const teamId = useTeamId();
+
   return (
     <section
       className={cn(
@@ -172,14 +177,15 @@ export const MainHeroProgressCard = ({
     >
       <div className="mb-10 flex items-center gap-2">
         <h2 className="typography-title-2 font-bold text-white">{title}</h2>
-        {/* 임시 세팅 버튼 */}
+
         <button>
           <Image
             src={SettingIcon}
+            onClick={() => router.push(`/taskmate/team/${teamId}/management`)}
             alt="설정"
             width={32}
             height={32}
-            className="size-8"
+            className="size-8 cursor-pointer"
           />
         </button>
       </div>
