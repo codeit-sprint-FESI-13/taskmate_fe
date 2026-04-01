@@ -4,6 +4,7 @@ import type {
   ResponseCreateTeam,
   ResponseMemberList,
   ResponseQuitTeam,
+  ResponseTeamList,
   ResponseTeamSummary,
 } from "./types";
 
@@ -20,4 +21,6 @@ export const teamApi = {
 
   quitTeam: (teamId: string) =>
     apiClient.delete<ResponseQuitTeam>(`/teams/${teamId}/leave`),
+
+  getAll: () => apiClient.get<ResponseTeamList>(`/teams/me`),
 };

@@ -31,6 +31,20 @@ export interface ResponseQuitTeam {
   success: boolean;
 }
 
+export interface ResponseTeamList {
+  success: boolean;
+  code: string;
+  message: string;
+  data: {
+    teamId: number;
+    teamName: string;
+    goals: {
+      goalId: number;
+      goalName: string;
+    }[];
+  }[];
+}
+
 export interface Member {
   id: number;
   userId: number;
@@ -45,4 +59,18 @@ export interface ResponseMemberList {
   code: string;
   message: string;
   data: Member[];
+}
+
+export interface ResponseTeamList {
+  success: boolean;
+  code: string;
+  message: string;
+  data: {
+    teamId: number;
+    teamName: string;
+    goals: {
+      goalId: number;
+      goalName: string;
+    }[];
+  }[];
 }

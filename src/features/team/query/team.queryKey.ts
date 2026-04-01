@@ -5,6 +5,16 @@ import { STALE_TIME } from "@/constants/staleTime";
 import { teamApi } from "../api";
 
 export const teamQueries = {
+  all: () =>
+    queryOptions({
+      queryKey: ["teams", "all"],
+      queryFn: async () => {
+        const response = await teamApi.getAll();
+        return response.data;
+      },
+      staleTime: STALE_TIME.DEFAULT,
+    }),
+
   summary: (teamId: string) =>
     queryOptions({
       queryKey: ["team", teamId, "summary"],

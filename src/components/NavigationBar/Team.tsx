@@ -1,9 +1,20 @@
+"use client";
+
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+
+import { teamQueries } from "@/features/team/query/team.queryKey";
+
 import { Spacing } from "../common/Spacing";
 import { Item } from "./parts/Item";
 import { List } from "./parts/List";
 import { Team as TeamComponent } from "./parts/Team";
 
+// @TODO: 추후 id 오름차순 정렬 필요 (중간점검 이후 BE로)
 export const Team = () => {
+  const router = useRouter();
+  const { data: teamList } = useSuspenseQuery(teamQueries.all());
+
   return (
     <List.Container>
       <List.Header>
@@ -12,53 +23,46 @@ export const Team = () => {
       </List.Header>
       <Spacing size={10} />
 
-      <TeamComponent.Container value="team-1">
-        <TeamComponent.Title>팀 1</TeamComponent.Title>
-        <TeamComponent.List>
-          <Item.Wrapper value="team-1-1">
-            <Item.Icon name="Paper" />
-            <Item.Name>공부</Item.Name>
-            <Item.Label>5</Item.Label>
-          </Item.Wrapper>
-          <Item.Wrapper value="team-1-2">
-            <Item.Icon name="Paper" />
-            <Item.Name>운동</Item.Name>
-            <Item.Label>5</Item.Label>
-          </Item.Wrapper>
-          <Item.Wrapper value="team-1-3">
-            <Item.Icon name="Paper" />
-            <Item.Name>개인 일정</Item.Name>
-          </Item.Wrapper>
+      {teamList.map((team, index) => {
+        return (
+          <>
+            <TeamComponent.Container
+              key={team.teamId}
+              value={`team-${team.teamId}`}
+            >
+              <TeamComponent.Title
+                onClick={() => {
+                  router.push(`/taskmate/team/${team.teamId}`);
+                }}
+              >
+                {team.teamName}
+              </TeamComponent.Title>
+              <TeamComponent.List>
+                {team.goals.map((goal) => {
+                  return (
+                    <Item.Wrapper
+                      key={goal.goalId}
+                      value={`team-${team.teamId}-${goal.goalId}`}
+                      onClick={() => {
+                        router.push(
+                          `/taskmate/team/${team.teamId}/goal/${goal.goalId}`,
+                        );
+                      }}
+                    >
+                      <Item.Icon name="Paper" />
+                      <Item.Name>{goal.goalName}</Item.Name>
+                    </Item.Wrapper>
+                  );
+                })}
 
-          <Spacing size={10} />
-          <List.GoalCreateButton />
-        </TeamComponent.List>
-      </TeamComponent.Container>
-
-      <Spacing size={10} />
-
-      <TeamComponent.Container value="team-2">
-        <TeamComponent.Title>팀 2</TeamComponent.Title>
-        <TeamComponent.List>
-          <Item.Wrapper value="team-2-1">
-            <Item.Icon name="Paper" />
-            <Item.Name>공부</Item.Name>
-            <Item.Label>5</Item.Label>
-          </Item.Wrapper>
-          <Item.Wrapper value="team-2-2">
-            <Item.Icon name="Paper" />
-            <Item.Name>운동</Item.Name>
-            <Item.Label>5</Item.Label>
-          </Item.Wrapper>
-          <Item.Wrapper value="team-2-3">
-            <Item.Icon name="Paper" />
-            <Item.Name>개인 일정</Item.Name>
-          </Item.Wrapper>
-
-          <Spacing size={10} />
-          <List.GoalCreateButton />
-        </TeamComponent.List>
-      </TeamComponent.Container>
+                <Spacing size={10} />
+                <List.GoalCreateButton teamId={team.teamId} />
+              </TeamComponent.List>
+            </TeamComponent.Container>
+            {index !== teamList.length - 1 && <Spacing size={10} />}
+          </>
+        );
+      })}
     </List.Container>
   );
 };
