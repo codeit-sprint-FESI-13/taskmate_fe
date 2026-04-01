@@ -1,6 +1,6 @@
 import { apiClient } from "@/lib/api/client";
 
-import type { TeamNameResponseSuccess } from "./types";
+import type { TeamResponseSuccess } from "./types";
 import type { InviteResponseSuccess } from "./types";
 import type { MemberListResponseSuccess } from "./types";
 import type { TeamDeleteResponseSuccess } from "./types";
@@ -9,9 +9,9 @@ import type { TeamDeleteResponseSuccess } from "./types";
 // get / patch / delete
 export const teamDetailApi = {
   read: (teamId: number) =>
-    apiClient.get<TeamNameResponseSuccess>(`/api/teams/${teamId}`, {}),
+    apiClient.get<TeamResponseSuccess>(`/api/teams/${teamId}`, {}),
   create: (teamId: number, name: string) =>
-    apiClient.patch<TeamNameResponseSuccess>(`/api/teams/${teamId}`, {
+    apiClient.patch<TeamResponseSuccess>(`/api/teams/${teamId}`, {
       name,
     }),
   delete: (teamId: number) =>
