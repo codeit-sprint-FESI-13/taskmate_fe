@@ -11,16 +11,16 @@ import type {
 export const teamApi = {
   // 팀 생성 요청
   create: (name: string) =>
-    apiClient.post<ResponseCreateTeam>(`/teams`, { name }),
+    apiClient.post<ResponseCreateTeam>(`/api/teams`, { name }),
 
   getSummary: (teamId: string) =>
-    apiClient.get<ResponseTeamSummary>(`/teams/${teamId}/summary`),
+    apiClient.get<ResponseTeamSummary>(`/api/teams/${teamId}/summary`),
 
   getMemberList: (teamId: string) =>
-    apiClient.get<ResponseMemberList>(`/teams/${teamId}/members`),
+    apiClient.get<ResponseMemberList>(`/api/teams/${teamId}/members`),
 
   quitTeam: (teamId: string) =>
-    apiClient.delete<ResponseQuitTeam>(`/teams/${teamId}/leave`),
+    apiClient.delete<ResponseQuitTeam>(`/api/teams/${teamId}/leave`),
 
-  getAll: () => apiClient.get<ResponseTeamList>(`/teams/me`),
+  getAll: () => apiClient.get<ResponseTeamList>(`/api/teams/me`),
 };

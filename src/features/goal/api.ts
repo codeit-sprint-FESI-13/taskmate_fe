@@ -12,22 +12,22 @@ import type {
 
 export const goalApi = {
   createPersonalGoal: (data: CreatePersonalGoalInput) =>
-    apiClient.post<CreateGoalResponse>("/goals", data),
+    apiClient.post<CreateGoalResponse>("/api/goals", data),
 
   createTeamGoal: (data: CreateTeamGoalInput) =>
-    apiClient.post<CreateGoalResponse>("/goals", data),
+    apiClient.post<CreateGoalResponse>("/api/goals", data),
 
   getPersonalGoalList: () =>
-    apiClient.get<PersonalGoalListResponse>("/goals/personal"),
+    apiClient.get<PersonalGoalListResponse>("/api/goals/personal"),
 
   getTeamGoalList: (teamId: string, sort: SortType) =>
-    apiClient.get<TeamGoalListResponse>(`/teams/${teamId}/goals`, {
+    apiClient.get<TeamGoalListResponse>(`/api/teams/${teamId}/goals`, {
       params: { sort },
     }),
 
   toggleFavorite: (goalId: number) =>
-    apiClient.post<{ success: boolean }>(`/goals/${goalId}/favorite`),
+    apiClient.post<{ success: boolean }>(`/api/goals/${goalId}/favorite`),
 
   getSummary: (goalId: string) =>
-    apiClient.get<GoalSummaryResponse>(`/goals/${goalId}/summary`),
+    apiClient.get<GoalSummaryResponse>(`/api/goals/${goalId}/summary`),
 };
