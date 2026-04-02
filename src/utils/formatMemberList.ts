@@ -1,4 +1,3 @@
-// src/utils/formatMemberList.ts
 type HasIds = {
   id: number;
   userId: number;

@@ -57,6 +57,23 @@ export interface MemberListResponseSuccess {
   timestamp: string;
 }
 
+// 팀 멤버
+
+export type MemberRole = "ADMIN" | "MEMBER";
+
+export interface MemberRoleUpdateRequest {
+  role: MemberRole;
+}
+
+// 팀 멤버 권한 변경 성공 케이스
+export interface MemberRoleUpdateSuccessResponse {
+  success: true;
+  code: "SUCCESS";
+  message: string;
+  data: MemberData;
+  timestamp: string;
+}
+
 // 팀 멤버 초대 성공 케이스
 export interface InviteResponseSuccess {
   success: true;

@@ -3,6 +3,7 @@ import { apiClient } from "@/lib/api/client";
 import type { TeamResponseSuccess } from "./types";
 import type { InviteResponseSuccess } from "./types";
 import type { MemberListResponseSuccess } from "./types";
+import type { MemberRole, MemberRoleUpdateSuccessResponse } from "./types";
 import type { TeamDeleteResponseSuccess } from "./types";
 
 // 팀 상세 정보 요청
@@ -24,6 +25,15 @@ export const memberListApi = {
     apiClient.get<MemberListResponseSuccess>(
       `/api/teams/${teamId}/members`,
       {},
+    ),
+};
+
+// 멤버 권한 변경
+export const memberRoleApi = {
+  update: (teamId: number, memberId: number, role: MemberRole) =>
+    apiClient.patch<MemberRoleUpdateSuccessResponse>(
+      `/api/teams/${teamId}/members/${memberId}/role`,
+      { role },
     ),
 };
 

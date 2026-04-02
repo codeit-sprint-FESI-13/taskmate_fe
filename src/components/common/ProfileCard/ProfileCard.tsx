@@ -5,6 +5,8 @@ import defaultAvatar from "@/assets/images/avatar.png";
 import Button from "@/components/common/Button/Button";
 import Crown from "@/components/common/Icons/Crown";
 import RightArrow from "@/components/common/Icons/RightArrow";
+import { memberRoleApi } from "@/features/management/api";
+import { MemberRole } from "@/features/management/types";
 import Dropdown from "@/hooks/useDropdown/Dropdown";
 // 내부 코드
 import { cn } from "@/utils/utils";
@@ -27,6 +29,8 @@ const profileCardVariants = cva(
 );
 
 type ProfileCardProps = {
+  id: number;
+  teamId: number;
   avatar: string;
   isAdmin?: boolean;
   nickName: string;
@@ -43,6 +47,8 @@ type ProfileCardProps = {
 };
 
 const ProfileCard = ({
+  id,
+  teamId,
   avatar,
   isAdmin = false,
   nickName,
@@ -53,6 +59,28 @@ const ProfileCard = ({
   const avatarSrc = avatar?.trim() ? avatar : defaultAvatar.src;
   const isGnb = variant === "gnb" || variant === "gnb-sm";
   const selectedRole = isAdmin ? "어드민" : "팀원";
+
+  // 여기서 함수를 만들어야 하나??
+  // TODO: useMutations로 변경 필요
+  // value: "어드민" : "팀원";
+  const updateRole = async (value: typeof selectedRole) => {
+    // 역할 변경하는 API 주소
+    // 에러 처리 & mutation 변경
+    // "어드민" -> "ADMIN"
+    // "팀원" -> "MEMBER"
+    let role: MemberRole = "MEMBER";
+
+    // TODO: 추후 로직 더 좋게 수정해도 됨
+    if (value === "어드민") {
+      role = "ADMIN";
+    } else if (value === "팀원") {
+      role = "MEMBER";
+    } else {
+      return;
+    }
+
+    await memberRoleApi.update(teamId, id, role);
+  };
 
   return (
     <div
@@ -119,8 +147,9 @@ const ProfileCard = ({
           {/* 권한 선택 */}
           <div className="flex items-center self-center">
             <Dropdown
-              options={["어드민", "팀원"]}
-              selected="어드민"
+              options={["어드민", "팀원"]} // T: "어드민" 혹은 "팀원"
+              selected={selectedRole}
+              onSelect={updateRole}
             />
           </div>
 

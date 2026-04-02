@@ -55,6 +55,8 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
         {members.map((member) => (
           <ProfileCard
             key={member.id}
+            id={member.id}
+            teamId={teamId}
             avatar={member.profileImageUrl ?? ""}
             nickName={member.userNickname}
             email={member.userEmail}
