@@ -4,6 +4,7 @@ import { managementHandler } from "./management";
 import { postsHandlers } from "./posts";
 import { teamsHandlers } from "./teams";
 import { todosHandlers } from "./todos";
+import { invitationHandlers } from './invitations'
 
 export const handlers = [
   ...postsHandlers,
