@@ -4,7 +4,7 @@ import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 
 import { Icon } from "@/components/common/Icon";
-import { todoApi } from "@/features/todo/api";
+import { usePatchTodoStatusMutation } from "@/features/todo/hooks/mutation/usePatchTodoStatusMutation";
 import type { Todo, TodoStatus } from "@/features/todo/types";
 import { useDropdown } from "@/hooks/useDropdown";
 
@@ -55,18 +55,27 @@ export const TodoStatusSelect = ({ todo }: TodoStatusSelectProps) => {
     todo.status,
   );
 
+  const { mutate: patchTodoStatus, isPending } = usePatchTodoStatusMutation();
+
   const currentStatus = (selected || todo.status) as TodoStatus;
 
   const handleSelect = (value: string) => {
+    if (isPending) return;
+
+    const nextStatus = value as TodoStatus;
     selectItem(value);
 
-    todoApi.patch(todo.goalId.toString(), todo.id.toString(), {
-      title: todo.title,
-      startDate: todo.startDate,
-      dueDate: todo.dueDate,
-      status: selected as TodoStatus,
-      memo: todo.memo,
-      assigneeIds: todo.assignees.map((assignee) => assignee.userId),
+    patchTodoStatus({
+      goalId: todo.goalId.toString(),
+      todoId: todo.id.toString(),
+      todoData: {
+        title: todo.title,
+        startDate: todo.startDate,
+        dueDate: todo.dueDate,
+        status: nextStatus,
+        memo: todo.memo,
+        assigneeIds: todo.assignees.map((assignee) => assignee.userId),
+      },
     });
   };
 
@@ -92,6 +101,7 @@ export const TodoStatusSelect = ({ todo }: TodoStatusSelectProps) => {
                 type="button"
                 className="w-full px-3 py-2"
                 onClick={() => handleSelect(option)}
+                disabled={isPending}
               >
                 <TodoStatusBadge status={option} />
               </button>

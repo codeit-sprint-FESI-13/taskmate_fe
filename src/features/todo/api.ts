@@ -15,7 +15,7 @@ export const todoApi = {
     apiClient.get<TodoListResponse>(`/api/goals/${goalId}/todos`),
 
   patch: (goalId: string, todoId: string, todoData: UpdateTodoInput) => {
-    apiClient.patch(`/api/goals/${goalId}/todos/${todoId}`, todoData);
+    return apiClient.patch(`/api/goals/${goalId}/todos/${todoId}`, todoData);
   },
 
   delete: (goalId: string, todoId: string) =>
