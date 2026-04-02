@@ -1,10 +1,10 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import z from "zod";
 
 import { loginSchema } from "@/features/auth/login/types/login.type";
+import { setTokenCookiesServerAction } from "@/lib/auth/cookies";
 
 type LoginState = {
   errors?: {
@@ -34,37 +34,33 @@ export async function loginAction(
   }
 
   // TODO: 백엔드 배포 후 테스트 필요
-  const response = await fetch(`${process.env.BACKEND_URL}/api/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(result.data),
-  });
+  try {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(result.data),
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    return {
-      errors: { message: errorData.message },
-    };
+    if (!response.ok) {
+      const errorData = await response.json();
+      if (errorData.code === "USER_LOGIN_PASSWORD_INCORRECT") {
+        return { errors: { password: errorData.message } };
+      } else if (errorData.code === "USER_LOGIN_EMAIL_NOT_REGISTERED") {
+        return { errors: { email: errorData.message } };
+      } else {
+        return {
+          errors: { message: errorData.message },
+        };
+      }
+    }
+
+    const data = await response.json();
+    await setTokenCookiesServerAction(
+      data.data.accessToken,
+      data.data.refreshToken,
+    );
+  } catch {
+    return { errors: { message: "서버와 통신할 수 없습니다." } };
   }
-
-  const data = await response.json();
-  const cookieStore = await cookies();
-
-  cookieStore.set("accessToken", data.data.accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 59,
-  });
-
-  cookieStore.set("refreshToken", data.data.refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 14,
-  });
-
   redirect("/taskmate");
 }
