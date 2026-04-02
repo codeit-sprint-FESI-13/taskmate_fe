@@ -30,7 +30,7 @@ export const useCreateTodoForm = ({
     const formData = new FormData(e.currentTarget);
     const title = String(formData.get("title") ?? "");
     const formStartDate = String(formData.get("startDate") ?? "");
-    const endDate = String(formData.get("endDate") ?? "");
+    const endDate = String(formData.get("dueDate") ?? "");
     const memo = String(formData.get("memo") ?? "");
 
     if (formStartDate && endDate && endDate < formStartDate) {

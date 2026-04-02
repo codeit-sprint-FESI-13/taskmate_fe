@@ -3,7 +3,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { Icon } from "@/components/common/Icon";
+import Input from "@/components/common/Input";
 import { Spacing } from "@/components/common/Spacing";
+import { Toggle } from "@/components/common/Toggle";
 import { TodoList } from "@/components/todo/List";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { todoQueries } from "@/features/todo/query/todo.queryKey";
@@ -38,9 +41,8 @@ export const TodoSection = () => {
 
   return (
     <div className="flex w-full flex-col gap-[32px]">
-      {/* @TODO: 검색 기능 추가 필요 */}
-      {/* @TODO: 내 할 일만 보기 기능 추가 필요 */}
-      {/* <div className="flex w-full items-center justify-between">
+      <div className="flex w-full items-center justify-between">
+        {/* @TODO: 검색 기능 추가 필요 */}
         <Input
           placeholder="할 일을 이름으로 검색해보세요."
           className="w-[360px]"
@@ -62,12 +64,13 @@ export const TodoSection = () => {
             내 할일만 보기
           </span>
 
+          {/* @TODO: 내 할 일만 보기 기능 추가 필요 */}
           <Toggle
             pressed={todoSectionOption.isMyTodo}
             onPressedChange={handleIsMyTodoChange}
           />
         </div>
-      </div> */}
+      </div>
 
       <div className="grid min-h-[480px] w-full grid-cols-2 grid-rows-[1fr_1fr] gap-[32px]">
         <section className="row-span-2 h-[728px] w-full">
