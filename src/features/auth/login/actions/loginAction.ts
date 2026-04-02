@@ -48,7 +48,6 @@ export async function loginAction(
   }
 
   const data = await response.json();
-
   const cookieStore = await cookies();
 
   cookieStore.set("accessToken", data.data.accessToken, {

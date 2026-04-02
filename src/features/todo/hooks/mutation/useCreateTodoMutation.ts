@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useToast } from "@/hooks/useToast";
 import type { ApiError } from "@/lib/api/types";
@@ -12,15 +13,17 @@ type CreateTodoVariables = {
 };
 
 export const useCreateTodoMutation = () => {
+  const queryClient = useQueryClient();
   const { toast } = useToast();
   return useMutation({
     mutationFn: ({ goalId, todoData }: CreateTodoVariables) =>
       todoApi.create(goalId, todoData),
     throwOnError: false,
-    onSuccess: () => {
-      // @TODO: todo 목록 querykey 생성 이후 무효화 처리 필요
-      // queryClient.invalidateQueries({ queryKey: ["todos"] });
-      // @TODO: 새로고침 필요 여부도 확인
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["todo", variables.goalId, "list"],
+      });
+
       toast({
         title: "할 일 생성 완료",
         description: "할 일이 생성되었습니다.",

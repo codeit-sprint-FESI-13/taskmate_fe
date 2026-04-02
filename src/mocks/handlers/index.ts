@@ -8,6 +8,7 @@ import { todosHandlers } from "./todos";
 export const handlers = [
   ...postsHandlers,
   ...teamsHandlers,
+  ...invitationsHandlers,
   ...goalsHandlers,
   ...authHandlers,
   ...todosHandlers,

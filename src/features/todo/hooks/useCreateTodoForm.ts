@@ -30,10 +30,10 @@ export const useCreateTodoForm = ({
     const formData = new FormData(e.currentTarget);
     const title = String(formData.get("title") ?? "");
     const formStartDate = String(formData.get("startDate") ?? "");
-    const endDate = String(formData.get("endDate") ?? "");
+    const dueDate = String(formData.get("dueDate") ?? "");
     const memo = String(formData.get("memo") ?? "");
 
-    if (formStartDate && endDate && endDate < formStartDate) {
+    if (formStartDate && dueDate && dueDate < formStartDate) {
       toast({
         variant: "error",
         title: "날짜 입력 오류",
@@ -49,7 +49,7 @@ export const useCreateTodoForm = ({
         todoData: {
           title,
           startDate: formStartDate,
-          endDate,
+          dueDate,
           assigneeIds,
           memo,
         },

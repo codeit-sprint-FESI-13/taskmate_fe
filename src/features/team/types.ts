@@ -13,7 +13,7 @@ export interface TeamSummary {
   teamId: number;
   teamName: string;
   isAdmin: boolean;
-  todayProgressPercentage: number;
+  todayProgressPercent: number;
   todayTodoCount: number;
   overdueTodoCount: number;
   doneTodoCount: number;

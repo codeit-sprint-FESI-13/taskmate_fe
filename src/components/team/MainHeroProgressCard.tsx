@@ -20,6 +20,7 @@ interface MainHeroProgressCardProps {
   className?: string;
   statusLabel?: string;
   statusIconSrc?: StaticImageData | string;
+  isAdmin: boolean;
 }
 
 const CARD_BG: Record<HeroColor, string> = {
@@ -159,6 +160,7 @@ export const MainHeroProgressCard = ({
   progress,
   completedCount,
   overdueTodoCount,
+  isAdmin,
   color = "green",
   className,
   statusLabel = "거의 다 왔어요",
@@ -178,16 +180,18 @@ export const MainHeroProgressCard = ({
       <div className="mb-10 flex items-center gap-2">
         <h2 className="typography-title-2 font-bold text-white">{title}</h2>
 
-        <button>
-          <Image
-            src={SettingIcon}
-            onClick={() => router.push(`/taskmate/team/${teamId}/management`)}
-            alt="설정"
-            width={32}
-            height={32}
-            className="size-8 cursor-pointer"
-          />
-        </button>
+        {isAdmin && (
+          <button>
+            <Image
+              src={SettingIcon}
+              onClick={() => router.push(`/taskmate/team/${teamId}/management`)}
+              alt="설정"
+              width={32}
+              height={32}
+              className="size-8 cursor-pointer"
+            />
+          </button>
+        )}
       </div>
 
       <div className="mb-8 flex gap-16 md:max-w-[520px]">

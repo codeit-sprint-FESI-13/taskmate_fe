@@ -56,7 +56,7 @@ export const teamsHandlers = [
         teamId: Number.isNaN(teamId) ? 1 : teamId,
         teamName: "프론트엔드 1팀",
         isAdmin: true,
-        todayProgressPercentage: 70,
+        todayProgressPercent: 70,
         todayTodoCount: 10,
         overdueTodoCount: 2,
         doneTodoCount: 8,

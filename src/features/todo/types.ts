@@ -3,7 +3,7 @@ export type TodoStatus = "TODO" | "DOING" | "DONE";
 export type CreateTodoInput = {
   title: string;
   startDate: string;
-  endDate: string;
+  dueDate: string;
   assigneeIds: string[];
   memo: string;
 };
