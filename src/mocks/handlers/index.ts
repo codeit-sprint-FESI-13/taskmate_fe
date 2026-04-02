@@ -1,5 +1,6 @@
 import { authHandlers } from "./auth";
 import { goalsHandlers } from "./goals";
+import { managementHandler } from "./management";
 import { postsHandlers } from "./posts";
 import { teamsHandlers } from "./teams";
 import { todosHandlers } from "./todos";
@@ -10,4 +11,5 @@ export const handlers = [
   ...goalsHandlers,
   ...authHandlers,
   ...todosHandlers,
+  ...managementHandler,
 ];

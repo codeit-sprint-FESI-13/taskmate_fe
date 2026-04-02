@@ -1,13 +1,15 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-// import { formatMemberList } from "@/utils/formatMemberList";
 import Button from "@/components/common/Button/Button";
 import ProfileCard from "@/components/common/ProfileCard/ProfileCard";
+import { userQueries } from "@/constants/queryKeys/user.queryKey";
 import { memberListApi } from "@/features/management/api";
 import { MemberData } from "@/features/management/types";
+import { formatMemberList } from "@/utils/formatMemberList";
 
 interface MemberListProps {
   onInviteClick: () => void;
@@ -18,19 +20,34 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   const params = useParams<{ teamId: string }>();
   const teamId = Number(params.teamId);
 
+  const { data: me } = useQuery({
+    ...userQueries.myInfo(),
+    throwOnError: false,
+    retry: false,
+  });
+
+  const myUserId = me?.id;
+
   useEffect(() => {
+    if (!Number.isFinite(teamId)) return;
+
     const loadMemberList = async (): Promise<void> => {
       try {
         const res = await memberListApi.read(teamId);
-        const list = res.data;
-        setMembers(Array.isArray(list) && list.length > 0 ? list : []);
+        const list = Array.isArray(res.data) ? res.data : [];
+
+        setMembers(
+          typeof myUserId === "number"
+            ? formatMemberList(list, myUserId)
+            : list,
+        );
       } catch (error) {
-        console.error(console.log("member list error"));
+        console.error("member list error", error);
       }
     };
 
     loadMemberList();
-  }, [teamId]);
+  }, [teamId, myUserId]);
 
   return (
     <section className="bg-inverse-normal relative h-183.25 rounded-4xl">
