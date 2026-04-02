@@ -1,4 +1,3 @@
-// 외부 라이브러리
 import { cva } from "class-variance-authority";
 
 import defaultAvatar from "@/assets/images/avatar.png";
@@ -9,7 +8,6 @@ import { memberRoleApi } from "@/features/management/api";
 import { memberApi } from "@/features/management/api";
 import { MemberRole } from "@/features/management/types";
 import Dropdown from "@/hooks/useDropdown/Dropdown";
-// 내부 코드
 import { cn } from "@/utils/utils";
 
 const profileCardVariants = cva(
@@ -63,18 +61,9 @@ const ProfileCard = ({
   const isGnb = variant === "gnb" || variant === "gnb-sm";
   const selectedRole = isAdmin ? "어드민" : "팀원";
 
-  // 팀원 권한 변경 / 팀원 삭제 api 추후 refactoring예정
-  // 여기서 함수를 만들어야 하나??
-  // TODO: useMutations로 변경 필요
-  // value: "어드민" : "팀원";
   const updateRole = async (value: typeof selectedRole) => {
-    // 역할 변경하는 API 주소
-    // 에러 처리 & mutation 변경
-    // "어드민" -> "ADMIN"
-    // "팀원" -> "MEMBER"
     let role: MemberRole = "MEMBER";
 
-    // TODO: 추후 로직 더 좋게 수정해도 됨
     if (value === "어드민") {
       role = "ADMIN";
     } else if (value === "팀원") {
@@ -159,7 +148,7 @@ const ProfileCard = ({
           {/* 권한 선택 */}
           <div className="flex items-center self-center">
             <Dropdown
-              options={["어드민", "팀원"]} // T: "어드민" 혹은 "팀원"
+              options={["어드민", "팀원"]}
               selected={selectedRole}
               onSelect={updateRole}
             />
