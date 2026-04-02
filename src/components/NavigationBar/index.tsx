@@ -9,6 +9,7 @@ import { cn } from "@/utils/utils";
 
 import UserProfile from "../auth/UserProfile";
 import AsyncBoundary from "../common/AsyncBoundary";
+import LogoutButton from "../common/LogoutButton";
 import { Header } from "./Header";
 import { Item } from "./parts/Item";
 import { List } from "./parts/List";
@@ -68,10 +69,11 @@ export const NavigationBar = () => {
           </div>
 
           {/* @TODO: 저장된 유저 정보 전달 필요 ( 재인님 TODO ) */}
-          <div className="mt-4 border-t border-gray-100 bg-white pt-4">
+          <div className="mt-4 flex items-center justify-center gap-1 border-t border-gray-100 bg-white pt-4">
             <AsyncBoundary errorFallback={<div>에러</div>}>
               <UserProfile />
             </AsyncBoundary>
+            <LogoutButton />
           </div>
         </>
       )}
