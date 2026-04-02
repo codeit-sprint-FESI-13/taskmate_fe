@@ -6,7 +6,7 @@ type CreateTodoRequestBody = {
   todoData?: {
     title?: string;
     startDate?: string;
-    endDate?: string;
+    dueDate?: string;
     assigneeIds?: string[];
     memo?: string;
   };
@@ -70,9 +70,9 @@ export const todosHandlers = [
 
     const title = todoData.title?.trim();
     const startDate = todoData.startDate;
-    const endDate = todoData.endDate;
+    const dueDate = todoData.dueDate;
 
-    if (!title || !startDate || !endDate) {
+    if (!title || !startDate || !dueDate) {
       return HttpResponse.json(
         {
           success: false,
