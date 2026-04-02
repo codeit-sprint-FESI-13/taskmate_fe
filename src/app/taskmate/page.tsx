@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import AsyncBoundary from "@/components/common/AsyncBoundary";
 import WelcomeBanner from "@/components/home/WelcomeBanner";
 
