@@ -74,6 +74,15 @@ export interface MemberRoleUpdateSuccessResponse {
   timestamp: string;
 }
 
+// 팀원 삭제 성공 케이스
+export interface MemberDeleteSuccessResponse {
+  success: true;
+  code: "SUCCESS";
+  message: string;
+  data: null;
+  timestamp: string;
+}
+
 // 팀 멤버 초대 성공 케이스
 export interface InviteResponseSuccess {
   success: true;

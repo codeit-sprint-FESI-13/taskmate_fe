@@ -8,6 +8,7 @@ import Button from "@/components/common/Button/Button";
 import ProfileCard from "@/components/common/ProfileCard/ProfileCard";
 import { userQueries } from "@/constants/queryKeys/user.queryKey";
 import { memberListApi } from "@/features/management/api";
+import { memberApi } from "@/features/management/api";
 import { MemberData } from "@/features/management/types";
 import { formatMemberList } from "@/utils/formatMemberList";
 
@@ -27,6 +28,24 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   });
 
   const myUserId = me?.id;
+
+  useEffect(() => {
+    const loadMemberList = async () => {
+      const res = await memberListApi.read(teamId);
+      setMembers(Array.isArray(res.data) ? res.data : []);
+    };
+
+    if (Number.isFinite(teamId)) loadMemberList();
+  }, [teamId]);
+
+  const handleDeleteMember = async (memberId: number): Promise<void> => {
+    try {
+      await memberApi.delete(teamId, memberId);
+      setMembers((prev) => prev.filter((member) => member.id !== memberId));
+    } catch (error) {
+      console.error("delete member error", error);
+    }
+  };
 
   useEffect(() => {
     if (!Number.isFinite(teamId)) return;
@@ -62,6 +81,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
             email={member.userEmail}
             isAdmin={member.role === "ADMIN"}
             variant="admin"
+            onDeleteMember={() => handleDeleteMember(member.id)}
           />
         ))}
       </div>

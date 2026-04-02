@@ -6,6 +6,7 @@ import Button from "@/components/common/Button/Button";
 import Crown from "@/components/common/Icons/Crown";
 import RightArrow from "@/components/common/Icons/RightArrow";
 import { memberRoleApi } from "@/features/management/api";
+import { memberApi } from "@/features/management/api";
 import { MemberRole } from "@/features/management/types";
 import Dropdown from "@/hooks/useDropdown/Dropdown";
 // 내부 코드
@@ -36,6 +37,7 @@ type ProfileCardProps = {
   nickName: string;
   isMe?: boolean;
   email: string;
+  onDeleteMember?: () => void;
   variant?:
     | "default"
     | "gnb"
@@ -55,11 +57,13 @@ const ProfileCard = ({
   isMe = false,
   email,
   variant = "default",
+  onDeleteMember,
 }: ProfileCardProps) => {
   const avatarSrc = avatar?.trim() ? avatar : defaultAvatar.src;
   const isGnb = variant === "gnb" || variant === "gnb-sm";
   const selectedRole = isAdmin ? "어드민" : "팀원";
 
+  // 팀원 권한 변경 / 팀원 삭제 api 추후 refactoring예정
   // 여기서 함수를 만들어야 하나??
   // TODO: useMutations로 변경 필요
   // value: "어드민" : "팀원";
@@ -80,6 +84,14 @@ const ProfileCard = ({
     }
 
     await memberRoleApi.update(teamId, id, role);
+  };
+
+  const deleteMember = async (memberId: number): Promise<void> => {
+    try {
+      await memberApi.delete(teamId, memberId);
+    } catch (error) {
+      console.error("delete member error", error);
+    }
   };
 
   return (
@@ -155,6 +167,7 @@ const ProfileCard = ({
 
           {/* 팀원 삭제 버튼 */}
           <Button
+            onClick={onDeleteMember}
             variant="secondary"
             size="sm"
             className="rounded-lg text-gray-500 ring-gray-200 hover:ring-gray-300"
