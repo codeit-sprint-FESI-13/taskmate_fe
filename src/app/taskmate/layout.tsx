@@ -7,12 +7,12 @@ export default function TaskmateLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex">
-      <NavigationBarProvider>
+    <NavigationBarProvider>
+      <div className="flex">
         <NavigationBar />
-      </NavigationBarProvider>
 
-      <div className="mx-auto w-full px-[40px] py-[80px]">{children}</div>
-    </div>
+        <div className="mx-auto w-full px-[40px] py-[80px]">{children}</div>
+      </div>
+    </NavigationBarProvider>
   );
 }

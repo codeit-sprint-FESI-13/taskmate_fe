@@ -1,3 +1,5 @@
+"use client";
+
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { CircularProgress } from "@/components/common/CircularProgress";
@@ -9,7 +11,7 @@ export default function ProgressSection() {
   const { data } = useSuspenseQuery(userQueries.myInfo());
 
   return (
-    <div className="flex w-full gap-8">
+    <div className="desktop:flex-row flex w-full flex-col gap-8">
       <div className="flex w-full flex-col gap-5">
         <div className="flex w-full items-center gap-3">
           <Icon

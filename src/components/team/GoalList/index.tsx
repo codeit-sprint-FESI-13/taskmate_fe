@@ -56,6 +56,7 @@ export const GoalList = () => {
       <div className="grid w-full grid-cols-3 gap-4">
         {goalList.map((goal) => (
           <MainSecondaryProgressCard
+            teamId={teamId}
             key={goal.goalId}
             goalId={goal.goalId}
             title={goal.name}
