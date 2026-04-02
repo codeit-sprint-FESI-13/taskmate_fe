@@ -1,5 +1,10 @@
+import AsyncBoundary from "@/components/common/AsyncBoundary";
+import WelcomeBanner from "@/components/home/WelcomeBanner";
+
 export default function TaskmatePage() {
   return (
-    <h1 className="text-background-elevated-normal-alternative">taskmate</h1>
+    <AsyncBoundary errorFallback={<div>error</div>}>
+      <WelcomeBanner />
+    </AsyncBoundary>
   );
 }
