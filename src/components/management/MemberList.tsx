@@ -69,8 +69,8 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   }, [teamId, myUserId]);
 
   return (
-    <section className="bg-inverse-normal relative h-183.25 rounded-4xl">
-      <div className="flex flex-col items-center gap-2 px-5 py-8">
+    <section className="bg-inverse-normal relative h-183.25 overflow-hidden rounded-4xl">
+      <div className="flex h-183.25 flex-col items-center gap-2 overflow-y-auto px-5 py-8">
         {members.map((member) => (
           <ProfileCard
             key={member.id}
@@ -86,7 +86,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
         ))}
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-22.5 rounded-b-4xl" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-22.5 rounded-b-4xl bg-linear-to-t from-white via-white/90 to-transparent" />
       <Button
         className="absolute right-5 bottom-5.75 z-20"
         type="button"
