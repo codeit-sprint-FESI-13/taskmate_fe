@@ -12,6 +12,7 @@ type RoleStyle = {
   selected?: string;
 };
 
+// generic 타입
 type DropdownProps<T extends string> = {
   options: readonly T[];
   selected?: T;
@@ -48,8 +49,13 @@ export const Dropdown = <T extends string>({
     containerRef,
   } = useDropdown([...options], selected);
 
+  // TODO: 삭제 예정
+  // 기존 코드의 동작을 이해해야 함
   const handleSelect = (value: T) => {
+    // API 호출-> 팀원 혹은 어드민 변경하는 API 호출 X -> 다른 드롭다운에 영향을 미치기 때문
+    // Dropdown 컴포넌트 밖에서 호출해야 되겠다
     selectItem(value);
+
     onSelect?.(value);
   };
 
@@ -110,6 +116,7 @@ export const Dropdown = <T extends string>({
             )}
             style={contentWidth ? { width: `${contentWidth}px` } : undefined}
           >
+            {/* TODO: 삭제 예정 - 어드민 혹은 팀원 */}
             <span>{current || "Select"}</span>
             <RightArrow
               className={cn(
@@ -128,6 +135,8 @@ export const Dropdown = <T extends string>({
             .map((option) => (
               <li
                 key={option}
+                // TODO: 삭제 예정 - 목적: handleSelect 함수 실행 시 API 호출도 됐으면 좋겠다.
+                // handleSelect를 수정해야겠다.
                 onClick={() => handleSelect(option)}
                 className="flex h-8 w-full cursor-pointer items-center justify-center"
               >

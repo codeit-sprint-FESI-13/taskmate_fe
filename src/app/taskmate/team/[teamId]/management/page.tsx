@@ -1,18 +1,19 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import TextButton from "@/components/common/TextButton/TextButton";
 import DeleteModal from "@/components/management/DeleteModal";
 import InviteModal from "@/components/management/InviteModal";
 import MemberList from "@/components/management/MemberList";
 import TeamNameEditor from "@/components/management/TeamNameEditor";
-import { inviteApi } from "@/features/management/api";
-import { teamDetailApi } from "@/features/management/api";
+import { inviteApi, teamDetailApi } from "@/features/management/api";
 import { useOverlay } from "@/hooks/useOverlay";
 
 const TeamManagement = () => {
   const { open, close } = useOverlay();
+  const router = useRouter();
   const params = useParams<{ teamId: string }>();
   const teamId = params.teamId;
 
@@ -35,10 +36,31 @@ const TeamManagement = () => {
         onClose={() => close()}
         onSubmitDelete={async () => {
           await teamDetailApi.delete(Number(teamId));
+          close();
+          router.replace("/taskmate");
         }}
       />,
     );
   };
+
+  useEffect(() => {
+    const guardTeamAccess = async () => {
+      try {
+        await teamDetailApi.read(Number(teamId));
+      } catch (error: unknown) {
+        const status =
+          typeof error === "object" && error !== null && "status" in error
+            ? (error as { status?: number }).status
+            : undefined;
+
+        if (status === 401) return router.replace("/login");
+        return router.replace("/taskmate");
+      }
+    };
+
+    if (!teamId) return;
+    guardTeamAccess();
+  }, [teamId, router]);
 
   return (
     <main className="relative my-20 flex w-full flex-col items-center gap-6">

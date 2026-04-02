@@ -1,3 +1,4 @@
+// 팀 상세 정보
 export interface TeamDetailData {
   id: number;
   name: string;
@@ -6,30 +7,37 @@ export interface TeamDetailData {
   updatedAt: string;
 }
 
+// 팀 상세 정보 성공 케이스
 export interface TeamResponseSuccess {
   success: true;
-  code: string; // "SUCCESS"
-  message: string; // "팀 상세 정보 조회에 성공했습니다."
+  code: string;
+  message: string;
   data: TeamDetailData;
   timestamp: string;
 }
 
-export interface InviteResponseSuccess {
-  success: true;
-  code: string; // "SUCCESS"
-  message: string; // "팀 초대 생성에 성공했습니다."
-  data: null; // 명세에 data가 null로 되어 있음
+// 팀 상세 정보 실패 케이스
+export interface TeamApiErrorResponse<
+  TCode extends string = string,
+  TData = unknown,
+> {
+  success: false;
+  code: TCode;
+  message: string;
+  data: TData;
   timestamp: string;
 }
 
-export interface TeamDeleteResponseSuccess {
-  success: true;
-  code: string; // "SUCESS"
-  message: string; // "팀 삭제에 성공했습니다"
-  data: null;
-  timestamp: string;
-}
+export type UnauthorizedErrorResponse = TeamApiErrorResponse<
+  "AUTH_LOGIN_REQUIRED",
+  null
+>;
+export type TeamNotFoutdErrorResponse = TeamApiErrorResponse<
+  "TEAM_NOT_FOUND",
+  null
+>;
 
+// 팀 멤버 데이터
 export interface MemberData {
   id: number;
   userId: number;
@@ -40,10 +48,55 @@ export interface MemberData {
   joinedAt: string;
 }
 
+// 팀 멤버 목록 조회 성공 케이스
 export interface MemberListResponseSuccess {
   success: true;
   code: string;
   message: string;
   data: MemberData[];
+  timestamp: string;
+}
+
+// 팀 멤버
+
+export type MemberRole = "ADMIN" | "MEMBER";
+
+export interface MemberRoleUpdateRequest {
+  role: MemberRole;
+}
+
+// 팀 멤버 권한 변경 성공 케이스
+export interface MemberRoleUpdateSuccessResponse {
+  success: true;
+  code: "SUCCESS";
+  message: string;
+  data: MemberData;
+  timestamp: string;
+}
+
+// 팀원 삭제 성공 케이스
+export interface MemberDeleteSuccessResponse {
+  success: true;
+  code: "SUCCESS";
+  message: string;
+  data: null;
+  timestamp: string;
+}
+
+// 팀 멤버 초대 성공 케이스
+export interface InviteResponseSuccess {
+  success: true;
+  code: string;
+  message: string;
+  data: null;
+  timestamp: string;
+}
+
+// 팀 삭제 성공 케이스
+export interface TeamDeleteResponseSuccess {
+  success: true;
+  code: string;
+  message: string;
+  data: null;
   timestamp: string;
 }

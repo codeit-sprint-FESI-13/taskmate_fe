@@ -1,9 +1,12 @@
-type Member = {
+type HasIds = {
   id: number;
   userId: number;
 };
 
-export function formatMemberList(members: Member[], userId: number): Member[] {
+export function formatMemberList<T extends HasIds>(
+  members: T[],
+  userId: number,
+): T[] {
   const currentUser = members.find((member) => member.userId === userId);
   const otherMembers = members
     .filter((member) => member.userId !== userId)

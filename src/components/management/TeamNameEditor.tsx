@@ -9,7 +9,6 @@ import { useTeamId } from "@/features/team/hooks/useTeamId";
 
 const TeamNameEditor = () => {
   const [value, setValue] = useState("");
-  const [teamNameDefaultValue, setTeamNameDefaultValue] = useState("팀명");
   const teamId = Number(useTeamId());
 
   // teamId로 팀명 가져오기
@@ -19,10 +18,10 @@ const TeamNameEditor = () => {
     teamDetailApi
       .read(teamId)
       .then((res) => {
-        if (res?.data?.name) setTeamNameDefaultValue(res.data.name);
+        if (res?.data?.name) setValue(res.data.name);
       })
       .catch(() => {
-        setTeamNameDefaultValue("팀명");
+        setValue("팀명");
       });
   }, [teamId]);
 
@@ -34,8 +33,7 @@ const TeamNameEditor = () => {
 
     try {
       await teamDetailApi.create(teamId, nextName);
-      setTeamNameDefaultValue(nextName);
-      setValue("");
+      setValue(nextName);
     } catch (error) {
       console.log("팀명 수정 실패", error);
     }
@@ -49,7 +47,6 @@ const TeamNameEditor = () => {
         onSubmit={handleSubmit}
       >
         <Input
-          defaultValue={teamNameDefaultValue}
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
