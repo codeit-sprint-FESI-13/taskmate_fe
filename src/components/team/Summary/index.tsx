@@ -14,12 +14,14 @@ export const Summary = () => {
       todayProgressPercentage,
       todayTodoCount,
       overdueTodoCount,
+      isAdmin,
       doneTodoCount,
     },
   } = useSuspenseQuery(teamQueries.summary(teamId));
 
   return (
     <MainHeroProgressCard
+      isAdmin={isAdmin}
       title={teamName}
       progress={todayProgressPercentage}
       todoCount={todayTodoCount}
