@@ -119,7 +119,7 @@ const TodoCreateModal = ({
             <div className="w-full">
               <Input
                 type="date"
-                name="endDate"
+                name="dueDate"
                 className="w-full"
                 placeholder="마감 날짜를 선택해주세요"
                 min={startDate}

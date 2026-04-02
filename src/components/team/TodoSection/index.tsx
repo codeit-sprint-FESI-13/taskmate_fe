@@ -59,12 +59,12 @@ export const TodoSection = () => {
           }
         />
 
-        {/* @TODO: 내 할 일만 보기 기능 추가 필요 */}
         <div className="flex items-center justify-center gap-[10px]">
           <span className="typography-body-1 font-semibold text-blue-800">
             내 할일만 보기
           </span>
 
+          {/* @TODO: 내 할 일만 보기 기능 추가 필요 */}
           <Toggle
             pressed={todoSectionOption.isMyTodo}
             onPressedChange={handleIsMyTodoChange}
