@@ -11,7 +11,7 @@ export const Summary = () => {
   const {
     data: {
       teamName,
-      todayProgressPercentage,
+      todayProgressPercent,
       todayTodoCount,
       overdueTodoCount,
       isAdmin,
@@ -23,7 +23,7 @@ export const Summary = () => {
     <MainHeroProgressCard
       isAdmin={isAdmin}
       title={teamName}
-      progress={todayProgressPercentage}
+      progress={todayProgressPercent}
       todoCount={todayTodoCount}
       overdueTodoCount={overdueTodoCount}
       completedCount={doneTodoCount}
