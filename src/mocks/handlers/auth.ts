@@ -3,6 +3,24 @@ import { HttpResponse } from "msw";
 import { apiMock } from "@/mocks/apiMock";
 
 export const authHandlers = [
+  // 내 정보 조회
+  apiMock.get("/api/users/me", () => {
+    return HttpResponse.json({
+      success: true,
+      code: "SUCCESS",
+      message: "내 정보 조회에 성공했습니다.",
+      data: {
+        id: 101,
+        email: "leader@example.com",
+        nickname: "팀장",
+        profileImageUrl: null,
+        provider: "LOCAL",
+        createdAt: new Date().toISOString(),
+      },
+      timestamp: new Date().toISOString(),
+    });
+  }),
+
   // 이메일 중복체크
   apiMock.get("/users/exists", ({ request }) => {
     const url = new URL(request.url);

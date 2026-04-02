@@ -54,7 +54,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
         ),
       );
     } catch (error) {
-      setErrorMessage("권한 변경에 실패했습니다. 팀 관리 권한을 확인해주세요.");
+      setErrorMessage("팀에는 최소 1명의 ADMIN이 필요합니다.");
       setErrorModalOpen(true);
       throw error;
     }
@@ -101,6 +101,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
             nickName={member.userNickname}
             email={member.userEmail}
             isAdmin={member.role === "ADMIN"}
+            isMe={typeof myUserId === "number" && member.userId === myUserId}
             variant="admin"
             onRoleChange={handleRoleChange}
             onDeleteMember={() => handleDeleteMember(member.id)}
