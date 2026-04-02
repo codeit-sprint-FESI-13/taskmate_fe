@@ -7,6 +7,8 @@ import UpFilledArrow from "./svg/Arrow/UpFilled.svg";
 import Bell from "./svg/Bell/Bell.svg";
 import BellDot from "./svg/Bell-dot/BellDot.svg";
 import Calendar from "./svg/Calendar/Line/Calendar.svg";
+import BlueCharacter from "./svg/Character/BlueCharacter.svg";
+import GreenCharacter from "./svg/Character/GreenCharacter.svg";
 import Chat from "./svg/Chat/Chat.svg";
 import ActiveCheckBox from "./svg/Checkbox/ActiveCheckBox.svg";
 import ActiveFilledCheckBox from "./svg/Checkbox/ActiveFilledCheckBox.svg";
@@ -82,6 +84,8 @@ export const iconMap = {
   Flag,
   GoalFlag,
   Dot,
+  GreenCharacter,
+  BlueCharacter,
 } as const;
 
 export type IconName = keyof typeof iconMap;
