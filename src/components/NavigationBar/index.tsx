@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
 import { Line } from "@/components/common/Line";
@@ -17,6 +18,7 @@ import { Team } from "./Team";
 
 export const NavigationBar = () => {
   const { isOpen } = useContext(NavigationBarContext);
+  const router = useRouter();
 
   return (
     <aside
@@ -33,7 +35,12 @@ export const NavigationBar = () => {
         <>
           <div className="min-h-0 flex-1 overflow-y-auto pr-1">
             <List.Container>
-              <Item.Wrapper value="home">
+              <Item.Wrapper
+                value="home"
+                onClick={() => {
+                  router.push("/taskmate");
+                }}
+              >
                 <Item.Icon name="Home" />
                 <Item.Name>홈</Item.Name>
               </Item.Wrapper>
