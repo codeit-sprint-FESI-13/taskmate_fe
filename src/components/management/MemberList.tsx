@@ -5,11 +5,16 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import Button from "@/components/common/Button/Button";
+import ErrorModal from "@/components/management/ErrorModal";
 import ProfileCard from "@/components/management/ProfileCard";
 import { userQueries } from "@/constants/queryKeys/user.queryKey";
-import { memberListApi } from "@/features/management/api";
-import { memberApi } from "@/features/management/api";
+import {
+  memberApi,
+  memberListApi,
+  memberRoleApi,
+} from "@/features/management/api";
 import { MemberData } from "@/features/management/types";
+import { type MemberRole } from "@/features/management/types";
 import { formatMemberList } from "@/utils/formatMemberList";
 
 interface MemberListProps {
@@ -18,6 +23,8 @@ interface MemberListProps {
 
 const MemberList = ({ onInviteClick }: MemberListProps) => {
   const [members, setMembers] = useState<MemberData[]>([]);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const params = useParams<{ teamId: string }>();
   const teamId = Number(params.teamId);
 
@@ -37,6 +44,21 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
 
     if (Number.isFinite(teamId)) loadMemberList();
   }, [teamId]);
+
+  const handleRoleChange = async (memberId: number, role: MemberRole) => {
+    try {
+      await memberRoleApi.update(teamId, memberId, role);
+      setMembers((prev) =>
+        prev.map((member) =>
+          member.id === memberId ? { ...member, role } : member,
+        ),
+      );
+    } catch (error) {
+      setErrorMessage("권한 변경에 실패했습니다. 팀 관리 권한을 확인해주세요.");
+      setErrorModalOpen(true);
+      throw error;
+    }
+  };
 
   const handleDeleteMember = async (memberId: number): Promise<void> => {
     try {
@@ -75,12 +97,12 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
           <ProfileCard
             key={member.id}
             id={member.id}
-            teamId={teamId}
             avatar={member.profileImageUrl ?? ""}
             nickName={member.userNickname}
             email={member.userEmail}
             isAdmin={member.role === "ADMIN"}
             variant="admin"
+            onRoleChange={handleRoleChange}
             onDeleteMember={() => handleDeleteMember(member.id)}
           />
         ))}
@@ -94,6 +116,12 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
       >
         팀원 추가하기
       </Button>
+      {errorModalOpen && (
+        <ErrorModal
+          message={errorMessage}
+          onClose={() => setErrorModalOpen(false)}
+        />
+      )}
     </section>
   );
 };

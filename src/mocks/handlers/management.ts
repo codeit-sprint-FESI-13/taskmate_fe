@@ -94,177 +94,6 @@ const members = [
     role: "MEMBER",
     joinedAt: now,
   },
-  {
-    id: 10,
-    userId: 1009,
-    profileImageUrl: "",
-    userEmail: "member09@example.com",
-    userNickname: "팀원09",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 11,
-    userId: 1010,
-    profileImageUrl: "",
-    userEmail: "member10@example.com",
-    userNickname: "팀원10",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 12,
-    userId: 1011,
-    profileImageUrl: "",
-    userEmail: "member11@example.com",
-    userNickname: "팀원11",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 13,
-    userId: 1012,
-    profileImageUrl: "",
-    userEmail: "member12@example.com",
-    userNickname: "팀원12",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 14,
-    userId: 1013,
-    profileImageUrl: "",
-    userEmail: "member13@example.com",
-    userNickname: "팀원13",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 15,
-    userId: 1014,
-    profileImageUrl: "",
-    userEmail: "member14@example.com",
-    userNickname: "팀원14",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 16,
-    userId: 1015,
-    profileImageUrl: "",
-    userEmail: "member15@example.com",
-    userNickname: "팀원15",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 17,
-    userId: 1016,
-    profileImageUrl: "",
-    userEmail: "member16@example.com",
-    userNickname: "팀원16",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 18,
-    userId: 1017,
-    profileImageUrl: "",
-    userEmail: "member17@example.com",
-    userNickname: "팀원17",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 19,
-    userId: 1018,
-    profileImageUrl: "",
-    userEmail: "member18@example.com",
-    userNickname: "팀원18",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 20,
-    userId: 1019,
-    profileImageUrl: "",
-    userEmail: "member19@example.com",
-    userNickname: "팀원19",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 21,
-    userId: 1020,
-    profileImageUrl: "",
-    userEmail: "member20@example.com",
-    userNickname: "팀원20",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 22,
-    userId: 1021,
-    profileImageUrl: "",
-    userEmail: "member21@example.com",
-    userNickname: "팀원21",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 23,
-    userId: 1022,
-    profileImageUrl: "",
-    userEmail: "member22@example.com",
-    userNickname: "팀원22",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 24,
-    userId: 1023,
-    profileImageUrl: "",
-    userEmail: "member23@example.com",
-    userNickname: "팀원23",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 25,
-    userId: 1024,
-    profileImageUrl: "",
-    userEmail: "member24@example.com",
-    userNickname: "팀원24",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 26,
-    userId: 1025,
-    profileImageUrl: "",
-    userEmail: "member25@example.com",
-    userNickname: "팀원25",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 27,
-    userId: 1026,
-    profileImageUrl: "",
-    userEmail: "member26@example.com",
-    userNickname: "팀원26",
-    role: "MEMBER",
-    joinedAt: now,
-  },
-  {
-    id: 28,
-    userId: 1027,
-    profileImageUrl: "",
-    userEmail: "member27@example.com",
-    userNickname: "팀원27",
-    role: "MEMBER",
-    joinedAt: now,
-  },
 ];
 
 export const managementHandler = [
@@ -433,6 +262,65 @@ export const managementHandler = [
       });
     },
   ),
+
+  // 팀원 삭제
+  apiMock.delete("/api/teams/:teamId/members/:teamMemberId", ({ params }) => {
+    const teamId = Number(params.teamId);
+    const teamMemberId = Number(params.teamMemberId);
+
+    if (Number.isNaN(teamId) || teamId === 404) {
+      return HttpResponse.json(
+        {
+          success: false,
+          code: "TEAM_NOT_FOUND",
+          message: "팀을 찾을 수 없습니다.",
+          data: null,
+          timestamp: now,
+        },
+        { status: 404 },
+      );
+    }
+
+    if (Number.isNaN(teamMemberId)) {
+      return HttpResponse.json(
+        {
+          success: false,
+          code: "MEMBER_NOT_FOUND",
+          message: "팀원을 찾을 수 없습니다.",
+          data: null,
+          timestamp: now,
+        },
+        { status: 404 },
+      );
+    }
+
+    const memberIndex = members.findIndex(
+      (member) => member.id === teamMemberId,
+    );
+
+    if (memberIndex === -1) {
+      return HttpResponse.json(
+        {
+          success: false,
+          code: "MEMBER_NOT_FOUND",
+          message: "팀원을 찾을 수 없습니다.",
+          data: null,
+          timestamp: now,
+        },
+        { status: 404 },
+      );
+    }
+
+    members.splice(memberIndex, 1);
+
+    return HttpResponse.json({
+      success: true,
+      code: "SUCCESS",
+      message: "팀원 삭제에 성공했습니다.",
+      data: null,
+      timestamp: now,
+    });
+  }),
 
   // 팀 삭제
   apiMock.delete("/api/teams/:teamId", ({ params }) => {
