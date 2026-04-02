@@ -33,6 +33,6 @@ export const teamQueries = {
 
         return response.data;
       },
-      staleTime: 1000 * 60 * 60,
+      staleTime: STALE_TIME.DEFAULT,
     }),
 };
