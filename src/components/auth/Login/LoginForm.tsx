@@ -55,6 +55,11 @@ const LoginForm = () => {
             </button>
           }
         />
+        {state?.errors?.message && (
+          <div className="text-red-normal text-label-2 px-1 font-medium">
+            {state?.errors?.message}
+          </div>
+        )}
         <Button
           type="submit"
           size="lg"
