@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import Button from "@/components/common/Button/Button";
-import ProfileCard from "@/components/common/ProfileCard/ProfileCard";
+import ProfileCard from "@/components/management/ProfileCard";
 import { userQueries } from "@/constants/queryKeys/user.queryKey";
 import { memberListApi } from "@/features/management/api";
 import { memberApi } from "@/features/management/api";
