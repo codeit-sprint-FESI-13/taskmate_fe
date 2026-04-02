@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 const ACCESS_TOKEN_COOKIE = {
@@ -16,6 +17,8 @@ const REFRESH_TOKEN_COOKIE = {
   maxAge: 60 * 60 * 24 * 14,
 };
 
+// NextResponse 방식 (route handler용)
+// google/kakao callback, [...path] route에서 사용
 export function setTokenCookies(
   response: NextResponse,
   accessToken: string,
@@ -25,4 +28,20 @@ export function setTokenCookies(
   if (refreshToken) {
     response.cookies.set("refreshToken", refreshToken, REFRESH_TOKEN_COOKIE);
   }
+}
+
+// cookieStore 방식 (server action용)
+// loginAction.ts에서 사용
+export async function setTokenCookiesServerAction(
+  accessToken: string,
+  refreshToken: string,
+) {
+  const cookieStore = await cookies();
+  cookieStore.set("accessToken", accessToken, ACCESS_TOKEN_COOKIE);
+  cookieStore.set("refreshToken", refreshToken, REFRESH_TOKEN_COOKIE);
+}
+
+export function deleteTokenCookies(response: NextResponse) {
+  response.cookies.delete("accessToken");
+  response.cookies.delete("refreshToken");
 }
