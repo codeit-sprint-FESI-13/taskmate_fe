@@ -10,7 +10,7 @@ import Dropdown from "@/hooks/useDropdown/Dropdown";
 import { cn } from "@/utils/utils";
 
 const profileCardVariants = cva(
-  "self-start inline-flex items-center gap-2 h-[45px] cursor-pointer",
+  "self-start flex h-[45px] cursor-pointer justify-between w-full",
   {
     variants: {
       variant: {
@@ -62,64 +62,67 @@ const ProfileCard = ({
         }),
       )}
     >
-      {/* avatar */}
-      <div className="relative flex h-10 w-10 items-center justify-center">
-        <img
-          src={avatarSrc}
-          alt="Avatar Image"
-          className="h-10 w-10 shrink-0 rounded-full object-cover"
-        />
-        {isAdmin && (
-          <span className="absolute -top-0.75 -right-0.75 h-4 w-4">
-            <Crown />
-          </span>
-        )}
-      </div>
-
-      {/* info */}
-      <div className={cn("flex flex-col")}>
-        {/* NickName Wapper */}
-        <div className="inline-flex items-center">
-          {/* NickName */}
-          <span className="text-sm">{nickName}</span>
-          {(variant === "team" ||
-            variant === "team-sm" ||
-            variant === "admin" ||
-            variant === "admin-sm") &&
-            isMe && (
-              <span className="ml-0.75 rounded-lg bg-gray-100 px-2.5 py-1 text-[12px] text-gray-400">
-                나
-              </span>
-            )}
-
-          {/* Gnb Icon */}
-          {isGnb && (
-            <span className="flex h-4 w-4 items-center justify-center">
-              <RightArrow className="text-gray-400" />
+      <div className="inline-flex h-11.25 cursor-pointer items-center gap-2 self-start">
+        {/* avatar */}
+        <div className="relative flex h-10 w-10 justify-center">
+          <img
+            src={avatarSrc}
+            alt="Avatar Image"
+            className="h-10 w-10 shrink-0 rounded-full object-cover"
+          />
+          {isAdmin && (
+            <span className="absolute -top-0.75 -right-0.75 h-4 w-4">
+              <Crown />
             </span>
           )}
         </div>
 
-        {/* Email */}
-        {variant !== "gnb-sm" && email && (
-          <span className="text-[13px] text-gray-400">{email}</span>
-        )}
-      </div>
+        {/* info */}
+        <div className={cn("flex flex-col")}>
+          {/* NickName Wapper */}
+          <div className="inline-flex items-center">
+            {/* NickName */}
+            <span className="text-sm">{nickName}</span>
+            {(variant === "team" ||
+              variant === "team-sm" ||
+              variant === "admin" ||
+              variant === "admin-sm") &&
+              isMe && (
+                <span className="ml-0.75 rounded-lg bg-gray-100 px-2.5 py-1 text-[12px] text-gray-400">
+                  나
+                </span>
+              )}
 
+            {/* Gnb Icon */}
+            {isGnb && (
+              <span className="flex h-4 w-4 items-center justify-center">
+                <RightArrow className="text-gray-400" />
+              </span>
+            )}
+          </div>
+
+          {/* Email */}
+          {variant !== "gnb-sm" && email && (
+            <span className="text-[13px] text-gray-400">{email}</span>
+          )}
+        </div>
+      </div>
       {/* Admin Button */}
       {(variant === "admin" || variant === "admin-sm") && (
         <div
           className={cn(
-            "flex items-center gap-1.5",
-            variant === "admin" && "ml-63.25",
-            variant === "admin-sm" && "ml-16",
+            "",
+            variant === "admin" && "flex items-center gap-1.5",
+            variant === "admin-sm" && "",
           )}
         >
           {/* 권한 선택 */}
-          <Dropdown
-            options={["Admin", "팀원"]}
-            selected="Admin"
-          />
+          <div className="flex items-center self-center">
+            <Dropdown
+              options={["어드민", "팀원"]}
+              selected="어드민"
+            />
+          </div>
 
           {/* 팀원 삭제 버튼 */}
           <Button
