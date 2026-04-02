@@ -9,13 +9,17 @@ import { useCreateTodoMutation } from "./mutation/useCreateTodoMutation";
 interface UseCreateTodoFormParams {
   goalId: string;
   onSuccess: () => void;
+  initialAssigneeIds?: number[];
 }
 
 export const useCreateTodoForm = ({
   goalId,
   onSuccess,
+  initialAssigneeIds,
 }: UseCreateTodoFormParams) => {
-  const [assigneeIds, setAssigneeIds] = useState<string[]>([]);
+  const [assigneeIds, setAssigneeIds] = useState<number[]>(
+    initialAssigneeIds ?? [],
+  );
   const [startDate, setStartDate] = useState("");
   const { toast } = useToast();
   const { mutate: createTodo, isPending } = useCreateTodoMutation();

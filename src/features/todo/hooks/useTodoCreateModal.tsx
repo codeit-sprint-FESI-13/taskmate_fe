@@ -8,6 +8,7 @@ import Input from "@/components/common/Input";
 import { Modal } from "@/components/common/Modal";
 import { Spacing } from "@/components/common/Spacing";
 import { AssigneeSelect } from "@/components/todo/AssigneeSelect";
+import { userQueries } from "@/constants/queryKeys";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { goalQueries } from "@/features/goal/query/goal.queryKey";
 import { teamQueries } from "@/features/team/query/team.queryKey";
@@ -24,14 +25,20 @@ const TodoCreateModal = ({
   onClose,
   goalName,
   teamName,
+  memberList,
+  isAssigneeFixed,
+  fixedAssigneeNickname,
+  initialAssigneeIds,
 }: {
   onClose: () => void;
   goalName: string;
   teamName: string;
+  memberList: Member[];
+  isAssigneeFixed: boolean;
+  fixedAssigneeNickname?: string;
+  initialAssigneeIds: number[];
 }) => {
   const goalId = useGoalId();
-
-  const memberList: Member[] = [];
 
   const {
     assigneeIds,
@@ -43,6 +50,7 @@ const TodoCreateModal = ({
   } = useCreateTodoForm({
     goalId,
     onSuccess: onClose,
+    initialAssigneeIds,
   });
 
   return (
@@ -133,12 +141,18 @@ const TodoCreateModal = ({
               담당자
             </label>
             <div className="w-full">
-              <AssigneeSelect
-                members={memberList}
-                value={assigneeIds}
-                onChange={setAssigneeIds}
-                placeholder="담당자를 선택해주세요"
-              />
+              {isAssigneeFixed ? (
+                <div className="min-h-11 w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-sm leading-5 font-medium text-gray-500">
+                  {fixedAssigneeNickname ?? "나"}
+                </div>
+              ) : (
+                <AssigneeSelect
+                  members={memberList}
+                  value={assigneeIds}
+                  onChange={setAssigneeIds}
+                  placeholder="담당자를 선택해주세요"
+                />
+              )}
             </div>
           </div>
 
@@ -188,6 +202,7 @@ export const useTodoCreateModal = () => {
   const overlay = useOverlay();
   const params = useParams<{ teamId?: string }>();
   const teamId = params.teamId;
+  const isPersonal = !teamId;
 
   const goalId = useGoalId();
   const {
@@ -197,6 +212,36 @@ export const useTodoCreateModal = () => {
     ...teamQueries.summary(teamId ?? ""),
     enabled: Boolean(teamId),
   });
+
+  const { data: myInfo } = useQuery({
+    ...userQueries.myInfo(),
+    enabled: isPersonal,
+  });
+
+  const { data: teamMemberList } = useQuery({
+    ...teamQueries.memberList(teamId ?? ""),
+    enabled: Boolean(teamId),
+  });
+
+  const personalMember: Member | null = myInfo
+    ? {
+        id: myInfo.id,
+        userId: myInfo.id,
+        userEmail: myInfo.email,
+        profileImageUrl: myInfo.profileImageUrl ?? null,
+        userNickname: myInfo.nickname,
+        role: "MEMBER",
+        joinedAt: myInfo.createdAt,
+      }
+    : null;
+
+  const memberList: Member[] = isPersonal
+    ? personalMember
+      ? [personalMember]
+      : []
+    : (teamMemberList ?? []);
+
+  const initialAssigneeIds = isPersonal && myInfo ? [myInfo.id] : [];
 
   const closeTodoCreateModal = () => {
     overlay.close();
@@ -209,6 +254,10 @@ export const useTodoCreateModal = () => {
         onClose={closeTodoCreateModal}
         goalName={goalName}
         teamName={teamSummary?.teamName ?? "개인"}
+        memberList={memberList}
+        isAssigneeFixed={isPersonal}
+        fixedAssigneeNickname={myInfo?.nickname ?? "나"}
+        initialAssigneeIds={initialAssigneeIds}
       />,
     );
   };

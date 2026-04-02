@@ -1,5 +1,8 @@
 "use client";
 
+import Image from "next/image";
+
+import defaultAvatar from "@/assets/images/avatar.png";
 import { Icon } from "@/components/common/Icon";
 import { Member } from "@/features/team/types";
 import { useDropdown } from "@/hooks/useDropdown";
@@ -7,8 +10,8 @@ import { cn } from "@/utils/utils";
 
 interface AssigneeSelectProps {
   members: Member[];
-  value: string[];
-  onChange: (memberIds: string[]) => void;
+  value: number[];
+  onChange: (memberIds: number[]) => void;
   placeholder?: string;
 }
 
@@ -24,10 +27,10 @@ export function AssigneeSelect({
 
   const selectedMembers = () => {
     const byId = new Map(members.map((member) => [member.userId, member]));
-    return value.map((id) => byId.get(Number(id))).filter(Boolean) as Member[];
+    return value.map((id) => byId.get(id)).filter(Boolean) as Member[];
   };
 
-  const toggleMember = (id: string) => {
+  const toggleMember = (id: number) => {
     if (value.includes(id)) {
       onChange(value.filter((x) => x !== id));
     } else {
@@ -36,7 +39,12 @@ export function AssigneeSelect({
   };
 
   const removeMember = (userId: number) => {
-    onChange(value.filter((x) => x !== String(userId)));
+    onChange(value.filter((x) => x !== userId));
+  };
+
+  const getProfileImageSrc = (member: Member) => {
+    const url = member.profileImageUrl?.trim();
+    return url ? url : defaultAvatar.src;
   };
 
   return (
@@ -57,8 +65,14 @@ export function AssigneeSelect({
                 key={member.userId}
                 className="flex items-center gap-1"
               >
-                {/* @TODO: Member Profile Image or Default Profile Image */}
-                {/* @TODO: Profile Image 응답값 수정 이후 작업 필요 */}
+                <Image
+                  src={getProfileImageSrc(member)}
+                  alt={`${member.userNickname} 프로필`}
+                  width={20}
+                  height={20}
+                  className="shrink-0 rounded-full object-cover"
+                  unoptimized
+                />
 
                 <span className="typography-label-1 text-label-normal max-w-[140px] truncate font-semibold">
                   {member.userNickname}
@@ -99,9 +113,16 @@ export function AssigneeSelect({
               <button
                 type="button"
                 className="flex w-full items-center gap-3 px-4 py-2.5 text-left hover:bg-blue-800 hover:text-white"
-                onClick={() => toggleMember(String(member.userId))}
+                onClick={() => toggleMember(member.userId)}
               >
-                {/* @TODO: Member Profile Image or Default Profile Image */}
+                <Image
+                  src={getProfileImageSrc(member)}
+                  alt={`${member.userNickname} 프로필`}
+                  width={28}
+                  height={28}
+                  className="shrink-0 rounded-full object-cover"
+                  unoptimized
+                />
 
                 <span className="typography-body-2 font-medium wrap-break-word">
                   {member.userNickname}

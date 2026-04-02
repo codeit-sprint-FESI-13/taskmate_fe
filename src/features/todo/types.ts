@@ -4,7 +4,7 @@ export type CreateTodoInput = {
   title: string;
   startDate: string;
   dueDate: string;
-  assigneeIds: string[];
+  assigneeIds: number[];
   memo: string;
 };
 

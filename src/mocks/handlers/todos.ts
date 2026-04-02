@@ -3,13 +3,15 @@ import { HttpResponse } from "msw";
 import { apiMock } from "@/mocks/apiMock";
 
 type CreateTodoRequestBody = {
-  todoData?: {
-    title?: string;
-    startDate?: string;
-    dueDate?: string;
-    assigneeIds?: string[];
-    memo?: string;
-  };
+  title?: string;
+  startDate?: string;
+  dueDate?: string;
+  assigneeIds?: number[];
+  memo?: string;
+};
+
+type PatchTodoRequestBody = Partial<CreateTodoRequestBody> & {
+  status?: "TODO" | "DOING" | "DONE";
 };
 
 export const todosHandlers = [
@@ -66,11 +68,10 @@ export const todosHandlers = [
     const body = (await request
       .json()
       .catch(() => ({}))) as CreateTodoRequestBody;
-    const todoData = body.todoData ?? {};
 
-    const title = todoData.title?.trim();
-    const startDate = todoData.startDate;
-    const dueDate = todoData.dueDate;
+    const title = body.title?.trim();
+    const startDate = body.startDate;
+    const dueDate = body.dueDate;
 
     if (!title || !startDate || !dueDate) {
       return HttpResponse.json(
@@ -87,6 +88,40 @@ export const todosHandlers = [
       success: true,
       code: "OK",
       message: `${params.goalId} 목표에 할 일을 생성했습니다.`,
+    });
+  }),
+
+  apiMock.patch(
+    "*/api/goals/:goalId/todos/:todoId",
+    async ({ request, params }) => {
+      const body = (await request
+        .json()
+        .catch(() => ({}))) as PatchTodoRequestBody;
+
+      if (body.title !== undefined && !body.title?.trim()) {
+        return HttpResponse.json(
+          {
+            success: false,
+            code: "VALIDATION_ERROR",
+            message: "제목은 비어있을 수 없습니다.",
+          },
+          { status: 400 },
+        );
+      }
+
+      return HttpResponse.json({
+        success: true,
+        code: "OK",
+        message: `${params.goalId} 목표의 ${params.todoId} 할 일을 수정했습니다.`,
+      });
+    },
+  ),
+
+  apiMock.delete("*/api/goals/:goalId/todos/:todoId", ({ params }) => {
+    return HttpResponse.json({
+      success: true,
+      code: "OK",
+      message: `${params.goalId} 목표의 ${params.todoId} 할 일을 삭제했습니다.`,
     });
   }),
 ];

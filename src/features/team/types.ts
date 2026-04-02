@@ -49,6 +49,7 @@ export interface Member {
   id: number;
   userId: number;
   userEmail: string;
+  profileImageUrl: string | null;
   userNickname: string;
   role: "ADMIN" | "MEMBER";
   joinedAt: string;
