@@ -36,6 +36,8 @@ const TeamManagement = () => {
         onClose={() => close()}
         onSubmitDelete={async () => {
           await teamDetailApi.delete(Number(teamId));
+          close();
+          router.replace("/taskmate");
         }}
       />,
     );
