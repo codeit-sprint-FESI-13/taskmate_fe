@@ -9,9 +9,7 @@ import type {
 
 export const todoApi = {
   create: (goalId: string, todoData: CreateTodoInput) =>
-    apiClient.post<ResponseCreateTodo>(`/api/goals/${goalId}/todos`, {
-      todoData,
-    }),
+    apiClient.post<ResponseCreateTodo>(`/api/goals/${goalId}/todos`, todoData),
 
   getList: (goalId: string) =>
     apiClient.get<TodoListResponse>(`/api/goals/${goalId}/todos`),
