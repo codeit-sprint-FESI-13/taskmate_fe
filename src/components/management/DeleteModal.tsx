@@ -15,6 +15,7 @@ const DeleteModal = ({ onClose, onSubmitDelete }: DeleteModalProps) => {
     try {
       await onSubmitDelete();
       onClose();
+      //router.replace("/taskmate/main"); // 팀 삭제 후 메인 페이지 이동
     } catch (error) {
       console.log("팀 삭제 실패", error);
     }

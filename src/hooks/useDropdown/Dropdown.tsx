@@ -16,7 +16,7 @@ type RoleStyle = {
 type DropdownProps<T extends string> = {
   options: readonly T[];
   selected?: T;
-  onSelect?: (value: T) => void;
+  onSelect?: (value: T) => void | Promise<void>;
   className?: string;
   roleStyleMap?: Partial<Record<T, RoleStyle>>;
   defaultOptionClassName?: string;
@@ -51,12 +51,14 @@ export const Dropdown = <T extends string>({
 
   // TODO: 삭제 예정
   // 기존 코드의 동작을 이해해야 함
-  const handleSelect = (value: T) => {
-    // API 호출-> 팀원 혹은 어드민 변경하는 API 호출 X -> 다른 드롭다운에 영향을 미치기 때문
-    // Dropdown 컴포넌트 밖에서 호출해야 되겠다
-    selectItem(value);
-
-    onSelect?.(value);
+  const handleSelect = async (value: T) => {
+    try {
+      await onSelect?.(value);
+      // API 성공 시에만 UI 선택값 변경
+      selectItem(value);
+    } catch (error) {
+      console.error("dropdown select error", error);
+    }
   };
 
   const maxLabel = [current || "Select", ...options].reduce(
