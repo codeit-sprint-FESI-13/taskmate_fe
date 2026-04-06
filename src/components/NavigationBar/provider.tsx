@@ -31,6 +31,9 @@ const NavigationBarProvider = ({ children }: { children: React.ReactNode }) => {
 
   const tabChange = (tab: string) => {
     setCurrentTab(tab);
+    if (breakpoint === "mobile") {
+      close();
+    }
   };
 
   const open = () => {

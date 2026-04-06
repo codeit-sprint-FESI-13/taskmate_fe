@@ -20,25 +20,63 @@ export const Header = () => {
         size={24}
         className={cn(
           "cursor-pointer text-gray-300",
-          isOpen ? "self-end" : "self-center",
+          isOpen ? "mobile:self-end" : "mobile:self-center",
+          "mobile:block hidden",
         )}
         onClick={isOpen ? close : open}
       />
 
-      <div className="flex w-full items-center justify-start gap-[6px] pl-2">
+      <div
+        className={cn(
+          "flex w-full items-center justify-between px-5 py-4",
+          "mobile:items-center mobile:justify-start mobile:gap-[6px] mobile:p-0",
+          isOpen ? "mobile:pl-2" : "mobile:pl-0",
+        )}
+      >
         <Icon
           name="LogoIcon"
           size={40}
+          className="mobile:block hidden shrink-0"
         />
 
         {isOpen && (
           <Icon
             name="LogoText"
             size={121}
-            className="h-[25px]"
+            className="mobile:block hidden h-[25px]"
+          />
+        )}
+
+        {!isOpen && (
+          <Icon
+            name="Menu"
+            size={24}
+            className="mobile:hidden block cursor-pointer text-gray-500"
+            onClick={open}
+          />
+        )}
+
+        {!isOpen && (
+          <Icon
+            name="BellDot"
+            size={24}
+            className="mobile:hidden block cursor-pointer text-gray-500"
           />
         )}
       </div>
+
+      {isOpen && (
+        <>
+          <div className="flex w-full items-center justify-end px-4">
+            <Icon
+              name="LinedX"
+              size={24}
+              className="mobile:hidden block cursor-pointer text-gray-500"
+              onClick={close}
+            />
+          </div>
+        </>
+      )}
     </header>
   );
 };

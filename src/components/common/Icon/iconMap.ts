@@ -30,6 +30,7 @@ import FilledXCircle from "./svg/FilledXCircle.svg";
 import Flag from "./svg/Flag.svg";
 import Home from "./svg/Home/Home.svg";
 import Kebab from "./svg/Kebab.svg";
+import LinedX from "./svg/LinedX.svg";
 import LogoIcon from "./svg/Logo/Icon.svg";
 import LogoText from "./svg/Logo/Text.svg";
 import Meatball from "./svg/Meatball.svg";
@@ -51,6 +52,7 @@ export const iconMap = {
   LeftDoubleArrow,
   RightDoubleArrow,
   Bell,
+  LinedX,
   BellDot,
   Calendar,
   Chat,

@@ -14,6 +14,7 @@ import { Personal } from "@/components/NavigationBar/Personal";
 import { NavigationBarContext } from "@/components/NavigationBar/provider";
 import { Team } from "@/components/NavigationBar/Team";
 import { UserProfile } from "@/components/NavigationBar/UserProfile";
+import { NAVIGATION_BAR_ZINDEX } from "@/constants/zIndex";
 import { cn } from "@/utils/utils";
 
 export const NavigationBar = () => {
@@ -25,13 +26,21 @@ export const NavigationBar = () => {
       role="navigation"
       aria-label="네비게이션 바"
       className={cn(
-        "sticky top-0 z-10 flex h-screen shrink-0 flex-col self-start overflow-hidden rounded-tr-[48px] rounded-br-[48px] bg-white shadow-[0_0_4px_0_rgba(0,0,0,0.08)] transition-[width] duration-300 ease-in-out",
-        isOpen ? "w-[360px] p-8" : "w-[60px] px-3 py-8",
+        "fixed top-0 flex w-screen shrink-0 flex-col bg-white transition-[height] duration-300 ease-in-out",
+        isOpen ? "h-screen overflow-y-scroll" : "h-[56px]",
+        "mobile:sticky mobile:top-0 mobile:z-10 mobile:h-screen mobile:shrink-0 mobile:flex-col mobile:self-start mobile:overflow-hidden mobile:rounded-tr-[48px] mobile:rounded-br-[48px] mobile:bg-white mobile:shadow-[0_0_4px_0_rgba(0,0,0,0.08)] mobile:transition-[width] mobile:duration-300 mobile:ease-in-out",
+        isOpen
+          ? "mobile:w-[360px] mobile:p-8"
+          : "mobile:w-[60px] mobile:px-3 mobile:py-8",
       )}
-      style={{ willChange: "width" }}
+      style={{ willChange: "width, height", zIndex: NAVIGATION_BAR_ZINDEX }}
     >
       <Header />
-      <Spacing size={20} />
+
+      <Spacing
+        size={20}
+        className="mobile:block hidden"
+      />
 
       {isOpen && (
         <>
