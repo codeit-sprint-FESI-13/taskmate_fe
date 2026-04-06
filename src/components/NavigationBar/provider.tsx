@@ -14,7 +14,7 @@ interface NavigationBarContextType {
 }
 
 export const NavigationBarContext = createContext<NavigationBarContextType>({
-  isOpen: false,
+  isOpen: true,
   open: () => {},
   close: () => {},
   currentTab: "",
@@ -24,7 +24,7 @@ export const NavigationBarContext = createContext<NavigationBarContextType>({
 const NavigationBarProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const breakpoint = useBreakpoint();
-  const [isOpen, setIsOpen] = useState<boolean>(breakpoint !== "desktop");
+  const [isOpen, setIsOpen] = useState<boolean>(breakpoint === "desktop");
   const [currentTab, setCurrentTab] = useState<string>(() =>
     pathname === "/taskmate" ? "home" : "",
   );
