@@ -1,6 +1,7 @@
 import DownFilledArrow from "./svg/Arrow/DownFilled.svg";
 import LeftDoubleArrow from "./svg/Arrow/LeftDouble.svg";
 import LeftFilledArrow from "./svg/Arrow/LeftFilled.svg";
+import RightArrow from "./svg/Arrow/Right.svg";
 import RightDoubleArrow from "./svg/Arrow/RightDouble.svg";
 import RightFilledArrow from "./svg/Arrow/RightFilled.svg";
 import UpFilledArrow from "./svg/Arrow/UpFilled.svg";
@@ -86,6 +87,7 @@ export const iconMap = {
   Dot,
   GreenCharacter,
   BlueCharacter,
+  RightArrow,
 } as const;
 
 export type IconName = keyof typeof iconMap;

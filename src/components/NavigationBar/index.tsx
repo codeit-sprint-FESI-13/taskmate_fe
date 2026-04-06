@@ -3,18 +3,17 @@
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
-import UserProfile from "@/components/auth/UserProfile";
 import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { Line } from "@/components/common/Line";
 import LogoutButton from "@/components/common/LogoutButton";
 import { Spacing } from "@/components/common/Spacing";
-import Spinner from "@/components/common/Spinner";
 import { Header } from "@/components/NavigationBar/Header";
 import { Item } from "@/components/NavigationBar/parts/Item";
 import { List } from "@/components/NavigationBar/parts/List";
 import { Personal } from "@/components/NavigationBar/Personal";
 import { NavigationBarContext } from "@/components/NavigationBar/provider";
 import { Team } from "@/components/NavigationBar/Team";
+import { UserProfile } from "@/components/NavigationBar/UserProfile";
 import { cn } from "@/utils/utils";
 
 export const NavigationBar = () => {
@@ -53,7 +52,6 @@ export const NavigationBar = () => {
             <Line />
             <Spacing size={12} />
 
-            <Spinner />
             <AsyncBoundary
               loadingFallback={<Personal.Loading />}
               errorFallback={<Personal.Error />}
@@ -68,11 +66,11 @@ export const NavigationBar = () => {
             </AsyncBoundary>
           </div>
 
-          {/* @TODO: 저장된 유저 정보 전달 필요 ( 재인님 TODO ) */}
           <div className="mt-4 flex items-center justify-center gap-1 border-t border-gray-100 bg-white pt-4">
-            <AsyncBoundary errorFallback={<div>에러</div>}>
+            <AsyncBoundary loadingFallback={<UserProfile.Loading />}>
               <UserProfile />
             </AsyncBoundary>
+
             <LogoutButton />
           </div>
         </>

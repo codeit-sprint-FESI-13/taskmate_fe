@@ -10,7 +10,6 @@ import { Item } from "../parts/Item";
 import { List } from "../parts/List";
 import { Team as TeamComponent } from "../parts/Team";
 
-// @TODO: 추후 id 오름차순 정렬 필요 (중간점검 이후 BE로)
 export const Team = () => {
   const router = useRouter();
   const { data: teamList } = useSuspenseQuery(teamQueries.all());
@@ -21,6 +20,7 @@ export const Team = () => {
         <List.Title>팀 스페이스</List.Title>
         <List.TeamAddIcon />
       </List.Header>
+
       <Spacing size={10} />
 
       {teamList.map((team, index) => {
@@ -37,6 +37,7 @@ export const Team = () => {
               >
                 {team.teamName}
               </TeamComponent.Title>
+
               <TeamComponent.List>
                 {team.goals.map((goal) => {
                   return (
