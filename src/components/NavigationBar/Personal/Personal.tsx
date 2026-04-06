@@ -3,12 +3,13 @@ import { useRouter } from "next/navigation";
 
 import { goalQueries } from "@/features/goal/query/goal.queryKey";
 
-import { Spacing } from "../common/Spacing";
-import { Item } from "./parts/Item";
-import { List } from "./parts/List";
+import { Spacing } from "../../common/Spacing";
+import { Item } from "../parts/Item";
+import { List } from "../parts/List";
 
 export const Personal = () => {
   const router = useRouter();
+
   const { data: goalList } = useSuspenseQuery(
     goalQueries.getPersonalGoalList(),
   );

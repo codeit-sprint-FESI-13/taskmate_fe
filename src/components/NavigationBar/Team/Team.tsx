@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 
 import { teamQueries } from "@/features/team/query/team.queryKey";
 
-import { Spacing } from "../common/Spacing";
-import { Item } from "./parts/Item";
-import { List } from "./parts/List";
-import { Team as TeamComponent } from "./parts/Team";
+import { Spacing } from "../../common/Spacing";
+import { Item } from "../parts/Item";
+import { List } from "../parts/List";
+import { Team as TeamComponent } from "../parts/Team";
 
 // @TODO: 추후 id 오름차순 정렬 필요 (중간점검 이후 BE로)
 export const Team = () => {

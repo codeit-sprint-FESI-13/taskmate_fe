@@ -3,19 +3,19 @@
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
+import UserProfile from "@/components/auth/UserProfile";
+import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { Line } from "@/components/common/Line";
+import LogoutButton from "@/components/common/LogoutButton";
 import { Spacing } from "@/components/common/Spacing";
+import Spinner from "@/components/common/Spinner";
+import { Header } from "@/components/NavigationBar/Header";
+import { Item } from "@/components/NavigationBar/parts/Item";
+import { List } from "@/components/NavigationBar/parts/List";
+import { Personal } from "@/components/NavigationBar/Personal";
+import { NavigationBarContext } from "@/components/NavigationBar/provider";
+import { Team } from "@/components/NavigationBar/Team";
 import { cn } from "@/utils/utils";
-
-import UserProfile from "../auth/UserProfile";
-import AsyncBoundary from "../common/AsyncBoundary";
-import LogoutButton from "../common/LogoutButton";
-import { Header } from "./Header";
-import { Item } from "./parts/Item";
-import { List } from "./parts/List";
-import { Personal } from "./Personal";
-import { NavigationBarContext } from "./provider";
-import { Team } from "./Team";
 
 export const NavigationBar = () => {
   const { isOpen } = useContext(NavigationBarContext);
@@ -23,6 +23,8 @@ export const NavigationBar = () => {
 
   return (
     <aside
+      role="navigation"
+      aria-label="네비게이션 바"
       className={cn(
         "sticky top-0 z-10 flex h-screen shrink-0 flex-col self-start overflow-hidden rounded-tr-[48px] rounded-br-[48px] bg-white shadow-[0_0_4px_0_rgba(0,0,0,0.08)] transition-[width] duration-300 ease-in-out",
         isOpen ? "w-[360px] p-8" : "w-[60px] px-3 py-8",
@@ -45,25 +47,23 @@ export const NavigationBar = () => {
                 <Item.Icon name="Home" />
                 <Item.Name>홈</Item.Name>
               </Item.Wrapper>
-              {/* <Item.Wrapper value="board">
-                <Item.Icon name="Chat" />
-                <Item.Name>게시판</Item.Name>
-              </Item.Wrapper> */}
             </List.Container>
 
             <Spacing size={12} />
             <Line />
             <Spacing size={12} />
 
-            {/* @TODO: 데이터 로딩 중 보여줄 UI 추가 */}
-            <AsyncBoundary>
+            <Spinner />
+            <AsyncBoundary
+              loadingFallback={<Personal.Loading />}
+              errorFallback={<Personal.Error />}
+            >
               <Personal />
             </AsyncBoundary>
 
             <Spacing size={28} />
 
-            {/* @TODO: 데이터 로딩 중 보여줄 UI 추가 */}
-            <AsyncBoundary>
+            <AsyncBoundary loadingFallback={<Team.Loading />}>
               <Team />
             </AsyncBoundary>
           </div>
