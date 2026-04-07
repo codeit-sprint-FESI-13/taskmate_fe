@@ -28,6 +28,7 @@ import PipeGreen from "./svg/feature/Pipe_Green.svg";
 import FilledXCircle from "./svg/FilledXCircle.svg";
 import Flag from "./svg/Flag.svg";
 import Home from "./svg/Home/Home.svg";
+import Info from "./svg/Info.svg";
 import Kebab from "./svg/Kebab.svg";
 import LogoIcon from "./svg/Logo/Icon.svg";
 import LogoText from "./svg/Logo/Text.svg";
@@ -86,6 +87,7 @@ export const iconMap = {
   Dot,
   GreenCharacter,
   BlueCharacter,
+  Info,
 } as const;
 
 export type IconName = keyof typeof iconMap;
