@@ -1,5 +1,6 @@
 "use client";
 
+import { cva } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
@@ -15,7 +16,28 @@ import { NavigationBarContext } from "@/components/NavigationBar/provider";
 import { Team } from "@/components/NavigationBar/Team";
 import { UserProfile } from "@/components/NavigationBar/UserProfile";
 import { NAVIGATION_BAR_ZINDEX } from "@/constants/zIndex";
-import { cn } from "@/utils/utils";
+
+const navigationBarAsideVariants = cva(
+  [
+    // default
+    "fixed top-0 flex w-screen shrink-0 flex-col bg-white",
+    // transition
+    "transition-[height] duration-300 ease-in-out",
+    // breakpoint mobile
+    "mobile:sticky mobile:top-0 mobile:z-10 mobile:h-screen mobile:shrink-0 mobile:flex-col mobile:self-start",
+    "mobile:overflow-hidden mobile:rounded-tr-[48px] mobile:rounded-br-[48px] mobile:bg-white",
+    "mobile:shadow-[0_0_4px_0_rgba(0,0,0,0.08)] mobile:transition-[width] mobile:duration-300 mobile:ease-in-out",
+  ],
+  {
+    variants: {
+      open: {
+        true: "h-screen overflow-y-scroll mobile:w-[360px] mobile:p-8",
+        false: "h-[56px] mobile:w-[60px] mobile:px-3 mobile:py-8",
+      },
+    },
+    defaultVariants: { open: false },
+  },
+);
 
 export const NavigationBar = () => {
   const { isOpen } = useContext(NavigationBarContext);
@@ -25,14 +47,7 @@ export const NavigationBar = () => {
     <aside
       role="navigation"
       aria-label="네비게이션 바"
-      className={cn(
-        "fixed top-0 flex w-screen shrink-0 flex-col bg-white transition-[height] duration-300 ease-in-out",
-        isOpen ? "h-screen overflow-y-scroll" : "h-[56px]",
-        "mobile:sticky mobile:top-0 mobile:z-10 mobile:h-screen mobile:shrink-0 mobile:flex-col mobile:self-start mobile:overflow-hidden mobile:rounded-tr-[48px] mobile:rounded-br-[48px] mobile:bg-white mobile:shadow-[0_0_4px_0_rgba(0,0,0,0.08)] mobile:transition-[width] mobile:duration-300 mobile:ease-in-out",
-        isOpen
-          ? "mobile:w-[360px] mobile:p-8"
-          : "mobile:w-[60px] mobile:px-3 mobile:py-8",
-      )}
+      className={navigationBarAsideVariants({ open: isOpen })}
       style={{ willChange: "width, height", zIndex: NAVIGATION_BAR_ZINDEX }}
     >
       <Header />
