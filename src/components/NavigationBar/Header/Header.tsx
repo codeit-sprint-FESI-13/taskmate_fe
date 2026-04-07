@@ -4,8 +4,8 @@ import { useContext } from "react";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { cn } from "@/utils/utils";
 
-import { Icon } from "../common/Icon";
-import { NavigationBarContext } from "./provider";
+import { Icon } from "../../common/Icon";
+import { NavigationBarContext } from "../provider";
 
 const headerVariants = cva(
   [
@@ -98,8 +98,8 @@ const DefaultHeader = () => {
   );
 };
 
-export const Header = () => {
+export default function Header() {
   const breakpoint = useBreakpoint();
 
   return breakpoint === "mobile" ? <MobileHeader /> : <DefaultHeader />;
-};
+}

@@ -8,7 +8,7 @@ import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { Line } from "@/components/common/Line";
 import LogoutButton from "@/components/common/LogoutButton";
 import { Spacing } from "@/components/common/Spacing";
-import { Header } from "@/components/NavigationBar/Header";
+import Header from "@/components/NavigationBar/Header";
 import { Item } from "@/components/NavigationBar/parts/Item";
 import { List } from "@/components/NavigationBar/parts/List";
 import { Personal } from "@/components/NavigationBar/Personal";
