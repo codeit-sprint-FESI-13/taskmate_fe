@@ -4,6 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import { teamQueries } from "@/features/team/query/team.queryKey";
+import { formatNavigationKey } from "@/utils/formatNavigationKey";
 
 import { Spacing } from "../../common/Spacing";
 import { Item } from "../parts/Item";
@@ -28,7 +29,7 @@ export const Team = () => {
           <>
             <TeamComponent.Container
               key={team.teamId}
-              value={`team-${team.teamId}`}
+              value={formatNavigationKey("team", team.teamId)}
             >
               <TeamComponent.Title
                 onClick={() => {
@@ -43,7 +44,12 @@ export const Team = () => {
                   return (
                     <Item.Wrapper
                       key={goal.goalId}
-                      value={`team-${team.teamId}-${goal.goalId}`}
+                      value={formatNavigationKey(
+                        "team",
+                        team.teamId,
+                        "goal",
+                        goal.goalId,
+                      )}
                       onClick={() => {
                         router.push(
                           `/taskmate/team/${team.teamId}/goal/${goal.goalId}`,
