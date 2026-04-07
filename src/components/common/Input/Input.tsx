@@ -62,22 +62,29 @@ const Input = ({
   errorMessage,
   supportingText,
   rightIcon,
+  disabled,
   ...props
 }: InputProps) => {
+  const isDisabled = disabled || variant === "disabled";
+
   return (
     <div className="flex flex-col gap-2.5">
       <div className="relative">
         <input
           className={cn(
             InputVariants({
-              variant: errorMessage ? "error" : variant,
+              variant: errorMessage
+                ? "error"
+                : isDisabled
+                  ? "disabled"
+                  : variant,
               shape,
               className,
             }),
             "pr-6",
           )}
           value={value}
-          disabled={variant === "disabled"}
+          disabled={isDisabled}
           {...props}
         ></input>
         <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-2">
