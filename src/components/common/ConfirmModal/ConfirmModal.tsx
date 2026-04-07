@@ -3,6 +3,7 @@ import React from "react";
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
 import { Modal } from "@/components/common/Modal";
+import TextButton from "@/components/common/TextButton/TextButton";
 
 interface ConfirmModalProps {
   title: string;
@@ -54,13 +55,13 @@ const ConfirmModal = ({
           >
             {confirmLabel}
           </Button>
-          <Button
-            variant="secondary"
+          <TextButton
+            variant="primary"
             onClick={onClose}
             className="w-full"
           >
             {cancelLabel}
-          </Button>
+          </TextButton>
         </Modal.Actions>
       </Modal.Content>
     </Modal.Root>
