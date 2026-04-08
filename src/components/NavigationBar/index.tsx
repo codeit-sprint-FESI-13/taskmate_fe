@@ -78,14 +78,27 @@ export const NavigationBar = () => {
 
             <AsyncBoundary
               loadingFallback={<Personal.Loading />}
-              errorFallback={<Personal.Error />}
+              errorFallback={(error, onReset) => (
+                <Personal.Error
+                  error={error}
+                  onReset={onReset}
+                />
+              )}
             >
               <Personal />
             </AsyncBoundary>
 
             <Spacing size={28} />
 
-            <AsyncBoundary loadingFallback={<Team.Loading />}>
+            <AsyncBoundary
+              loadingFallback={<Team.Loading />}
+              errorFallback={(error, onReset) => (
+                <Team.Error
+                  error={error}
+                  onReset={onReset}
+                />
+              )}
+            >
               <Team />
             </AsyncBoundary>
           </div>

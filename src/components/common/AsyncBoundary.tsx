@@ -1,10 +1,11 @@
 "use client";
 
+import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { Component, ReactNode, Suspense } from "react";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
-  fallback: (error: Error, onReset: () => void) => ReactNode;
+  fallback: ReactNode | ((error: Error, onReset: () => void) => ReactNode);
   onError?: (error: Error, info: React.ErrorInfo) => void;
 }
 
@@ -40,7 +41,9 @@ export class ErrorBoundary extends Component<
     const { fallback, children } = this.props;
 
     if (hasError && error) {
-      return fallback(error, this.handleReset);
+      return typeof fallback === "function"
+        ? fallback(error, this.handleReset)
+        : fallback;
     }
 
     return children;
@@ -52,7 +55,9 @@ interface AsyncBoundaryProps {
   /** 데이터 로딩 중 보여줄 UI (기본값: "Loading...") */
   loadingFallback?: ReactNode;
   /** 에러 발생 시 보여줄 UI — `error` 인자로 원인을 받을 수 있습니다. */
-  errorFallback?: (error: Error, onReset: () => void) => ReactNode;
+  errorFallback?:
+    | ReactNode
+    | ((error: Error, onReset: () => void) => ReactNode);
 }
 
 /**
@@ -62,6 +67,7 @@ interface AsyncBoundaryProps {
  * 1. 로딩 중  → loadingFallback 표시
  * 2. 에러 발생 → errorFallback 표시
  * 3. 정상     → children 표시
+ *
  *
  * 사용 예시:
  * <AsyncBoundary
@@ -90,11 +96,25 @@ interface AsyncBoundaryProps {
 export default function AsyncBoundary({
   children,
   loadingFallback = <div>Loading...</div>,
-  errorFallback = () => <div>Error</div>,
+  errorFallback = <div>Error</div>,
 }: AsyncBoundaryProps) {
   return (
-    <ErrorBoundary fallback={(error, onReset) => errorFallback(error, onReset)}>
-      <Suspense fallback={loadingFallback}>{children}</Suspense>
-    </ErrorBoundary>
+    <QueryErrorResetBoundary>
+      {({ reset: resetQueryErrors }) => (
+        <ErrorBoundary
+          fallback={
+            typeof errorFallback === "function"
+              ? (error: Error, boundaryReset: () => void) =>
+                  errorFallback(error, () => {
+                    resetQueryErrors();
+                    boundaryReset();
+                  })
+              : errorFallback
+          }
+        >
+          <Suspense fallback={loadingFallback}>{children}</Suspense>
+        </ErrorBoundary>
+      )}
+    </QueryErrorResetBoundary>
   );
 }
