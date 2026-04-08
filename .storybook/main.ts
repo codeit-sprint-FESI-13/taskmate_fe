@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/nextjs-vite";
+import svgr from "vite-plugin-svgr";
 
 const config: StorybookConfig = {
   stories: [
@@ -12,7 +13,24 @@ const config: StorybookConfig = {
     "@storybook/addon-docs",
     "@storybook/addon-onboarding",
   ],
-  framework: "@storybook/nextjs-vite",
+
+  framework: {
+    name: "@storybook/nextjs-vite",
+    options: {
+      image: {
+        excludeFiles: ["/**/*.svg"],
+      },
+    },
+  },
+  async viteFinal(config) {
+    config.plugins = [
+      ...(config.plugins || []),
+      svgr({
+        include: "**/*.svg",
+      }),
+    ];
+    return config;
+  },
   staticDirs: ["../public"],
 };
 export default config;
