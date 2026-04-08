@@ -4,8 +4,6 @@ import defaultAvatar from "@/assets/images/avatar.png";
 import Button from "@/components/common/Button/Button";
 import Crown from "@/components/common/Icons/Crown";
 import RightArrow from "@/components/common/Icons/RightArrow";
-import { memberRoleApi } from "@/features/management/api";
-import { memberApi } from "@/features/management/api";
 import { MemberRole } from "@/features/management/types";
 import Dropdown from "@/hooks/useDropdown/Dropdown";
 import { cn } from "@/utils/utils";
@@ -29,12 +27,12 @@ const profileCardVariants = cva(
 
 type ProfileCardProps = {
   id: number;
-  teamId: number;
   avatar: string;
   isAdmin?: boolean;
   nickName: string;
   isMe?: boolean;
   email: string;
+  onRoleChange?: (memberId: number, role: MemberRole) => Promise<void> | void;
   onDeleteMember?: () => void;
   variant?:
     | "default"
@@ -48,12 +46,12 @@ type ProfileCardProps = {
 
 const ProfileCard = ({
   id,
-  teamId,
   avatar,
   isAdmin = false,
   nickName,
   isMe = false,
   email,
+  onRoleChange,
   variant = "default",
   onDeleteMember,
 }: ProfileCardProps) => {
@@ -72,15 +70,7 @@ const ProfileCard = ({
       return;
     }
 
-    await memberRoleApi.update(teamId, id, role);
-  };
-
-  const deleteMember = async (memberId: number): Promise<void> => {
-    try {
-      await memberApi.delete(teamId, memberId);
-    } catch (error) {
-      console.error("delete member error", error);
-    }
+    await onRoleChange?.(id, role);
   };
 
   return (

@@ -9,7 +9,9 @@ import { useTeamId } from "@/features/team/hooks/useTeamId";
 
 const TeamNameEditor = () => {
   const [value, setValue] = useState("");
+  const [initialName, setInitialName] = useState("");
   const teamId = Number(useTeamId());
+  const isDisabled = value.trim() === initialName.trim();
 
   // teamId로 팀명 가져오기
   useEffect(() => {
@@ -19,6 +21,7 @@ const TeamNameEditor = () => {
       .read(teamId)
       .then((res) => {
         if (res?.data?.name) setValue(res.data.name);
+        setInitialName(res.data.name);
       })
       .catch(() => {
         setValue("팀명");
@@ -34,6 +37,7 @@ const TeamNameEditor = () => {
     try {
       await teamDetailApi.create(teamId, nextName);
       setValue(nextName);
+      window.location.reload();
     } catch (error) {
       console.log("팀명 수정 실패", error);
     }
@@ -54,6 +58,7 @@ const TeamNameEditor = () => {
         <Button
           className="ml-auto w-fit rounded-xl"
           type="submit"
+          isDisabled={isDisabled}
         >
           저장하기
         </Button>

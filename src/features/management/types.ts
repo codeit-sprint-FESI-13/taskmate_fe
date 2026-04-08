@@ -92,6 +92,26 @@ export interface InviteResponseSuccess {
   timestamp: string;
 }
 
+// 팀 멤버 초대 실패 케이스
+
+type InviteErrorCode =
+  | "INVALID_INPUT_VALUE"
+  | "TEAM_SELF_INVITE_NOT_ALLOWED"
+  | "AUTH_LOGIN_REQUIRED"
+  | "TEAM_FORBIDDEN"
+  | "TEAM_NOT_FOUND"
+  | "TEAM_INVITATION_PENDING_DUPLICATED"
+  | "TEAM_MEMBER_ALREADY_EXISTS"
+  | "MAIL_SEND_FAILED";
+
+export interface InviteErrorResponse {
+  success: false;
+  code: InviteErrorCode;
+  message: string;
+  data: null;
+  timestamp: string;
+}
+
 // 팀 삭제 성공 케이스
 export interface TeamDeleteResponseSuccess {
   success: true;
