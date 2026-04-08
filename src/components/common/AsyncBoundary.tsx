@@ -3,6 +3,8 @@
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { Component, ReactNode, Suspense } from "react";
 
+import Spinner from "./Spinner";
+
 interface ErrorBoundaryProps {
   children: ReactNode;
   fallback: ReactNode | ((error: Error, onReset: () => void) => ReactNode);
@@ -95,7 +97,7 @@ interface AsyncBoundaryProps {
 
 export default function AsyncBoundary({
   children,
-  loadingFallback = <div>Loading...</div>,
+  loadingFallback = <Spinner size={40} />,
   errorFallback = <div>Error</div>,
 }: AsyncBoundaryProps) {
   return (
