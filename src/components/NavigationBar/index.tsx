@@ -1,21 +1,43 @@
 "use client";
 
+import { cva } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
+import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { Line } from "@/components/common/Line";
+import LogoutButton from "@/components/common/LogoutButton";
 import { Spacing } from "@/components/common/Spacing";
-import { cn } from "@/utils/utils";
+import Header from "@/components/NavigationBar/Header";
+import { Item } from "@/components/NavigationBar/parts/Item";
+import { List } from "@/components/NavigationBar/parts/List";
+import { Personal } from "@/components/NavigationBar/Personal";
+import { NavigationBarContext } from "@/components/NavigationBar/provider";
+import { Team } from "@/components/NavigationBar/Team";
+import { UserProfile } from "@/components/NavigationBar/UserProfile";
+import { NAVIGATION_BAR_ZINDEX } from "@/constants/zIndex";
 
-import UserProfile from "../auth/UserProfile";
-import AsyncBoundary from "../common/AsyncBoundary";
-import LogoutButton from "../common/LogoutButton";
-import { Header } from "./Header";
-import { Item } from "./parts/Item";
-import { List } from "./parts/List";
-import { Personal } from "./Personal";
-import { NavigationBarContext } from "./provider";
-import { Team } from "./Team";
+const navigationBarAsideVariants = cva(
+  [
+    // default
+    "fixed top-0 flex w-screen shrink-0 flex-col bg-white",
+    // transition
+    "transition-[height] duration-300 ease-in-out",
+    // breakpoint mobile
+    "mobile:sticky mobile:top-0 mobile:z-10 mobile:h-screen mobile:shrink-0 mobile:flex-col mobile:self-start",
+    "mobile:overflow-hidden mobile:rounded-tr-[48px] mobile:rounded-br-[48px] mobile:bg-white",
+    "mobile:shadow-[0_0_4px_0_rgba(0,0,0,0.08)] mobile:transition-[width] mobile:duration-300 mobile:ease-in-out",
+  ],
+  {
+    variants: {
+      open: {
+        true: "h-screen overflow-y-scroll mobile:w-[360px] mobile:p-8",
+        false: "h-[56px] mobile:w-[60px] mobile:px-3 mobile:py-8",
+      },
+    },
+    defaultVariants: { open: false },
+  },
+);
 
 export const NavigationBar = () => {
   const { isOpen } = useContext(NavigationBarContext);
@@ -23,14 +45,17 @@ export const NavigationBar = () => {
 
   return (
     <aside
-      className={cn(
-        "sticky top-0 z-10 flex h-screen shrink-0 flex-col self-start overflow-hidden rounded-tr-[48px] rounded-br-[48px] bg-white shadow-[0_0_4px_0_rgba(0,0,0,0.08)] transition-[width] duration-300 ease-in-out",
-        isOpen ? "w-[360px] p-8" : "w-[60px] px-3 py-8",
-      )}
-      style={{ willChange: "width" }}
+      role="navigation"
+      aria-label="네비게이션 바"
+      className={navigationBarAsideVariants({ open: isOpen })}
+      style={{ willChange: "width, height", zIndex: NAVIGATION_BAR_ZINDEX }}
     >
       <Header />
-      <Spacing size={20} />
+
+      <Spacing
+        size={20}
+        className="mobile:block hidden"
+      />
 
       {isOpen && (
         <>
@@ -45,34 +70,31 @@ export const NavigationBar = () => {
                 <Item.Icon name="Home" />
                 <Item.Name>홈</Item.Name>
               </Item.Wrapper>
-              {/* <Item.Wrapper value="board">
-                <Item.Icon name="Chat" />
-                <Item.Name>게시판</Item.Name>
-              </Item.Wrapper> */}
             </List.Container>
 
             <Spacing size={12} />
             <Line />
             <Spacing size={12} />
 
-            {/* @TODO: 데이터 로딩 중 보여줄 UI 추가 */}
-            <AsyncBoundary>
+            <AsyncBoundary
+              loadingFallback={<Personal.Loading />}
+              errorFallback={<Personal.Error />}
+            >
               <Personal />
             </AsyncBoundary>
 
             <Spacing size={28} />
 
-            {/* @TODO: 데이터 로딩 중 보여줄 UI 추가 */}
-            <AsyncBoundary>
+            <AsyncBoundary loadingFallback={<Team.Loading />}>
               <Team />
             </AsyncBoundary>
           </div>
 
-          {/* @TODO: 저장된 유저 정보 전달 필요 ( 재인님 TODO ) */}
           <div className="mt-4 flex items-center justify-center gap-1 border-t border-gray-100 bg-white pt-4">
-            <AsyncBoundary errorFallback={<div>에러</div>}>
+            <AsyncBoundary loadingFallback={<UserProfile.Loading />}>
               <UserProfile />
             </AsyncBoundary>
+
             <LogoutButton />
           </div>
         </>
