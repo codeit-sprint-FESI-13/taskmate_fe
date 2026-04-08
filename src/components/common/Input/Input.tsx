@@ -23,7 +23,7 @@ import { cn } from "@/utils/utils";
  */
 
 const InputVariants = cva(
-  "w-full h-11 pt-3 pr-3 pb-3 pl-4 gap-1 text-sm bg-background-normal leading-5 text-label-normal font-medium border border-gray-300 placeholder:text-label-alternative lg:text-base lg:leading-6 lg:font-medium lg:h-14  focus:outline-none focus:border-blue-800 hover:border-blue-300",
+  "w-full h-11 pt-3 pr-3 pb-3 pl-4 gap-1 text-label-1 bg-background-normal leading-5 text-label-normal font-medium border border-gray-300 placeholder:text-label-alternative lg:text-body-2 lg:leading-6 lg:font-medium lg:h-14  focus:outline-none focus:border-blue-800 hover:border-blue-300",
   {
     variants: {
       variant: {
@@ -95,7 +95,7 @@ const Input = ({
         <div className="pl-3">
           <p
             className={cn(
-              "text-sm",
+              "text-label-2 font-medium",
               errorMessage ? "text-red-500" : "text-label-assistive",
             )}
           >
