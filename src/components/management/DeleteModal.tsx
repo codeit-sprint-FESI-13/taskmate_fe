@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import Button from "@/components/common/Button/Button";
 import TextButton from "@/components/common/TextButton/TextButton";
 
@@ -9,13 +11,15 @@ interface DeleteModalProps {
 }
 
 const DeleteModal = ({ onClose, onSubmitDelete }: DeleteModalProps) => {
+  const router = useRouter();
+
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       await onSubmitDelete();
       onClose();
-      //router.replace("/taskmate/main"); // 팀 삭제 후 메인 페이지 이동
+      router.replace("/taskmate");
     } catch (error) {
       console.log("팀 삭제 실패", error);
     }

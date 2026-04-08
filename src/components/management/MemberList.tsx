@@ -5,16 +5,16 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import Button from "@/components/common/Button/Button";
+import ConfirmModal from "@/components/management/ConfirmModal";
 import ErrorModal from "@/components/management/ErrorModal";
 import ProfileCard from "@/components/management/ProfileCard";
 import { userQueries } from "@/constants/queryKeys/user.queryKey";
-import {
-  memberApi,
-  memberListApi,
-  memberRoleApi,
-} from "@/features/management/api";
+import { memberListApi } from "@/features/management/api";
+import { memberApi } from "@/features/management/api";
+import { memberRoleApi } from "@/features/management/api";
 import { MemberData } from "@/features/management/types";
-import { type MemberRole } from "@/features/management/types";
+import { MemberRole } from "@/features/management/types";
+import Dropdown from "@/hooks/useDropdown/Dropdown";
 import { formatMemberList } from "@/utils/formatMemberList";
 
 interface MemberListProps {
@@ -23,10 +23,18 @@ interface MemberListProps {
 
 const MemberList = ({ onInviteClick }: MemberListProps) => {
   const [members, setMembers] = useState<MemberData[]>([]);
-  const [errorModalOpen, setErrorModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const params = useParams<{ teamId: string }>();
   const teamId = Number(params.teamId);
+
+  const [confirmMessage, setConfirmMessage] = useState("");
+  const [roleChangeModalOpen, setRoleChangeModalOpen] = useState(false);
+  const [memberDeleteModalOpen, setMemberDeleteModalOpen] = useState(false);
+  const [pending, setPending] = useState<{
+    memberId: number;
+    role?: MemberRole;
+  } | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   const { data: me } = useQuery({
     ...userQueries.myInfo(),
@@ -36,6 +44,48 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
 
   const myUserId = me?.id;
 
+  // 드롭다운 선택시
+  const openRoleChangeModal = (memberId: number, value: "어드민" | "팀원") => {
+    const role: MemberRole = value === "어드민" ? "ADMIN" : "MEMBER";
+    setPending({ memberId, role }); //
+    setConfirmMessage("팀원의 권한을 변경 하시겠습니까?");
+    setRoleChangeModalOpen(true);
+  };
+
+  // 모달 확인 버튼에서 Api 호출
+  const handleUpdateRole = async () => {
+    if (!pending || !pending.role) return;
+
+    try {
+      await memberRoleApi.update(teamId, pending.memberId, pending.role);
+    } catch {
+      setErrorMessage("유효하지 않은 권한 설정 입니다.");
+      setErrorModalOpen(true);
+    } finally {
+      setRoleChangeModalOpen(false);
+    }
+  };
+
+  const openMemberDeleteModal = (memberId: number) => {
+    console.log("왜!");
+    setPending({ memberId });
+    setConfirmMessage("팀원의 권한을 삭제 하시겠습니까?");
+    setMemberDeleteModalOpen(true);
+  };
+
+  const handleDeleteMember = async () => {
+    if (!pending) return;
+
+    try {
+      await memberApi.delete(teamId, pending.memberId);
+    } catch {
+      setErrorMessage("관리자는 본인을 팀에서 삭제할 수 없습니다.");
+      setErrorModalOpen(true);
+    } finally {
+      setMemberDeleteModalOpen(false);
+    }
+  };
+
   useEffect(() => {
     const loadMemberList = async () => {
       const res = await memberListApi.read(teamId);
@@ -44,31 +94,6 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
 
     if (Number.isFinite(teamId)) loadMemberList();
   }, [teamId]);
-
-  const handleRoleChange = async (memberId: number, role: MemberRole) => {
-    try {
-      await memberRoleApi.update(teamId, memberId, role);
-      setMembers((prev) =>
-        prev.map((member) =>
-          member.id === memberId ? { ...member, role } : member,
-        ),
-      );
-    } catch (error) {
-      setErrorMessage("팀에는 최소 1명의 ADMIN이 필요합니다.");
-      setErrorModalOpen(true);
-      throw error;
-    }
-  };
-
-  const handleDeleteMember = async (memberId: number): Promise<void> => {
-    try {
-      await memberApi.delete(teamId, memberId);
-      setMembers((prev) => prev.filter((member) => member.id !== memberId));
-    } catch (error) {
-      setErrorMessage("관리자는 본인을 팀에서 삭제할 수 없습니다.");
-      setErrorModalOpen(true);
-    }
-  };
 
   useEffect(() => {
     if (!Number.isFinite(teamId)) return;
@@ -93,21 +118,41 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
 
   return (
     <section className="bg-inverse-normal relative h-183.25 overflow-hidden rounded-4xl">
-      <div className="flex h-183.25 flex-col items-center gap-2 overflow-y-auto px-5 py-8">
-        {members.map((member) => (
-          <ProfileCard
-            key={member.id}
-            id={member.id}
-            avatar={member.profileImageUrl ?? ""}
-            nickName={member.userNickname}
-            email={member.userEmail}
-            isAdmin={member.role === "ADMIN"}
-            isMe={typeof myUserId === "number" && member.userId === myUserId}
-            variant="admin"
-            onRoleChange={handleRoleChange}
-            onDeleteMember={() => handleDeleteMember(member.id)}
-          />
-        ))}
+      <div className="h-183.25 overflow-scroll px-5 py-8">
+        <div className="flex flex-col gap-2">
+          {members.map((member) => (
+            <div
+              key={member.id}
+              className="flex justify-between px-4 py-3"
+            >
+              <ProfileCard
+                avatar={member.profileImageUrl ?? ""}
+                hasCrownIcon={member.role === "ADMIN"}
+                name={member.userNickname}
+                tag={member.id === myUserId ? "나" : undefined} // isMe 판정 여기서
+                email={member.userEmail}
+              />
+              <div className="flex items-center gap-2">
+                <div className="flex items-center self-center">
+                  <Dropdown
+                    options={["어드민", "팀원"]}
+                    // 개선 가능
+                    selected={member.role === "ADMIN" ? "어드민" : "팀원"}
+                    onSelect={(value) => openRoleChangeModal(member.id, value)} // member.id 를 준다.
+                  />
+                </div>
+                <Button
+                  onClick={() => openMemberDeleteModal(member.id)}
+                  variant="secondary"
+                  size="sm"
+                  className="rounded-lg text-gray-500 ring-gray-200 hover:ring-gray-300"
+                >
+                  팀원 삭제
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-22.5 rounded-b-4xl bg-linear-to-t from-white via-white/90 to-transparent" />
@@ -119,12 +164,28 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
         팀원 추가하기
       </Button>
 
-      {errorModalOpen && (
-        <ErrorModal
-          message={errorMessage}
-          onClose={() => setErrorModalOpen(false)}
-        />
-      )}
+      {/* 권한 변경 확인 모달 */}
+      <ConfirmModal
+        message={confirmMessage || "팀원의 권한을 변경 하시겠습니까?"}
+        isOpen={roleChangeModalOpen}
+        onClose={() => setRoleChangeModalOpen(false)}
+        onConfirm={handleUpdateRole}
+      />
+
+      {/* 팀원 삭제 모달 */}
+      <ConfirmModal
+        message={confirmMessage || "팀원의 권한을 삭제 하시겠습니까?"}
+        isOpen={memberDeleteModalOpen}
+        onClose={() => setMemberDeleteModalOpen(false)}
+        onConfirm={handleDeleteMember}
+      />
+
+      {/* 에러 모달 */}
+      <ErrorModal
+        message={errorMessage}
+        isOpen={errorModalOpen}
+        onClose={() => setErrorModalOpen(false)}
+      />
     </section>
   );
 };

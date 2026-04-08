@@ -5,13 +5,19 @@ import { useEffect } from "react";
 import Button from "@/components/common/Button/Button";
 import { Modal } from "@/components/common/Modal";
 
-interface ErrorModalProps {
+interface ConfirmModalProps {
   message?: string;
   isOpen: boolean;
   onClose: () => void;
+  onConfirm: () => void;
 }
 
-const ErrorModal = ({ message, isOpen, onClose }: ErrorModalProps) => {
+const ConfirmModal = ({
+  message,
+  isOpen,
+  onClose,
+  onConfirm,
+}: ConfirmModalProps) => {
   useEffect(() => {
     if (!isOpen) return;
     const prevOverflow = document.body.style.overflow;
@@ -34,6 +40,14 @@ const ErrorModal = ({ message, isOpen, onClose }: ErrorModalProps) => {
               type="button"
               onClick={onClose}
               className="flex-1"
+              variant="secondary"
+            >
+              취소
+            </Button>
+            <Button
+              type="button"
+              onClick={onConfirm}
+              className="flex-1"
             >
               확인
             </Button>
@@ -44,4 +58,4 @@ const ErrorModal = ({ message, isOpen, onClose }: ErrorModalProps) => {
   );
 };
 
-export default ErrorModal;
+export default ConfirmModal;
