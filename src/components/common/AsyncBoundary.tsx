@@ -4,11 +4,13 @@ import { Component, ReactNode, Suspense } from "react";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
-  fallback?: ReactNode;
+  fallback: (error: Error, onReset: () => void) => ReactNode;
+  onError?: (error: Error, info: React.ErrorInfo) => void;
 }
 
 interface ErrorBoundaryState {
   hasError: boolean;
+  error: Error | null;
 }
 
 export class ErrorBoundary extends Component<
@@ -17,26 +19,31 @@ export class ErrorBoundary extends Component<
 > {
   constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null };
   }
 
-  static getDerivedStateFromError(): ErrorBoundaryState {
-    // state를 업데이트하여 다음 렌더링에 fallback UI가 표시되도록 합니다.
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
   }
 
-  componentDidCatch(error: unknown, errorInfo: React.ErrorInfo) {
-    // commit phase - 로깅 등 side effect 처리
-    if (process.env.NODE_ENV === "development") {
-      console.error("[ErrorBoundary]", error, errorInfo.componentStack);
-    }
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    // 에러 로깅 (Sentry 등)
+    this.props.onError?.(error, info);
   }
+
+  handleReset = () => {
+    this.setState({ hasError: false, error: null });
+  };
 
   render() {
-    if (this.state.hasError) {
-      return this.props.fallback ?? null;
+    const { hasError, error } = this.state;
+    const { fallback, children } = this.props;
+
+    if (hasError && error) {
+      return fallback(error, this.handleReset);
     }
-    return this.props.children;
+
+    return children;
   }
 }
 
@@ -44,8 +51,8 @@ interface AsyncBoundaryProps {
   children: ReactNode;
   /** 데이터 로딩 중 보여줄 UI (기본값: "Loading...") */
   loadingFallback?: ReactNode;
-  /** 에러 발생 시 보여줄 UI */
-  errorFallback?: ReactNode;
+  /** 에러 발생 시 보여줄 UI — `error` 인자로 원인을 받을 수 있습니다. */
+  errorFallback?: (error: Error, onReset: () => void) => ReactNode;
 }
 
 /**
@@ -83,10 +90,10 @@ interface AsyncBoundaryProps {
 export default function AsyncBoundary({
   children,
   loadingFallback = <div>Loading...</div>,
-  errorFallback,
+  errorFallback = () => <div>Error</div>,
 }: AsyncBoundaryProps) {
   return (
-    <ErrorBoundary fallback={errorFallback}>
+    <ErrorBoundary fallback={(error, onReset) => errorFallback(error, onReset)}>
       <Suspense fallback={loadingFallback}>{children}</Suspense>
     </ErrorBoundary>
   );
