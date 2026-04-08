@@ -1,8 +1,9 @@
+"use client";
+
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 
 import { goalApi } from "@/features/goal/api";
-import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { cn } from "@/utils/utils";
 
 import { ProgressBar } from "../common/ProgressBar";
@@ -11,6 +12,7 @@ import { StarToggleButton } from "../common/StarToggleButton";
 type SecondaryColor = "blue" | "green";
 
 interface MainSecondaryProgressCardProps {
+  teamId: string;
   goalId: number;
   title: string;
   progress: number;
@@ -26,6 +28,7 @@ const THEME = {
 } as const;
 
 export const MainSecondaryProgressCard = ({
+  teamId,
   title,
   progress,
   color = "green",
@@ -35,7 +38,6 @@ export const MainSecondaryProgressCard = ({
   goalId,
 }: MainSecondaryProgressCardProps) => {
   const router = useRouter();
-  const teamId = useTeamId();
   const theme = THEME[color];
 
   // @TODO: 낙관적 업데이트 추가 필요 ( 중간 이후 )

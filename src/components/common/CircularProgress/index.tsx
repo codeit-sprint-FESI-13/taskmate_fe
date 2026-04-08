@@ -4,7 +4,7 @@ import type { ProgressColor, ProgressVariant } from "../ProgressBar";
 
 interface CircularProgressProps {
   value: number;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
   color?: ProgressColor;
   variant?: ProgressVariant;
   className?: string;
@@ -15,6 +15,7 @@ const SIZE_PX: Record<NonNullable<CircularProgressProps["size"]>, number> = {
   sm: 48,
   md: 80,
   lg: 120,
+  xl: 160,
 };
 
 const TRACK_STROKE: Record<ProgressVariant, Record<ProgressColor, string>> = {

@@ -27,7 +27,9 @@ export class ErrorBoundary extends Component<
 
   componentDidCatch(error: unknown, errorInfo: React.ErrorInfo) {
     // commit phase - 로깅 등 side effect 처리
-    console.error("[ErrorBoundary]", error, errorInfo.componentStack);
+    if (process.env.NODE_ENV === "development") {
+      console.error("[ErrorBoundary]", error, errorInfo.componentStack);
+    }
   }
 
   render() {

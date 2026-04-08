@@ -1,12 +1,15 @@
 import DownFilledArrow from "./svg/Arrow/DownFilled.svg";
 import LeftDoubleArrow from "./svg/Arrow/LeftDouble.svg";
 import LeftFilledArrow from "./svg/Arrow/LeftFilled.svg";
+import RightArrow from "./svg/Arrow/Right.svg";
 import RightDoubleArrow from "./svg/Arrow/RightDouble.svg";
 import RightFilledArrow from "./svg/Arrow/RightFilled.svg";
 import UpFilledArrow from "./svg/Arrow/UpFilled.svg";
 import Bell from "./svg/Bell/Bell.svg";
 import BellDot from "./svg/Bell-dot/BellDot.svg";
 import Calendar from "./svg/Calendar/Line/Calendar.svg";
+import BlueCharacter from "./svg/Character/BlueCharacter.svg";
+import GreenCharacter from "./svg/Character/GreenCharacter.svg";
 import Chat from "./svg/Chat/Chat.svg";
 import ActiveCheckBox from "./svg/Checkbox/ActiveCheckBox.svg";
 import ActiveFilledCheckBox from "./svg/Checkbox/ActiveFilledCheckBox.svg";
@@ -26,7 +29,9 @@ import PipeGreen from "./svg/feature/Pipe_Green.svg";
 import FilledXCircle from "./svg/FilledXCircle.svg";
 import Flag from "./svg/Flag.svg";
 import Home from "./svg/Home/Home.svg";
+import Info from "./svg/Info.svg";
 import Kebab from "./svg/Kebab.svg";
+import LinedX from "./svg/LinedX.svg";
 import LogoIcon from "./svg/Logo/Icon.svg";
 import LogoText from "./svg/Logo/Text.svg";
 import Meatball from "./svg/Meatball.svg";
@@ -48,6 +53,7 @@ export const iconMap = {
   LeftDoubleArrow,
   RightDoubleArrow,
   Bell,
+  LinedX,
   BellDot,
   Calendar,
   Chat,
@@ -82,6 +88,10 @@ export const iconMap = {
   Flag,
   GoalFlag,
   Dot,
+  GreenCharacter,
+  BlueCharacter,
+  RightArrow,
+  Info,
 } as const;
 
 export type IconName = keyof typeof iconMap;

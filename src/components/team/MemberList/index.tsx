@@ -8,6 +8,7 @@ import { userQueries } from "@/constants/queryKeys/user.queryKey";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { useTeamLeaveModal } from "@/features/team/hooks/useTeamLeaveModal";
 import { teamQueries } from "@/features/team/query/team.queryKey";
+import { formatMemberList } from "@/utils/formatMemberList";
 
 import Member from "./Member";
 
@@ -18,6 +19,8 @@ export const MemberList = () => {
 
   const { data: members } = useSuspenseQuery(teamQueries.memberList(teamId));
   const { data: me } = useSuspenseQuery(userQueries.myInfo());
+
+  const formattedMembers = formatMemberList(members, me.id);
 
   return (
     <div className="flex w-full flex-col items-start gap-5">
@@ -47,7 +50,7 @@ export const MemberList = () => {
       </div>
 
       <div className="grid w-full grid-cols-1 gap-3 *:min-w-0 md:grid-cols-2 md:gap-4 lg:grid-cols-4 lg:gap-6">
-        {members.map((member) => (
+        {formattedMembers.map((member) => (
           <Member
             key={member.userId}
             avatar={member.profileImageUrl ?? ""}
