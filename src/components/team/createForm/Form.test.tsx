@@ -6,6 +6,7 @@ import { teamApi } from "@/features/team/api";
 import Form from "./Form";
 
 const backMock = jest.fn();
+const toastMock = jest.fn();
 
 jest.mock("@/features/team/api", () => ({
   teamApi: {
@@ -16,6 +17,12 @@ jest.mock("@/features/team/api", () => ({
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
     back: backMock,
+  }),
+}));
+
+jest.mock("@/hooks/useToast", () => ({
+  useToast: () => ({
+    toast: toastMock,
   }),
 }));
 
@@ -34,6 +41,7 @@ const renderWithQueryClient = (ui: React.ReactElement) => {
 describe("TeamCreateForm", () => {
   beforeEach(() => {
     backMock.mockClear();
+    toastMock.mockClear();
     jest.clearAllMocks();
   });
 
@@ -52,10 +60,13 @@ describe("TeamCreateForm", () => {
       expect(backMock).toHaveBeenCalledTimes(1);
     });
 
-    expect(teamApi.create).toHaveBeenCalledWith("새로운 팀");
+    expect(teamApi.create).toHaveBeenCalledWith(
+      "새로운 팀",
+      expect.any(Object),
+    );
   });
 
-  test("팀 생성 요청 실패 시 에러 메시지를 보여준다", async () => {
+  test("팀 생성 요청 실패 시 토스트 에러를 보여준다", async () => {
     (teamApi.create as jest.Mock).mockRejectedValue({
       message: "이미 존재하는 팀 이름입니다.",
     });
@@ -68,11 +79,17 @@ describe("TeamCreateForm", () => {
     const submitButton = screen.getByRole("button", { name: "생성하기" });
     fireEvent.click(submitButton);
 
-    expect(
-      await screen.findByText("이미 존재하는 팀 이름입니다."),
-    ).toBeInTheDocument();
-
+    await waitFor(() => {
+      expect(toastMock).toHaveBeenCalledTimes(1);
+    });
+    expect(toastMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        variant: "error",
+        title: "팀 생성 실패",
+        description: "이미 존재하는 팀 이름입니다.",
+      }),
+    );
     expect(backMock).not.toHaveBeenCalled();
-    expect(teamApi.create).toHaveBeenCalledWith("중복팀");
+    expect(teamApi.create).toHaveBeenCalledWith("중복팀", expect.any(Object));
   });
 });

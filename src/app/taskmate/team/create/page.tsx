@@ -13,6 +13,7 @@ export default function Page() {
 
         <div className="mobile:w-[335px] tablet:w-[560px] mobile:p-8 mobile:pt-10 flex max-w-full flex-col rounded-4xl bg-white p-4">
           <CreateForm.Form />
+
           <Spacing size={16} />
           <CreateForm.Cancel />
         </div>
