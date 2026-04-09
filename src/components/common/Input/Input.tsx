@@ -23,7 +23,7 @@ import { cn } from "@/utils/utils";
  */
 
 const InputVariants = cva(
-  "w-full h-11 pt-3 pr-3 pb-3 pl-4 gap-1 text-sm bg-background-normal leading-5 text-label-normal font-medium border border-gray-300 placeholder:text-label-alternative lg:text-base lg:leading-6 lg:font-medium lg:h-14  focus:outline-none focus:border-blue-800 hover:border-blue-300",
+  "w-full h-11 pt-3 pr-3 pb-3 pl-4 gap-1 text-label-1 bg-background-normal leading-5 text-label-normal font-medium border border-gray-300 placeholder:text-label-alternative tablet:text-body-2 tablet:leading-6 tablet:h-14  focus:outline-none focus:border-blue-800 hover:border-blue-300",
   {
     variants: {
       variant: {
@@ -62,22 +62,29 @@ const Input = ({
   errorMessage,
   supportingText,
   rightIcon,
+  disabled,
   ...props
 }: InputProps) => {
+  const isDisabled = disabled || variant === "disabled";
+
   return (
     <div className="flex flex-col gap-2.5">
       <div className="relative">
         <input
           className={cn(
             InputVariants({
-              variant: errorMessage ? "error" : variant,
+              variant: errorMessage
+                ? "error"
+                : isDisabled
+                  ? "disabled"
+                  : variant,
               shape,
               className,
             }),
             "pr-6",
           )}
           value={value}
-          disabled={variant === "disabled"}
+          disabled={isDisabled}
           {...props}
         ></input>
         <div className="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-2">
@@ -88,7 +95,7 @@ const Input = ({
         <div className="pl-3">
           <p
             className={cn(
-              "text-sm",
+              "text-label-2 font-medium",
               errorMessage ? "text-red-500" : "text-label-assistive",
             )}
           >
