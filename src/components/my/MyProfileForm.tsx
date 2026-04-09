@@ -1,4 +1,8 @@
+"use client";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import React from "react";
+
+import { userQueries } from "@/constants/queryKeys";
 
 import Button from "../common/Button/Button";
 import { Icon } from "../common/Icon";
@@ -6,6 +10,7 @@ import Input from "../common/Input";
 import ProfileImageUploader from "./ProfileImageUploader";
 
 const MyProfileForm = () => {
+  const { data: myInfo } = useSuspenseQuery(userQueries.myInfo());
   return (
     <div className="tablet:w-[560px] mx-auto w-[335px]">
       <p className="tablet:block text-title-3 mb-10 ml-2 hidden font-semibold">
@@ -13,7 +18,7 @@ const MyProfileForm = () => {
       </p>
       <div className="bg-background-normal tablet:px-8 tablet:pb-10 tablet:gap-12 flex flex-col gap-8 rounded-3xl px-6 pt-10 pb-6">
         <div className="flex justify-center">
-          <ProfileImageUploader />
+          <ProfileImageUploader imageUrl={myInfo.profileImageUrl} />
         </div>
         <form
           className="flex flex-col"
