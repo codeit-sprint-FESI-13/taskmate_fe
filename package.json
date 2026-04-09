@@ -13,7 +13,8 @@
     "mock": "npx json-server --watch db.json --port=4000",
     "dev:full": "concurrently \"next dev\" \"pnpm run mock\"",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_c93820598942000"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -58,6 +59,7 @@
     "@types/react-dom": "^19",
     "@vitest/browser-playwright": "^4.1.0",
     "@vitest/coverage-v8": "^4.1.0",
+    "chromatic": "^16.1.0",
     "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
@@ -79,6 +81,7 @@
     "ts-node": "^10.9.2",
     "typescript": "^5",
     "vite": "^8.0.0",
+    "vite-plugin-svgr": "^5.2.0",
     "vitest": "^4.1.0"
   },
   "msw": {
