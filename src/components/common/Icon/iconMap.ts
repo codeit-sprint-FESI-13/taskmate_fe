@@ -1,6 +1,7 @@
 import DownFilledArrow from "./svg/Arrow/DownFilled.svg";
 import LeftDoubleArrow from "./svg/Arrow/LeftDouble.svg";
 import LeftFilledArrow from "./svg/Arrow/LeftFilled.svg";
+import RightArrow from "./svg/Arrow/Right.svg";
 import RightDoubleArrow from "./svg/Arrow/RightDouble.svg";
 import RightFilledArrow from "./svg/Arrow/RightFilled.svg";
 import UpFilledArrow from "./svg/Arrow/UpFilled.svg";
@@ -30,6 +31,7 @@ import Flag from "./svg/Flag.svg";
 import Home from "./svg/Home/Home.svg";
 import Info from "./svg/Info.svg";
 import Kebab from "./svg/Kebab.svg";
+import LinedX from "./svg/LinedX.svg";
 import LogoIcon from "./svg/Logo/Icon.svg";
 import LogoText from "./svg/Logo/Text.svg";
 import Meatball from "./svg/Meatball.svg";
@@ -51,6 +53,7 @@ export const iconMap = {
   LeftDoubleArrow,
   RightDoubleArrow,
   Bell,
+  LinedX,
   BellDot,
   Calendar,
   Chat,
@@ -87,6 +90,7 @@ export const iconMap = {
   Dot,
   GreenCharacter,
   BlueCharacter,
+  RightArrow,
   Info,
 } as const;
 

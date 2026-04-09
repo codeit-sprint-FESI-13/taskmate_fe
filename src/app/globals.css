@@ -65,6 +65,7 @@
   --color-background-dim-strong: rgba(17, 24, 39, 0.3);
 
   /* 브레이크포인트 */
+  --breakpoint-mobile: 375px;
   --breakpoint-tablet: 744px;
   --breakpoint-desktop: 1280px;
 

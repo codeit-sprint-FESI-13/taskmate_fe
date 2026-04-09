@@ -59,6 +59,18 @@ export const goalsHandlers = [
   }),
 
   apiMock.get("*/api/goals/personal", () => {
+    // 테스트용: 요청마다 약 50% 확률로 실패 (필요 시 비율만 조정)
+    if (Math.random() < 0.5) {
+      return HttpResponse.json(
+        {
+          success: false,
+          code: "INTERNAL_ERROR",
+          message: "개인 목표 목록 조회 실패",
+        },
+        { status: 500 },
+      );
+    }
+
     return HttpResponse.json({
       success: true,
       code: "OK",
