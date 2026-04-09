@@ -1,3 +1,18 @@
+import z from "zod";
+
+import { TEAM_NAME_MAX_LENGTH } from "@/constants/team";
+
+export const createTeamSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "팀 이름을 입력해주세요.")
+    .max(
+      TEAM_NAME_MAX_LENGTH,
+      `팀 이름은 ${TEAM_NAME_MAX_LENGTH}자 이내로 입력해주세요.`,
+    ),
+});
+
 export interface ResponseCreateTeam {
   success: true;
 }
