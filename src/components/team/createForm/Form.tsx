@@ -41,15 +41,16 @@ export default function Form() {
     >
       <label className="typography-heading-2 font-semibold">팀 이름</label>
 
-      <Input
-        name="name"
-        required
-        type="text"
-        maxLength={TEAM_NAME_MAX_LENGTH}
-        className="mobile:w-[303px] tablet:w-[496px]"
-        placeholder="팀 이름을 입력해주세요"
-        errorMessage={errorMessage ?? undefined}
-      />
+      <div className="w-full">
+        <Input
+          name="name"
+          required
+          type="text"
+          maxLength={TEAM_NAME_MAX_LENGTH}
+          placeholder="팀 이름을 입력해주세요"
+          errorMessage={errorMessage ?? undefined}
+        />
+      </div>
 
       <Button
         size="xl"
