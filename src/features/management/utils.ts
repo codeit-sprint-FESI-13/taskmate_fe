@@ -1,4 +1,5 @@
 // validateTeamName
+// @TODO: zod로 맞추기 (리팩토링)
 export const validateTeamName = (raw: string): string | null => {
   const value = raw.trim(); // 앞뒤 공백만 제거
 
@@ -9,6 +10,7 @@ export const validateTeamName = (raw: string): string | null => {
 };
 
 // validateEmail
+// @TODO: zod로 맞추기 (리팩토링)
 export const validateEmail = (raw: string): string | null => {
   const value = raw.trim();
 

@@ -9,6 +9,7 @@ type ProfileCardProps = {
   email: string;
 };
 
+// @TODO: 이전에 에러 해결한다고 만든 임시 파일. 해당 파일이 필요한지 판단 필요
 const ProfileCard = ({
   avatar,
   hasCrownIcon = false,
@@ -22,6 +23,8 @@ const ProfileCard = ({
     <div className="flex w-fit items-center gap-2">
       {/* avatar */}
       <div className="relative h-10 w-10">
+        {/* @TODO: next/image 사용 */}
+        {/* @TODO: 향후 useAvatar 로 리팩토링 */}
         <img
           src={avatarSrc}
           alt="Avatar Image"

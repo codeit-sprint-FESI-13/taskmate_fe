@@ -15,8 +15,10 @@ const TeamNameEditor = () => {
 
   // teamId로 팀명 가져오기
   useEffect(() => {
+    // @TODO: useTeamId 에서 처리
     if (Number.isNaN(teamId)) return;
 
+    // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
     teamDetailApi
       .read(teamId)
       .then((res) => {
@@ -32,13 +34,17 @@ const TeamNameEditor = () => {
     e.preventDefault();
 
     const nextName = value.trim();
+    // @TODO: useTeamId 에서 처리될 부분 분리
     if (Number.isNaN(teamId) || !nextName) return;
 
+    // @TODO: useMutation 으로 리팩토링
     try {
       await teamDetailApi.create(teamId, nextName);
       setValue(nextName);
+      // @TODO: window.location.reload() 사용 금지, router.refresh() 사용
       window.location.reload();
     } catch (error) {
+      // @TODO: console 제거
       console.log("팀명 수정 실패", error);
     }
   };

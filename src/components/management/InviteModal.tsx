@@ -27,6 +27,7 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
     const error = validateEmail(email);
     if (error) return;
 
+    // @TODO: useMutation 으로 리팩토링
     try {
       await onSubmitInvite(email);
       onClose();
@@ -38,6 +39,8 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
     }
   };
 
+  // @TODO: useOverlay 또는 Modal.BackDrop 처리
+  // @TODO: 중복코드
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -47,8 +50,10 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
   }, []);
 
   useEffect(() => {
+    // @TODO: useTeamId 에서 처리
     if (Number.isNaN(teamId)) return;
 
+    // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
     teamDetailApi
       .read(teamId)
       .then((res) => {
@@ -60,6 +65,7 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
       });
   }, [teamId]);
 
+  // @TODO: Modal 공통 컴포넌트로 리팩토링
   return (
     <section className="fixed inset-0 z-9999 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <div className="relative flex w-112.5 flex-col gap-4 rounded-2xl bg-white p-8 shadow-lg">
@@ -69,12 +75,14 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
           className="flex flex-col gap-4"
           onSubmit={handleSubmit}
         >
+          {/* @TODO: label 태그 사용 */}
           <p>소속 팀</p>
           <Input
             value={value}
             className="rounded-4 bg-background-normal-alternative border border-gray-200 p-4 text-gray-400 hover:border-gray-200"
             disabled
           />
+          {/* @TODO: label 태그 사용 */}
           <p>
             이메일 <span className="text-red-normal">*</span>
           </p>
@@ -84,6 +92,7 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          {/* @TODO: "errorMessage && 로 처리하기" 랑 지금 코드랑 비교후 적용 */}
           <p className={errorMessage ? "text-red-normal visible" : "invisible"}>
             {errorMessage || " "}
           </p>

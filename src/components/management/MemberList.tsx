@@ -17,18 +17,22 @@ import { MemberRole } from "@/features/management/types";
 import Dropdown from "@/hooks/useDropdown/Dropdown";
 import { formatMemberList } from "@/utils/formatMemberList";
 
+// @TODO: onInviteClick 함수를 Page에서 받아오는 방식 제거 ( Page가 갖는 책임 아님 )
 interface MemberListProps {
   onInviteClick: () => void;
 }
 
 const MemberList = ({ onInviteClick }: MemberListProps) => {
   const [members, setMembers] = useState<MemberData[]>([]);
+
+  // @TODO: useTeamId 에서 처리
   const params = useParams<{ teamId: string }>();
   const teamId = Number(params.teamId);
 
   const [confirmMessage, setConfirmMessage] = useState("");
   const [roleChangeModalOpen, setRoleChangeModalOpen] = useState(false);
   const [memberDeleteModalOpen, setMemberDeleteModalOpen] = useState(false);
+  // @TODO: pending? 이라는 변수명 이 적절한지 판단
   const [pending, setPending] = useState<{
     memberId: number;
     role?: MemberRole;
@@ -36,6 +40,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorModalOpen, setErrorModalOpen] = useState(false);
 
+  // @TODO: myUserId를 가져오는 Hooks 로 분리
   const { data: me } = useQuery({
     ...userQueries.myInfo(),
     throwOnError: false,
@@ -56,6 +61,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   const handleUpdateRole = async () => {
     if (!pending || !pending.role) return;
 
+    // @TODO: useMutation 으로 리팩토링
     try {
       await memberRoleApi.update(teamId, pending.memberId, pending.role);
     } catch {
@@ -66,7 +72,9 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
     }
   };
 
+  /* @TODO: useOverlay 공통 hooks 로 적용 */
   const openMemberDeleteModal = (memberId: number) => {
+    // @TODO: console 제거
     console.log("왜!");
     setPending({ memberId });
     setConfirmMessage("팀원의 권한을 삭제 하시겠습니까?");
@@ -76,6 +84,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   const handleDeleteMember = async () => {
     if (!pending) return;
 
+    // @TODO: useMutation 으로 리팩토링
     try {
       await memberApi.delete(teamId, pending.memberId);
     } catch {
@@ -87,6 +96,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   };
 
   useEffect(() => {
+    // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
     const loadMemberList = async () => {
       const res = await memberListApi.read(teamId);
       setMembers(Array.isArray(res.data) ? res.data : []);
@@ -96,8 +106,10 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   }, [teamId]);
 
   useEffect(() => {
+    // @TODO: useTeamId 에서 처리
     if (!Number.isFinite(teamId)) return;
 
+    // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
     const loadMemberList = async (): Promise<void> => {
       try {
         const res = await memberListApi.read(teamId);
@@ -109,6 +121,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
             : list,
         );
       } catch (error) {
+        // @TODO: console 제거
         console.error("member list error", error);
       }
     };
@@ -165,6 +178,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
       </Button>
 
       {/* 권한 변경 확인 모달 */}
+      {/* @TODO: useOverlay 공통 hooks 로 적용 */}
       <ConfirmModal
         message={confirmMessage || "팀원의 권한을 변경 하시겠습니까?"}
         isOpen={roleChangeModalOpen}
@@ -173,6 +187,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
       />
 
       {/* 팀원 삭제 모달 */}
+      {/* @TODO: useOverlay 공통 hooks 로 적용 */}
       <ConfirmModal
         message={confirmMessage || "팀원의 권한을 삭제 하시겠습니까?"}
         isOpen={memberDeleteModalOpen}
@@ -181,6 +196,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
       />
 
       {/* 에러 모달 */}
+      {/* @TODO: useOverlay 공통 hooks 로 적용 */}
       <ErrorModal
         message={errorMessage}
         isOpen={errorModalOpen}

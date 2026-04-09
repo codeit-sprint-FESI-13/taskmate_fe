@@ -18,6 +18,7 @@ const ConfirmModal = ({
   onClose,
   onConfirm,
 }: ConfirmModalProps) => {
+  // @TODO: useOverlay 또는 Modal.BackDrop 처리
   useEffect(() => {
     if (!isOpen) return;
     const prevOverflow = document.body.style.overflow;
@@ -27,9 +28,12 @@ const ConfirmModal = ({
     };
   }, [isOpen]);
 
+  // @TODO: useOverlay 통해서 처리하고 UI return 이 조건에 따라 달라지게 하는 코드 제거
   if (!isOpen) return null;
 
   return (
+    // @TODO: Modal로 처리하는데 감싸는 div가 필요한지 판단
+    // @TODO: z index 9999 제거, OVERLAY_ZINDEX_BASE 사용
     <div className="fixed inset-0 z-9999 p-10">
       <Modal.Root onClose={onClose}>
         <Modal.Backdrop />

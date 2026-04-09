@@ -10,12 +10,15 @@ interface DeleteModalProps {
   onSubmitDelete: () => Promise<void>;
 }
 
+// @TODO: onSubmitDelete 함수를 Page에서 받아오는 방식 제거 ( Page가 갖는 책임 아님 )
 const DeleteModal = ({ onClose, onSubmitDelete }: DeleteModalProps) => {
   const router = useRouter();
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // @TODO: useMutation 으로 리팩토링
+    // @TODO: console 제거
     try {
       await onSubmitDelete();
       onClose();
@@ -25,6 +28,7 @@ const DeleteModal = ({ onClose, onSubmitDelete }: DeleteModalProps) => {
     }
   };
 
+  // @TODO: Modal 공통 컴포넌트로 리팩토링
   return (
     <section className="fixed inset-0 z-9999 flex items-center justify-center bg-black/30 backdrop-blur-sm">
       <div className="flex w-112.5 flex-col gap-4 rounded-2xl bg-white p-8 shadow-lg">

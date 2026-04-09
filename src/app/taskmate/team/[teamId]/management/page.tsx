@@ -11,6 +11,7 @@ import TeamNameEditor from "@/components/management/TeamNameEditor";
 import { inviteApi, teamDetailApi } from "@/features/management/api";
 import { useOverlay } from "@/hooks/useOverlay";
 
+// @TODO: Page가 갖는 책임에서 벗어나는 코드 제거 및 분리
 const TeamManagement = () => {
   const { open, close } = useOverlay();
   const router = useRouter();
@@ -44,6 +45,8 @@ const TeamManagement = () => {
   };
 
   useEffect(() => {
+    // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
+    // @TODO: page 컴포넌트에서 해당 코드 분리
     const guardTeamAccess = async () => {
       try {
         await teamDetailApi.read(Number(teamId));
