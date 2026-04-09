@@ -14,7 +14,7 @@ async function refreshAndRetry({
   url: string;
   request: NextRequest;
   headers: HeadersInit;
-  body: string | undefined;
+  body: ArrayBuffer | undefined;
 }) {
   const refreshRes = await fetch(
     `${process.env.BACKEND_URL}/api/auth/refresh`,
@@ -96,7 +96,7 @@ async function handler(
     };
 
     const hasBody = !["GET", "HEAD"].includes(request.method);
-    const body = hasBody ? await request.text() : undefined;
+    const body = hasBody ? await request.arrayBuffer() : undefined;
 
     const backendRes = await fetch(url, {
       method: request.method,
