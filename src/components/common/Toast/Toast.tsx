@@ -78,8 +78,6 @@ export function Toast({ toast, onDismiss }: ToastProps) {
 
   return (
     <div
-      role={toast.variant === "error" ? "alert" : "status"}
-      aria-live={toast.variant === "error" ? "assertive" : "polite"}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
