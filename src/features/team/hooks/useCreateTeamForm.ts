@@ -10,7 +10,7 @@ import { createTeamSchema } from "@/features/team/types";
 import { useToast } from "@/hooks/useToast";
 import type { ApiError } from "@/lib/api/types";
 
-export const useTeamCreateForm = () => {
+export const useCreateTeamForm = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { toast } = useToast();

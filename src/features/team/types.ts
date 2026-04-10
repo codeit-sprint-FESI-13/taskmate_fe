@@ -1,6 +1,7 @@
 import z from "zod";
 
 import { TEAM_NAME_MAX_LENGTH } from "@/constants/team";
+import { ApiResponse } from "@/lib/api/types";
 
 export const createTeamSchema = z.object({
   name: z
@@ -13,16 +14,7 @@ export const createTeamSchema = z.object({
     ),
 });
 
-export interface ResponseCreateTeam {
-  success: true;
-}
-
-export interface ResponseCreateTeamError {
-  success: false;
-  error: {
-    message: string;
-  };
-}
+export type ResponseCreateTeam = ApiResponse<void>;
 
 export interface TeamSummary {
   teamId: number;

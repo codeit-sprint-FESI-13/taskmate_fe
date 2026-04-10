@@ -3,10 +3,10 @@
 import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input";
 import { TEAM_NAME_MAX_LENGTH } from "@/constants/team";
-import { useTeamCreateForm } from "@/features/team/hooks/useTeamCreateForm";
+import { useCreateTeamForm } from "@/features/team/hooks/useCreateTeamForm";
 
 export default function Form() {
-  const { handleSubmit, nameError } = useTeamCreateForm();
+  const { handleSubmit, nameError } = useCreateTeamForm();
 
   return (
     <form
