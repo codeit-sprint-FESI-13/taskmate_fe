@@ -53,7 +53,9 @@ describe("TeamCreateForm", () => {
     fireEvent.change(input, { target: { value: "새로운 팀" } });
 
     const submitButton = screen.getByRole("button", { name: "생성하기" });
-    fireEvent.click(submitButton);
+    const form = submitButton.closest("form");
+    if (!form) throw new Error("form not found");
+    fireEvent.submit(form);
 
     // Assert
     expect(handleSubmit).toHaveBeenCalledTimes(1);
