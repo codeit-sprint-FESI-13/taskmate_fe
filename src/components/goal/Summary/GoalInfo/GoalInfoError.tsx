@@ -13,12 +13,10 @@ export default function GoalInfoError({ error, onReset }: Props) {
     <div
       className={cn(
         "relative flex w-full flex-col items-start gap-3 rounded-4xl bg-white p-5",
-        "tablet:gap-6",
-        "desktop:flex-row desktop:items-center desktop:gap-5 desktop:px-8",
-        "items-center justify-center",
+        "flex-col items-center justify-center gap-4",
       )}
     >
-      <h1 className="typography-heading-2 font-semibold text-gray-400">
+      <h1 className="typography-heading-2 font-semibold text-black">
         {error.message}
       </h1>
 

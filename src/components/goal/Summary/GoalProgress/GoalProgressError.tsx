@@ -12,13 +12,13 @@ export default function GoalProgressError({ error, onReset }: Props) {
   return (
     <div
       className={cn(
-        "flex h-[154px] w-full items-center justify-start gap-5 rounded-4xl bg-blue-700 px-5 py-6",
+        "flex h-[154px] w-full items-center justify-start rounded-4xl bg-blue-700 px-5 py-6",
         "tablet:p-6",
-        "desktop:h-[184px] desktop:gap-8 desktop:px-[30px] desktop:py-[40px]",
-        "items-center justify-center",
+        "desktop:h-[184px] desktop:px-[30px] desktop:py-[40px]",
+        "flex-col items-center justify-center gap-4",
       )}
     >
-      <h1 className="typography-heading-2 font-semibold text-gray-400">
+      <h1 className="typography-heading-2 font-semibold text-white">
         {error.message}
       </h1>
 
