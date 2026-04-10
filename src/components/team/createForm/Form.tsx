@@ -29,7 +29,7 @@ export default function Form() {
       <Button
         size="xl"
         type="submit"
-        className="w-full"
+        className="w-full break-keep"
       >
         생성하기
       </Button>
