@@ -44,7 +44,7 @@ const INDICATOR_STROKE: Record<
 };
 
 const R = 40;
-const STROKE = 10;
+const STROKE = 14;
 const C = 2 * Math.PI * R;
 
 export const CircularProgress = ({

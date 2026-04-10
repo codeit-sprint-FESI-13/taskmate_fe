@@ -1,8 +1,10 @@
 "use client";
 
 import AsyncBoundary from "@/components/common/AsyncBoundary";
+import { Spacing } from "@/components/common/Spacing";
 import Spinner from "@/components/common/Spinner";
 import { Heading } from "@/components/goal/Heading";
+import { Summary } from "@/components/goal/Summary";
 
 export default function Page() {
   return (
@@ -19,11 +21,15 @@ export default function Page() {
         <Heading />
       </AsyncBoundary>
 
-      {/* 
-      <Spacing size={64} />
+      <Spacing
+        size={8}
+        useClassSize
+        className="mobile:h-14 tablet:h-16 h-8"
+      />
 
       <Summary />
 
+      {/* 
       <Spacing size={56} />
 
       <TodoSection /> */}
