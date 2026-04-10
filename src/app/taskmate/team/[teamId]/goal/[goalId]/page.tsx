@@ -4,7 +4,7 @@ import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { Spacing } from "@/components/common/Spacing";
 import Spinner from "@/components/common/Spinner";
 import { Heading } from "@/components/goal/Heading";
-import { Summary } from "@/components/goal/Summary";
+import Summary from "@/components/goal/Summary";
 
 export default function Page() {
   return (
