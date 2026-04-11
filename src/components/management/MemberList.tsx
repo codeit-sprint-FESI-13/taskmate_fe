@@ -95,6 +95,9 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
     // @TODO: useMutation 으로 리팩토링
     try {
       await memberApi.delete(teamId, pending.memberId);
+      setMembers((prev) =>
+        prev.filter((member) => member.id !== pending.memberId),
+      );
     } catch {
       setErrorMessage("관리자는 본인을 팀에서 삭제할 수 없습니다.");
       setErrorModalOpen(true);
