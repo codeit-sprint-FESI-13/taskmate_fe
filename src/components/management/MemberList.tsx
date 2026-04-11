@@ -66,6 +66,16 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
     // @TODO: useMutation 으로 리팩토링
     try {
       await memberRoleApi.update(teamId, pending.memberId, pending.role);
+
+      // 권한 변경시 배지 업데이트
+      const { memberId, role } = pending;
+      setMembers((prev) =>
+        prev.map((member) =>
+          member.id === memberId ? { ...member, role } : member,
+        ),
+      );
+
+      // 나의 권한을 admin > member로 변경시 메인페이지로 이동
       const response = await memberListApi.read(teamId);
       const memberUserId =
         response?.data?.find((member) => member.id == pending.memberId)
