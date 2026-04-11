@@ -26,8 +26,8 @@ export default function TaskmatePage() {
             name="FlagGreen"
             size={40}
           />
-          <h2 className="typography-label-1 desktop:typography-body-1 font-medium text-black">
-            팀별 진행 상황
+          <h2 className="typography-body-1 font-medium text-black">
+            중요한 할 일
           </h2>
         </div>
 
