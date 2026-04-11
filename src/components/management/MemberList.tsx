@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -24,6 +25,7 @@ interface MemberListProps {
 
 const MemberList = ({ onInviteClick }: MemberListProps) => {
   const [members, setMembers] = useState<MemberData[]>([]);
+  const router = useRouter();
 
   // @TODO: useTeamId 에서 처리
   const params = useParams<{ teamId: string }>();
@@ -64,6 +66,14 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
     // @TODO: useMutation 으로 리팩토링
     try {
       await memberRoleApi.update(teamId, pending.memberId, pending.role);
+      const response = await memberListApi.read(teamId);
+      const memberUserId =
+        response?.data?.find((member) => member.id == pending.memberId)
+          ?.userId ?? pending.memberId;
+
+      if (myUserId === memberUserId && pending.role !== "ADMIN") {
+        router.push("/taskmate");
+      }
     } catch {
       setErrorMessage("유효하지 않은 권한 설정 입니다.");
       setErrorModalOpen(true);
@@ -74,8 +84,6 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
 
   /* @TODO: useOverlay 공통 hooks 로 적용 */
   const openMemberDeleteModal = (memberId: number) => {
-    // @TODO: console 제거
-    console.log("왜!");
     setPending({ memberId });
     setConfirmMessage("팀원의 권한을 삭제 하시겠습니까?");
     setMemberDeleteModalOpen(true);
