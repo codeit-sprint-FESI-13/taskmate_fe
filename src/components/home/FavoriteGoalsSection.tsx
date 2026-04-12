@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 import Button from "@/components/common/Button/Button";
 import { Icon } from "@/components/common/Icon";
@@ -8,7 +9,6 @@ import { Spacing } from "@/components/common/Spacing";
 import { FavoriteGoalsItem } from "@/components/home/FavoriteGoalsItem";
 import { mainInfiniteQueries } from "@/features/home/query/mainInfiniteQueries";
 import { FavoriteGoalItem } from "@/features/home/types";
-// import { teamQueries } from "@/features/team/query/team.queryKey";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
 
 export function FavoriteGoalsSection() {
@@ -32,19 +32,47 @@ export function FavoriteGoalsSection() {
     })),
   );
 
-  // 팀 리스트 가져오기
-  // const { data: teamList } = useSuspenseQuery(teamQueries.all());
-  // const items = teamList.flatMap((team) =>
-  //   team.goals.map((goal) => ({
-  //     teamId: team.teamId,
-  //     teamName: team.teamName,
-  //     goal,
-  //   })),
-  // );
+  const listRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // 여기에 useInfiniteScroll
+  const scrollByItem = (direction: "left" | "right") => {
+    const container = listRef.current;
+    if (!container) return;
 
-  // 데이터 안전성: teamList가 null/undefined이면 flatMap에서 바로 에러가 납니다. 그런 경우가 가능하다면 const items = (teamList ?? []).flatMap(...)처럼 기본값 넣기
+    const track = container.firstElementChild as HTMLElement;
+    if (!track) return;
+
+    const firstItem = track.firstElementChild as HTMLElement;
+    if (!firstItem) return;
+
+    const gap = 16;
+    const move = firstItem.offsetWidth + gap;
+
+    container.scrollBy({
+      left: direction === "right" ? move : -move,
+      behavior: "smooth",
+    });
+  };
+
+  const updateScrollState = () => {
+    const container = listRef.current;
+    if (!container) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+  };
+
+  useEffect(() => {
+    const container = listRef.current;
+    if (!container) return;
+
+    updateScrollState(); // 초기값 설정
+
+    container.addEventListener("scroll", updateScrollState);
+    return () => container.removeEventListener("scroll", updateScrollState);
+  }, []);
 
   if (items.length === 0) {
     return (
@@ -73,8 +101,25 @@ export function FavoriteGoalsSection() {
   }
 
   return (
-    <div className="w-full max-w-full min-w-0">
-      <div className="w-full min-w-0 overflow-x-auto overflow-y-hidden overscroll-x-contain">
+    <div className="relative w-full max-w-full min-w-0">
+      {canScrollLeft && (
+        <button
+          type="button"
+          onClick={() => scrollByItem("left")}
+          className="bg-background-normal border-background-elevated-normal-alternative absolute top-1/2 left-3 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border p-2"
+        >
+          <Icon
+            name="RightArrow"
+            size={25}
+            className="rotate-180"
+          />
+        </button>
+      )}
+
+      <div
+        ref={listRef}
+        className="w-full min-w-0 overflow-x-auto overflow-y-hidden overscroll-x-contain"
+      >
         <div className="inline-flex w-full flex-nowrap gap-4 pb-2">
           {items.map(({ teamId, teamName, goal }) => (
             <FavoriteGoalsItem
@@ -92,6 +137,19 @@ export function FavoriteGoalsSection() {
         {/* 로딩 UI */}
         {isFetchingNextPage && <p>불러오는 중...</p>}
       </div>
+
+      {canScrollRight && (
+        <button
+          type="button"
+          onClick={() => scrollByItem("right")}
+          className="bg-background-normal border-background-elevated-normal-alternative absolute top-1/2 right-3 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border p-2"
+        >
+          <Icon
+            name="RightArrow"
+            size={25}
+          />
+        </button>
+      )}
     </div>
   );
 }
