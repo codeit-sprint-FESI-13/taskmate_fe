@@ -2,7 +2,7 @@
 
 import { MainSecondaryProgressCard } from "@/components/team/MainSecondaryProgressCard";
 
-export interface TeamGoalHorizontalItemProps {
+export interface FavoriteGoalsItemProps {
   teamId: number;
   teamName: string;
   goal: {
@@ -11,14 +11,14 @@ export interface TeamGoalHorizontalItemProps {
   };
 }
 
-export function TeamGoalHorizontalItem({
+export function FavoriteGoalsItem({
   teamId,
   teamName,
   goal,
-}: TeamGoalHorizontalItemProps) {
+}: FavoriteGoalsItemProps) {
   return (
-    <div className="inline-flex w-[360px] shrink-0 flex-col gap-4 rounded-4xl bg-white p-8">
-      <span className="text-xl leading-[30px] font-semibold tracking-tight text-slate-800">
+    <div className="tablet:w-77.5 desktop:w-104 inline-flex w-full shrink-0 flex-col gap-4 rounded-4xl bg-white px-7 pt-7 pb-8">
+      <span className="text-xl leading-7.5 font-semibold tracking-tight text-slate-800">
         {teamName}
       </span>
       <MainSecondaryProgressCard
