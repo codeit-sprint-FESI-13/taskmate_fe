@@ -10,6 +10,7 @@ export interface ProgressData {
 }
 
 // @TODO: 정의되어있는 ApiResponse | ApiError 로 묶기
+
 export interface ProgressSuccessResponse {
   success: true;
   code: "SUCCESS";
@@ -19,6 +20,7 @@ export interface ProgressSuccessResponse {
 }
 
 // @TODO: 정의되어있는 ApiResponse | ApiError 로 묶기
+
 export type ProgressErrorResponse =
   | {
       success: false;
@@ -107,3 +109,45 @@ export type FavoriteGoalsErrorResponse =
 export type FavoriteGoalsResponse =
   | FavoriteGoalsSuccessResponse
   | FavoriteGoalsErrorResponse;
+
+// GET - query params
+
+export type InfiniteQueryParams = {
+  cursorId?: number;
+  cursorCreatedAt?: string;
+  size?: number;
+};
+
+export type TodoItem = {
+  todoId: number;
+  title: string;
+  teamDisplayName: string;
+  goalTitle: string;
+  dueDate: string;
+};
+
+export type RecentSuccessResponse = {
+  success: true;
+  code: string;
+  message: string;
+  data: {
+    items: TodoItem[];
+    hasNext: boolean;
+    nextCursorCreatedAt: string;
+    nextCursorId: number;
+  };
+  timestamp: string;
+};
+
+export type DueSoonSuccessResponse = {
+  success: true;
+  code: string;
+  message: string;
+  data: {
+    items: TodoItem[];
+    hasNext: boolean;
+    nextCursorDueDate: string;
+    nextCursorId: number;
+  };
+  timestamp: string;
+};
