@@ -39,7 +39,15 @@ export function useMyProfileForm(initialNickname: string) {
       const fieldErrors = z.flattenError(result.error).fieldErrors;
       setErrors((prev) => ({ ...prev, [name]: fieldErrors[name]?.[0] ?? "" }));
     } else {
-      setErrors((prev) => ({ ...prev, [name]: undefined }));
+      const passwordFields = ["currentPassword", "password", "passwordConfirm"];
+      if (passwordFields.includes(name)) {
+        setErrors((prev) => ({
+          ...prev,
+          currentPassword: undefined,
+        }));
+      } else {
+        setErrors((prev) => ({ ...prev, [name]: undefined }));
+      }
     }
   };
 
