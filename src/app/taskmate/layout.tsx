@@ -1,8 +1,6 @@
 import { NavigationBar } from "@/components/NavigationBar";
 import NavigationBarProvider from "@/components/NavigationBar/provider";
 
-export const dynamic = "force-dynamic";
-
 export default function TaskmateLayout({
   children,
 }: {
