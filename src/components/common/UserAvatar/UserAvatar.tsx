@@ -26,6 +26,7 @@ const UserAvatar = ({ imageUrl, className }: UserAvatarProps) => {
           src={imageUrl}
           alt="프로필 이미지"
           fill
+          sizes="100%"
           className="rounded-full object-cover"
         />
       ) : (
