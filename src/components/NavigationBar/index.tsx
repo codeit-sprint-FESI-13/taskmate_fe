@@ -1,4 +1,6 @@
-"use client";
+export const dynamic = "force-dynamic";
+
+("use client");
 
 import { cva } from "class-variance-authority";
 import { useRouter } from "next/navigation";
