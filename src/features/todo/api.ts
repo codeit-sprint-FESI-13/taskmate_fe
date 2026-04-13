@@ -19,6 +19,14 @@ export const todoApi = {
         sort: params.sort,
         mineOnly: params.mineOnly ? "true" : "false",
         titleContains: params.titleContains,
+        ...(params.cursorDueDate
+          ? { cursorDueDate: params.cursorDueDate }
+          : {}),
+        ...(params.cursorCreatedAt
+          ? { cursorCreatedAt: params.cursorCreatedAt }
+          : {}),
+        ...(params.cursorId !== undefined ? { cursorId: params.cursorId } : {}),
+        ...(params.limit !== undefined ? { limit: params.limit } : {}),
       },
     }),
 
@@ -29,6 +37,14 @@ export const todoApi = {
         sort: params.sort,
         mineOnly: params.mineOnly ? "true" : "false",
         titleContains: params.titleContains,
+        ...(params.cursorDueDate
+          ? { cursorDueDate: params.cursorDueDate }
+          : {}),
+        ...(params.cursorCreatedAt
+          ? { cursorCreatedAt: params.cursorCreatedAt }
+          : {}),
+        ...(params.cursorId !== undefined ? { cursorId: params.cursorId } : {}),
+        ...(params.limit !== undefined ? { limit: params.limit } : {}),
       },
     }),
 
@@ -39,6 +55,14 @@ export const todoApi = {
         sort: params.sort,
         mineOnly: params.mineOnly ? "true" : "false",
         titleContains: params.titleContains,
+        ...(params.cursorDueDate
+          ? { cursorDueDate: params.cursorDueDate }
+          : {}),
+        ...(params.cursorCreatedAt
+          ? { cursorCreatedAt: params.cursorCreatedAt }
+          : {}),
+        ...(params.cursorId !== undefined ? { cursorId: params.cursorId } : {}),
+        ...(params.limit !== undefined ? { limit: params.limit } : {}),
       },
     }),
 

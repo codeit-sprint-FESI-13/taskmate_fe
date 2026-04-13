@@ -1,26 +1,20 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
-import { Spacing } from "@/components/common/Spacing";
 import { Toggle } from "@/components/common/Toggle";
-import { TodoList } from "@/components/todo/List";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { todoQueries } from "@/features/todo/query/todo.queryKey";
+
+import { DoingList } from "./DoingList";
+import { DoneList } from "./DoneList";
+import { TodoList } from "./TodoList";
 
 export const TodoSection = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const goalId = useGoalId();
-
-  const { data: todoList } = useSuspenseQuery(todoQueries.getTodoList(goalId));
-
-  const todoStateList = todoList.filter((todo) => todo.status === "TODO");
-  const doingStateList = todoList.filter((todo) => todo.status === "DOING");
-  const doneStateList = todoList.filter((todo) => todo.status === "DONE");
 
   const todoSectionOption = {
     keyword: searchParams.get("keyword") || "",
@@ -72,50 +66,25 @@ export const TodoSection = () => {
 
       <div className="grid min-h-[480px] w-full grid-cols-2 grid-rows-[1fr_1fr] gap-[32px]">
         <section className="row-span-2 h-[728px] w-full">
-          <TodoList.List
-            {...todoSectionOption}
-            height="728px"
-            name="TODO"
-          >
-            {todoStateList.map((todo) => (
-              <TodoList.Item
-                key={todo.id}
-                todo={todo}
-              />
-            ))}
-            <Spacing size={24} />
-            <TodoList.CreateButton />
-          </TodoList.List>
+          <TodoList
+            goalId={goalId}
+            keyword={todoSectionOption.keyword}
+            isMyTodo={todoSectionOption.isMyTodo}
+          />
         </section>
         <section>
-          <TodoList.List
-            {...todoSectionOption}
-            height="320px"
-            name="DOING"
-          >
-            {doingStateList.map((todo) => (
-              <TodoList.Item
-                key={todo.id}
-                todo={todo}
-              />
-            ))}
-            <Spacing size={24} />
-          </TodoList.List>
+          <DoingList
+            goalId={goalId}
+            keyword={todoSectionOption.keyword}
+            isMyTodo={todoSectionOption.isMyTodo}
+          />
         </section>
         <section>
-          <TodoList.List
-            {...todoSectionOption}
-            height="320px"
-            name="DONE"
-          >
-            {doneStateList.map((todo) => (
-              <TodoList.Item
-                key={todo.id}
-                todo={todo}
-              />
-            ))}
-            <Spacing size={24} />
-          </TodoList.List>
+          <DoneList
+            goalId={goalId}
+            keyword={todoSectionOption.keyword}
+            isMyTodo={todoSectionOption.isMyTodo}
+          />
         </section>
       </div>
     </div>

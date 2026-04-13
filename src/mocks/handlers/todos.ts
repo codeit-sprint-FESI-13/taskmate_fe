@@ -19,85 +19,100 @@ type PatchTodoRequestBody = Partial<CreateTodoRequestBody> & {
 
 const MY_USER_ID = 101;
 
+const makeTodo = ({
+  id,
+  goalId,
+  status,
+  goalType,
+  goalOwnerId,
+}: {
+  id: number;
+  goalId: number;
+  status: TodoStatus;
+  goalType: "PERSONAL" | "TEAM";
+  goalOwnerId: number;
+}) => {
+  const day = (id % 28) + 1;
+  const paddedDay = String(day).padStart(2, "0");
+  const assigneeIds =
+    goalType === "PERSONAL"
+      ? []
+      : id % 3 === 0
+        ? [MY_USER_ID, 201]
+        : id % 3 === 1
+          ? [MY_USER_ID]
+          : [202];
+
+  return {
+    id,
+    goalId,
+    goalType,
+    goalOwnerId,
+    title: `${status} 할 일 ${id}`,
+    status,
+    startDate: `2026-04-${paddedDay}`,
+    dueDate: `2026-05-${paddedDay}`,
+    memo: `${status} 상태 테스트 데이터 ${id}`,
+    createdAt: `2026-04-${paddedDay}T10:00:00.000Z`,
+    assigneeIds,
+  };
+};
+
 const mockTodos = [
-  {
-    id: 1,
-    goalId: 1,
-    goalType: "PERSONAL" as const,
-    goalOwnerId: MY_USER_ID,
-    title: "요구사항 정리",
-    status: "TODO" as TodoStatus,
-    startDate: "2026-04-01",
-    dueDate: "2026-04-03",
-    memo: "기획 문서와 디자인 시안 확인",
-    createdAt: "2026-04-01T10:00:00.000Z",
-    assigneeIds: [] as number[],
-  },
-  {
-    id: 2,
-    goalId: 1,
-    goalType: "PERSONAL" as const,
-    goalOwnerId: MY_USER_ID,
-    title: "공통 컴포넌트 구현",
-    status: "DOING" as TodoStatus,
-    startDate: "2026-04-01",
-    dueDate: "2026-04-05",
-    memo: "Input/Modal/Button 우선 구현",
-    createdAt: "2026-04-03T10:00:00.000Z",
-    assigneeIds: [] as number[],
-  },
-  {
-    id: 3,
-    goalId: 1,
-    goalType: "PERSONAL" as const,
-    goalOwnerId: MY_USER_ID,
-    title: "단위 테스트 작성",
-    status: "DONE" as TodoStatus,
-    startDate: "2026-03-28",
-    dueDate: "2026-04-02",
-    memo: "핵심 유틸 함수 테스트 완료",
-    createdAt: "2026-03-30T10:00:00.000Z",
-    assigneeIds: [] as number[],
-  },
-  {
-    id: 4,
-    goalId: 2,
-    goalType: "TEAM" as const,
-    goalOwnerId: 999,
-    title: "API 명세 점검",
-    status: "TODO" as TodoStatus,
-    startDate: "2026-04-06",
-    dueDate: "2026-04-10",
-    memo: "응답 필드 누락 확인",
-    createdAt: "2026-04-05T09:00:00.000Z",
-    assigneeIds: [MY_USER_ID, 201],
-  },
-  {
-    id: 5,
-    goalId: 2,
-    goalType: "TEAM" as const,
-    goalOwnerId: 999,
-    title: "UI QA",
-    status: "DOING" as TodoStatus,
-    startDate: "2026-04-07",
-    dueDate: "2026-04-12",
-    memo: "반응형 깨짐 점검",
-    createdAt: "2026-04-06T09:00:00.000Z",
-    assigneeIds: [202],
-  },
-  {
-    id: 6,
-    goalId: 2,
-    goalType: "TEAM" as const,
-    goalOwnerId: 999,
-    title: "릴리즈 체크리스트 작성",
-    status: "DONE" as TodoStatus,
-    startDate: "2026-04-08",
-    dueDate: "2026-04-11",
-    memo: "배포 전 항목 정리",
-    createdAt: "2026-04-04T09:00:00.000Z",
-    assigneeIds: [MY_USER_ID],
-  },
+  ...Array.from({ length: 18 }, (_, index) =>
+    makeTodo({
+      id: index + 1,
+      goalId: 1,
+      status: "TODO",
+      goalType: "PERSONAL",
+      goalOwnerId: MY_USER_ID,
+    }),
+  ),
+  ...Array.from({ length: 16 }, (_, index) =>
+    makeTodo({
+      id: index + 101,
+      goalId: 1,
+      status: "DOING",
+      goalType: "PERSONAL",
+      goalOwnerId: MY_USER_ID,
+    }),
+  ),
+  ...Array.from({ length: 14 }, (_, index) =>
+    makeTodo({
+      id: index + 201,
+      goalId: 1,
+      status: "DONE",
+      goalType: "PERSONAL",
+      goalOwnerId: MY_USER_ID,
+    }),
+  ),
+  ...Array.from({ length: 20 }, (_, index) =>
+    makeTodo({
+      id: index + 301,
+      goalId: 2,
+      status: "TODO",
+      goalType: "TEAM",
+      goalOwnerId: 999,
+    }),
+  ),
+  ...Array.from({ length: 20 }, (_, index) =>
+    makeTodo({
+      id: index + 401,
+      goalId: 2,
+      status: "DOING",
+      goalType: "TEAM",
+      goalOwnerId: 999,
+    }),
+  ),
+  ...Array.from({ length: 20 }, (_, index) =>
+    makeTodo({
+      id: index + 501,
+      goalId: 2,
+      status: "DONE",
+      goalType: "TEAM",
+      goalOwnerId: 999,
+    }),
+  ),
 ];
 
 export const todosHandlers = [
@@ -162,7 +177,13 @@ export const todosHandlers = [
       );
     }
 
-    let items = mockTodos.filter((todo) => todo.goalId === resolvedGoalId);
+    const goalMatchedItems = mockTodos.filter(
+      (todo) => todo.goalId === resolvedGoalId,
+    );
+    let items =
+      goalMatchedItems.length > 0
+        ? goalMatchedItems
+        : mockTodos.map((todo) => ({ ...todo, goalId: resolvedGoalId }));
 
     if (mineOnly) {
       items = items.filter((todo) => {
@@ -232,13 +253,34 @@ export const todosHandlers = [
       data: {
         sort,
         items: pageItems.map(
-          ({ id, title, status, startDate, dueDate, memo, createdAt }) => ({
+          ({
             id,
+            goalId,
             title,
             status,
             startDate,
             dueDate,
             memo,
+            createdAt,
+            assigneeIds,
+          }) => ({
+            id,
+            goalId,
+            title,
+            status,
+            startDate,
+            dueDate,
+            memo,
+            assigneeSummary:
+              assigneeIds.length === 0
+                ? "담당자 없음"
+                : assigneeIds.length === 1
+                  ? `유저${assigneeIds[0]}`
+                  : `유저${assigneeIds[0]} 외 ${assigneeIds.length - 1}명`,
+            assignees: assigneeIds.map((userId) => ({
+              userId,
+              nickname: `유저${userId}`,
+            })),
             createdAt,
           }),
         ),
