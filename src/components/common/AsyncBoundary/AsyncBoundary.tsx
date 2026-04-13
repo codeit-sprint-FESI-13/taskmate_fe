@@ -1,9 +1,8 @@
 "use client";
-
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
 import { Component, ReactNode, Suspense } from "react";
 
-import Spinner from "./Spinner";
+import Spinner from "../Spinner";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -95,7 +94,7 @@ interface AsyncBoundaryProps {
  * </ErrorBoundary>
  */
 
-export default function AsyncBoundary({
+export default function BaseAsyncBoundary({
   children,
   loadingFallback = <Spinner size={40} />,
   errorFallback = <div>Error</div>,
