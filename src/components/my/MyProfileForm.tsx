@@ -1,16 +1,71 @@
 "use client";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import React from "react";
 
+import Button from "@/components/common/Button/Button";
+import { Icon } from "@/components/common/Icon";
+import Input from "@/components/common/Input";
 import { userQueries } from "@/constants/queryKeys";
+import { logoutAction } from "@/features/auth/logout/actions/logoutAction";
+import { useDeleteMeMutation } from "@/features/my/hooks/useDeleteMeMutation/useDeleteMeMutation";
+import { useMyProfileForm } from "@/features/my/hooks/useMyProfileForm";
+import { useOverlay } from "@/hooks/useOverlay";
 
-import Button from "../common/Button/Button";
-import { Icon } from "../common/Icon";
-import Input from "../common/Input";
+import ConfirmModal from "../common/ConfirmModal";
 import ProfileImageUploader from "./ProfileImageUploader";
 
 const MyProfileForm = () => {
+  const router = useRouter();
   const { data: myInfo } = useSuspenseQuery(userQueries.myInfo());
+  const {
+    values,
+    errors,
+    isPending,
+    showCurrentPassword,
+    showPassword,
+    showPasswordConfirm,
+    handleChange,
+    handleBlur,
+    toggleCurrentPassword,
+    togglePassword,
+    togglePasswordConfirm,
+    handleSubmit,
+  } = useMyProfileForm(myInfo.nickname);
+  const { mutate: deleteMe } = useDeleteMeMutation();
+  const overlay = useOverlay();
+
+  const handleLogout = () => {
+    overlay.open(
+      "logout-modal",
+      <ConfirmModal
+        title="로그아웃 하시겠어요?"
+        description="현재 계정에서 로그아웃됩니다."
+        confirmLabel="로그아웃"
+        cancelLabel="취소"
+        onConfirm={async () => {
+          await logoutAction();
+          router.push("/login");
+        }}
+        onClose={() => overlay.close()}
+      />,
+    );
+  };
+
+  const handleDeleteMe = () => {
+    overlay.open(
+      "deleteMe-modal",
+      <ConfirmModal
+        title="정말 탈퇴하시겠어요?"
+        info="탈퇴 후에는 계정과 모든 데이터가 삭제됩니다."
+        confirmLabel="탈퇴하기"
+        cancelLabel="취소"
+        onConfirm={() => deleteMe()}
+        onClose={() => overlay.close()}
+      />,
+    );
+  };
+
   return (
     <div className="tablet:w-[560px] mx-auto w-[335px]">
       <p className="tablet:block text-title-3 mb-10 ml-2 hidden font-semibold">
@@ -23,6 +78,7 @@ const MyProfileForm = () => {
         <form
           className="flex flex-col"
           id="profileForm"
+          onSubmit={handleSubmit}
         >
           <div className="tablet:gap-4 flex flex-col gap-3.5">
             <div className="tablet:gap-2 flex flex-col gap-1.5">
@@ -34,7 +90,9 @@ const MyProfileForm = () => {
               </label>
               <Input
                 id="email"
+                name="email"
                 disabled
+                value={myInfo.email}
               />
             </div>
             <div className="tablet:gap-2 flex flex-col gap-1.5">
@@ -44,7 +102,14 @@ const MyProfileForm = () => {
               >
                 닉네임
               </label>
-              <Input id="nickname" />
+              <Input
+                id="nickname"
+                name="nickname"
+                value={values.nickname}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                errorMessage={errors.nickname}
+              />
             </div>
           </div>
           <p className="text-label-1 text-label-normal tablet:mt-10 mt-3.5 font-semibold">
@@ -53,16 +118,18 @@ const MyProfileForm = () => {
           <div className="tablet:gap-3 tablet:mt-2 mt-1.5 flex flex-col gap-1.5">
             <Input
               name="currentPassword"
-              type="password"
+              type={showCurrentPassword ? "text" : "password"}
               placeholder="현재 비밀번호를 입력해주세요"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorMessage={errors.currentPassword}
               rightIcon={
                 <button
                   type="button"
-                  //onClick={togglePassword}
+                  onClick={toggleCurrentPassword}
                 >
                   <Icon
-                    //   name={showPassword ? "EyeOnIcon" : "EyeOffIcon"}
-                    name="EyeOffIcon"
+                    name={showCurrentPassword ? "EyeOnIcon" : "EyeOffIcon"}
                     className="text-gray-300"
                   />
                 </button>
@@ -70,12 +137,18 @@ const MyProfileForm = () => {
             />
             <Input
               name="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="새 비밀번호를 입력해주세요"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorMessage={errors.password}
               rightIcon={
-                <button type="button">
+                <button
+                  type="button"
+                  onClick={togglePassword}
+                >
                   <Icon
-                    name="EyeOffIcon"
+                    name={showPassword ? "EyeOnIcon" : "EyeOffIcon"}
                     className="text-gray-300"
                   />
                 </button>
@@ -83,13 +156,18 @@ const MyProfileForm = () => {
             />
             <Input
               name="passwordConfirm"
-              type="password"
+              type={showPasswordConfirm ? "text" : "password"}
               placeholder="새 비밀번호를 다시 입력해주세요"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorMessage={errors.passwordConfirm}
               rightIcon={
-                <button type="button">
+                <button
+                  type="button"
+                  onClick={togglePasswordConfirm}
+                >
                   <Icon
-                    //   name={showPassword ? "EyeOnIcon" : "EyeOffIcon"}
-                    name="EyeOffIcon"
+                    name={showPasswordConfirm ? "EyeOnIcon" : "EyeOffIcon"}
                     className="text-gray-300"
                   />
                 </button>
@@ -104,16 +182,25 @@ const MyProfileForm = () => {
           variant="primary"
           size="lg"
           className="w-full"
+          disabled={isPending}
         >
           저장하기
         </Button>
       </div>
       {/* TODO: 버튼컴포넌트 생성 후 수정예정 */}
       <div className="tablet:mt-5 tablet:flex-row mt-10 flex flex-col justify-end gap-2 px-2">
-        <button className="text-label-1 h-12 rounded-[10px] bg-blue-100 px-7 py-3 font-semibold text-blue-800">
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="text-label-1 h-12 rounded-[10px] bg-blue-100 px-7 py-3 font-semibold text-blue-800"
+        >
           로그아웃
         </button>
-        <button className="text-label-1 bg-background-normal-alternative-2 h-12 rounded-[10px] px-7 py-3 font-semibold text-gray-500 ring ring-gray-200">
+        <button
+          type="button"
+          onClick={handleDeleteMe}
+          className="text-label-1 bg-background-normal-alternative-2 h-12 rounded-[10px] px-7 py-3 font-semibold text-gray-500 ring ring-gray-200"
+        >
           회원 탈퇴
         </button>
       </div>

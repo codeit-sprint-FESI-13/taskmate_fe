@@ -1,9 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { userQueries } from "@/constants/queryKeys";
+import { uploadProfileImage } from "@/features/my/api/myInfo.api";
 import { useToast } from "@/hooks/useToast";
-
-import { uploadProfileImage } from "../api/myInfo.api";
 
 export function useUploadProfileImageMutation() {
   const queryClient = useQueryClient();
@@ -12,6 +11,7 @@ export function useUploadProfileImageMutation() {
   return useMutation({
     mutationFn: uploadProfileImage,
     onSuccess: () => {
+      toast({ title: "이미지 업로드에 성공했습니다.", variant: "success" });
       queryClient.invalidateQueries(userQueries.myInfo());
     },
     onError: () => {

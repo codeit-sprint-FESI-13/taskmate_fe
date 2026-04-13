@@ -54,6 +54,7 @@ const ProfileImageUploader = ({ imageUrl }: ProfileImageUploaderProps) => {
         className="tablet:w-35 tablet:h-35 h-20 w-20"
       />
       <ActionButton
+        type="button"
         action="edit"
         className="absolute right-0 bottom-0"
         onClick={handleClick}
