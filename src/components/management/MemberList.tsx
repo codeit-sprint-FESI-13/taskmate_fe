@@ -152,7 +152,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
 
   return (
     <section className="bg-inverse-normal relative h-183.25 overflow-hidden rounded-4xl">
-      <div className="h-183.25 overflow-scroll px-5 py-8">
+      <div className="h-183.25 overflow-scroll px-5 pt-8 pb-20">
         <div className="flex flex-col gap-2">
           {members.map((member) => (
             <div
