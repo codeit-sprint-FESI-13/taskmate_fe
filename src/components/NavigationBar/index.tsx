@@ -1,7 +1,5 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
 import { cva } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
