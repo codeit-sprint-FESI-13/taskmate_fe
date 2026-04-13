@@ -44,3 +44,11 @@ export interface TodoListResponse {
   message: string;
   data: Todo[];
 }
+
+export type TodoListStatus = "TODO" | "DOING" | "DONE";
+
+export interface TodoListQueryParams {
+  sort: "DUE_DATE" | "CREATED_LATEST" | "CREATED_OLDEST";
+  mineOnly: boolean;
+  titleContains: string;
+}
