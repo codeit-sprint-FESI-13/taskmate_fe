@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { Icon } from "@/components/common/Icon";
 import { Spacing } from "@/components/common/Spacing";
