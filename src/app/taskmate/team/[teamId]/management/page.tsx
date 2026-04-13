@@ -66,15 +66,15 @@ const TeamManagement = () => {
   }, [teamId, router]);
 
   return (
-    <main className="relative my-20 flex w-full flex-col items-center gap-6">
-      <div className="relative flex flex-col gap-6">
-        <h1 className="typography-title-3">팀 정보 수정</h1>
-        <div className="flex w-140 flex-col gap-6">
+    <main className="relative flex w-full flex-col items-center">
+      <div className="tablet:gap-6 relative flex flex-col gap-4">
+        <h1 className="tablet:block typography-title-3 hidden">팀 정보 수정</h1>
+        <div className="tablet:gap-6 flex w-140 flex-col gap-4">
           <TeamNameEditor />
           <MemberList onInviteClick={handleOpenInvite} />
           <TextButton
             onClick={handleOpenDelete}
-            className="ml-auto w-fit"
+            className="tablet:w-fit ml-auto w-full"
           >
             팀 삭제하기
           </TextButton>

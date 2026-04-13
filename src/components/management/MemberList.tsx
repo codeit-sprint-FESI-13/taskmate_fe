@@ -18,6 +18,8 @@ import { MemberRole } from "@/features/management/types";
 import Dropdown from "@/hooks/useDropdown/Dropdown";
 import { formatMemberList } from "@/utils/formatMemberList";
 
+import { Icon } from "../common/Icon";
+
 // @TODO: onInviteClick 함수를 Page에서 받아오는 방식 제거 ( Page가 갖는 책임 아님 )
 interface MemberListProps {
   onInviteClick: () => void;
@@ -151,21 +153,23 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   }, [teamId, myUserId]);
 
   return (
-    <section className="bg-inverse-normal relative h-183.25 overflow-hidden rounded-4xl">
-      <div className="h-183.25 overflow-scroll px-5 pt-8 pb-20">
+    <section className="bg-inverse-normal tablet:w-full relative h-183.25 w-83.75 overflow-hidden rounded-4xl">
+      <div className="tablet:px-5 tablet:pt-8 h-183.25 w-full overflow-scroll px-2 pt-4 pb-20">
         <div className="flex flex-col gap-2">
           {members.map((member) => (
             <div
               key={member.id}
               className="flex justify-between px-4 py-3"
             >
-              <ProfileCard
-                avatar={member.profileImageUrl ?? ""}
-                hasCrownIcon={member.role === "ADMIN"}
-                name={member.userNickname}
-                tag={member.id === myUserId ? "나" : undefined} // isMe 판정 여기서
-                email={member.userEmail}
-              />
+              <div className="max-w-28.75">
+                <ProfileCard
+                  avatar={member.profileImageUrl ?? ""}
+                  hasCrownIcon={member.role === "ADMIN"}
+                  name={member.userNickname}
+                  tag={member.id === myUserId ? "나" : undefined} // isMe 판정 여기서
+                  email={member.userEmail}
+                />
+              </div>
               <div className="flex items-center gap-2">
                 <div className="flex items-center self-center">
                   <Dropdown
@@ -181,7 +185,11 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
                   size="sm"
                   className="rounded-lg text-gray-500 ring-gray-200 hover:ring-gray-300"
                 >
-                  팀원 삭제
+                  <Icon
+                    name="Trash"
+                    className="tablet:hidden text-gray-400"
+                  />
+                  <span className="tablet:block hidden">팀원 삭제</span>
                 </Button>
               </div>
             </div>
