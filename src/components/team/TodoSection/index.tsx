@@ -40,12 +40,10 @@ export const TodoSection = () => {
   };
 
   return (
-    <div className="flex w-full flex-col gap-[32px]">
+    <div className="flex w-full flex-col gap-4">
       <div className="flex w-full items-center justify-between">
-        {/* @TODO: 검색 기능 추가 필요 */}
         <Input
           placeholder="할 일을 이름으로 검색해보세요."
-          className="w-[360px]"
           onChange={handleKeywordChange}
           value={todoSectionOption.keyword}
           rightIcon={
@@ -64,10 +62,10 @@ export const TodoSection = () => {
             내 할일만 보기
           </span>
 
-          {/* @TODO: 내 할 일만 보기 기능 추가 필요 */}
           <Toggle
             pressed={todoSectionOption.isMyTodo}
             onPressedChange={handleIsMyTodoChange}
+            className="w-[42px]"
           />
         </div>
       </div>

@@ -5,6 +5,7 @@ import { Spacing } from "@/components/common/Spacing";
 import Spinner from "@/components/common/Spinner";
 import { Heading } from "@/components/goal/Heading";
 import Summary from "@/components/goal/Summary";
+import { TodoSection } from "@/components/team/TodoSection";
 
 export default function Page() {
   return (
@@ -29,10 +30,13 @@ export default function Page() {
 
       <Summary />
 
-      {/* 
-      <Spacing size={56} />
+      <Spacing
+        size={8}
+        useClassSize
+        className="mobile:h-10 tablet:h-14 h-8"
+      />
 
-      <TodoSection /> */}
+      <TodoSection />
     </div>
   );
 }

@@ -4,11 +4,32 @@ import { useState } from "react";
 
 import { cn } from "@/utils/utils";
 
+type ToggleSize = "large" | "medium" | "small";
+
+const TOGGLE_SIZE = {
+  large: {
+    width: 72,
+    trackPadding: 5,
+    thumbSize: 24,
+  },
+  medium: {
+    width: 60,
+    trackPadding: 4,
+    thumbSize: 20,
+  },
+  small: {
+    width: 48,
+    trackPadding: 3,
+    thumbSize: 16,
+  },
+} as const;
+
 interface ToggleProps {
   pressed?: boolean;
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
   className?: string;
+  size?: ToggleSize;
 }
 
 export const Toggle = ({
@@ -16,8 +37,11 @@ export const Toggle = ({
   defaultPressed = false,
   onPressedChange,
   className,
+  size = "large",
 }: ToggleProps) => {
   const [internal, setInternal] = useState(defaultPressed);
+  const { width, trackPadding, thumbSize } = TOGGLE_SIZE[size];
+  const height = thumbSize + trackPadding * 2;
 
   const isControlled = pressedProp !== undefined;
   const pressed = isControlled ? pressedProp : internal;
@@ -37,13 +61,17 @@ export const Toggle = ({
         pressed ? "bg-blue-800" : "bg-gray-300",
         className,
       )}
-      style={{ width: 72, height: 10 + 24 }}
+      style={{ width, height }}
     >
       <span
         className={cn(
-          "pointer-events-none absolute top-1/2 size-6 -translate-y-1/2 rounded-full bg-blue-50 transition-[left] duration-200 ease-out",
+          "pointer-events-none absolute top-1/2 -translate-y-1/2 rounded-full bg-blue-50 transition-[left] duration-200 ease-out",
         )}
-        style={{ left: pressed ? 72 - 10 - 24 : 5 }}
+        style={{
+          left: pressed ? width - trackPadding - thumbSize : trackPadding,
+          width: thumbSize,
+          height: thumbSize,
+        }}
       />
     </button>
   );
