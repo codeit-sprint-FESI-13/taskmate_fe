@@ -7,7 +7,7 @@ import { Summary } from "@/components/team/Summary";
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-10 px-6 py-8">
+    <div className="mobile:py-8 flex flex-col gap-10 px-6 pt-[88px]">
       <AsyncBoundary
         loadingFallback={<Summary.Loading />}
         errorFallback={(error, onReset) => (
