@@ -2,15 +2,18 @@
 
 import { useState } from "react";
 
+import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
 import { Toggle } from "@/components/common/Toggle";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
+import { useDebouncedKeyword } from "@/hooks/useDebouncedKeyword";
 
 import { DoingList } from "./DoingList";
 import { DoneList } from "./DoneList";
+import { Error as ListError } from "./state/Error";
+import { Loading } from "./state/Loading";
 import { TodoList } from "./TodoList";
-import { useDebouncedKeyword } from "./useDebouncedKeyword";
 
 export const TodoSection = () => {
   const goalId = useGoalId();
@@ -49,26 +52,62 @@ export const TodoSection = () => {
       </div>
 
       <div className="grid min-h-[480px] w-full grid-cols-2 grid-rows-[1fr_1fr] gap-[32px]">
-        <section className="row-span-2 h-[728px] w-full">
-          <TodoList
-            goalId={goalId}
-            keyword={keyword}
-            isMyTodo={isMyTodo}
-          />
+        <section className="row-span-2 flex h-[728px] min-h-0 w-full flex-col">
+          <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
+            <AsyncBoundary
+              loadingFallback={<Loading />}
+              errorFallback={(error, onReset) => (
+                <ListError
+                  error={error}
+                  onReset={onReset}
+                />
+              )}
+            >
+              <TodoList
+                goalId={goalId}
+                keyword={keyword}
+                isMyTodo={isMyTodo}
+              />
+            </AsyncBoundary>
+          </div>
         </section>
-        <section>
-          <DoingList
-            goalId={goalId}
-            keyword={keyword}
-            isMyTodo={isMyTodo}
-          />
+        <section className="flex h-full min-h-0 w-full min-w-0 flex-col">
+          <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
+            <AsyncBoundary
+              loadingFallback={<Loading />}
+              errorFallback={(error, onReset) => (
+                <ListError
+                  error={error}
+                  onReset={onReset}
+                />
+              )}
+            >
+              <DoingList
+                goalId={goalId}
+                keyword={keyword}
+                isMyTodo={isMyTodo}
+              />
+            </AsyncBoundary>
+          </div>
         </section>
-        <section>
-          <DoneList
-            goalId={goalId}
-            keyword={keyword}
-            isMyTodo={isMyTodo}
-          />
+        <section className="flex h-full min-h-0 w-full min-w-0 flex-col">
+          <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
+            <AsyncBoundary
+              loadingFallback={<Loading />}
+              errorFallback={(error, onReset) => (
+                <ListError
+                  error={error}
+                  onReset={onReset}
+                />
+              )}
+            >
+              <DoneList
+                goalId={goalId}
+                keyword={keyword}
+                isMyTodo={isMyTodo}
+              />
+            </AsyncBoundary>
+          </div>
         </section>
       </div>
     </div>
