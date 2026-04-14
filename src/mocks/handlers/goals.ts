@@ -21,6 +21,39 @@ export const goalsHandlers = [
     });
   }),
 
+  apiMock.patch("*/api/goals/:goalId", async ({ params, request }) => {
+    const goalId = Number(params.goalId);
+    const id = Number.isNaN(goalId) ? 12 : goalId;
+    const body = (await request.json()) as {
+      name?: string;
+      dueDate?: string;
+    };
+
+    return HttpResponse.json({
+      success: true,
+      code: "SUCCESS",
+      message: "목표가 수정되었습니다.",
+      data: {
+        id,
+        name: body.name ?? "백엔드 API 구현 수정",
+        dueDate: body.dueDate ?? "2026-04-15",
+        userId: null,
+        teamId: 3,
+      },
+      timestamp: "2026-03-30T10:20:00Z",
+    });
+  }),
+
+  apiMock.delete("*/api/goals/:goalId", () => {
+    return HttpResponse.json({
+      success: true,
+      code: "SUCCESS",
+      message: "목표가 휴지통으로 이동되었습니다.",
+      data: null,
+      timestamp: "2026-03-30T10:20:00Z",
+    });
+  }),
+
   apiMock.get("*/api/teams/:teamId/goals", ({ params, request }) => {
     const teamId = Number(params.teamId);
     const sort = new URL(request.url).searchParams.get("sort");
