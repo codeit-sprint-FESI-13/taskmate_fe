@@ -1,5 +1,5 @@
 import { Spacing } from "@/components/common/Spacing";
-import { Summary } from "@/components/goal/Summary";
+import Summary from "@/components/goal/Summary";
 import { TodoSection } from "@/components/team/TodoSection";
 
 export default function Page() {
