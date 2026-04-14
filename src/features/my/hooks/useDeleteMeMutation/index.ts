@@ -1,0 +1,1 @@
+export { useDeleteMeMutation } from "./useDeleteMeMutation";

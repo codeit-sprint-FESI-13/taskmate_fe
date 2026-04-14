@@ -20,6 +20,7 @@ const ActionButton = ({
   action,
   isSmall = false,
   className,
+  ...props
 }: ActionButtonProps) => {
   const buttonSize = isSmall ? "w-8 h-8" : "w-10 h-10";
 
@@ -31,6 +32,7 @@ const ActionButton = ({
         buttonSize,
         className,
       )}
+      {...props}
     >
       <IconComponent />
     </button>
