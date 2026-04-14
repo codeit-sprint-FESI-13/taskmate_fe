@@ -5,7 +5,7 @@ import { Icon } from "@/components/common/Icon/index";
 
 import NotificationPanel from "./NotificatioPanel";
 
-const NotificationModalButton = () => {
+const NotificationPopover = () => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => setOpen((prev) => !prev);
@@ -13,7 +13,7 @@ const NotificationModalButton = () => {
   return (
     <div className="relative">
       <button
-        className="bg-inverse-normal flex size-16 shrink-0 items-center justify-center rounded-[99px] ring-1 ring-gray-300 ring-inset"
+        className="bg-inverse-normal flex size-16 shrink-0 items-center justify-center rounded-[99px] lg:ring-1 lg:ring-gray-300 lg:ring-inset"
         onClick={handleClick}
       >
         <Icon
@@ -28,4 +28,4 @@ const NotificationModalButton = () => {
   );
 };
 
-export default NotificationModalButton;
+export default NotificationPopover;

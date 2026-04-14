@@ -17,7 +17,7 @@ import { Team } from "@/components/NavigationBar/Team";
 import { UserProfile } from "@/components/NavigationBar/UserProfile";
 import { NAVIGATION_BAR_ZINDEX } from "@/constants/zIndex";
 
-import NotificationPopover from "./NotificationPopover/NotificationPopover";
+import NotificationPopover from "./NotificationPopover";
 
 const navigationBarAsideVariants = cva(
   [
@@ -53,6 +53,7 @@ export const NavigationBar = () => {
       style={{ willChange: "width, height", zIndex: NAVIGATION_BAR_ZINDEX }}
     >
       <Header />
+      {/* <NotificationPopover /> */}
 
       <Spacing
         size={20}
@@ -105,7 +106,7 @@ export const NavigationBar = () => {
             </AsyncBoundary>
           </div>
 
-          <div className="mt-4 flex items-center justify-center gap-1 border-t border-gray-100 bg-white pt-4">
+          <div className="mt-4 flex items-center justify-center gap-2.5 border-t border-gray-100 bg-white pt-4">
             <AsyncBoundary loadingFallback={<UserProfile.Loading />}>
               <UserProfile />
             </AsyncBoundary>
