@@ -1,3 +1,5 @@
+"use client";
+
 import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { GoalList } from "@/components/team/GoalList";
 import { MemberList } from "@/components/team/MemberList";
@@ -11,8 +13,15 @@ export default function Page() {
         <Summary />
       </AsyncBoundary>
 
-      {/* @TODO: Loading & Error 처리 */}
-      <AsyncBoundary>
+      <AsyncBoundary
+        loadingFallback={<GoalList.Loading />}
+        errorFallback={(error, onReset) => (
+          <GoalList.Error
+            error={error}
+            onReset={onReset}
+          />
+        )}
+      >
         <GoalList />
       </AsyncBoundary>
 
