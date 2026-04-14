@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
@@ -10,36 +10,20 @@ import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { DoingList } from "./DoingList";
 import { DoneList } from "./DoneList";
 import { TodoList } from "./TodoList";
+import { useDebouncedKeyword } from "./useDebouncedKeyword";
 
 export const TodoSection = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
   const goalId = useGoalId();
-
-  const todoSectionOption = {
-    keyword: searchParams.get("keyword") || "",
-    isMyTodo: searchParams.get("isMyTodo") === "true" ? true : false,
-  };
-
-  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("keyword", e.target.value);
-    router.replace(`?${newSearchParams.toString()}`);
-  };
-
-  const handleIsMyTodoChange = (isMyTodo: boolean) => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("isMyTodo", isMyTodo.toString());
-    router.replace(`?${newSearchParams.toString()}`);
-  };
+  const { keywordInput, keyword, onKeywordChange } = useDebouncedKeyword();
+  const [isMyTodo, setIsMyTodo] = useState(false);
 
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="flex w-full items-center justify-between">
         <Input
           placeholder="할 일을 이름으로 검색해보세요."
-          onChange={handleKeywordChange}
-          value={todoSectionOption.keyword}
+          onChange={onKeywordChange}
+          value={keywordInput}
           rightIcon={
             <div>
               <Icon
@@ -57,8 +41,8 @@ export const TodoSection = () => {
           </span>
 
           <Toggle
-            pressed={todoSectionOption.isMyTodo}
-            onPressedChange={handleIsMyTodoChange}
+            pressed={isMyTodo}
+            onPressedChange={setIsMyTodo}
             className="w-[42px]"
           />
         </div>
@@ -68,22 +52,22 @@ export const TodoSection = () => {
         <section className="row-span-2 h-[728px] w-full">
           <TodoList
             goalId={goalId}
-            keyword={todoSectionOption.keyword}
-            isMyTodo={todoSectionOption.isMyTodo}
+            keyword={keyword}
+            isMyTodo={isMyTodo}
           />
         </section>
         <section>
           <DoingList
             goalId={goalId}
-            keyword={todoSectionOption.keyword}
-            isMyTodo={todoSectionOption.isMyTodo}
+            keyword={keyword}
+            isMyTodo={isMyTodo}
           />
         </section>
         <section>
           <DoneList
             goalId={goalId}
-            keyword={todoSectionOption.keyword}
-            isMyTodo={todoSectionOption.isMyTodo}
+            keyword={keyword}
+            isMyTodo={isMyTodo}
           />
         </section>
       </div>
