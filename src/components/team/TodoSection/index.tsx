@@ -7,6 +7,7 @@ import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
 import { Toggle } from "@/components/common/Toggle";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { useDebouncedKeyword } from "@/hooks/useDebouncedKeyword";
 
 import { DoingList } from "./DoingList";
@@ -17,36 +18,40 @@ import { TodoList } from "./TodoList";
 
 export const TodoSection = () => {
   const goalId = useGoalId();
+  const breakpoint = useBreakpoint();
   const { keywordInput, keyword, onKeywordChange } = useDebouncedKeyword();
   const [isMyTodo, setIsMyTodo] = useState(false);
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <div className="flex w-full items-center justify-between">
-        <Input
-          placeholder="할 일을 이름으로 검색해보세요."
-          onChange={onKeywordChange}
-          value={keywordInput}
-          rightIcon={
-            <div>
-              <Icon
-                name="Search"
-                size={24}
-                className="text-gray-300"
-              />
-            </div>
-          }
-        />
+      <div className="tablet:flex-row tablet:items-center tablet:justify-between tablet:gap-4 flex w-full flex-col gap-3">
+        <div className="tablet:flex-1 w-full max-w-[500px] min-w-0">
+          <Input
+            placeholder="할 일을 이름으로 검색해보세요."
+            onChange={onKeywordChange}
+            value={keywordInput}
+            rightIcon={
+              <div>
+                <Icon
+                  name="Search"
+                  size={24}
+                  className="text-gray-300"
+                />
+              </div>
+            }
+          />
+        </div>
 
-        <div className="flex items-center justify-center gap-[10px]">
-          <span className="typography-body-1 font-semibold text-blue-800">
+        <div className="tablet:w-auto flex w-full shrink-0 items-center justify-between justify-end gap-[10px]">
+          <span className="text-label-1 tablet:typography-body-1 min-w-0 pr-2 text-left font-semibold text-blue-800">
             내 할일만 보기
           </span>
 
           <Toggle
+            size={breakpoint === "desktop" ? "large" : "medium"}
             pressed={isMyTodo}
             onPressedChange={setIsMyTodo}
-            className="w-[42px]"
+            className="w-[42px] shrink-0"
           />
         </div>
       </div>
