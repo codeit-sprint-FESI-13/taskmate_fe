@@ -50,8 +50,8 @@ const TeamNameEditor = () => {
   };
 
   return (
-    <section className="bg-background-normal flex h-46.5 w-full flex-col gap-2 rounded-4xl px-6 pt-6 pb-5">
-      <h2 className="typography-body-2">팀명</h2>
+    <section className="tablet:w-full bg-background-normal tablet:gap-2 flex h-46.5 w-83.75 flex-col gap-2.5 rounded-4xl px-6 pt-6 pb-5">
+      <h2 className="typography-label-1 tablet:typography-body-1">팀명</h2>
       <form
         className="flex flex-col gap-3"
         onSubmit={handleSubmit}
@@ -59,6 +59,7 @@ const TeamNameEditor = () => {
         <Input
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          className="typhography-label-1 tablet:typography-body-2"
         />
 
         <Button

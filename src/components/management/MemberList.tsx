@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -17,6 +18,8 @@ import { MemberRole } from "@/features/management/types";
 import Dropdown from "@/hooks/useDropdown/Dropdown";
 import { formatMemberList } from "@/utils/formatMemberList";
 
+import { Icon } from "../common/Icon";
+
 // @TODO: onInviteClick 함수를 Page에서 받아오는 방식 제거 ( Page가 갖는 책임 아님 )
 interface MemberListProps {
   onInviteClick: () => void;
@@ -24,6 +27,7 @@ interface MemberListProps {
 
 const MemberList = ({ onInviteClick }: MemberListProps) => {
   const [members, setMembers] = useState<MemberData[]>([]);
+  const router = useRouter();
 
   // @TODO: useTeamId 에서 처리
   const params = useParams<{ teamId: string }>();
@@ -64,6 +68,24 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
     // @TODO: useMutation 으로 리팩토링
     try {
       await memberRoleApi.update(teamId, pending.memberId, pending.role);
+
+      // 권한 변경시 배지 업데이트
+      const { memberId, role } = pending;
+      setMembers((prev) =>
+        prev.map((member) =>
+          member.id === memberId ? { ...member, role } : member,
+        ),
+      );
+
+      // 나의 권한을 admin > member로 변경시 메인페이지로 이동
+      const response = await memberListApi.read(teamId);
+      const memberUserId =
+        response?.data?.find((member) => member.id == pending.memberId)
+          ?.userId ?? pending.memberId;
+
+      if (myUserId === memberUserId && pending.role !== "ADMIN") {
+        router.push("/taskmate");
+      }
     } catch {
       setErrorMessage("유효하지 않은 권한 설정 입니다.");
       setErrorModalOpen(true);
@@ -74,8 +96,6 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
 
   /* @TODO: useOverlay 공통 hooks 로 적용 */
   const openMemberDeleteModal = (memberId: number) => {
-    // @TODO: console 제거
-    console.log("왜!");
     setPending({ memberId });
     setConfirmMessage("팀원의 권한을 삭제 하시겠습니까?");
     setMemberDeleteModalOpen(true);
@@ -87,6 +107,9 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
     // @TODO: useMutation 으로 리팩토링
     try {
       await memberApi.delete(teamId, pending.memberId);
+      setMembers((prev) =>
+        prev.filter((member) => member.id !== pending.memberId),
+      );
     } catch {
       setErrorMessage("관리자는 본인을 팀에서 삭제할 수 없습니다.");
       setErrorModalOpen(true);
@@ -130,21 +153,23 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   }, [teamId, myUserId]);
 
   return (
-    <section className="bg-inverse-normal relative h-183.25 overflow-hidden rounded-4xl">
-      <div className="h-183.25 overflow-scroll px-5 py-8">
+    <section className="bg-inverse-normal tablet:w-full relative h-183.25 w-83.75 overflow-hidden rounded-4xl">
+      <div className="tablet:px-5 tablet:pt-8 h-183.25 w-full overflow-scroll px-2 pt-4 pb-20">
         <div className="flex flex-col gap-2">
           {members.map((member) => (
             <div
               key={member.id}
               className="flex justify-between px-4 py-3"
             >
-              <ProfileCard
-                avatar={member.profileImageUrl ?? ""}
-                hasCrownIcon={member.role === "ADMIN"}
-                name={member.userNickname}
-                tag={member.id === myUserId ? "나" : undefined} // isMe 판정 여기서
-                email={member.userEmail}
-              />
+              <div className="max-w-28.75">
+                <ProfileCard
+                  avatar={member.profileImageUrl ?? ""}
+                  hasCrownIcon={member.role === "ADMIN"}
+                  name={member.userNickname}
+                  tag={member.id === myUserId ? "나" : undefined} // isMe 판정 여기서
+                  email={member.userEmail}
+                />
+              </div>
               <div className="flex items-center gap-2">
                 <div className="flex items-center self-center">
                   <Dropdown
@@ -160,7 +185,11 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
                   size="sm"
                   className="rounded-lg text-gray-500 ring-gray-200 hover:ring-gray-300"
                 >
-                  팀원 삭제
+                  <Icon
+                    name="Trash"
+                    className="tablet:hidden text-gray-400"
+                  />
+                  <span className="tablet:block hidden">팀원 삭제</span>
                 </Button>
               </div>
             </div>
