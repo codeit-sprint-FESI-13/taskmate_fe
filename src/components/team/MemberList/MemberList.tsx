@@ -20,6 +20,9 @@ export default function MemberListComponent() {
   const { data: me } = useSuspenseQuery(userQueries.myInfo());
 
   const formattedMembers = formatMemberList(members, me.id);
+  const isMeAdmin = members.some(
+    (member) => member.userId === me.id && member.role === "ADMIN",
+  );
 
   return (
     <div className="flex w-full flex-col items-start gap-5">
@@ -36,16 +39,19 @@ export default function MemberListComponent() {
             {members.length}명
           </span>
         </div>
-        <TextButton onClick={openLeaveTeamModal}>
-          <span className="typography-body-2 flex shrink-0 items-center justify-center gap-[5px] font-semibold">
-            <Icon
-              name="Out"
-              size={16}
-              className="text-gray-500"
-            />
-            팀 나가기
-          </span>
-        </TextButton>
+
+        {isMeAdmin && (
+          <TextButton onClick={openLeaveTeamModal}>
+            <span className="typography-body-2 flex shrink-0 items-center justify-center gap-[5px] font-semibold">
+              <Icon
+                name="Out"
+                size={16}
+                className="text-gray-500"
+              />
+              팀 나가기
+            </span>
+          </TextButton>
+        )}
       </div>
 
       <div className="tablet:grid-cols-2 tablet:gap-4 desktop:grid-cols-4 desktop:gap-6 grid w-full grid-cols-1 gap-3 *:min-w-0">
