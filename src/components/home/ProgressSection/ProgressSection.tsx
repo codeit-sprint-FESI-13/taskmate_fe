@@ -43,7 +43,7 @@ export default function ProgressSection() {
           <Icon
             name="PipeGreen"
             size={40}
-            className="mobile:hidden tablet:block"
+            className="tablet:block hidden"
           />
           <h2 className="typography-label-1 tablet:typography-body-2 desktop:typography-body-1 font-medium text-black">
             팀 진행 상황
@@ -69,7 +69,7 @@ export default function ProgressSection() {
                   size="xl"
                   color="green"
                   variant="on-color"
-                  className="mobile:hidden desktop:block"
+                  className="desktop:block hidden"
                 />
                 <div className="tablet:gap-1 z-10 flex flex-col">
                   <div className="typography-body-2 desktop:typography-title-3 text-inverse-normal flex items-center font-semibold">
@@ -89,12 +89,12 @@ export default function ProgressSection() {
                 <Icon
                   name="GreenCharacter"
                   size={225}
-                  className="desktop:block mobile:hidden absolute right-0 bottom-0"
+                  className="desktop:block absolute right-0 bottom-0 hidden"
                 />
                 <Icon
                   name="GreenCharacter"
                   size={100}
-                  className="desktop:hidden mobile:block absolute right-0 bottom-0"
+                  className="desktop:hidden absolute right-0 bottom-0 block"
                 />
               </div>
             ))}
@@ -114,7 +114,7 @@ export default function ProgressSection() {
           <Icon
             name="PipeBlue"
             size={40}
-            className="mobile:hidden tablet:block"
+            className="tablet:block hidden"
           />
           <h2 className="typography-label-1 tablet:typography-body-2 desktop:typography-body-1 font-medium text-black">
             내 진행 상황
@@ -133,14 +133,14 @@ export default function ProgressSection() {
             size="md"
             color="blue"
             variant="on-color"
-            className="mobile:block desktop:hidden"
+            className="desktop:hidden block"
           />
           <CircularProgress
             value={myProgressPercent}
             size="xl"
             color="blue"
             variant="on-color"
-            className="mobile:hidden desktop:block"
+            className="desktop:block hidden"
           />
 
           {/* 텍스트 */}
@@ -164,12 +164,12 @@ export default function ProgressSection() {
           <Icon
             name="BlueCharacter"
             size={225}
-            className="desktop:block mobile:hidden absolute right-0 bottom-0"
+            className="desktop:block absolute right-0 bottom-0 hidden"
           />
           <Icon
             name="BlueCharacter"
             size={100}
-            className="desktop:hidden mobile:block absolute right-0 bottom-0"
+            className="desktop:hidden absolute right-0 bottom-0 block"
           />
         </div>
       </div>
