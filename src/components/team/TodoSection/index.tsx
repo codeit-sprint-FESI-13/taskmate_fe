@@ -51,8 +51,8 @@ export const TodoSection = () => {
         </div>
       </div>
 
-      <div className="grid min-h-[480px] w-full grid-cols-2 grid-rows-[1fr_1fr] gap-[32px]">
-        <section className="row-span-2 flex h-[728px] min-h-0 w-full flex-col">
+      <div className="tablet:grid tablet:grid-cols-2 tablet:grid-rows-[1fr_1fr] tablet:gap-[32px] flex min-h-[480px] w-full flex-col gap-8">
+        <section className="tablet:row-span-2 tablet:h-[728px] flex min-h-0 w-full flex-col">
           <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
             <AsyncBoundary
               loadingFallback={<Loading />}
@@ -71,7 +71,7 @@ export const TodoSection = () => {
             </AsyncBoundary>
           </div>
         </section>
-        <section className="flex h-full min-h-0 w-full min-w-0 flex-col">
+        <section className="tablet:h-full tablet:min-w-0 flex min-h-0 w-full flex-col">
           <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
             <AsyncBoundary
               loadingFallback={<Loading />}
@@ -90,7 +90,7 @@ export const TodoSection = () => {
             </AsyncBoundary>
           </div>
         </section>
-        <section className="flex h-full min-h-0 w-full min-w-0 flex-col">
+        <section className="tablet:h-full tablet:min-w-0 flex min-h-0 w-full flex-col">
           <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
             <AsyncBoundary
               loadingFallback={<Loading />}
