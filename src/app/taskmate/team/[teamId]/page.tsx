@@ -8,8 +8,15 @@ import { Summary } from "@/components/team/Summary";
 export default function Page() {
   return (
     <div className="flex flex-col gap-10 px-6 py-8">
-      {/* @TODO: Loading & Error 처리 */}
-      <AsyncBoundary>
+      <AsyncBoundary
+        loadingFallback={<Summary.Loading />}
+        errorFallback={(error, onReset) => (
+          <Summary.Error
+            error={error}
+            onReset={onReset}
+          />
+        )}
+      >
         <Summary />
       </AsyncBoundary>
 
