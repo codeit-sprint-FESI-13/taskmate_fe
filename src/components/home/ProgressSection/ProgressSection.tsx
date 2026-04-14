@@ -10,12 +10,15 @@ import { userQueries } from "@/constants/queryKeys";
 import { progressApi } from "@/features/home/api";
 import { ProgressItem } from "@/features/home/types";
 
+// @TODO: Loading/Error 상태 처리 필요
+// @TODO: 데이터가 없을 때 처리 확인 필요
 export default function ProgressSection() {
   const { data } = useSuspenseQuery(userQueries.myInfo());
   // (팀/개인) progress usestate로 저장
   const [teamProgress, setTeamProgress] = useState<ProgressItem[]>([]);
   const [myProgressPercent, setMyProgressPercent] = useState(0);
 
+  //@TODO: useEffect 에서 데이터 요청하는 패턴에서 tanstack-query 활용하는 패턴으로 맞추기
   // (팀/개인) progress 데이터 요청
   useEffect(() => {
     (async () => {
@@ -36,6 +39,7 @@ export default function ProgressSection() {
             size={24}
             className="tablet:hidden"
           />
+          {/* @TODO (refactor): 전반적으로 사용되는 mobile | tablet | desktop 일때만 보이게끔 하는 로직 > 하나로 묶는게 좋아보임 ( Wrapper 나 tailwind utitility 등 ) */}
           <Icon
             name="PipeGreen"
             size={40}

@@ -9,6 +9,7 @@ export interface ProgressData {
   myProgressPercent: number;
 }
 
+// @TODO: 정의되어있는 ApiResponse | ApiError 로 묶기
 export interface ProgressSuccessResponse {
   success: true;
   code: "SUCCESS";
@@ -17,6 +18,7 @@ export interface ProgressSuccessResponse {
   timestamp: string;
 }
 
+// @TODO: 정의되어있는 ApiResponse | ApiError 로 묶기
 export type ProgressErrorResponse =
   | {
       success: false;
