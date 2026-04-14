@@ -4,12 +4,12 @@ import { ComponentProps } from "react";
 import { cn } from "@/utils/utils";
 
 const softButtonVariants = cva(
-  "text-label-1 rounded-[10px] font-semibold px-7 py-3 h-12 disabled:cursor-not-allowed disabled:bg-background-normal-alternative-2 disabled:text-gray-500 disabled:ring disabled:ring-gray-200 cursor-pointer hover:ring-1 hover:ring-blue-900 active:ring-1 active:ring-blue-900 disabled:pointer-events-none transition-colors",
+  "text-label-1 rounded-[10px] font-semibold px-7 py-3 h-12 disabled:cursor-not-allowed disabled:bg-background-normal-alternative-2 disabled:text-gray-400 disabled:ring disabled:ring-gray-200 cursor-pointer  disabled:pointer-events-none transition-colors",
   {
     variants: {
       variant: {
-        purple: "bg-blue-100 text-blue-800 ",
-        gray: "bg-background-normal-alternative-2 text-gray-500 ring ring-gray-200 hover:text-blue-800 active:text-blue-800",
+        purple: "bg-blue-100 text-blue-800 hover:bg-blue-200",
+        gray: "bg-background-normal-alternative-2 text-gray-400 ring-1 ring-gray-200 hover:ring-1 hover:bg-background-elevated-normal hover:text-gray-500 active:ring-1 active:ring-blue-900 active:text-blue-800",
       },
     },
     defaultVariants: {
