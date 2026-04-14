@@ -1,13 +1,6 @@
 import * as React from "react";
 
-export type ToastVariant = "default" | "success" | "error" | "warning" | "info";
-export type ToastPosition =
-  | "top-left"
-  | "top-center"
-  | "top-right"
-  | "bottom-left"
-  | "bottom-center"
-  | "bottom-right";
+export type ToastVariant = "default" | "success" | "error";
 
 export type ToastAction = {
   label: string;
@@ -20,7 +13,6 @@ export type ToastOptions = {
   description?: React.ReactNode;
   variant?: ToastVariant;
   duration?: number;
-  closable?: boolean;
   action?: ToastAction;
 };
 
