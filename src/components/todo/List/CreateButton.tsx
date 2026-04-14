@@ -6,7 +6,7 @@ export const CreateButton = () => {
   const { openTodoCreateModal } = useTodoCreateModal();
 
   return (
-    <div className="absolute right-5 bottom-8 flex w-full items-center justify-end">
+    <div className="flex w-full items-center justify-end">
       <Button
         variant="primary"
         size="lg"

@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import { Spacing } from "@/components/common/Spacing";
 
 import { CreateButton } from "./CreateButton";
@@ -9,24 +7,24 @@ import { Item } from "./Item";
 import { Order } from "./Order";
 
 interface ListProps {
-  keyword: string;
-  isMyTodo: boolean;
   name: string;
   children: React.ReactNode;
   height: string;
+  sortOptions: string[];
+  selectedSort: string;
+  onSortChange: (value: string) => void;
+  footer?: React.ReactNode;
 }
 
 const ListComponent = ({
-  keyword: _keyword,
-  isMyTodo: _isMyTodo,
   name,
   children,
   height,
+  sortOptions,
+  selectedSort,
+  onSortChange,
+  footer,
 }: ListProps) => {
-  // @TODO: 정렬 옵션 백엔드 추가 필요
-  const sortOptions = ["최신순", "마감일 순"];
-  const [selectedSort, setSelectedSort] = useState("최신순");
-
   return (
     <div className="h-full w-full">
       <div className="flex w-full items-center justify-between">
@@ -34,18 +32,35 @@ const ListComponent = ({
         <Order
           options={sortOptions}
           selected={selectedSort}
-          onSelect={setSelectedSort}
+          onSelect={onSortChange}
         />
       </div>
 
       <Spacing size={20} />
 
-      <ul
-        style={{ height }}
-        className="relative w-full overflow-y-scroll rounded-4xl bg-white px-5 py-8"
-      >
-        {children}
-      </ul>
+      {footer != null ? (
+        <div
+          style={{ height }}
+          className="flex w-full flex-col overflow-hidden rounded-4xl bg-white px-5 py-8"
+        >
+          <ul className="relative min-h-0 flex-1 overflow-y-auto">
+            {children}
+          </ul>
+          <div className="shrink-0 px-5 pb-8">{footer}</div>
+        </div>
+      ) : (
+        <div
+          style={{ height }}
+          className="flex w-full flex-col overflow-hidden rounded-4xl bg-white px-5 py-8"
+        >
+          <ul
+            style={{ height }}
+            className="relative w-full overflow-y-scroll"
+          >
+            {children}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
