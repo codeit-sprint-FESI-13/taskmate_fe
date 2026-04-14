@@ -17,6 +17,8 @@ import { Team } from "@/components/NavigationBar/Team";
 import { UserProfile } from "@/components/NavigationBar/UserProfile";
 import { NAVIGATION_BAR_ZINDEX } from "@/constants/zIndex";
 
+import NotificationPopover from "./NotificationPopover/NotificationPopover";
+
 const navigationBarAsideVariants = cva(
   [
     // default
@@ -107,6 +109,8 @@ export const NavigationBar = () => {
             <AsyncBoundary loadingFallback={<UserProfile.Loading />}>
               <UserProfile />
             </AsyncBoundary>
+
+            <NotificationPopover />
 
             <LogoutButton />
           </div>
