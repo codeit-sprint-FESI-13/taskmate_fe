@@ -53,7 +53,7 @@ export default function GoalList() {
       </div>
 
       <div className="max-h-[300px] w-full overflow-y-auto pr-1">
-        <div className="grid w-full grid-cols-3 gap-4">
+        <div className="tablet:grid-cols-2 desktop:grid-cols-3 grid w-full grid-cols-1 gap-4">
           {goalList.map((goal) => (
             <MainSecondaryProgressCard
               teamId={teamId}

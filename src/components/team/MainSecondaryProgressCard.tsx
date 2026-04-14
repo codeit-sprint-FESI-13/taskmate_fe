@@ -56,7 +56,9 @@ export const MainSecondaryProgressCard = ({
       }}
     >
       <div className="mb-5 flex items-center justify-between gap-4">
-        <h3 className="text-lg font-semibold text-zinc-900">{title}</h3>
+        <h3 className="truncate text-lg font-semibold text-zinc-900">
+          {title}
+        </h3>
         {iconSrc ? (
           <Image
             src={iconSrc}
