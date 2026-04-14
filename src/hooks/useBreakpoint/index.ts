@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 type Breakpoint = "mobile" | "tablet" | "desktop";
 
 const BREAKPOINTS = {
+  mobile: 375,
   tablet: 744,
   desktop: 1280,
 } as const;
 
 function getBreakpoint(width: number): Breakpoint {
-  if (width >= BREAKPOINTS.desktop) return "desktop";
-  if (width >= BREAKPOINTS.tablet) return "tablet";
+  if (width >= BREAKPOINTS.tablet) return "desktop";
+  if (width >= BREAKPOINTS.mobile) return "tablet";
   return "mobile";
 }
 
