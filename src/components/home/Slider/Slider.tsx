@@ -2,6 +2,7 @@
 
 import "swiper/css";
 import "swiper/css/pagination";
+import "./slider.css";
 
 import { Children, ReactNode } from "react";
 import { Pagination } from "swiper/modules";

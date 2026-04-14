@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import { CircularProgress } from "@/components/common/CircularProgress";
 import { Icon } from "@/components/common/Icon";
-import Slider from "@/components/home/Slider";
+import Slider from "@/components/home/Slider/Slider";
 import { userQueries } from "@/constants/queryKeys";
 import { progressApi } from "@/features/home/api";
 import { ProgressItem } from "@/features/home/types";
