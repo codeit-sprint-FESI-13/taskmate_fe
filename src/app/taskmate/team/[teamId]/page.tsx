@@ -5,7 +5,7 @@ import { Summary } from "@/components/team/Summary";
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 px-6 py-8">
       {/* @TODO: Loading & Error 처리 */}
       <AsyncBoundary>
         <Summary />

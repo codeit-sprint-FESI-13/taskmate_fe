@@ -1,7 +1,6 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Icon } from "@/components/common/Icon";
 import { MainSecondaryProgressCard } from "@/components/team/MainSecondaryProgressCard";
@@ -9,25 +8,25 @@ import { Order } from "@/components/todo/List/Order";
 import { goalQueries } from "@/features/goal/query/goal.queryKey";
 import { SortType } from "@/features/goal/types";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
 
 const sortTypeByLabel: Record<string, SortType> = {
   최신순: "LATEST",
-  "마감일 순": "OLDEST",
+  오래된순: "OLDEST",
 };
 
-// @TODO: 목표 목록 조회 시 무한 스크롤 처리 (useSuspenseInfiniteQuery )
 export const GoalList = () => {
   const teamId = useTeamId();
-  const sortOptions = ["최신순", "마감일 순"];
+  const sortOptions = ["최신순", "오래된순"];
   const [selectedSort, setSelectedSort] = useState("최신순");
+  const sort = sortTypeByLabel[selectedSort] ?? "LATEST";
 
-  const {
-    data: { items: goalList },
-  } = useSuspenseQuery(
-    goalQueries.getTeamGoalList(
-      teamId,
-      sortTypeByLabel[selectedSort] ?? "LATEST",
-    ),
+  const { ref, data, isFetchingNextPage } = useInfiniteScroll(
+    goalQueries.getTeamGoalListInfinite(teamId, sort),
+  );
+  const goalList = useMemo(
+    () => data.pages.flatMap((page) => page.items),
+    [data.pages],
   );
 
   return (
@@ -66,6 +65,15 @@ export const GoalList = () => {
           />
         ))}
       </div>
+      <div
+        ref={ref}
+        className="h-1 w-full"
+      />
+      {isFetchingNextPage && (
+        <p className="typography-body-2 w-full text-center text-gray-400">
+          목표를 불러오는 중...
+        </p>
+      )}
     </div>
   );
 };

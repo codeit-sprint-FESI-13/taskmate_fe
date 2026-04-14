@@ -39,17 +39,27 @@ export interface PersonalGoalListResponse {
 
 export type SortType = "LATEST" | "OLDEST";
 
+export interface GoalListCursor {
+  cursorCreatedAt: string;
+  cursorId: number;
+}
+
+export interface TeamGoalListItem {
+  goalId: number;
+  name: string;
+  progressPercent: number;
+  isFavorite: boolean;
+  createdAt: string;
+}
+
 export interface TeamGoalListResponse {
   success: boolean;
   code: string;
   message: string;
   data: {
-    items: {
-      goalId: number;
-      name: string;
-      progressPercent: number;
-      isFavorite: boolean;
-    }[];
+    items: TeamGoalListItem[];
+    nextCursor: GoalListCursor | null;
+    size: number;
   };
 }
 
