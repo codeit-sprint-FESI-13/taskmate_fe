@@ -25,8 +25,15 @@ export default function Page() {
         <GoalList />
       </AsyncBoundary>
 
-      {/* @TODO: Loading & Error 처리 */}
-      <AsyncBoundary>
+      <AsyncBoundary
+        loadingFallback={<MemberList.Loading />}
+        errorFallback={(error, onReset) => (
+          <MemberList.Error
+            error={error}
+            onReset={onReset}
+          />
+        )}
+      >
         <MemberList />
       </AsyncBoundary>
     </div>
