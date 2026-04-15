@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { getMyInfo } from "@/features/auth/myInfo/api/myInfo.api";
+import { getMyInfo } from "@/features/my/api/myInfo.api";
 
 import { STALE_TIME } from "../staleTime";
 

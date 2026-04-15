@@ -1,3 +1,5 @@
+import AlertError from "./svg/Alert/Error.svg";
+import AlertSuccess from "./svg/Alert/Success.svg";
 import DownFilledArrow from "./svg/Arrow/DownFilled.svg";
 import LeftDoubleArrow from "./svg/Arrow/LeftDouble.svg";
 import LeftFilledArrow from "./svg/Arrow/LeftFilled.svg";
@@ -91,6 +93,8 @@ export const iconMap = {
   GreenCharacter,
   BlueCharacter,
   RightArrow,
+  AlertError,
+  AlertSuccess,
   Info,
 } as const;
 

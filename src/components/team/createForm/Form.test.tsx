@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import { ToastProvider } from "@/components/common/Toast";
+import ToastProvider from "@/components/common/Toast";
 import { useCreateTeamForm } from "@/features/team/hooks/useCreateTeamForm";
 
 import Form from "./Form";

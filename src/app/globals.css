@@ -48,10 +48,10 @@
   --color-label-disable: rgba(17, 24, 39, 0.16);
 
   --color-inverse-normal: #ffffff;
-  --color-inverse-neutral: rgba(0, 0, 0, 0.88);
-  --color-inverse-alternative: rgba(0, 0, 0, 0.4);
-  --color-inverse-assistive: rgba(0, 0, 0, 0.28);
-  --color-inverse-disable: rgba(0, 0, 0, 0.16);
+  --color-inverse-neutral: rgba(255, 255, 255, 0.88);
+  --color-inverse-alternative: rgba(255, 255, 255, 0.4);
+  --color-inverse-assistive: rgba(255, 255, 255, 0.28);
+  --color-inverse-disable: rgba(255, 255, 255, 0.16);
 
   --color-background-normal: #ffffff;
   --color-background-normal-alternative: #f9fafb;
