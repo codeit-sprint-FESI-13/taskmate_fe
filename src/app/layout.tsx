@@ -27,7 +27,6 @@ export default function RootLayout({
         <MSWInitializer>
           <ReactQueryClientProvider>
             <ToastProvider
-              position="bottom-right"
               max={5}
             >
               <NotificationSubscriber />
