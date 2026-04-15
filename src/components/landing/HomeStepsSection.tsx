@@ -1,17 +1,17 @@
 import { cn } from "@/utils/utils";
 
-import {
-  ClipboardIllustration,
-  GoalTargetIllustration,
-  KanbanIllustration,
-} from "./illustrations/StepIllustrations";
 import { StepCard } from "./StepCard";
+import {
+  ClipboardIcon,
+  GoalTargetIcon,
+  KanbanIcon,
+} from "./StepIcons/StepIcons";
 
 const steps = [
   {
     step: 1,
     title: "목표 설정하기",
-    illustration: <GoalTargetIllustration />,
+    illustration: <GoalTargetIcon />,
     description: (
       <>
         달성하고 싶은 목표를 만들고
@@ -23,7 +23,7 @@ const steps = [
   {
     step: 2,
     title: "할 일 추가하기",
-    illustration: <ClipboardIllustration />,
+    illustration: <ClipboardIcon />,
     description: (
       <>
         스페이스 별 목표에 맞는
@@ -34,7 +34,7 @@ const steps = [
   {
     step: 3,
     title: "진행상황 관리하기",
-    illustration: <KanbanIllustration />,
+    illustration: <KanbanIcon />,
     description: (
       <>
         팀원들과 함께 목표를 관리하고

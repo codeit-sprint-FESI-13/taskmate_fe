@@ -1,4 +1,4 @@
-export function GoalTargetIllustration() {
+export function GoalTargetIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ export function GoalTargetIllustration() {
   );
 }
 
-export function ClipboardIllustration() {
+export function ClipboardIcon() {
   return (
     <svg
       width={46}
@@ -119,7 +119,7 @@ export function ClipboardIllustration() {
   );
 }
 
-export function KanbanIllustration() {
+export function KanbanIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
