@@ -121,13 +121,8 @@ export default function ProgressSection() {
           </h2>
         </div>
 
-<<<<<<< HEAD
-        <div className="relative flex h-64 w-full items-center justify-start gap-8 overflow-hidden rounded-[40px] bg-blue-700 px-10 py-12">
-=======
         {/* 카드 */}
         <div className="desktop:h-64 desktop:gap-8 desktop:px-10 relative flex h-35 w-full items-center justify-start gap-4 overflow-hidden rounded-3xl bg-blue-700 px-4 py-12">
-          {/* progress (반응형) */}
->>>>>>> fc9f52a (feat(#188) 메인 페이지 [팀 진행 상황 / 내 진행 상황])
           <CircularProgress
             value={myProgressPercent}
             size="md"
