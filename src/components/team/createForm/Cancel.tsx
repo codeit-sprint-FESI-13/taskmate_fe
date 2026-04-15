@@ -13,7 +13,7 @@ export default function Cancel() {
       className="self-center"
       onClick={() => router.back()}
     >
-      <span className="typography-body-2 text-gray-400">취소하기</span>
+      취소하기
     </TextButton>
   );
 }

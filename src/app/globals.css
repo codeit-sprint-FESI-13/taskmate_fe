@@ -195,3 +195,20 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: var(--color-background-normal-alternative-2);
 }
+
+/* 스크롤 스타일링 */
+
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-200) transparent;
+}
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-gray-200);
+  border-radius: 9999px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}

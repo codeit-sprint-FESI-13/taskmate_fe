@@ -23,7 +23,7 @@ export default function ProgressSection() {
           </h2>
         </div>
 
-        <div className="relative flex h-[256px] w-full items-center justify-start gap-8 overflow-hidden rounded-[40px] bg-green-700 px-10 py-12">
+        <div className="relative flex h-64 w-full items-center justify-start gap-8 overflow-hidden rounded-[40px] bg-green-700 px-10 py-12">
           <CircularProgress
             value={74}
             size="xl"
@@ -62,7 +62,7 @@ export default function ProgressSection() {
           </h2>
         </div>
 
-        <div className="relative flex h-[256px] w-full items-center justify-start gap-8 overflow-hidden rounded-[40px] bg-blue-700 px-10 py-12">
+        <div className="relative flex h-64 w-full items-center justify-start gap-8 overflow-hidden rounded-[40px] bg-blue-700 px-10 py-12">
           <CircularProgress
             value={47}
             size="xl"
