@@ -7,7 +7,7 @@ import WelcomeBanner from "@/components/home/WelcomeBanner";
 
 export default function TaskmatePage() {
   return (
-    <div className="flex w-full max-w-full min-w-0 flex-col items-center justify-center">
+    <div className="tablet:px-6 tablet:py-16 desktop:px-10 desktop:py-20 flex w-full max-w-full min-w-0 flex-col items-center justify-center px-5 py-8">
       <AsyncBoundary errorFallback={<div>error</div>}>
         <WelcomeBanner />
       </AsyncBoundary>
@@ -26,8 +26,8 @@ export default function TaskmatePage() {
             name="FlagGreen"
             size={40}
           />
-          <h2 className="typography-label-1 desktop:typography-body-1 font-medium text-black">
-            팀별 진행 상황
+          <h2 className="typography-body-1 font-medium text-black">
+            중요한 할 일
           </h2>
         </div>
 
