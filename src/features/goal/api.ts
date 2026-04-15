@@ -30,4 +30,26 @@ export const goalApi = {
 
   getSummary: (goalId: string) =>
     apiClient.get<GoalSummaryResponse>(`/api/goals/${goalId}/summary`),
+
+  deleteGoal: (goalId: string) =>
+    apiClient.delete<{
+      success: boolean;
+      code: string;
+      message: string;
+      data: null;
+      timestamp: string;
+    }>(`/api/goals/${goalId}`),
+
+  updateGoal: (goalId: string, body: { name: string; dueDate: string }) =>
+    apiClient.patch<{
+      success: boolean;
+      code: string;
+      message: string;
+      data: {
+        id: number;
+        name: string;
+        dueDate: string;
+      };
+      timestamp: string;
+    }>(`/api/goals/${goalId}`, body),
 };

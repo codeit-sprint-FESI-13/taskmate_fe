@@ -14,8 +14,7 @@ export default function TaskmateLayout({
       <NavigationBarProvider>
         <div className="flex">
           <NavigationBar />
-
-          <div className="mx-auto w-full">{children}</div>
+          <div className="mobile:pt-0 mx-auto w-full pt-14">{children}</div>
         </div>
       </NavigationBarProvider>
     </>

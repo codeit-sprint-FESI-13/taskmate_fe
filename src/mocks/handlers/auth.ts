@@ -19,6 +19,17 @@ export const authHandlers = [
       },
       timestamp: new Date().toISOString(),
     });
+    // on Error
+    // return HttpResponse.json(
+    //   {
+    //     success: false,
+    //     code: "INTERNAL_ERROR",
+    //     message: "내 정보 조회에 실패했습니다.",
+    //     data: null,
+    //     timestamp: new Date().toISOString(),
+    //   },
+    //   { status: 500 },
+    // );
   }),
 
   // 이메일 중복체크

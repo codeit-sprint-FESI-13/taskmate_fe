@@ -9,6 +9,7 @@ export interface SpacingProps {
   direction?: SpacingDirection;
   style?: CSSProperties;
   className?: string;
+  useClassSize?: boolean;
 }
 
 export const Spacing = ({
@@ -16,11 +17,18 @@ export const Spacing = ({
   direction = "vertical",
   style,
   className,
+  useClassSize = false,
 }: SpacingProps) => {
   const defaultStyle: CSSProperties =
     direction === "vertical"
-      ? { height: size, width: "100%" }
-      : { width: size, height: 1 };
+      ? {
+          width: "100%",
+          ...(useClassSize ? {} : { height: size }),
+        }
+      : {
+          height: 1,
+          ...(useClassSize ? {} : { width: size }),
+        };
 
   return (
     <div
