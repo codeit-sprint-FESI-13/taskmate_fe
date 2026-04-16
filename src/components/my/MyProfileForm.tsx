@@ -67,7 +67,7 @@ const MyProfileForm = () => {
   };
 
   return (
-    <div className="tablet:w-[560px] mx-auto w-[335px]">
+    <div className="mt-20 flex w-full flex-col">
       <p className="tablet:block text-title-3 mb-10 ml-2 hidden font-semibold">
         내 정보 관리
       </p>
