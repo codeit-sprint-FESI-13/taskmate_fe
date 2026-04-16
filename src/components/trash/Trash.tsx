@@ -20,6 +20,9 @@ function Trash() {
 
   return (
     <div className="mt-20 flex w-full flex-col">
+      <h1 className="text-title-3 text-label-neutral tablet:block tablet:mt-0 mt-[106px] mb-8 hidden font-semibold">
+        삭제된 할 일
+      </h1>
       <div className="tablet:flex-row tablet:items-center tablet:justify-end flex flex-col">
         <div className="tablet:w-full w-[209px] pr-2">
           <TrashTabs
