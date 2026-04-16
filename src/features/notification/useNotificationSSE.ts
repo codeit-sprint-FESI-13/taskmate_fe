@@ -5,6 +5,17 @@ import { useEffect, useRef } from "react";
 
 import { userQueries } from "@/constants/queryKeys/user.queryKey";
 
+import { NotificationApi } from "./api";
+
+const SSE_BASE_URL = (process.env.NEXT_PUBLIC_SSE_BASE_URL ?? "").replace(
+  /\/$/,
+  "",
+);
+
+const SSE_STREAM_URL = SSE_BASE_URL
+  ? `${SSE_BASE_URL}/api/notifications/stream`
+  : "/api/notifications/stream";
+
 export function useNotificationSSE() {
   const queryClient = useQueryClient();
   const esRef = useRef<EventSource | null>(null);
@@ -31,33 +42,41 @@ export function useNotificationSSE() {
       esRef.current = null;
     };
 
-    const connect = () => {
+    const connect = async () => {
       if (unmounted) return;
 
-      const es = new EventSource("/api/notifications/stream", {
-        withCredentials: true,
-      });
-      esRef.current = es;
+      try {
+        const tokenRes = await NotificationApi.issueSseToken();
+        const sseToken = tokenRes.data.sseToken;
+        const streamUrl = `${SSE_STREAM_URL}?sseToken=${encodeURIComponent(sseToken)}`;
 
-      es.addEventListener("NOTIFICATION", () => {
-        queryClient.invalidateQueries({ queryKey: ["notifications"] });
-      });
+        const es = new EventSource(streamUrl);
+        esRef.current = es;
 
-      es.onerror = async () => {
-        clear();
-        try {
-          // 401 등 인증 문제 시 BFF 재발급 트리거
-          await queryClient.fetchQuery(userQueries.myInfo());
-          connect(); // 복구 성공 -> 재구독
-        } catch {
-          timerRef.current = window.setTimeout(connect, 2000); // 재시도
-        } finally {
+        es.addEventListener("NOTIFICATION", () => {
+          queryClient.invalidateQueries({ queryKey: ["notifications"] });
+        });
+
+        es.onerror = async () => {
           clear();
-        }
-      };
+          try {
+            // 401 등 인증 문제 시 BFF 재발급 트리거
+            await queryClient.fetchQuery(userQueries.myInfo());
+            await connect(); // 복구 성공 -> 재구독
+          } catch {
+            timerRef.current = window.setTimeout(() => {
+              void connect();
+            }, 2000); // 재시도
+          }
+        };
+      } catch {
+        timerRef.current = window.setTimeout(() => {
+          void connect();
+        }, 2000);
+      }
     };
 
-    connect();
+    void connect();
 
     return () => {
       unmounted = true;

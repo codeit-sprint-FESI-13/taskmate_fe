@@ -93,11 +93,36 @@ export type NotificationSSEErrorResponse =
     }
   | {
       success: false;
+      code: "AUTH_INVALID_TOKEN";
+      message: "유효하지 않은 토큰입니다.";
+      data: null;
+      timestamp: string;
+    }
+  | {
+      success: false;
+      code: "AUTH_EXPIRED_TOKEN";
+      message: "만료된 토큰입니다.";
+      data: null;
+      timestamp: string;
+    }
+  | {
+      success: false;
       code: "INTERNAL_SERVER_ERROR";
       message: "서버 내부 오류가 발생했습니다.";
       data: null;
       timestamp: string;
     };
+
+// SSE 토큰 발급
+export interface NotificationSSETokenSuccessResponse {
+  success: true;
+  message: "SSE 토큰 발급에 성공했습니다.";
+  data: {
+    sseToken: string;
+    expiresAt: string;
+  };
+  timestamp: string;
+}
 
 // 알림 단건 읽음 처리
 
@@ -164,11 +189,3 @@ export type NotificationReadAllErrorResponse =
       data: null;
       timestamp: string;
     };
-
-// infinite scroll params types
-
-// export type InfiniteScrollQueryParams = {
-//   cursorId?: number;
-//   cursorCreatedAt?: string;
-//   size?: number;
-// };
