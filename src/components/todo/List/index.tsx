@@ -53,12 +53,7 @@ const ListComponent = ({
           style={{ height }}
           className="flex w-full flex-col overflow-hidden rounded-4xl bg-white px-5 py-8"
         >
-          <ul
-            style={{ height }}
-            className="relative w-full overflow-y-scroll"
-          >
-            {children}
-          </ul>
+          <ul className="relative w-full overflow-y-scroll">{children}</ul>
         </div>
       )}
     </div>
