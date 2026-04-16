@@ -9,6 +9,8 @@ import TrashEmpty from "@/components/trash/TrashEmpty";
 import TrashTabs, { TrashTab } from "@/components/trash/TrashTabs";
 import { teamQueries } from "@/features/team/query/team.queryKey";
 
+import AsyncBoundary from "../common/AsyncBoundary";
+
 function Trash() {
   const [activeTab, setActiveTab] = useState<TrashTab>("personal");
   const { data: teams } = useSuspenseQuery(teamQueries.all());
@@ -35,13 +37,15 @@ function Trash() {
       </div>
 
       <div className="w-full py-5">
-        {activeTab === "personal" ? (
-          <PersonalTrash />
-        ) : selectedTeamId !== undefined ? (
-          <TeamTrash selectedTeamId={selectedTeamId} />
-        ) : (
-          <TrashEmpty />
-        )}
+        <AsyncBoundary>
+          {activeTab === "personal" ? (
+            <PersonalTrash />
+          ) : selectedTeamId !== undefined ? (
+            <TeamTrash selectedTeamId={selectedTeamId} />
+          ) : (
+            <TrashEmpty />
+          )}
+        </AsyncBoundary>
       </div>
     </div>
   );
