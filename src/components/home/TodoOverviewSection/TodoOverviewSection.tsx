@@ -1,5 +1,8 @@
 "use client";
 
+import Image from "next/image";
+
+import emptyImg from "@/assets/images/empty.png";
 import { Icon } from "@/components/common/Icon";
 import { mainInfiniteQueries } from "@/features/home/query/mainInfiniteQueries";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
@@ -60,24 +63,44 @@ export default function TodoOverviewSection() {
             최근 등록한 할 일
           </h2>
         </div>
-        {/* recent todos */}
-        <div className="tablet:gap-4 desktop:gap-6 flex h-[636px] flex-col gap-3 overflow-hidden overflow-y-scroll">
-          {recentItems.map((item) => (
-            <MainTodoItem
-              key={item.todoId}
-              todoId={item.todoId}
-              title={item.title}
-              teamDisplayName={item.teamDisplayName}
-              goalTitle={item.goalTitle}
-              dueDate={item.dueDate}
-            />
-          ))}
-          <div ref={recentRef} />
 
-          {recentIsFetchingNextPage && (
-            <div className="flex w-full animate-pulse items-center justify-center py-4">
-              로딩중
+        <div className="tablet:gap-4 desktop:gap-6 flex h-[636px] flex-col gap-3 overflow-hidden overflow-y-scroll">
+          {recentItems.length === 0 ? (
+            <div className="flex h-full w-full flex-col items-center justify-center gap-1 rounded-4xl bg-white">
+              <Image
+                src={emptyImg}
+                alt="최근 등록한 할 일이 없을 때 보여지는 이미지"
+                className="mb-6"
+                width={140}
+                height={140}
+              />
+              <span className="typography-heading-2 font-semibold text-gray-500">
+                생성된 할 일이 없어요
+              </span>
+              <span className="typography-heading-2 text-gray-500">
+                새로운 할 일을 만들고 관리해보세요
+              </span>
             </div>
+          ) : (
+            <>
+              {recentItems.map((item) => (
+                <MainTodoItem
+                  key={item.todoId}
+                  todoId={item.todoId}
+                  title={item.title}
+                  teamDisplayName={item.teamDisplayName}
+                  goalTitle={item.goalTitle}
+                  dueDate={item.dueDate}
+                />
+              ))}
+              <div ref={recentRef} />
+
+              {recentIsFetchingNextPage && (
+                <div className="flex w-full animate-pulse items-center justify-center py-4">
+                  로딩중
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -98,24 +121,41 @@ export default function TodoOverviewSection() {
             마감 임박 할일
           </h2>
         </div>
-        {/* dueSoon todos */}
-        <div className="tablet:gap-4 desktop:gap-6 flex h-159 flex-col gap-3 overflow-hidden overflow-y-scroll">
-          {dueSoonItems.map((item) => (
-            <MainTodoItem
-              key={item.todoId}
-              todoId={item.todoId}
-              title={item.title}
-              teamDisplayName={item.teamDisplayName}
-              goalTitle={item.goalTitle}
-              dueDate={item.dueDate}
-            />
-          ))}
-          <div ref={dueSoonRef} />
 
-          {dueSoonIsFetchingNextPage && (
-            <div className="flex w-full animate-pulse items-center justify-center py-4">
-              로딩중
+        <div className="tablet:gap-4 desktop:gap-6 flex h-159 flex-col gap-3 overflow-hidden overflow-y-scroll">
+          {dueSoonItems.length === 0 ? (
+            <div className="flex h-full w-full flex-col items-center justify-center gap-1 rounded-4xl bg-white">
+              <Image
+                src={emptyImg}
+                alt="최근 등록한 할 일이 없을 때 보여지는 이미지"
+                className="mb-6"
+                width={140}
+                height={140}
+              />
+              <span className="typography-heading-2 font-semibold text-gray-500">
+                마감이 임박한 일이 없어요!
+              </span>
             </div>
+          ) : (
+            <>
+              {dueSoonItems.map((item) => (
+                <MainTodoItem
+                  key={item.todoId}
+                  todoId={item.todoId}
+                  title={item.title}
+                  teamDisplayName={item.teamDisplayName}
+                  goalTitle={item.goalTitle}
+                  dueDate={item.dueDate}
+                />
+              ))}
+              <div ref={dueSoonRef} />
+
+              {dueSoonIsFetchingNextPage && (
+                <div className="flex w-full animate-pulse items-center justify-center py-4">
+                  로딩중
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
