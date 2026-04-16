@@ -46,6 +46,7 @@ import Pencil from "./svg/Pencil/Pencil.svg";
 import Plus from "./svg/Plus.svg";
 import Search from "./svg/Search/Search.svg";
 import Trash from "./svg/Trash.svg";
+import TrashEmpty from "./svg/TrashEmpty.svg";
 import User from "./svg/User/User.svg";
 
 export const iconMap = {
@@ -98,6 +99,7 @@ export const iconMap = {
   AlertError,
   AlertSuccess,
   Info,
+  TrashEmpty,
 } as const;
 
 export type IconName = keyof typeof iconMap;
