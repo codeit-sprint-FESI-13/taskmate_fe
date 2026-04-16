@@ -18,6 +18,7 @@ import ActiveFilledCheckBox from "./svg/Checkbox/ActiveFilledCheckBox.svg";
 import InactiveCheckBox from "./svg/Checkbox/InactiveCheckBox.svg";
 import InactiveFilledCheckBox from "./svg/Checkbox/InactiveFilledCheckBox.svg";
 import Dot from "./svg/Dot.svg";
+import Empty from "./svg/Empty.svg";
 import EyeOffIcon from "./svg/EyeOffIcon.svg";
 import EyeOnIcon from "./svg/EyeOnIcon.svg";
 import Deadline from "./svg/feature/Deadline.svg";
@@ -90,6 +91,7 @@ export const iconMap = {
   Flag,
   GoalFlag,
   Dot,
+  Empty,
   GreenCharacter,
   BlueCharacter,
   RightArrow,

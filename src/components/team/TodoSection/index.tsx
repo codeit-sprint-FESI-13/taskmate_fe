@@ -1,123 +1,118 @@
 "use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
+import AsyncBoundary from "@/components/common/AsyncBoundary";
 import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
-import { Spacing } from "@/components/common/Spacing";
 import { Toggle } from "@/components/common/Toggle";
-import { TodoList } from "@/components/todo/List";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { todoQueries } from "@/features/todo/query/todo.queryKey";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { useDebouncedKeyword } from "@/hooks/useDebouncedKeyword";
+
+import { DoingList } from "./DoingList";
+import { DoneList } from "./DoneList";
+import { Error as ListError } from "./state/Error";
+import { Loading } from "./state/Loading";
+import { TodoList } from "./TodoList";
 
 export const TodoSection = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
   const goalId = useGoalId();
-
-  const { data: todoList } = useSuspenseQuery(todoQueries.getTodoList(goalId));
-
-  const todoStateList = todoList.filter((todo) => todo.status === "TODO");
-  const doingStateList = todoList.filter((todo) => todo.status === "DOING");
-  const doneStateList = todoList.filter((todo) => todo.status === "DONE");
-
-  const todoSectionOption = {
-    keyword: searchParams.get("keyword") || "",
-    isMyTodo: searchParams.get("isMyTodo") === "true" ? true : false,
-  };
-
-  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("keyword", e.target.value);
-    router.replace(`?${newSearchParams.toString()}`);
-  };
-
-  const handleIsMyTodoChange = (isMyTodo: boolean) => {
-    const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set("isMyTodo", isMyTodo.toString());
-    router.replace(`?${newSearchParams.toString()}`);
-  };
+  const breakpoint = useBreakpoint();
+  const { keywordInput, keyword, onKeywordChange } = useDebouncedKeyword();
+  const [isMyTodo, setIsMyTodo] = useState(false);
 
   return (
-    <div className="flex w-full flex-col gap-[32px]">
-      <div className="flex w-full items-center justify-between">
-        {/* @TODO: 검색 기능 추가 필요 */}
-        <Input
-          placeholder="할 일을 이름으로 검색해보세요."
-          className="w-[360px]"
-          onChange={handleKeywordChange}
-          value={todoSectionOption.keyword}
-          rightIcon={
-            <div>
-              <Icon
-                name="Search"
-                size={24}
-                className="text-gray-300"
-              />
-            </div>
-          }
-        />
+    <div className="flex w-full flex-col gap-4">
+      <div className="tablet:flex-row tablet:items-center tablet:justify-between tablet:gap-4 flex w-full flex-col gap-3">
+        <div className="tablet:flex-1 w-full max-w-[500px] min-w-0">
+          <Input
+            placeholder="할 일을 이름으로 검색해보세요."
+            onChange={onKeywordChange}
+            value={keywordInput}
+            rightIcon={
+              <div>
+                <Icon
+                  name="Search"
+                  size={24}
+                  className="text-gray-300"
+                />
+              </div>
+            }
+          />
+        </div>
 
-        <div className="flex items-center justify-center gap-[10px]">
-          <span className="typography-body-1 font-semibold text-blue-800">
+        <div className="tablet:w-auto flex w-full shrink-0 items-center justify-between justify-end gap-[10px]">
+          <span className="text-label-1 tablet:typography-body-1 min-w-0 pr-2 text-left font-semibold text-blue-800">
             내 할일만 보기
           </span>
 
-          {/* @TODO: 내 할 일만 보기 기능 추가 필요 */}
           <Toggle
-            pressed={todoSectionOption.isMyTodo}
-            onPressedChange={handleIsMyTodoChange}
+            size={breakpoint === "desktop" ? "large" : "medium"}
+            pressed={isMyTodo}
+            onPressedChange={setIsMyTodo}
+            className="w-[42px] shrink-0"
           />
         </div>
       </div>
 
-      <div className="grid min-h-[480px] w-full grid-cols-2 grid-rows-[1fr_1fr] gap-[32px]">
-        <section className="row-span-2 h-[728px] w-full">
-          <TodoList.List
-            {...todoSectionOption}
-            height="728px"
-            name="TODO"
-          >
-            {todoStateList.map((todo) => (
-              <TodoList.Item
-                key={todo.id}
-                todo={todo}
+      <div className="tablet:grid tablet:grid-cols-2 tablet:grid-rows-[1fr_1fr] tablet:gap-[32px] flex min-h-[480px] w-full flex-col gap-8">
+        <section className="tablet:row-span-2 tablet:h-[728px] flex min-h-0 w-full flex-col">
+          <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
+            <AsyncBoundary
+              loadingFallback={<Loading />}
+              errorFallback={(error, onReset) => (
+                <ListError
+                  error={error}
+                  onReset={onReset}
+                />
+              )}
+            >
+              <TodoList
+                goalId={goalId}
+                keyword={keyword}
+                isMyTodo={isMyTodo}
               />
-            ))}
-            <Spacing size={24} />
-            <TodoList.CreateButton />
-          </TodoList.List>
+            </AsyncBoundary>
+          </div>
         </section>
-        <section>
-          <TodoList.List
-            {...todoSectionOption}
-            height="320px"
-            name="DOING"
-          >
-            {doingStateList.map((todo) => (
-              <TodoList.Item
-                key={todo.id}
-                todo={todo}
+        <section className="tablet:h-full tablet:min-w-0 flex min-h-0 w-full flex-col">
+          <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
+            <AsyncBoundary
+              loadingFallback={<Loading />}
+              errorFallback={(error, onReset) => (
+                <ListError
+                  error={error}
+                  onReset={onReset}
+                />
+              )}
+            >
+              <DoingList
+                goalId={goalId}
+                keyword={keyword}
+                isMyTodo={isMyTodo}
               />
-            ))}
-            <Spacing size={24} />
-          </TodoList.List>
+            </AsyncBoundary>
+          </div>
         </section>
-        <section>
-          <TodoList.List
-            {...todoSectionOption}
-            height="320px"
-            name="DONE"
-          >
-            {doneStateList.map((todo) => (
-              <TodoList.Item
-                key={todo.id}
-                todo={todo}
+        <section className="tablet:h-full tablet:min-w-0 flex min-h-0 w-full flex-col">
+          <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
+            <AsyncBoundary
+              loadingFallback={<Loading />}
+              errorFallback={(error, onReset) => (
+                <ListError
+                  error={error}
+                  onReset={onReset}
+                />
+              )}
+            >
+              <DoneList
+                goalId={goalId}
+                keyword={keyword}
+                isMyTodo={isMyTodo}
               />
-            ))}
-            <Spacing size={24} />
-          </TodoList.List>
+            </AsyncBoundary>
+          </div>
         </section>
       </div>
     </div>

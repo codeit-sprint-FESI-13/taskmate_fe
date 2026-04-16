@@ -30,7 +30,11 @@ export default function Page() {
 
       <Summary />
 
-      <Spacing size={56} />
+      <Spacing
+        size={8}
+        useClassSize
+        className="mobile:h-10 tablet:h-14 h-8"
+      />
 
       <TodoSection />
     </div>

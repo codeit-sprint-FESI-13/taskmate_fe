@@ -42,5 +42,25 @@ export interface TodoListResponse {
   success: boolean;
   code: string;
   message: string;
-  data: Todo[];
+  data: {
+    sort: TodoListSort;
+    items: Todo[];
+    hasNext: boolean;
+    nextCursorDueDate: string | null;
+    nextCursorCreatedAt: string | null;
+    nextCursorId: number | null;
+  };
+}
+
+export type TodoListStatus = "TODO" | "DOING" | "DONE";
+export type TodoListSort = "DUE_DATE" | "CREATED_LATEST" | "CREATED_OLDEST";
+
+export interface TodoListQueryParams {
+  sort: TodoListSort;
+  mineOnly: boolean;
+  titleContains: string;
+  cursorDueDate?: string;
+  cursorCreatedAt?: string;
+  cursorId?: number;
+  limit?: number;
 }
