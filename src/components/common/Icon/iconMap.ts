@@ -37,6 +37,7 @@ import Kebab from "./svg/Kebab.svg";
 import LinedX from "./svg/LinedX.svg";
 import LogoIcon from "./svg/Logo/Icon.svg";
 import LogoText from "./svg/Logo/Text.svg";
+import LogoWhiteText from "./svg/Logo/WhiteText.svg";
 import Meatball from "./svg/Meatball.svg";
 import Menu from "./svg/Menu/Menu.svg";
 import Out from "./svg/Out/Line/Out.svg";
@@ -89,6 +90,7 @@ export const iconMap = {
   PipeGreen,
   LogoIcon,
   LogoText,
+  LogoWhiteText,
   Flag,
   GoalFlag,
   Dot,

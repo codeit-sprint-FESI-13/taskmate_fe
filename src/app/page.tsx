@@ -1,3 +1,17 @@
+import { HomeCTASection } from "@/components/landing/HomeCTASection";
+import { HomeFeaturesSection } from "@/components/landing/HomeFeaturesSection";
+import { HomeHeroSection } from "@/components/landing/HomeHeroSection";
+import { HomeStepsSection } from "@/components/landing/HomeStepsSection";
+import { HomeTeamSpacesSection } from "@/components/landing/HomeTeamSpacesSection";
+
 export default function Home() {
-  return <h1 className="text-background-elevated-normal-alternative">home</h1>;
+  return (
+    <>
+      <HomeHeroSection />
+      <HomeFeaturesSection />
+      <HomeStepsSection />
+      <HomeTeamSpacesSection />
+      <HomeCTASection />
+    </>
+  );
 }
