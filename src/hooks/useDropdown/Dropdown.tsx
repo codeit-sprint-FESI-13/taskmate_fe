@@ -45,6 +45,7 @@ export const Dropdown = <T extends string>({
     isOpen,
     selected: current,
     toggle,
+    close,
     selectItem,
     containerRef,
   } = useDropdown([...options], selected);
@@ -52,12 +53,17 @@ export const Dropdown = <T extends string>({
   // TODO: 삭제 예정
   // 기존 코드의 동작을 이해해야 함
   const handleSelect = async (value: T) => {
+    if (!onSelect) {
+      selectItem(value);
+      return;
+    }
+
     try {
       await onSelect?.(value);
-      // API 성공 시에만 UI 선택값 변경
-      selectItem(value);
     } catch (error) {
       console.error("dropdown select error", error);
+    } finally {
+      close();
     }
   };
 

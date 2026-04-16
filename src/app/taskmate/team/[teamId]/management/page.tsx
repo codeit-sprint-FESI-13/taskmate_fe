@@ -74,12 +74,12 @@ const TeamManagement = () => {
 
   return (
     <section>
-      <main className="tablet:px-6 tablet:py-16 desktop:px-22 desktop:py-20 tablet:w-[calc(100dvw-60px)] desktop:w-[calc(100dvw-360px)] relative flex w-full max-w-full min-w-0 flex-col items-center justify-center px-5 py-8">
-        <div className="tablet:gap-6 relative flex flex-col gap-4">
+      <main className="tablet:px-6 tablet:py-16 desktop:px-22 desktop:py-20 relative mx-auto flex w-full min-w-0 flex-col items-center justify-center px-5 py-8">
+        <div className="tablet:gap-6 relative mx-auto flex w-full max-w-140 flex-col gap-4">
           <h1 className="tablet:block typography-title-3 hidden">
             팀 정보 수정
           </h1>
-          <div className="w-max-140 flex w-full flex-col gap-4">
+          <div className="flex w-full flex-col gap-4">
             <TeamNameEditor />
             <MemberList onInviteClick={handleOpenInvite} />
             <TextButton
