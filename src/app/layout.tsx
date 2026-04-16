@@ -25,9 +25,7 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <MSWInitializer>
           <ReactQueryClientProvider>
-            <ToastProvider
-              max={5}
-            >
+            <ToastProvider max={5}>
               <Overlay />
               {children}
             </ToastProvider>

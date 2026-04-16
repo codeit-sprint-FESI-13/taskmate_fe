@@ -3,6 +3,7 @@ import { Icon } from "@/components/common/Icon";
 import { Spacing } from "@/components/common/Spacing";
 import { FavoriteGoalsSection } from "@/components/home/FavoriteGoalsSection";
 import ProgressSection from "@/components/home/ProgressSection";
+import TodoOverviewSection from "@/components/home/TodoOverviewSection";
 import WelcomeBanner from "@/components/home/WelcomeBanner";
 
 export default function TaskmatePage() {
@@ -18,7 +19,7 @@ export default function TaskmatePage() {
         <ProgressSection />
       </AsyncBoundary>
 
-      <Spacing size={56} />
+      <Spacing size={40} />
 
       <div className="flex w-full max-w-full min-w-0 flex-col gap-5">
         <div className="flex w-full items-center gap-3">
@@ -35,6 +36,12 @@ export default function TaskmatePage() {
           <FavoriteGoalsSection />
         </AsyncBoundary>
       </div>
+
+      <Spacing size={40} />
+
+      <AsyncBoundary errorFallback={<div>error</div>}>
+        <TodoOverviewSection />
+      </AsyncBoundary>
     </div>
   );
 }
