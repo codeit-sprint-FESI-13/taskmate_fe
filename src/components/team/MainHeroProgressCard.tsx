@@ -38,11 +38,15 @@ function StatItem({
   suffix: string;
 }) {
   return (
-    <div className="min-w-0 shrink-0">
-      <p className="typography-body-1 mb-2 font-bold text-green-400">{label}</p>
-      <p className="flex items-end gap-1 text-white">
-        <span className="text-[56px] leading-none font-bold">{value}</span>
-        <span className="typography-title-3 pb-0.5 font-semibold">
+    <div className="min-w-0 md:shrink-0">
+      <p className="typography-body-2 mb-1 truncate font-bold text-green-400 md:mb-2 md:text-[15px]">
+        {label}
+      </p>
+      <p className="flex min-w-0 items-end gap-1 text-white">
+        <span className="truncate text-[40px] leading-none font-bold md:text-[48px]">
+          {value}
+        </span>
+        <span className="typography-body-1 truncate pb-1 font-semibold md:pb-0.5 md:text-[24px]">
           {suffix}
         </span>
       </p>
@@ -53,7 +57,7 @@ function StatItem({
 const Character = () => {
   return (
     <svg
-      className="mobile:w-[100px] absolute right-0 bottom-0 opacity-50"
+      className="mobile:w-[200px] absolute right-0 bottom-0 w-[100px] opacity-50"
       xmlns="http://www.w3.org/2000/svg"
       width="196"
       height="215"
@@ -178,7 +182,9 @@ export const MainHeroProgressCard = ({
       )}
     >
       <div className="mb-10 flex items-center gap-2">
-        <h2 className="typography-title-2 font-bold text-white">{title}</h2>
+        <h2 className="typography-title-2 truncate font-bold text-white">
+          {title}
+        </h2>
 
         {isAdmin && (
           <button>
@@ -194,7 +200,7 @@ export const MainHeroProgressCard = ({
         )}
       </div>
 
-      <div className="mb-8 flex gap-16 md:max-w-[520px]">
+      <div className="mb-8 grid grid-cols-2 gap-x-6 gap-y-5 md:flex md:max-w-[520px] md:gap-16">
         <StatItem
           label="오늘의 진행 상황"
           value={progress}
@@ -221,7 +227,7 @@ export const MainHeroProgressCard = ({
         {/* 말풍선 */}
         {progress >= 80 && progress < 100 && (
           <div
-            className="absolute top-full z-20 -translate-x-1/2 translate-y-7 transition-[left] duration-500 ease-out md:top-auto md:bottom-auto md:bottom-full md:-translate-y-7"
+            className="absolute top-full z-20 -translate-x-1/2 translate-y-7 transition-[left] duration-500 ease-out md:top-auto md:bottom-full md:-translate-y-7"
             style={{ left: `${progress}%` }}
           >
             <div className="relative flex items-center gap-2 rounded-full bg-gray-800 px-4.5 py-4.5 text-xs font-semibold text-white shadow-lg">
@@ -232,7 +238,7 @@ export const MainHeroProgressCard = ({
                 height={24}
                 className="shrink-0 object-contain"
               />
-              <span className="typography-body-2 whitespace-nowrap text-green-100">
+              <span className="typography-body-2 truncate whitespace-nowrap text-green-100">
                 {statusLabel}
               </span>
               <span className="absolute bottom-full left-1/2 h-4 w-4 -translate-x-1/2 translate-y-1/2 rotate-45 bg-gray-800 md:top-full md:-translate-y-1/2" />

@@ -1,9 +1,9 @@
-import { queryOptions } from "@tanstack/react-query";
+import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
 import { STALE_TIME } from "@/constants/staleTime";
 
 import { goalApi } from "../api";
-import { SortType } from "../types";
+import { GoalListCursor, SortType } from "../types";
 
 export const goalQueries = {
   getPersonalGoalList: () =>
@@ -23,6 +23,22 @@ export const goalQueries = {
         const response = await goalApi.getTeamGoalList(teamId, sort);
         return response.data;
       },
+      staleTime: STALE_TIME.DEFAULT,
+    }),
+
+  getTeamGoalListInfinite: (teamId: string, sort: SortType = "LATEST") =>
+    infiniteQueryOptions({
+      queryKey: ["team", teamId, "goals", "infinite", sort],
+      queryFn: async ({ pageParam }) => {
+        const response = await goalApi.getTeamGoalList(
+          teamId,
+          sort,
+          pageParam ?? undefined,
+        );
+        return response.data;
+      },
+      initialPageParam: null as GoalListCursor | null,
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
       staleTime: STALE_TIME.DEFAULT,
     }),
 

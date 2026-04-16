@@ -33,7 +33,7 @@ export default function Member({
       <div className="relative flex h-10 w-10 shrink-0 items-center justify-center">
         <Image
           src={avatarSrc}
-          alt=""
+          alt="user-avatar"
           width={40}
           height={40}
           className="rounded-full object-cover"
