@@ -35,6 +35,9 @@ jobs:
 
       - name: 테스트 실행하기
         run: pnpm run test
+        
+      - name: 빌드 실행하기
+        run: pnpm run build
 
   # 2) Chromatic — 테스트가 성공한 뒤에만 실행
   #    브랜치 보호에서 "CI / Chromatic" 을 필수로 지정
