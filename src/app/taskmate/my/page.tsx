@@ -5,7 +5,7 @@ import MyProfileForm from "@/components/my/MyProfileForm";
 
 const Mypage = () => {
   return (
-    <div className="tablet:max-w-[560px] mx-auto w-full max-w-[335px]">
+    <div className="tablet:max-w-[560px] tablet:pl-6 mx-auto w-full max-w-[335px]">
       <AsyncBoundary>
         <MyProfileForm />
       </AsyncBoundary>

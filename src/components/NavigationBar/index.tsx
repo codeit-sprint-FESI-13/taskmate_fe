@@ -73,6 +73,15 @@ export const NavigationBar = () => {
                 <Item.Icon name="Home" />
                 <Item.Name>홈</Item.Name>
               </Item.Wrapper>
+              <Item.Wrapper
+                value="trash"
+                onClick={() => {
+                  router.push("/taskmate/trash");
+                }}
+              >
+                <Item.Icon name="TrashFill" />
+                <Item.Name>휴지통</Item.Name>
+              </Item.Wrapper>
             </List.Container>
 
             <Spacing size={12} />

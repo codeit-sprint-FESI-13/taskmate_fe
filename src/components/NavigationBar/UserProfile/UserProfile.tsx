@@ -1,5 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import defaultAvatar from "@/assets/images/avatar.png";
 import { Icon } from "@/components/common/Icon";
@@ -12,14 +13,13 @@ export const UserProfile = () => {
   const avatarSrc = profileImageUrl?.trim()
     ? profileImageUrl
     : defaultAvatar.src;
+  const router = useRouter();
 
   return (
     <div
       className="relative flex w-[150px] cursor-pointer items-center justify-start gap-2 rounded-full border border-gray-300 bg-white py-3 pr-4 pl-3"
       role="button"
-      onClick={() => {
-        // @TODO: 마이페이지로 이동
-      }}
+      onClick={() => router.push("/taskmate/my")}
     >
       <div className="relative flex h-10 w-10 shrink-0 items-center justify-center">
         <Image

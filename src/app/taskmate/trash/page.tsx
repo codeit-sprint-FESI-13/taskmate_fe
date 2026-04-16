@@ -5,7 +5,7 @@ import Trash from "@/components/trash";
 
 const TrashPage = () => {
   return (
-    <div className="tablet:max-w-[560px] mx-auto w-full max-w-[335px]">
+    <div className="tablet:max-w-[560px] tablet:pl-6 mx-auto w-full max-w-[335px]">
       <AsyncBoundary>
         <Trash />
       </AsyncBoundary>
