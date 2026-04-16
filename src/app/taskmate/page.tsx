@@ -8,7 +8,7 @@ import WelcomeBanner from "@/components/home/WelcomeBanner";
 
 export default function TaskmatePage() {
   return (
-    <div className="tablet:px-6 tablet:py-16 desktop:px-10 desktop:py-20 flex w-full max-w-full min-w-0 flex-col items-center justify-center px-5 py-8">
+    <div className="tablet:px-6 tablet:py-16 desktop:px-22 desktop:py-20 tablet:w-[calc(100dvw-60px)] desktop:w-[calc(100dvw-360px)] flex w-full max-w-full min-w-0 flex-col items-center justify-center px-5 py-8">
       <AsyncBoundary errorFallback={<div>error</div>}>
         <WelcomeBanner />
       </AsyncBoundary>
