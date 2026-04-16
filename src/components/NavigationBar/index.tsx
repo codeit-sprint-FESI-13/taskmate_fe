@@ -34,7 +34,8 @@ const navigationBarAsideVariants = cva(
     variants: {
       open: {
         true: "h-screen overflow-y-scroll mobile:w-[360px] mobile:p-8",
-        false: "h-[56px] mobile:w-[60px] mobile:px-3 mobile:py-8",
+        false:
+          "h-[56px] mobile:w-[60px] mobile:px-3 mobile:py-8 gap-6 items-center",
       },
     },
     defaultVariants: { open: false },
@@ -53,7 +54,7 @@ export const NavigationBar = () => {
       style={{ willChange: "width, height", zIndex: NAVIGATION_BAR_ZINDEX }}
     >
       <Header />
-      {/* <NotificationPopover /> */}
+      {!isOpen && <NotificationPopover placement="aside" />}
 
       <Spacing
         size={20}
