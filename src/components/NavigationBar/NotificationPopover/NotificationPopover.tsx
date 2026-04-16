@@ -84,9 +84,7 @@ const NotificationPopover = ({ placement }: NotificationPopoverProps) => {
         <div
           className={cn(
             "fixed z-50",
-            placement === "aside"
-              ? "top-40 left-12"
-              : "bottom-[30px] left-[50px]",
+            placement === "aside" ? "top-40 left-12" : "bottom-30 left-50",
           )}
           onPointerDown={(e) => e.stopPropagation()}
         >
