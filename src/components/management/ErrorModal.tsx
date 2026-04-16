@@ -33,12 +33,12 @@ const ErrorModal = ({ message, isOpen, onClose }: ErrorModalProps) => {
       <Modal.Root onClose={onClose}>
         <Modal.Backdrop />
         <Modal.Content>
-          <Modal.Title className="p-2 py-10 font-normal">{message}</Modal.Title>
+          <Modal.Title className="p-2 py-7 font-normal">{message}</Modal.Title>
           <Modal.Actions>
             <Button
               type="button"
               onClick={onClose}
-              className="flex-1"
+              className="my-2 flex-1"
             >
               확인
             </Button>

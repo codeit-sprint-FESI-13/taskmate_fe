@@ -1,30 +1,38 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import Button from "@/components/common/Button/Button";
 import TextButton from "@/components/common/TextButton/TextButton";
 
 interface DeleteModalProps {
   onClose: () => void;
   onSubmitDelete: () => Promise<void>;
+  onError: (message: string) => void;
 }
 
 // @TODO: onSubmitDelete 함수를 Page에서 받아오는 방식 제거 ( Page가 갖는 책임 아님 )
-const DeleteModal = ({ onClose, onSubmitDelete }: DeleteModalProps) => {
-  const router = useRouter();
-
+const DeleteModal = ({
+  onClose,
+  onSubmitDelete,
+  onError,
+}: DeleteModalProps) => {
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // @TODO: useMutation 으로 리팩토링
-    // @TODO: console 제거
     try {
       await onSubmitDelete();
       onClose();
-      router.replace("/taskmate");
-    } catch (error) {
-      console.log("팀 삭제 실패", error);
+    } catch (error: unknown) {
+      onClose();
+      const message =
+        typeof error === "object" &&
+        error !== null &&
+        "data" in error &&
+        typeof (error as { data?: { message?: unknown } }).data?.message ===
+          "string"
+          ? ((error as { data: { message: string } }).data.message ?? "")
+          : "팀 삭제에 실패했습니다.";
+      onError(message);
     }
   };
 
@@ -37,8 +45,8 @@ const DeleteModal = ({ onClose, onSubmitDelete }: DeleteModalProps) => {
           <p className="typography-body-1 mt-1.5 text-gray-400">
             팀 페이지와 팀 정보를 삭제합니다.
           </p>
-          <p className="typography-body-2 mt-3 text-blue-700">
-            <span></span>삭제된 팀 페이지는 복구할 수 없어요
+          <p className="typography-body-2 py-3 text-blue-700">
+            삭제된 팀 페이지는 복구할 수 없어요.
           </p>
         </div>
         <form

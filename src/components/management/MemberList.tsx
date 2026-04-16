@@ -44,6 +44,29 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorModalOpen, setErrorModalOpen] = useState(false);
 
+  const getApiErrorMessage = (error: unknown, fallback: string) => {
+    if (error && typeof error === "object") {
+      const data = (error as { data?: unknown }).data;
+      if (
+        data &&
+        typeof data === "object" &&
+        "message" in data &&
+        typeof (data as { message?: unknown }).message === "string"
+      ) {
+        return (data as { message: string }).message;
+      }
+
+      if (
+        "message" in error &&
+        typeof (error as { message?: unknown }).message === "string"
+      ) {
+        return (error as { message: string }).message;
+      }
+    }
+
+    return fallback;
+  };
+
   // @TODO: myUserId를 가져오는 Hooks 로 분리
   const { data: me } = useQuery({
     ...userQueries.myInfo(),
@@ -86,8 +109,10 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
       if (myUserId === memberUserId && pending.role !== "ADMIN") {
         router.push("/taskmate");
       }
-    } catch {
-      setErrorMessage("유효하지 않은 권한 설정 입니다.");
+    } catch (error) {
+      setErrorMessage(
+        getApiErrorMessage(error, "유효하지 않은 권한 설정 입니다."),
+      );
       setErrorModalOpen(true);
     } finally {
       setRoleChangeModalOpen(false);
@@ -97,7 +122,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
   /* @TODO: useOverlay 공통 hooks 로 적용 */
   const openMemberDeleteModal = (memberId: number) => {
     setPending({ memberId });
-    setConfirmMessage("팀원의 권한을 삭제 하시겠습니까?");
+    setConfirmMessage("팀원을 삭제 하시겠습니까?");
     setMemberDeleteModalOpen(true);
   };
 
@@ -110,8 +135,10 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
       setMembers((prev) =>
         prev.filter((member) => member.id !== pending.memberId),
       );
-    } catch {
-      setErrorMessage("관리자는 본인을 팀에서 삭제할 수 없습니다.");
+    } catch (error) {
+      setErrorMessage(
+        getApiErrorMessage(error, "관리자는 본인을 팀에서 삭제할 수 없습니다."),
+      );
       setErrorModalOpen(true);
     } finally {
       setMemberDeleteModalOpen(false);
@@ -218,7 +245,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
       {/* 팀원 삭제 모달 */}
       {/* @TODO: useOverlay 공통 hooks 로 적용 */}
       <ConfirmModal
-        message={confirmMessage || "팀원의 권한을 삭제 하시겠습니까?"}
+        message={confirmMessage || "팀원을 삭제 하시겠습니까?"}
         isOpen={memberDeleteModalOpen}
         onClose={() => setMemberDeleteModalOpen(false)}
         onConfirm={handleDeleteMember}
