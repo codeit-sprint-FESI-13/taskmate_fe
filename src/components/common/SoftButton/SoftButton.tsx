@@ -9,7 +9,8 @@ const softButtonVariants = cva(
     variants: {
       variant: {
         purple: "bg-blue-100 text-blue-800 hover:bg-blue-200",
-        gray: "bg-background-normal-alternative-2 text-gray-400 ring-1 ring-gray-200 hover:ring-1 hover:bg-background-elevated-normal hover:text-gray-500 active:ring-1 active:ring-blue-900 active:text-blue-800",
+        grayActive:
+          "bg-background-normal-alternative-2  ring-1 ring-blue-900 text-blue-800",
       },
     },
     defaultVariants: {

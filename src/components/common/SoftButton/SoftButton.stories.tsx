@@ -39,7 +39,7 @@ export const Default: Story = {
 export const Gray: Story = {
   args: {
     children: "회색버튼",
-    variant: "gray",
+    variant: "grayActive",
   },
 };
 

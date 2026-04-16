@@ -2,17 +2,38 @@
 import { Icon } from "@/components/common/Icon";
 import { useDropdown } from "@/hooks/useDropdown";
 
-function TeamTrashDropdown() {
-  const options = [
-    "프론트엔드 1팀",
-    "기획 1팀",
-    "백엔드 2팀",
-    "프론테엔드프론테엔드프론테엔드프론테엔드",
-  ];
+interface Team {
+  teamId: number;
+  teamName: string;
+}
+
+interface TeamTrashDropdownProps {
+  teams: Team[];
+  selectedTeamId: number;
+  onSelect: (teamId: number) => void;
+}
+
+function TeamTrashDropdown({
+  teams,
+  selectedTeamId,
+  onSelect,
+}: TeamTrashDropdownProps) {
+  const options = teams.map((team) => team.teamName);
+  const selectedTeamName = teams.find(
+    (team) => team.teamId === selectedTeamId,
+  )?.teamName;
   const { isOpen, selected, toggle, selectItem, containerRef } = useDropdown(
     options,
-    options[0],
+    selectedTeamName,
   );
+
+  const handleSelect = (teamName: string) => {
+    const team = teams.find((team) => team.teamName === teamName);
+    if (!team) return;
+    onSelect(team.teamId);
+    selectItem(teamName);
+  };
+
   return (
     <div
       ref={containerRef}
@@ -32,13 +53,13 @@ function TeamTrashDropdown() {
       </button>
       {isOpen && (
         <ul className="bg-background-normal absolute w-full rounded-xl shadow-[0_4px_16px_-2px_rgba(0,0,0,0.1)]">
-          {options.map((option) => (
+          {teams.map((team) => (
             <li
-              key={option}
-              onClick={() => selectItem(option)}
+              key={team.teamId}
+              onClick={() => handleSelect(team.teamName)}
               className="text-label-neutral text-label-1 h-9 cursor-pointer truncate px-[11px] py-[5px] font-medium"
             >
-              {option}
+              {team.teamName}
             </li>
           ))}
         </ul>

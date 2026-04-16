@@ -1,0 +1,1 @@
+export { useDeleteTrashMutation } from "./useDeleteTrashMutation";
