@@ -1,9 +1,11 @@
 "use client";
 
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { cva } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
 
 import { Icon } from "@/components/common/Icon";
+import { notificationInfiniteQueries } from "@/features/notification/query/notificationInfiniteQueries";
 import { cn } from "@/utils/utils";
 
 import NotificationPanel from "./NotificatioPanel";
@@ -48,6 +50,16 @@ const NotificationPopover = ({ placement }: NotificationPopoverProps) => {
       document.removeEventListener("pointerdown", handlePointerDownOutside);
   }, [open]);
 
+  // 알림 표시
+  const { data: notificationData } = useSuspenseInfiniteQuery(
+    notificationInfiniteQueries.notificationsInfinite(),
+  );
+
+  const hasUnread =
+    notificationData?.pages.some((page) =>
+      page.items.some((item) => item.isRead === false),
+    ) ?? false;
+
   return (
     <div
       className="relative"
@@ -62,6 +74,10 @@ const NotificationPopover = ({ placement }: NotificationPopoverProps) => {
           size={placement === "aside" ? 30 : 24}
           className="text-gray-500"
         />
+
+        {hasUnread && (
+          <span className="absolute top-0.75 right-0.75 h-3 w-3 rounded-full bg-green-800" />
+        )}
       </button>
 
       {open && (
