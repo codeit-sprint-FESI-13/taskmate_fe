@@ -24,6 +24,8 @@ export default function GoalList() {
   const { ref, data } = useInfiniteScroll(
     goalQueries.getTeamGoalListInfinite(teamId, sort),
   );
+
+  const size = data.pages[0].size;
   const goalList = useMemo(
     () => data.pages.flatMap((page) => page.items),
     [data.pages],
@@ -41,7 +43,7 @@ export default function GoalList() {
             목표
           </h2>
           <span className="typography-body-1 ml-[-8px] font-medium text-gray-400">
-            {goalList.length}개
+            {size}개
           </span>
         </div>
 
