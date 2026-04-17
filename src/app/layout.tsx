@@ -6,10 +6,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import ToastProvider from "@/components/common/Toast";
 import Overlay from "@/hooks/useOverlay/Overlay";
 import { pretendard } from "@/lib/fonts";
-// import { initMocks } from "@/mocks";
+import { initMocks } from "@/mocks";
+import MSWInitializer from "@/mocks/MSWInitializer";
 import { ReactQueryClientProvider } from "@/providers/ReactQueryProvider";
 
-// initMocks();
+initMocks();
 
 export default function RootLayout({
   children,
@@ -22,14 +23,14 @@ export default function RootLayout({
       className={pretendard.variable}
     >
       <body className={pretendard.className}>
-        {/* <MSWInitializer> */}
-        <ReactQueryClientProvider>
-          <ToastProvider max={5}>
-            <Overlay />
-            {children}
-          </ToastProvider>
-        </ReactQueryClientProvider>
-        {/* </MSWInitializer> */}
+        <MSWInitializer>
+          <ReactQueryClientProvider>
+            <ToastProvider max={5}>
+              <Overlay />
+              {children}
+            </ToastProvider>
+          </ReactQueryClientProvider>
+        </MSWInitializer>
         <Analytics />
         <SpeedInsights />
       </body>
