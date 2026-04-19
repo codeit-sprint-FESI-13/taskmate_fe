@@ -5,9 +5,11 @@ import MyProfileForm from "@/components/my/MyProfileForm";
 
 const Mypage = () => {
   return (
-    <AsyncBoundary>
-      <MyProfileForm />
-    </AsyncBoundary>
+    <div className="tablet:max-w-[560px] tablet:pl-6 mx-auto w-full max-w-[335px]">
+      <AsyncBoundary>
+        <MyProfileForm />
+      </AsyncBoundary>
+    </div>
   );
 };
 
