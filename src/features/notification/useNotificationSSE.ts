@@ -32,6 +32,8 @@ export function useNotificationSSE() {
     if (!isLogin) return;
 
     let unmounted = false;
+    let connectAttempts = 0;
+    const MAX_CONNECT_ATTEMPTS = 3;
 
     const clear = () => {
       if (timerRef.current !== null) {
@@ -44,6 +46,8 @@ export function useNotificationSSE() {
 
     const connect = async () => {
       if (unmounted) return;
+      if (connectAttempts >= MAX_CONNECT_ATTEMPTS) return;
+      connectAttempts += 1;
 
       try {
         const tokenRes = await NotificationApi.issueSseToken();
@@ -59,6 +63,7 @@ export function useNotificationSSE() {
 
         es.onerror = async () => {
           clear();
+          if (connectAttempts >= MAX_CONNECT_ATTEMPTS) return;
           try {
             // 401 등 인증 문제 시 BFF 재발급 트리거
             await queryClient.fetchQuery(userQueries.myInfo());

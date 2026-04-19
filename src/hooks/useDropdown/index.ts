@@ -43,5 +43,5 @@ export function useDropdown(options: string[], initialSelected?: string) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  return { isOpen, selected, toggle, selectItem, containerRef };
+  return { isOpen, selected, toggle, close, selectItem, containerRef };
 }

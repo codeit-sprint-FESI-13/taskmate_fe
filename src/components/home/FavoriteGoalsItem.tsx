@@ -8,6 +8,8 @@ export interface FavoriteGoalsItemProps {
   goal: {
     goalId: number;
     goalName: string;
+    progressPercent: number;
+    isFavorite: boolean;
   };
 }
 
@@ -25,9 +27,9 @@ export function FavoriteGoalsItem({
         teamId={String(teamId)}
         goalId={goal.goalId}
         title={goal.goalName}
-        progress={0}
+        progress={goal.progressPercent}
         color="green"
-        isFavorite={false}
+        isFavorite={goal.isFavorite}
         className="w-full shrink-0 bg-green-100"
       />
     </div>

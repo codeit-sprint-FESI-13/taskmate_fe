@@ -1,10 +1,11 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import TextButton from "@/components/common/TextButton/TextButton";
 import DeleteModal from "@/components/management/DeleteModal";
+import ErrorModal from "@/components/management/ErrorModal";
 import InviteModal from "@/components/management/InviteModal";
 import MemberList from "@/components/management/MemberList";
 import TeamNameEditor from "@/components/management/TeamNameEditor";
@@ -17,6 +18,8 @@ const TeamManagement = () => {
   const router = useRouter();
   const params = useParams<{ teamId: string }>();
   const teamId = params.teamId;
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   const handleOpenInvite = () => {
     open(
@@ -39,6 +42,10 @@ const TeamManagement = () => {
           await teamDetailApi.delete(Number(teamId));
           close();
           router.replace("/taskmate");
+        }}
+        onError={(message) => {
+          setErrorMessage(message);
+          setErrorModalOpen(true);
         }}
       />,
     );
@@ -66,21 +73,31 @@ const TeamManagement = () => {
   }, [teamId, router]);
 
   return (
-    <main className="relative flex w-full flex-col items-center">
-      <div className="tablet:gap-6 relative flex flex-col gap-4">
-        <h1 className="tablet:block typography-title-3 hidden">팀 정보 수정</h1>
-        <div className="tablet:gap-6 flex w-140 flex-col gap-4">
-          <TeamNameEditor />
-          <MemberList onInviteClick={handleOpenInvite} />
-          <TextButton
-            onClick={handleOpenDelete}
-            className="tablet:w-fit ml-auto w-full"
-          >
-            팀 삭제하기
-          </TextButton>
+    <section>
+      <main className="tablet:px-6 tablet:py-16 desktop:px-22 desktop:py-20 relative mx-auto flex w-full min-w-0 flex-col items-center justify-center px-5 py-8">
+        <div className="tablet:gap-6 relative mx-auto flex w-full max-w-140 flex-col gap-4">
+          <h1 className="tablet:block typography-title-3 hidden">
+            팀 정보 수정
+          </h1>
+          <div className="flex w-full flex-col gap-4">
+            <TeamNameEditor />
+            <MemberList onInviteClick={handleOpenInvite} />
+            <TextButton
+              onClick={handleOpenDelete}
+              className="tablet:w-fit ml-auto w-full"
+            >
+              팀 삭제하기
+            </TextButton>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+
+      <ErrorModal
+        message={errorMessage}
+        isOpen={errorModalOpen}
+        onClose={() => setErrorModalOpen(false)}
+      />
+    </section>
   );
 };
 

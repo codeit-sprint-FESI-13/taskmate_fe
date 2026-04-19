@@ -47,8 +47,19 @@ export const goalApi = {
     });
   },
 
-  toggleFavorite: (goalId: number) =>
-    apiClient.post<{ success: boolean }>(`/api/goals/${goalId}/favorite`),
+  toggleFavorite: async (goalId: number) => {
+    const result = await apiClient.post<{ success: boolean }>(
+      `/api/goals/${goalId}/favorite`,
+    );
+
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("goal-favorite-toggled", { detail: { goalId } }),
+      );
+    }
+
+    return result;
+  },
 
   getSummary: (goalId: string) =>
     apiClient.get<GoalSummaryResponse>(`/api/goals/${goalId}/summary`),

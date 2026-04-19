@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import type { ComponentProps, ReactElement } from "react";
@@ -35,6 +36,11 @@ jest.mock("@/components/common/LogoutButton", () => ({
   default: () => null,
 }));
 
+jest.mock("@/components/NavigationBar/NotificationPopover", () => ({
+  __esModule: true,
+  default: () => null,
+}));
+
 jest.mock("@/components/common/Icon", () => ({
   Icon: ({ name }: { name: string }) => <span data-testid={`icon-${name}`} />,
 }));
@@ -47,6 +53,7 @@ function renderWithNavContext(
   ui: ReactElement,
   value: Partial<ContextValue> = {},
 ) {
+  const queryClient = new QueryClient();
   const defaults: ContextValue = {
     isOpen: true,
     open: jest.fn(),
@@ -57,9 +64,11 @@ function renderWithNavContext(
   };
 
   return render(
-    <NavigationBarContext.Provider value={defaults}>
-      {ui}
-    </NavigationBarContext.Provider>,
+    <QueryClientProvider client={queryClient}>
+      <NavigationBarContext.Provider value={defaults}>
+        {ui}
+      </NavigationBarContext.Provider>
+    </QueryClientProvider>,
   );
 }
 
