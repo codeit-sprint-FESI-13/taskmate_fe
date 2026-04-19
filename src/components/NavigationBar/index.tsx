@@ -112,7 +112,9 @@ export const NavigationBar = () => {
               <UserProfile />
             </AsyncBoundary>
 
-            <NotificationPopover />
+            <AsyncBoundary>
+              <NotificationPopover />
+            </AsyncBoundary>
 
             <LogoutButton />
           </div>
