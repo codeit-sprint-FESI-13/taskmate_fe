@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/utils/utils";
+import { cn } from "@/shared/utils/styles/cn";
 
 export type TrashTab = "personal" | "team";
 

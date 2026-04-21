@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 import { signupMutationFn } from "@/features/auth/signup/api/signup.api";
 import { useToast } from "@/hooks/useToast";
-import { ApiError } from "@/lib/api/types";
+import { ApiError } from "@/shared/utils/api/types";
 
 export function useSignupMutation() {
   const { toast } = useToast();

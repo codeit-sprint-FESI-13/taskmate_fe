@@ -1,7 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 
-import TextButton from "@/components/common/TextButton/TextButton";
 import { NotificationApi } from "@/features/notification/api";
 import { notificationInfiniteQueries } from "@/features/notification/query/notificationInfiniteQueries";
 import {
@@ -10,6 +9,7 @@ import {
   formatRelativeTime,
 } from "@/features/notification/utils";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
+import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 
 import NotificationItem from "./NotificationItem";
 

@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-import AsyncBoundary from "@/components/common/AsyncBoundary";
-import { Icon } from "@/components/common/Icon";
-import Input from "@/components/common/Input";
-import { Toggle } from "@/components/common/Toggle";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { useBreakpoint } from "@/hooks/useBreakpoint";
-import { useDebouncedKeyword } from "@/hooks/useDebouncedKeyword";
+import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
+import { useDebouncedKeyword } from "@/shared/hooks/useDebouncedKeyword";
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
+import { Icon } from "@/shared/ui/Icon";
+import Input from "@/shared/ui/Input";
+import { Toggle } from "@/shared/ui/Toggle";
 
 import { DoingList } from "./DoingList";
 import { DoneList } from "./DoneList";

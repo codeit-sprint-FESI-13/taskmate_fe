@@ -9,7 +9,7 @@ import TrashEmpty from "@/components/trash/TrashEmpty";
 import TrashTabs, { TrashTab } from "@/components/trash/TrashTabs";
 import { teamQueries } from "@/features/team/query/team.queryKey";
 
-import AsyncBoundary from "../common/AsyncBoundary";
+import AsyncBoundary from "../../shared/ui/AsyncBoundary";
 
 function Trash() {
   const [activeTab, setActiveTab] = useState<TrashTab>("personal");

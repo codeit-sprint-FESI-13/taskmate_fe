@@ -1,10 +1,10 @@
 "use client";
 
-import { Icon } from "@/components/common/Icon";
 import { useTodoDeleteModal } from "@/features/todo/hooks/useTodoDeleteModal";
 import { useTodoDetailModal } from "@/features/todo/hooks/useTodoDetailModal";
 import { Todo } from "@/features/todo/types";
 import { formatDDay } from "@/features/todo/utils/formatDDay";
+import { Icon } from "@/shared/ui/Icon";
 
 import { TodoItem } from "../TodoItem";
 import { TodoAssigneeAvatars } from "./TodoAssigneeAvatars";

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { cn } from "@/utils/utils";
+import { cn } from "@/shared/utils/styles/cn";
 
 export function HomeTeamSpacesSection() {
   return (

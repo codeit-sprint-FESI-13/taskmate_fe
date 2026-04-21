@@ -3,10 +3,7 @@
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
-import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input";
-import { Modal } from "@/components/common/Modal";
-import { Spacing } from "@/components/common/Spacing";
 import { AssigneeSelect } from "@/components/todo/AssigneeSelect";
 import { userQueries } from "@/constants/queryKeys";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
@@ -14,6 +11,9 @@ import { goalQueries } from "@/features/goal/query/goal.queryKey";
 import { teamQueries } from "@/features/team/query/team.queryKey";
 import { Member } from "@/features/team/types";
 import { useOverlay } from "@/hooks/useOverlay";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Modal } from "@/shared/ui/Modal";
+import { Spacing } from "@/shared/ui/Spacing";
 
 import { useCreateTodoForm } from "./useCreateTodoForm";
 

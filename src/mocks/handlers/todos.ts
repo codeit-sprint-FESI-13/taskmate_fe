@@ -1,6 +1,6 @@
 import { HttpResponse } from "msw";
 
-import { apiMock } from "@/mocks/apiMock";
+import { apiMock } from "@/shared/mock/apiMock";
 
 type TodoStatus = "TODO" | "DOING" | "DONE";
 type TodoSort = "DUE_DATE" | "CREATED_LATEST" | "CREATED_OLDEST";

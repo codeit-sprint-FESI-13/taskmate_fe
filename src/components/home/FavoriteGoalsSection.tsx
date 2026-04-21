@@ -4,13 +4,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import Button from "@/components/common/Button/Button";
-import { Icon } from "@/components/common/Icon";
-import { Spacing } from "@/components/common/Spacing";
 import { FavoriteGoalsItem } from "@/components/home/FavoriteGoalsItem";
 import { mainInfiniteQueries } from "@/features/home/query/mainInfiniteQueries";
 import { FavoriteGoalItem } from "@/features/home/types";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Icon } from "@/shared/ui/Icon";
+import { Spacing } from "@/shared/ui/Spacing";
 
 export function FavoriteGoalsSection() {
   const router = useRouter();

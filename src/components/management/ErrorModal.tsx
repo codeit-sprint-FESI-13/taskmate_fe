@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 
-import Button from "@/components/common/Button/Button";
-import { Modal } from "@/components/common/Modal";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Modal } from "@/shared/ui/Modal";
 
 interface ErrorModalProps {
   message?: string;

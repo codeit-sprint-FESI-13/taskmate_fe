@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { teamQueries } from "@/features/team/query/team.queryKey";
 import { formatNavigationKey } from "@/utils/formatNavigationKey";
 
-import { Spacing } from "../../common/Spacing";
+import { Spacing } from "../../../shared/ui/Spacing";
 import { Item } from "../parts/Item";
 import { List } from "../parts/List";
 import { Team as TeamComponent } from "../parts/Team";

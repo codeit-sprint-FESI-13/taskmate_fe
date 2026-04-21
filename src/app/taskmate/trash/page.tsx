@@ -1,7 +1,7 @@
 import React from "react";
 
-import AsyncBoundary from "@/components/common/AsyncBoundary";
 import Trash from "@/components/trash";
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
 
 const TrashPage = () => {
   return (

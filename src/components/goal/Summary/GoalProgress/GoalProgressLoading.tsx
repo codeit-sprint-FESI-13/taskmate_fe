@@ -1,7 +1,7 @@
 "use client";
 
-import Spinner from "@/components/common/Spinner";
-import { cn } from "@/utils/utils";
+import Spinner from "@/shared/ui/Spinner";
+import { cn } from "@/shared/utils/styles/cn";
 
 export default function GoalProgressLoading() {
   return (

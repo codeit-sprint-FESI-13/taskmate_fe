@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import TextButton from "@/components/common/TextButton/TextButton";
+import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 
 export default function Cancel() {
   const router = useRouter();

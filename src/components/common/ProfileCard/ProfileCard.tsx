@@ -2,12 +2,9 @@
 import { cva } from "class-variance-authority";
 
 import defaultAvatar from "@/assets/images/avatar.png";
-import Button from "@/components/common/Button/Button";
-import Crown from "@/components/common/Icons/Crown";
-import RightArrow from "@/components/common/Icons/RightArrow";
-import Dropdown from "@/hooks/useDropdown/Dropdown";
+import Button from "@/shared/ui/Button/Button/Button";
 // 내부 코드
-import { cn } from "@/utils/utils";
+import { cn } from "@/shared/utils/styles/cn";
 
 const profileCardVariants = cva(
   "self-start inline-flex items-center gap-2 h-[45px] cursor-pointer",
@@ -69,11 +66,11 @@ const ProfileCard = ({
           alt="Avatar Image"
           className="h-10 w-10 shrink-0 rounded-full object-cover"
         />
-        {isAdmin && (
+        {/* {isAdmin && (
           <span className="absolute -top-0.75 -right-0.75 h-4 w-4">
             <Crown />
           </span>
-        )}
+        )} */}
       </div>
 
       {/* info */}
@@ -93,11 +90,11 @@ const ProfileCard = ({
             )}
 
           {/* Gnb Icon */}
-          {isGnb && (
+          {/* {isGnb && (
             <span className="flex h-4 w-4 items-center justify-center">
               <RightArrow className="text-gray-400" />
             </span>
-          )}
+          )} */}
         </div>
 
         {/* Email */}
@@ -116,10 +113,10 @@ const ProfileCard = ({
           )}
         >
           {/* 권한 선택 */}
-          <Dropdown
+          {/* <Dropdown
             options={["Admin", "팀원"]}
             selected="Admin"
-          />
+          /> */}
 
           {/* 팀원 삭제 버튼 */}
           <Button

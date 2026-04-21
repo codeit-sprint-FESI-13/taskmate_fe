@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import StarEmpty from "@/assets/images/star-empty.png";
 import StarFill from "@/assets/images/star-fill.png";
-import { cn } from "@/utils/utils";
+import { cn } from "@/shared/utils/styles/cn";
 
 interface StarToggleButtonProps {
   initialState?: boolean;

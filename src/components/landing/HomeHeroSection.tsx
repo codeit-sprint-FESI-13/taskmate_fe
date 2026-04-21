@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { Icon } from "@/components/common/Icon";
-import { cn } from "@/utils/utils";
+import { Icon } from "@/shared/ui/Icon";
+import { cn } from "@/shared/utils/styles/cn";
 
 export function HomeHeroSection() {
   const router = useRouter();

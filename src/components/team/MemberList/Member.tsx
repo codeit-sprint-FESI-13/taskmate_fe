@@ -1,8 +1,9 @@
 import Image from "next/image";
 
 import defaultAvatar from "@/assets/images/avatar.png";
-import Crown from "@/components/common/Icons/Crown";
-import { cn } from "@/utils/utils";
+// @TODO: Icon Convention 위반
+// import Crown from "@/components/common/Icons/Crown";
+import { cn } from "@/shared/utils/styles/cn";
 
 export type MemberProps = {
   avatar: string;
@@ -38,11 +39,11 @@ export default function Member({
           height={40}
           className="rounded-full object-cover"
         />
-        {isAdmin && (
+        {/* {isAdmin && (
           <span className="absolute -top-0.75 -right-0.75 h-4 w-4">
             <Crown />
           </span>
-        )}
+        )} */}
       </div>
 
       <div className="flex min-w-0 flex-col">

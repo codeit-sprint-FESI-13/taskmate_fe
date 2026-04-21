@@ -3,10 +3,10 @@
 import Image from "next/image";
 
 import defaultAvatar from "@/assets/images/avatar.png";
-import { Icon } from "@/components/common/Icon";
 import { Member } from "@/features/team/types";
 import { useDropdown } from "@/hooks/useDropdown";
-import { cn } from "@/utils/utils";
+import { Icon } from "@/shared/ui/Icon";
+import { cn } from "@/shared/utils/styles/cn";
 
 interface AssigneeSelectProps {
   members: Member[];

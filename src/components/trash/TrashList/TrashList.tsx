@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 
-import SoftButton from "@/components/common/SoftButton";
 import { useDeleteTrashMutation } from "@/features/trash/hooks/useDeleteTrashMutation";
 import { useRestoreTrashMutation } from "@/features/trash/hooks/useRestoreTrashMutation";
 import { TrashItemData } from "@/features/trash/types/trash.types";
+import SoftButton from "@/shared/ui/Button/SoftButton";
 
 import TrashItem from "../TrashItem";
 

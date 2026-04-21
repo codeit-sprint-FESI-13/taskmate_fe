@@ -2,9 +2,9 @@ import { cva } from "class-variance-authority";
 import { useContext } from "react";
 
 import { useBreakpoint } from "@/hooks/useBreakpoint";
-import { cn } from "@/utils/utils";
+import { cn } from "@/shared/utils/styles/cn";
 
-import { Icon } from "../../common/Icon";
+import { Icon } from "../../../shared/ui/Icon";
 import { NavigationBarContext } from "../provider";
 
 const headerVariants = cva(

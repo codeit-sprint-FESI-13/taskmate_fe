@@ -2,7 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { getMyInfo } from "@/features/my/api/myInfo.api";
 
-import { STALE_TIME } from "../staleTime";
+import { STALE_TIME } from "../../shared/constants/query/staleTime";
 
 export const userQueries = {
   all: ["auth"] as const,

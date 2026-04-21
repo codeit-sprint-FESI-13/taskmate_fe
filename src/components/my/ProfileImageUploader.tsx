@@ -2,10 +2,10 @@
 import React, { useRef } from "react";
 
 import { useUploadProfileImageMutation } from "@/features/my/hooks/useUploadProfileImageMutation";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/shared/hooks/useToast";
 
-import ActionButton from "../common/ActionButton/ActionButton";
-import UserAvatar from "../common/UserAvatar/UserAvatar";
+import ActionButton from "../../shared/ui/Button/ActionButton/ActionButton";
+import UserAvatar from "../../shared/ui/UserAvatar/UserAvatar";
 
 interface ProfileImageUploaderProps {
   imageUrl: string | null;
@@ -55,7 +55,7 @@ const ProfileImageUploader = ({ imageUrl }: ProfileImageUploaderProps) => {
       />
       <ActionButton
         type="button"
-        action="edit"
+        // action="edit"
         className="absolute right-0 bottom-0"
         onClick={handleClick}
         disabled={isPending}

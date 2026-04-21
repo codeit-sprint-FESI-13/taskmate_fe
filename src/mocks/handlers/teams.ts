@@ -1,6 +1,6 @@
 import { HttpResponse } from "msw";
 
-import { apiMock } from "@/mocks/apiMock";
+import { apiMock } from "@/shared/mock/apiMock";
 
 export const teamsHandlers = [
   apiMock.get("*/api/teams/me", () => {

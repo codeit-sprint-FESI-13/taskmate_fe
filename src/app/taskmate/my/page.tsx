@@ -1,7 +1,7 @@
 import React from "react";
 
-import AsyncBoundary from "@/components/common/AsyncBoundary";
 import MyProfileForm from "@/components/my/MyProfileForm";
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
 
 const Mypage = () => {
   return (

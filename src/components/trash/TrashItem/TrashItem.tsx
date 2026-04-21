@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Icon } from "@/components/common/Icon";
 import TrashBadge from "@/components/trash/TrashItem/TrashBadge";
 import { TrashItemData } from "@/features/trash/types/trash.types";
+import { Icon } from "@/shared/ui/Icon";
 
 interface TrashItemProps extends TrashItemData {
   isSelected: boolean;

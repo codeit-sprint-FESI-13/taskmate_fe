@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input/Input";
 import { teamDetailApi } from "@/features/management/api";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
+import Button from "@/shared/ui/Button/Button/Button";
 
 const TeamNameEditor = () => {
   const [value, setValue] = useState("");

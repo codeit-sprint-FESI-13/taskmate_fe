@@ -4,9 +4,9 @@ import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { cva } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
 
-import { Icon } from "@/components/common/Icon";
 import { notificationInfiniteQueries } from "@/features/notification/query/notificationInfiniteQueries";
-import { cn } from "@/utils/utils";
+import { Icon } from "@/shared/ui/Icon";
+import { cn } from "@/shared/utils/styles/cn";
 
 import NotificationPanel from "./NotificatioPanel";
 

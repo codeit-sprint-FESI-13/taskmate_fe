@@ -1,6 +1,6 @@
 import { HttpResponse } from "msw";
 
-import { apiMock } from "@/mocks/apiMock";
+import { apiMock } from "@/shared/mock/apiMock";
 
 export const authHandlers = [
   // 내 정보 조회

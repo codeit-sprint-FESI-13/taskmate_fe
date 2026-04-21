@@ -3,8 +3,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import defaultAvatar from "@/assets/images/avatar.png";
-import { Icon } from "@/components/common/Icon";
 import { userQueries } from "@/constants/queryKeys";
+import { Icon } from "@/shared/ui/Icon";
 
 export const UserProfile = () => {
   const {

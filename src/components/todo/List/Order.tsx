@@ -1,7 +1,7 @@
 "use client";
 
-import { Icon } from "@/components/common/Icon";
 import { useDropdown } from "@/hooks/useDropdown";
+import { Icon } from "@/shared/ui/Icon";
 
 interface OrderProps {
   options: string[];

@@ -2,8 +2,8 @@
 
 import { createContext, type ReactNode, useContext, useState } from "react";
 
-import { Icon } from "@/components/common/Icon";
-import { cn } from "@/utils/utils";
+import { Icon } from "@/shared/ui/Icon";
+import { cn } from "@/shared/utils/styles/cn";
 
 import { NavigationBarContext } from "../provider";
 

@@ -1,6 +1,6 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
-import { STALE_TIME } from "@/constants/staleTime";
+import { STALE_TIME } from "@/shared/constants/query/staleTime";
 
 import { goalApi } from "../api";
 import { GoalListCursor, SortType } from "../types";

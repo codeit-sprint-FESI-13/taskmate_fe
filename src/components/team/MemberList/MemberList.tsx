@@ -2,12 +2,12 @@
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { Icon } from "@/components/common/Icon";
-import TextButton from "@/components/common/TextButton/TextButton";
 import { userQueries } from "@/constants/queryKeys/user.queryKey";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { useTeamLeaveModal } from "@/features/team/hooks/useTeamLeaveModal";
 import { teamQueries } from "@/features/team/query/team.queryKey";
+import TextButton from "@/shared/ui/Button/TextButton/TextButton";
+import { Icon } from "@/shared/ui/Icon";
 import { formatMemberList } from "@/utils/formatMemberList";
 
 import Member from "./Member";

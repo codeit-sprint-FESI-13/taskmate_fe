@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/common/Button/Button";
+import Button from "@/shared/ui/Button/Button/Button";
 
 interface Props {
   error: Error;

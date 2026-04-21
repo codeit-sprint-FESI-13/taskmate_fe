@@ -8,7 +8,7 @@ import { useCreateTeamMutation } from "@/features/team/hooks/mutation/useCreateT
 import { teamQueries } from "@/features/team/query/team.queryKey";
 import { createTeamSchema } from "@/features/team/types";
 import { useToast } from "@/hooks/useToast";
-import type { ApiError } from "@/lib/api/types";
+import type { ApiError } from "@/shared/utils/api/types";
 
 export const useCreateTeamForm = () => {
   const router = useRouter();

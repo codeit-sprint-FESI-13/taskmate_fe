@@ -1,5 +1,6 @@
 import defaultAvatar from "@/assets/images/avatar.png";
-import Crown from "@/components/common/Icons/Crown";
+// @TODO: Icon Convention 위반
+// import Crown from "@/components/common/Icons/Crown";
 
 type ProfileCardProps = {
   avatar?: string;
@@ -30,11 +31,11 @@ const ProfileCard = ({
           alt="Avatar Image"
           className="h-10 w-10 shrink-0 rounded-full object-cover"
         />
-        {hasCrownIcon && (
+        {/* {hasCrownIcon && (
           <span className="absolute -top-0.75 -right-0.75 h-4 w-4">
             <Crown />
           </span>
-        )}
+        )} */}
       </div>
 
       {/* info */}

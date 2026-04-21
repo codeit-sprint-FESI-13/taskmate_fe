@@ -4,12 +4,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input";
-import { Spacing } from "@/components/common/Spacing";
-import TextButton from "@/components/common/TextButton/TextButton";
 import { goalApi } from "@/features/goal/api";
 import { createGoalCreateSchema } from "@/features/goal/types";
+import Button from "@/shared/ui/Button/Button/Button";
+import TextButton from "@/shared/ui/Button/TextButton/TextButton";
+import { Spacing } from "@/shared/ui/Spacing";
 
 export const PersonalCreateForm = () => {
   const router = useRouter();

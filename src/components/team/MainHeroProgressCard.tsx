@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import FireIcon from "@/assets/images/fire.png";
 import SettingIcon from "@/assets/images/setting.png";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
-import { cn } from "@/utils/utils";
+import { cn } from "@/shared/utils/styles/cn";
 
-import { ProgressBar } from "../common/ProgressBar";
+import { ProgressBar } from "../../shared/ui/ProgressBar";
 
 type HeroColor = "blue" | "green";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import AsyncBoundary from "@/components/common/AsyncBoundary";
-import { cn } from "@/utils/utils";
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
+import { cn } from "@/shared/utils/styles/cn";
 
 import { GoalInfo } from "./GoalInfo";
 import { GoalProgress } from "./GoalProgress";

@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
 
-import { Icon as CommonIcon } from "@/components/common/Icon";
-import { IconName } from "@/components/common/Icon/iconMap";
-import { cn } from "@/utils/utils";
+import { Icon as CommonIcon } from "@/shared/ui/Icon";
+import { IconName } from "@/shared/ui/Icon/iconMap";
+import { cn } from "@/shared/utils/styles/cn";
 
 import { NavigationBarContext } from "../provider";
 

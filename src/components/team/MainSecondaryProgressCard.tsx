@@ -4,9 +4,9 @@ import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 
 import { goalApi } from "@/features/goal/api";
-import { cn } from "@/utils/utils";
+import { cn } from "@/shared/utils/styles/cn";
 
-import { ProgressBar } from "../common/ProgressBar";
+import { ProgressBar } from "../../shared/ui/ProgressBar";
 import { StarToggleButton } from "../common/StarToggleButton";
 
 type SecondaryColor = "blue" | "green";

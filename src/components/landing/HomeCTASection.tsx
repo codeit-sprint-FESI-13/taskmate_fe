@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useId } from "react";
 
-import Button from "@/components/common/Button/Button";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
-import { cn } from "@/utils/utils";
+import Button from "@/shared/ui/Button/Button/Button";
+import { cn } from "@/shared/utils/styles/cn";
 
 import { LandingCTADecorations } from "./LandingCTADecorations";
 

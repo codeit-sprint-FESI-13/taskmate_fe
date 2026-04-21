@@ -3,9 +3,9 @@
 import Image from "next/image";
 
 import emptyImg from "@/assets/images/empty.png";
-import { Icon } from "@/components/common/Icon";
 import { mainInfiniteQueries } from "@/features/home/query/mainInfiniteQueries";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
+import { Icon } from "@/shared/ui/Icon";
 
 import MainTodoItem from "../MainTodoItem/MainTodoItem";
 

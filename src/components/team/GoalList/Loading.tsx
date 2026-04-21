@@ -1,7 +1,7 @@
 "use client";
 
-import { Icon } from "@/components/common/Icon";
-import Spinner from "@/components/common/Spinner";
+import { Icon } from "@/shared/ui/Icon";
+import Spinner from "@/shared/ui/Spinner";
 
 export default function GoalListLoading() {
   return (

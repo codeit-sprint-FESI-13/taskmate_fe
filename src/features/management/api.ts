@@ -1,4 +1,4 @@
-import { apiClient } from "@/lib/api/client";
+import { apiClient } from "@/shared/utils/api/client";
 
 import type { TeamResponseSuccess } from "./types";
 import type { InviteResponseSuccess } from "./types";

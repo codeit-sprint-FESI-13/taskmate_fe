@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 
-import { Icon } from "@/components/common/Icon";
-import { Spacing } from "@/components/common/Spacing";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
-import { cn } from "@/utils/utils";
+import { Icon } from "@/shared/ui/Icon";
+import { Spacing } from "@/shared/ui/Spacing";
+import { cn } from "@/shared/utils/styles/cn";
 
 import { FeatureBullet } from "./FeatureBullet";
 

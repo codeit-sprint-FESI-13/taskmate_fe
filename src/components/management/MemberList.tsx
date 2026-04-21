@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import Button from "@/components/common/Button/Button";
 import ConfirmModal from "@/components/management/ConfirmModal";
 import ErrorModal from "@/components/management/ErrorModal";
 import ProfileCard from "@/components/management/ProfileCard";
@@ -16,9 +15,10 @@ import { memberRoleApi } from "@/features/management/api";
 import { MemberData } from "@/features/management/types";
 import { MemberRole } from "@/features/management/types";
 import Dropdown from "@/hooks/useDropdown/Dropdown";
+import Button from "@/shared/ui/Button/Button/Button";
 import { formatMemberList } from "@/utils/formatMemberList";
 
-import { Icon } from "../common/Icon";
+import { Icon } from "../../shared/ui/Icon";
 
 // @TODO: onInviteClick 함수를 Page에서 받아오는 방식 제거 ( Page가 갖는 책임 아님 )
 interface MemberListProps {

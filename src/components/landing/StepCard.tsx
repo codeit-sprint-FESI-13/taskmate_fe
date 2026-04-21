@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
-import { Spacing } from "@/components/common/Spacing";
-import { cn } from "@/utils/utils";
+import { Spacing } from "@/shared/ui/Spacing";
+import { cn } from "@/shared/utils/styles/cn";
 
 const badgeClass =
   "shadow-[0_4px_16px_0_rgba(255,158,89,0.20)] font-0bold text-inverse-normal flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-800 px-[13px] py-1 text-[16px] leading-[30px] tracking-[-0.48px]";

@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/common/Button/Button";
-import TextButton from "@/components/common/TextButton/TextButton";
+import Button from "@/shared/ui/Button/Button/Button";
+import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 
 interface DeleteModalProps {
   onClose: () => void;

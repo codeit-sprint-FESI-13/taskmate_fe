@@ -1,4 +1,5 @@
-import { apiClient } from "@/lib/api/client";
+import { apiClient } from "@/shared/utils/api/client";
+
 import {
   DueSoonSuccessResponse,
   FavoriteGoalsQueryParams,
@@ -6,7 +7,6 @@ import {
   ProgressSuccessResponse,
   RecentSuccessResponse,
 } from "./types";
-
 import { FavoriteGoalsSuccessResponse } from "./types";
 
 export const progressApi = {

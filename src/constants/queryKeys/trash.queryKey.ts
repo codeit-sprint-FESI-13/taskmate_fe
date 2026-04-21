@@ -5,7 +5,7 @@ import {
   getTeamTrashList,
 } from "@/features/trash/api/trash.api";
 
-import { STALE_TIME } from "../staleTime";
+import { STALE_TIME } from "../../shared/constants/query/staleTime";
 
 const SIZE = 20;
 

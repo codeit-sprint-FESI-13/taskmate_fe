@@ -1,4 +1,4 @@
-import { STALE_TIME } from "@/constants/staleTime";
+import { STALE_TIME } from "@/shared/constants/query/staleTime";
 
 import { todoApi } from "../api";
 import type {

@@ -1,8 +1,8 @@
 "use client";
 
-import Button from "@/components/common/Button/Button";
-import { Icon } from "@/components/common/Icon";
 import { useTodoCreateModal } from "@/features/todo/hooks/useTodoCreateModal";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Icon } from "@/shared/ui/Icon";
 
 import { Wrapper } from "./Wrapper";
 

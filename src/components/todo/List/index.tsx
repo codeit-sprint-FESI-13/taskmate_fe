@@ -1,6 +1,6 @@
 "use client";
 
-import { Spacing } from "@/components/common/Spacing";
+import { Spacing } from "@/shared/ui/Spacing";
 
 import { CreateButton } from "./CreateButton";
 import { Item } from "./Item";

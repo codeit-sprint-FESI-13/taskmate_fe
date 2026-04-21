@@ -4,14 +4,14 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 
-import ConfirmModal from "@/components/common/ConfirmModal";
-import { Icon } from "@/components/common/Icon";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useDeleteGoalMutation } from "@/features/goal/mutation/useDeleteGoalMutation";
 import { useUpdateGoalMutation } from "@/features/goal/mutation/useUpdateGoalMutation";
 import { goalQueries } from "@/features/goal/query/goal.queryKey";
-import { useOverlay } from "@/hooks/useOverlay";
-import { cn } from "@/utils/utils";
+import { useOverlay } from "@/shared/hooks/useOverlay";
+import ConfirmModal from "@/shared/ui/ConfirmModal";
+import { Icon } from "@/shared/ui/Icon";
+import { cn } from "@/shared/utils/styles/cn";
 
 import { GoalEditModal } from "./GoalEditModal";
 

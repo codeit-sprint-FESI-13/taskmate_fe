@@ -1,7 +1,7 @@
 "use client";
-import Button from "@/components/common/Button/Button";
-import { Modal } from "@/components/common/Modal";
 import { useLogout } from "@/hooks/useLogout";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Modal } from "@/shared/ui/Modal";
 
 export const LogoutModal = ({ onClose }: { onClose: () => void }) => {
   const { logout } = useLogout();

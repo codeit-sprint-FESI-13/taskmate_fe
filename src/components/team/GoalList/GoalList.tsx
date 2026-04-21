@@ -2,13 +2,13 @@
 
 import { useMemo, useState } from "react";
 
-import { Icon } from "@/components/common/Icon";
 import { MainSecondaryProgressCard } from "@/components/team/MainSecondaryProgressCard";
 import { Order } from "@/components/todo/List/Order";
 import { goalQueries } from "@/features/goal/query/goal.queryKey";
 import { SortType } from "@/features/goal/types";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
+import { Icon } from "@/shared/ui/Icon";
 
 const sortTypeByLabel: Record<string, SortType> = {
   최신순: "LATEST",

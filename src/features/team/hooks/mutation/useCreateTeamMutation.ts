@@ -3,7 +3,7 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 
 import { teamApi } from "@/features/team/api";
-import type { ApiError } from "@/lib/api/types";
+import type { ApiError } from "@/shared/utils/api/types";
 
 import { ResponseCreateTeam } from "../../types";
 

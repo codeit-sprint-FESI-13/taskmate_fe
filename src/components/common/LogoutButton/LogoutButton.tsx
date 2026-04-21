@@ -2,8 +2,8 @@
 import React from "react";
 
 import { LogoutModal } from "@/components/auth/LogoutModal";
-import { Icon } from "@/components/common/Icon/index";
 import { useOverlay } from "@/hooks/useOverlay";
+import { Icon } from "@/shared/ui/Icon/index";
 
 const LogoutButton = () => {
   const overlay = useOverlay();

@@ -4,10 +4,7 @@ import { cva } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
-import AsyncBoundary from "@/components/common/AsyncBoundary";
-import { Line } from "@/components/common/Line";
 import LogoutButton from "@/components/common/LogoutButton";
-import { Spacing } from "@/components/common/Spacing";
 import Header from "@/components/NavigationBar/Header";
 import { Item } from "@/components/NavigationBar/parts/Item";
 import { List } from "@/components/NavigationBar/parts/List";
@@ -15,7 +12,10 @@ import { Personal } from "@/components/NavigationBar/Personal";
 import { NavigationBarContext } from "@/components/NavigationBar/provider";
 import { Team } from "@/components/NavigationBar/Team";
 import { UserProfile } from "@/components/NavigationBar/UserProfile";
-import { NAVIGATION_BAR_ZINDEX } from "@/constants/zIndex";
+import { NAVIGATION_BAR_ZINDEX } from "@/shared/constants/styles/zIndex";
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
+import { Line } from "@/shared/ui/Line";
+import { Spacing } from "@/shared/ui/Spacing";
 
 import NotificationPopover from "./NotificationPopover";
 

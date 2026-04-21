@@ -1,6 +1,6 @@
 import { UserProfile } from "@/features/auth/types/auth.type";
-import { apiClient } from "@/lib/api/client";
-import { ApiResponse } from "@/lib/api/types";
+import { apiClient } from "@/shared/utils/api/client";
+import { ApiResponse } from "@/shared/utils/api/types";
 
 import { MyProfileFormData } from "../types/myProfile.type";
 

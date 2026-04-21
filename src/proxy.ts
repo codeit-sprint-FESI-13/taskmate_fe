@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { PUBLIC_PATHS } from "@/constants/paths";
+import { PUBLIC_PATHS } from "@/shared/constants/paths";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

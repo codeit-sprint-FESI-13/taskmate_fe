@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 
-import { Spacing } from "@/components/common/Spacing";
 import { TodoList as TodoListUi } from "@/components/todo/List";
 import {
   TODO_COLUMN_DEFAULT_SORT_LABEL,
@@ -12,6 +11,7 @@ import {
 } from "@/features/todo/constants/todoColumnSort";
 import { todoQueries } from "@/features/todo/query/todo.queryKey";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import { Spacing } from "@/shared/ui/Spacing";
 
 interface DoingListProps {
   goalId: string;

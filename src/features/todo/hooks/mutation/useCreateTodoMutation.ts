@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { useToast } from "@/hooks/useToast";
-import type { ApiError } from "@/lib/api/types";
+import type { ApiError } from "@/shared/utils/api/types";
 
 import { todoApi } from "../../api";
 import { CreateTodoInput } from "../../types";

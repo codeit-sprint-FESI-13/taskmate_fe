@@ -1,7 +1,8 @@
 import { HttpResponse } from "msw";
 
-import { apiMock } from "@/mocks/apiMock";
+import { apiMock } from "@/shared/mock/apiMock";
 
+// @TODO: ?
 const now = "2026-04-02T00:00:00Z";
 
 const teamDetail = {

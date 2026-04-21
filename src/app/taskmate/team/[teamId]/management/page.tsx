@@ -3,14 +3,14 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import TextButton from "@/components/common/TextButton/TextButton";
 import DeleteModal from "@/components/management/DeleteModal";
 import ErrorModal from "@/components/management/ErrorModal";
 import InviteModal from "@/components/management/InviteModal";
 import MemberList from "@/components/management/MemberList";
 import TeamNameEditor from "@/components/management/TeamNameEditor";
 import { inviteApi, teamDetailApi } from "@/features/management/api";
-import { useOverlay } from "@/hooks/useOverlay";
+import { useOverlay } from "@/shared/hooks/useOverlay";
+import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 
 // @TODO: Page가 갖는 책임에서 벗어나는 코드 제거 및 분리
 const TeamManagement = () => {

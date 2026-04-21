@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 
-import { Icon } from "@/components/common/Icon";
+import { Icon } from "@/shared/ui/Icon";
 
 interface HeaderProps {
   children: React.ReactNode;

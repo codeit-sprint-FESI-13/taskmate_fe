@@ -2,12 +2,12 @@
 
 import { useSuspenseQueries } from "@tanstack/react-query";
 
-import { CircularProgress } from "@/components/common/CircularProgress";
 import { userQueries } from "@/constants/queryKeys";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { goalQueries } from "@/features/goal/query/goal.queryKey";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
-import { cn } from "@/utils/utils";
+import { CircularProgress } from "@/shared/ui/CircularProgress";
+import { cn } from "@/shared/utils/styles/cn";
 
 export function GoalProgress() {
   const breakpoint = useBreakpoint();

@@ -1,10 +1,10 @@
 "use client";
 
-import Button from "@/components/common/Button/Button";
-import { Modal } from "@/components/common/Modal";
 import { useOverlay } from "@/hooks/useOverlay";
 import { useToast } from "@/hooks/useToast";
-import { ApiError } from "@/lib/api/types";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Modal } from "@/shared/ui/Modal";
+import { ApiError } from "@/shared/utils/api/types";
 
 import { teamApi } from "../api";
 

@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "@/components/common/Button/Button";
-import { Modal } from "@/components/common/Modal";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useOverlay } from "@/hooks/useOverlay";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Modal } from "@/shared/ui/Modal";
 
 import { todoApi } from "../api";
 

@@ -3,16 +3,16 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-import Button from "@/components/common/Button/Button";
-import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
 import { userQueries } from "@/constants/queryKeys";
 import { logoutAction } from "@/features/auth/logout/actions/logoutAction";
 import { useDeleteMeMutation } from "@/features/my/hooks/useDeleteMeMutation/useDeleteMeMutation";
 import { useMyProfileForm } from "@/features/my/hooks/useMyProfileForm";
 import { useOverlay } from "@/hooks/useOverlay";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Icon } from "@/shared/ui/Icon";
 
-import ConfirmModal from "../common/ConfirmModal";
+import ConfirmModal from "../../shared/ui/ConfirmModal";
 import ProfileImageUploader from "./ProfileImageUploader";
 
 const MyProfileForm = () => {

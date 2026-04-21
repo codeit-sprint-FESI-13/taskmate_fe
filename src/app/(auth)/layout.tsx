@@ -1,4 +1,4 @@
-import { Icon } from "@/components/common/Icon";
+import { Icon } from "@/shared/ui/Icon";
 
 // app/(auth)/layout.tsx
 export default function AuthLayout({

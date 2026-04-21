@@ -1,6 +1,6 @@
 "use client";
 
-import Spinner from "@/components/common/Spinner";
+import Spinner from "@/shared/ui/Spinner";
 
 export default function SummaryLoading() {
   return (

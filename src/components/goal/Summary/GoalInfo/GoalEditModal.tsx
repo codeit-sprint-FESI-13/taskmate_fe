@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 
-import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input";
-import { Modal } from "@/components/common/Modal";
-import TextButton from "@/components/common/TextButton/TextButton";
 import { createGoalCreateSchema } from "@/features/goal/types";
-import { cn } from "@/utils/utils";
+import Button from "@/shared/ui/Button/Button/Button";
+import TextButton from "@/shared/ui/Button/TextButton/TextButton";
+import { Modal } from "@/shared/ui/Modal";
+import { cn } from "@/shared/utils/styles/cn";
 
 export type GoalEditModalProps = {
   initialName: string;

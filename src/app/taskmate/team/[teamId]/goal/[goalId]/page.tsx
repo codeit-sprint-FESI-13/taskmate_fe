@@ -1,11 +1,11 @@
 "use client";
 
-import AsyncBoundary from "@/components/common/AsyncBoundary";
-import { Spacing } from "@/components/common/Spacing";
-import Spinner from "@/components/common/Spinner";
 import { Heading } from "@/components/goal/Heading";
 import Summary from "@/components/goal/Summary";
 import { TodoSection } from "@/components/team/TodoSection";
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
+import { Spacing } from "@/shared/ui/Spacing";
+import Spinner from "@/shared/ui/Spinner";
 
 export default function Page() {
   return (

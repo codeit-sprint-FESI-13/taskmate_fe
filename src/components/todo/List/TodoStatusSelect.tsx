@@ -3,10 +3,10 @@
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 
-import { Icon } from "@/components/common/Icon";
 import { usePatchTodoStatusMutation } from "@/features/todo/hooks/mutation/usePatchTodoStatusMutation";
 import type { Todo, TodoStatus } from "@/features/todo/types";
 import { useDropdown } from "@/hooks/useDropdown";
+import { Icon } from "@/shared/ui/Icon";
 
 const todoStatusBadgeVariants = cva(
   "flex items-center gap-[6px] rounded-full px-[10px] py-1",

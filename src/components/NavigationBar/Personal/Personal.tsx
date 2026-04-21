@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { goalQueries } from "@/features/goal/query/goal.queryKey";
 import { formatNavigationKey } from "@/utils/formatNavigationKey";
 
-import { Spacing } from "../../common/Spacing";
+import { Spacing } from "../../../shared/ui/Spacing";
 import { Item } from "../parts/Item";
 import { List } from "../parts/List";
 

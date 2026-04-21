@@ -2,11 +2,11 @@
 import Link from "next/link";
 import React, { Suspense } from "react";
 
-import Button from "@/components/common/Button/Button";
-import { Icon } from "@/components/common/Icon";
 import Input from "@/components/common/Input";
 import { useOAuthError } from "@/features/auth/hooks/useOAuthError";
 import useSignupForm from "@/features/auth/signup/hooks/useSignupForm";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Icon } from "@/shared/ui/Icon";
 
 // useSearchParams() 사용으로 인한 CSR Suspense 추가
 const OAuthErrorHandler = () => {
