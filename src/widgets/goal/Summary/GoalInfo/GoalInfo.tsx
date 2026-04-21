@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 
-import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
+import { goalQueries } from "@/entities/goal/query/goal.queryKey";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useDeleteGoalMutation } from "@/features/goal/mutation/useDeleteGoalMutation";
 import { useUpdateGoalMutation } from "@/features/goal/mutation/useUpdateGoalMutation";

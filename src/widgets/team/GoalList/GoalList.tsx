@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
+import { goalQueries } from "@/entities/goal/query/goal.queryKey";
 import { SortType } from "@/entities/goal/types/types";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";

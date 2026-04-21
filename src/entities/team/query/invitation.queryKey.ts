@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { teamInvitationApi } from "@/entities/team/api/req/invitation.api";
+import { teamInvitationApi } from "@/entities/team/api/invitation.api";
 
 export const invitationQueryKey = (token: string) =>
   ["teamInvitation", token] as const;

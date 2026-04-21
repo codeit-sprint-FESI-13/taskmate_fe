@@ -2,7 +2,7 @@
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { teamQueries } from "@/entities/team/api/query/team.queryKey";
+import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { useTeamLeaveModal } from "@/features/team/hooks/useTeamLeaveModal";
 import { formatMemberList } from "@/features/team/utils/formatMemberList";

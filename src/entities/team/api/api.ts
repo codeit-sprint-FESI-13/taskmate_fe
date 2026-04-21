@@ -6,7 +6,7 @@ import type {
   ResponseQuitTeam,
   ResponseTeamList,
   ResponseTeamSummary,
-} from "../../types/types";
+} from "../types/types";
 
 export const teamApi = {
   // 팀 생성 요청

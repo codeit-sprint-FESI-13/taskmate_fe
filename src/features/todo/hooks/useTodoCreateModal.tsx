@@ -3,8 +3,8 @@
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
-import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
-import { teamQueries } from "@/entities/team/api/query/team.queryKey";
+import { goalQueries } from "@/entities/goal/query/goal.queryKey";
+import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { Member } from "@/entities/team/types/types";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { userQueries } from "@/features/user/user.queryKey";

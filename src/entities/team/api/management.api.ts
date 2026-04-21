@@ -1,14 +1,14 @@
 import { apiClient } from "@/shared/utils/api/client";
 
-import type { TeamResponseSuccess } from "../../types/management.types";
-import type { InviteResponseSuccess } from "../../types/management.types";
-import type { MemberListResponseSuccess } from "../../types/management.types";
+import type { TeamDeleteResponseSuccess } from "../types/management.types";
+import type { MemberDeleteSuccessResponse } from "../types/management.types";
 import type {
   MemberRole,
   MemberRoleUpdateSuccessResponse,
-} from "../../types/management.types";
-import type { MemberDeleteSuccessResponse } from "../../types/management.types";
-import type { TeamDeleteResponseSuccess } from "../../types/management.types";
+} from "../types/management.types";
+import type { MemberListResponseSuccess } from "../types/management.types";
+import type { InviteResponseSuccess } from "../types/management.types";
+import type { TeamResponseSuccess } from "../types/management.types";
 
 // 팀 상세 정보 요청
 // get / patch / delete

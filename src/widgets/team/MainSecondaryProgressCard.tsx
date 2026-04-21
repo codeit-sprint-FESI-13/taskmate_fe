@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 
-import { goalApi } from "@/entities/goal/api/req/api";
+import { goalApi } from "@/entities/goal/api/api";
 import { cn } from "@/shared/utils/styles/cn";
 
 import { ProgressBar } from "../../shared/ui/ProgressBar";

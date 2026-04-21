@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { todoApi } from "@/entities/todo/api/req/api";
+import { todoApi } from "@/entities/todo/api/api";
 import type {
   Todo,
   TodoStatus,

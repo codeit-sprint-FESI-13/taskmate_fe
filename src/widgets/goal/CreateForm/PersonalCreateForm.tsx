@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { goalApi } from "@/entities/goal/api/req/api";
+import { goalApi } from "@/entities/goal/api/api";
 import { createGoalCreateSchema } from "@/entities/goal/types/types";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";

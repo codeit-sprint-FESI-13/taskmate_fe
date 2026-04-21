@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import { todoQueries } from "@/entities/todo/api/query/todo.queryKey";
+import { todoQueries } from "@/entities/todo/query/todo.queryKey";
 import {
   TODO_COLUMN_DEFAULT_SORT_LABEL,
   TODO_COLUMN_SORT_LABEL_ORDER,

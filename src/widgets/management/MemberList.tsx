@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { memberListApi } from "@/entities/team/api/req/management.api";
-import { memberApi } from "@/entities/team/api/req/management.api";
-import { memberRoleApi } from "@/entities/team/api/req/management.api";
+import { memberListApi } from "@/entities/team/api/management.api";
+import { memberApi } from "@/entities/team/api/management.api";
+import { memberRoleApi } from "@/entities/team/api/management.api";
 import { MemberData } from "@/entities/team/types/management.types";
 import { MemberRole } from "@/entities/team/types/management.types";
 import { formatMemberList } from "@/features/team/utils/formatMemberList";

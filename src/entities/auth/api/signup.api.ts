@@ -2,7 +2,7 @@ import { CheckEmailResponse } from "@/entities/auth/types/auth.type";
 import { SignupFormData } from "@/features/auth/signup/types/signup.type";
 import { apiClient } from "@/shared/utils/api/client";
 
-import { UserProfile } from "../../types/auth.type";
+import { UserProfile } from "../types/auth.type";
 
 type SignupRequest = Omit<SignupFormData, "passwordConfirm">;
 

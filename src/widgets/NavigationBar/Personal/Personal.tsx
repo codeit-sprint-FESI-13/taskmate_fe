@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
+import { goalQueries } from "@/entities/goal/query/goal.queryKey";
 import { Spacing } from "@/shared/ui/Spacing";
 import { formatNavigationKey } from "@/widgets/NavigationBar/utils/formatNavigationKey";
 

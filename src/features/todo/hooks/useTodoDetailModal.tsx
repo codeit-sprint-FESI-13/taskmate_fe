@@ -4,8 +4,8 @@ import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
-import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
-import { teamQueries } from "@/entities/team/api/query/team.queryKey";
+import { goalQueries } from "@/entities/goal/query/goal.queryKey";
+import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { Todo } from "@/entities/todo/types/types";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import defaultAvatar from "@/shared/assets/images/avatar.png";

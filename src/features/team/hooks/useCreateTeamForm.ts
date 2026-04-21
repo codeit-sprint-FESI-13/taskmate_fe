@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { ComponentProps, useState } from "react";
 
-import { teamQueries } from "@/entities/team/api/query/team.queryKey";
+import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { createTeamSchema } from "@/entities/team/types/types";
 import { useCreateTeamMutation } from "@/features/team/mutation/useCreateTeamMutation";
 import { useToast } from "@/shared/hooks/useToast";

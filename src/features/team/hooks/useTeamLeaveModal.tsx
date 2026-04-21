@@ -1,6 +1,6 @@
 "use client";
 
-import { teamApi } from "@/entities/team/api/req/api";
+import { teamApi } from "@/entities/team/api/api";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import { useToast } from "@/shared/hooks/useToast";
 import Button from "@/shared/ui/Button/Button/Button";

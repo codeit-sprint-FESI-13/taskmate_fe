@@ -9,7 +9,7 @@ import type {
   PersonalGoalListResponse,
   SortType,
   TeamGoalListResponse,
-} from "../../types/types";
+} from "../types/types";
 
 export const goalApi = {
   createPersonalGoal: (data: CreatePersonalGoalInput) =>

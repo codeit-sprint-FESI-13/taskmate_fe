@@ -1,7 +1,7 @@
 import { apiClient } from "@/shared/utils/api/client";
 import { ApiResponse } from "@/shared/utils/api/types";
 
-import type { TeamInvitationDetail } from "../../types/invitation.types";
+import type { TeamInvitationDetail } from "../types/invitation.types";
 
 export const teamInvitationApi = {
   getByToken: (inviteToken: string) =>

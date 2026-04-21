@@ -3,7 +3,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { teamQueries } from "@/entities/team/api/query/team.queryKey";
+import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { Spacing } from "@/shared/ui/Spacing";
 import { formatNavigationKey } from "@/widgets/NavigationBar/utils/formatNavigationKey";
 

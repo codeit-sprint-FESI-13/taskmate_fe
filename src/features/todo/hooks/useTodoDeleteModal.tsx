@@ -1,6 +1,6 @@
 "use client";
 
-import { todoApi } from "@/entities/todo/api/req/api";
+import { todoApi } from "@/entities/todo/api/api";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import Button from "@/shared/ui/Button/Button/Button";

@@ -1,12 +1,12 @@
 import { STALE_TIME } from "@/shared/constants/query/staleTime";
 
+import { todoApi } from "../api/api";
 import type {
   TodoListQueryParams,
   TodoListResponse,
   TodoListSort,
   TodoListStatus,
-} from "../../types/types";
-import { todoApi } from "../req/api";
+} from "../types/types";
 
 const TODO_LIST_PAGE_LIMIT = 10;
 

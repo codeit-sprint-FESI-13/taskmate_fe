@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { teamApi } from "@/entities/team/api/req/api";
+import { teamApi } from "@/entities/team/api/api";
 import { STALE_TIME } from "@/shared/constants/query/staleTime";
 
 export const teamQueries = {

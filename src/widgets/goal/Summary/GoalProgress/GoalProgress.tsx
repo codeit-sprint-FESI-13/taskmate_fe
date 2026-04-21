@@ -2,7 +2,7 @@
 
 import { useSuspenseQueries } from "@tanstack/react-query";
 
-import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
+import { goalQueries } from "@/entities/goal/query/goal.queryKey";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { userQueries } from "@/features/user/user.queryKey";
 import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
