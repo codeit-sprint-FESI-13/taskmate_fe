@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 
-import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
 import { formatNavigationKeyFromPathname } from "@/widgets/NavigationBar/utils/formatNavigationKey";
 
 interface NavigationBarContextType {

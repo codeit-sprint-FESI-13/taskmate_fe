@@ -1,7 +1,7 @@
 // 외부 라이브러리
 import { cva } from "class-variance-authority";
 
-import defaultAvatar from "@/assets/images/avatar.png";
+import defaultAvatar from "@/shared/assets/images/avatar.png";
 import Button from "@/shared/ui/Button/Button/Button";
 // 내부 코드
 import { cn } from "@/shared/utils/styles/cn";

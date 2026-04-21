@@ -4,8 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import { logoutAction } from "@/features/auth/logout/actions/logoutAction";
-
-import { useToast } from "../useToast";
+import { useToast } from "@/shared/hooks/useToast";
 
 export function useLogout() {
   const queryClient = useQueryClient();

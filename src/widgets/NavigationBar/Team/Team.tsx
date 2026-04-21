@@ -3,10 +3,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { teamQueries } from "@/features/team/query/team.queryKey";
+import { teamQueries } from "@/entities/team/api/query/team.queryKey";
+import { Spacing } from "@/shared/ui/Spacing";
 import { formatNavigationKey } from "@/widgets/NavigationBar/utils/formatNavigationKey";
 
-import { Spacing } from "../../../shared/ui/Spacing";
 import { Item } from "../parts/Item";
 import { List } from "../parts/List";
 import { Team as TeamComponent } from "../parts/Team";

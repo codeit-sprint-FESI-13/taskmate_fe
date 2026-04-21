@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 
-import emptyImg from "@/assets/images/empty.png";
-import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
+import emptyImg from "@/shared/assets/images/empty.png";
+import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import { Icon } from "@/shared/ui/Icon";
 import { mainInfiniteQueries } from "@/widgets/home/query/mainInfiniteQueries";
 

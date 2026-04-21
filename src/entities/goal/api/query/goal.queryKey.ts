@@ -1,9 +1,8 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
+import { goalApi } from "@/entities/goal/api/req/api";
+import { GoalListCursor, SortType } from "@/entities/goal/types/types";
 import { STALE_TIME } from "@/shared/constants/query/staleTime";
-
-import { goalApi } from "../../../../features/goal/api";
-import { GoalListCursor, SortType } from "../../../../features/goal/types";
 
 export const goalQueries = {
   getPersonalGoalList: () =>

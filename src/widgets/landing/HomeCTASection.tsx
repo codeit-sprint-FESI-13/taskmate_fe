@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useId } from "react";
 
-import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
 import Button from "@/shared/ui/Button/Button/Button";
 import { cn } from "@/shared/utils/styles/cn";
 

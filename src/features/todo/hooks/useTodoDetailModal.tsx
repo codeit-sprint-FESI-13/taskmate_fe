@@ -4,16 +4,15 @@ import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
-import defaultAvatar from "@/assets/images/avatar.png";
 import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
+import { teamQueries } from "@/entities/team/api/query/team.queryKey";
+import { Todo } from "@/entities/todo/types/types";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { teamQueries } from "@/features/team/query/team.queryKey";
-import { useOverlay } from "@/hooks/useOverlay";
+import defaultAvatar from "@/shared/assets/images/avatar.png";
+import { useOverlay } from "@/shared/hooks/useOverlay";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Icon } from "@/shared/ui/Icon";
 import { Modal } from "@/shared/ui/Modal";
-
-import { Todo } from "../../../entities/todo/types/types";
 
 const TODO_DETAIL_MODAL_ID = "todo-detail-modal";
 

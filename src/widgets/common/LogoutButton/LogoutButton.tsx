@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { useOverlay } from "@/hooks/useOverlay";
+import { useOverlay } from "@/shared/hooks/useOverlay";
 import { Icon } from "@/shared/ui/Icon/index";
 import { LogoutModal } from "@/widgets/auth/LogoutModal";
 

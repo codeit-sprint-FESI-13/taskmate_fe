@@ -4,11 +4,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import Input from "@/components/common/Input";
 import { goalApi } from "@/entities/goal/api/req/api";
 import { createGoalCreateSchema } from "@/entities/goal/types/types";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
+import Input from "@/shared/ui/Input/Input";
 import { Spacing } from "@/shared/ui/Spacing";
 
 export const PersonalCreateForm = () => {

@@ -1,9 +1,9 @@
 "use client";
 
-import Input from "@/components/common/Input";
 import { TEAM_NAME_MAX_LENGTH } from "@/entities/team/types/team";
 import { useCreateTeamForm } from "@/features/team/hooks/useCreateTeamForm";
 import Button from "@/shared/ui/Button/Button/Button";
+import Input from "@/shared/ui/Input/Input";
 
 export default function Form() {
   const { handleSubmit, nameError } = useCreateTeamForm();

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 
-import defaultAvatar from "@/assets/images/avatar.png";
 import type { Todo } from "@/entities/todo/types/types";
+import defaultAvatar from "@/shared/assets/images/avatar.png";
 
 interface TodoAssigneeAvatarsProps {
   assignees: Todo["assignees"];

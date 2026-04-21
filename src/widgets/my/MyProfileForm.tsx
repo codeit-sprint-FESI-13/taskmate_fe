@@ -3,14 +3,14 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-import Input from "@/components/common/Input";
-import { userQueries } from "@/constants/queryKeys";
 import { logoutAction } from "@/features/auth/logout/actions/logoutAction";
 import { useDeleteMeMutation } from "@/features/user/hooks/useDeleteMeMutation/useDeleteMeMutation";
 import { useMyProfileForm } from "@/features/user/hooks/useMyProfileForm";
-import { useOverlay } from "@/hooks/useOverlay";
+import { userQueries } from "@/features/user/user.queryKey";
+import { useOverlay } from "@/shared/hooks/useOverlay";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Icon } from "@/shared/ui/Icon";
+import Input from "@/shared/ui/Input/Input";
 
 import ConfirmModal from "../../shared/ui/ConfirmModal";
 import ProfileImageUploader from "./ProfileImageUploader";

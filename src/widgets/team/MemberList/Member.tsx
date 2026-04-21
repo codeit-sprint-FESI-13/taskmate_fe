@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import defaultAvatar from "@/assets/images/avatar.png";
+import defaultAvatar from "@/shared/assets/images/avatar.png";
 // @TODO: Icon Convention 위반
 // import Crown from "@/components/common/Icons/Crown";
 import { cn } from "@/shared/utils/styles/cn";

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import { signupMutationFn } from "@/entities/auth/api/req/signup.api";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/shared/hooks/useToast";
 import { ApiError } from "@/shared/utils/api/types";
 
 export function useSignupMutation() {

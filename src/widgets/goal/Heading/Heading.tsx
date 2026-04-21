@@ -2,7 +2,7 @@
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { userQueries } from "@/constants/queryKeys";
+import { userQueries } from "@/features/user/user.queryKey";
 
 export default function Heading() {
   const {

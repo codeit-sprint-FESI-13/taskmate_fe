@@ -12,7 +12,7 @@ jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
 }));
 
-jest.mock("@/hooks/useBreakpoint", () => ({
+jest.mock("@/shared/hooks/useBreakpoint", () => ({
   useBreakpoint: () => "desktop",
 }));
 

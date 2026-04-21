@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import Input from "@/components/common/Input";
 import { createGoalCreateSchema } from "@/entities/goal/types/types";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
+import Input from "@/shared/ui/Input/Input";
 import { Modal } from "@/shared/ui/Modal";
 import { cn } from "@/shared/utils/styles/cn";
 

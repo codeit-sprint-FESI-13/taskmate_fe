@@ -1,9 +1,9 @@
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 
-import FireIcon from "@/assets/images/fire.png";
-import SettingIcon from "@/assets/images/setting.png";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
+import FireIcon from "@/shared/assets/images/fire.png";
+import SettingIcon from "@/shared/assets/images/setting.png";
 import { cn } from "@/shared/utils/styles/cn";
 
 import { ProgressBar } from "../../shared/ui/ProgressBar";

@@ -8,7 +8,7 @@ import {
   formatNotificationType,
   formatRelativeTime,
 } from "@/features/notification/utils";
-import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
+import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 
 import NotificationItem from "./NotificationItem";

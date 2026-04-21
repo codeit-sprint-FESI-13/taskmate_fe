@@ -1,6 +1,6 @@
 import Button from "@/shared/ui/Button/Button/Button";
+import { Spacing } from "@/shared/ui/Spacing";
 
-import { Spacing } from "../../../shared/ui/Spacing";
 import { List } from "../parts/List";
 
 interface Props {

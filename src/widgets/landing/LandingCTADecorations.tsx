@@ -1,6 +1,6 @@
 "use client";
 
-import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
 
 type Props = {
   clipPathId: string;

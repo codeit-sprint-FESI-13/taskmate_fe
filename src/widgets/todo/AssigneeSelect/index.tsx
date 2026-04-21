@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 
-import defaultAvatar from "@/assets/images/avatar.png";
 import { Member } from "@/entities/team/types/types";
-import { useDropdown } from "@/hooks/useDropdown";
+import defaultAvatar from "@/shared/assets/images/avatar.png";
+import { useDropdown } from "@/shared/hooks/useDropdown";
 import { Icon } from "@/shared/ui/Icon";
 import { cn } from "@/shared/utils/styles/cn";
 

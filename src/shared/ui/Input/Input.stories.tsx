@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import Input from "@/components/common/Input/Input";
+import Input from "@/shared/ui/Input/Input";
 
 import { Icon } from "../Icon";
 

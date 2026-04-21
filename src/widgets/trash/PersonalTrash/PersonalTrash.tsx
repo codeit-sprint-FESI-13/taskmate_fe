@@ -1,6 +1,6 @@
 "use client";
 import { trashQueries } from "@/features/trash/trash.queryKey";
-import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll";
 import TrashEmpty from "@/widgets/trash/TrashEmpty";
 import TrashList from "@/widgets/trash/TrashList";
 

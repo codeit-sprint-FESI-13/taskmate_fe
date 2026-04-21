@@ -4,7 +4,7 @@ import {
   DueSoonSuccessResponse,
   InfiniteQueryParams,
   RecentSuccessResponse,
-} from "../../../../widgets/home/types";
+} from "../../types/types";
 
 export const recentApi = {
   read: (params: InfiniteQueryParams = {}) =>

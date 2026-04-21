@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import StarEmpty from "@/assets/images/star-empty.png";
-import StarFill from "@/assets/images/star-fill.png";
+import StarEmpty from "@/shared/assets/images/star-empty.png";
+import StarFill from "@/shared/assets/images/star-fill.png";
 import { cn } from "@/shared/utils/styles/cn";
 
 interface StarToggleButtonProps {

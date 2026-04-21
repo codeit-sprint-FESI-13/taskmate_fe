@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { userQueries } from "@/constants/queryKeys";
 import { updateProfile } from "@/features/user/api/myInfo.api";
-import { useToast } from "@/hooks/useToast";
+import { userQueries } from "@/features/user/user.queryKey";
+import { useToast } from "@/shared/hooks/useToast";
 import { ApiError } from "@/shared/utils/api/types";
 
 export function useUpdateProfileMutation() {

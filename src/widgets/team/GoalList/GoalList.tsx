@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
 import { SortType } from "@/entities/goal/types/types";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
-import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
+import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import { Icon } from "@/shared/ui/Icon";
 import { MainSecondaryProgressCard } from "@/widgets/team/MainSecondaryProgressCard";
 import { Order } from "@/widgets/todo/List/Order";

@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { deleteTrash } from "@/features/trash/api/trash.api";
 import { TrashActionParam } from "@/features/trash/types/trash.types";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/shared/hooks/useToast";
 import { ApiError } from "@/shared/utils/api/types";
 
 export const useDeleteTrashMutation = () => {

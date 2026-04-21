@@ -3,8 +3,8 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-import { userQueries } from "@/constants/queryKeys";
-import { progressApi } from "@/entities/todo/api/req/todo.api";
+import { progressApi } from "@/entities/goal/api/req/goal.api";
+import { userQueries } from "@/features/user/user.queryKey";
 import { CircularProgress } from "@/shared/ui/CircularProgress";
 import { Icon } from "@/shared/ui/Icon";
 import Slider from "@/widgets/home/Slider/Slider";

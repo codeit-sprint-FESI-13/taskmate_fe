@@ -1,5 +1,5 @@
 "use client";
-import { useLogout } from "@/hooks/useLogout";
+import { useLogout } from "@/features/auth/hooks/useLogout";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Modal } from "@/shared/ui/Modal";
 

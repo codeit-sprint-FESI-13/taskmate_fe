@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
 import { Icon } from "@/shared/ui/Icon";
 import { Spacing } from "@/shared/ui/Spacing";
 import { cn } from "@/shared/utils/styles/cn";

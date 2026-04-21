@@ -1,12 +1,11 @@
-import { apiClient } from "@/shared/utils/api/client.js";
-
 import type {
   CreateTodoInput,
   ResponseCreateTodo,
   TodoListQueryParams,
   TodoListResponse,
   UpdateTodoInput,
-} from "../../../features/todo/types.js";
+} from "@/entities/todo/types/types";
+import { apiClient } from "@/shared/utils/api/client";
 
 function todoListSearchParams(params: TodoListQueryParams) {
   const optional = Object.fromEntries(

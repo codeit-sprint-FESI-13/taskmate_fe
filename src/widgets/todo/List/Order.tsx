@@ -1,6 +1,6 @@
 "use client";
 
-import { useDropdown } from "@/hooks/useDropdown";
+import { useDropdown } from "@/shared/hooks/useDropdown";
 import { Icon } from "@/shared/ui/Icon";
 
 interface OrderProps {

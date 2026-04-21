@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-import Input from "@/components/common/Input/Input";
 import { teamDetailApi } from "@/entities/team/api/req/management.api";
-import { validateEmail } from "@/features/management/utils";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { validateEmail } from "@/features/team/management.utils";
 import Button from "@/shared/ui/Button/Button/Button";
+import Input from "@/shared/ui/Input/Input";
 
 interface InviteModalProps {
   onClose: () => void;

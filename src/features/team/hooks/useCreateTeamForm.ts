@@ -4,10 +4,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { ComponentProps, useState } from "react";
 
+import { teamQueries } from "@/entities/team/api/query/team.queryKey";
 import { createTeamSchema } from "@/entities/team/types/types";
 import { useCreateTeamMutation } from "@/features/team/mutation/useCreateTeamMutation";
-import { teamQueries } from "@/features/team/query/team.queryKey";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/shared/hooks/useToast";
 import type { ApiError } from "@/shared/utils/api/types";
 
 export const useCreateTeamForm = () => {

@@ -2,9 +2,9 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
+import { Spacing } from "@/shared/ui/Spacing";
 import { formatNavigationKey } from "@/widgets/NavigationBar/utils/formatNavigationKey";
 
-import { Spacing } from "../../../shared/ui/Spacing";
 import { Item } from "../parts/Item";
 import { List } from "../parts/List";
 
