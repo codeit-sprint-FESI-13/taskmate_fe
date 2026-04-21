@@ -1,4 +1,4 @@
-// @TODO: Generic 으로 모든 무한 스크롤 응답 처리 가능하게끔 수정
+//@TODO: Generic type으로 선언
 
 type CursorParams = {
   size?: number;

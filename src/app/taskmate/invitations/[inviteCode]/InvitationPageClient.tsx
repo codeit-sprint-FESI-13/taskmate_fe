@@ -7,8 +7,8 @@ import {
 } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 
-import { teamInvitationApi } from "@/features/team/invitation.api";
-import type { TeamInvitationDetail } from "@/features/team/invitation.types";
+import { teamInvitationApi } from "@/entities/team/api/req/invitation.api";
+import type { TeamInvitationDetail } from "@/entities/team/types/invitation.types";
 import {
   invitationQueries,
   invitationQueryKey,

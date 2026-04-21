@@ -5,15 +5,15 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 
 import defaultAvatar from "@/assets/images/avatar.png";
+import { goalQueries } from "@/entities/goal/api/query/goal.queryKey";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { goalQueries } from "@/features/goal/query/goal.queryKey";
 import { teamQueries } from "@/features/team/query/team.queryKey";
 import { useOverlay } from "@/hooks/useOverlay";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Icon } from "@/shared/ui/Icon";
 import { Modal } from "@/shared/ui/Modal";
 
-import { Todo } from "../types";
+import { Todo } from "../../../entities/todo/types/types";
 
 const TODO_DETAIL_MODAL_ID = "todo-detail-modal";
 

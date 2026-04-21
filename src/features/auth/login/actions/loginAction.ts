@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import z from "zod";
 
 import { loginSchema } from "@/features/auth/login/types/login.type";
-import { setTokenCookiesServerAction } from "@/lib/auth/cookies";
+import { setTokenCookiesServerAction } from "@/shared/lib/auth/cookies";
 
 type LoginState = {
   errors?: {

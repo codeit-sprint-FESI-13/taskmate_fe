@@ -5,7 +5,7 @@ import { useOverlay } from "@/hooks/useOverlay";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Modal } from "@/shared/ui/Modal";
 
-import { todoApi } from "../api";
+import { todoApi } from "../../../entities/todo/api/req/api";
 
 const TODO_DELETE_MODAL_ID = "todo-delete-confirm-modal";
 

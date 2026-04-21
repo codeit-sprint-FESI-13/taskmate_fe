@@ -1,5 +1,5 @@
-import { CreateForm } from "@/components/team/createForm";
 import { Spacing } from "@/shared/ui/Spacing";
+import { CreateForm } from "@/widgets/team/createForm";
 
 export default function Page() {
   return (

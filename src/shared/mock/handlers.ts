@@ -1,10 +1,10 @@
-import { authHandlers } from "@/mocks/handlers/auth";
-import { goalsHandlers } from "@/mocks/handlers/goals";
-import { invitationsHandlers } from "@/mocks/handlers/invitations";
-import { managementHandler } from "@/mocks/handlers/management";
+import { authHandlers } from "@/features/auth/mock/auth";
+import { goalsHandlers } from "@/features/goal/mock/goals";
+import { invitationsHandlers } from "@/features/team/mock/invitations";
+import { managementHandler } from "@/features/team/mock/management";
+import { teamsHandlers } from "@/features/team/mock/teams";
+import { todosHandlers } from "@/features/todo/mock/todos";
 import { postsHandlers } from "@/mocks/handlers/posts";
-import { teamsHandlers } from "@/mocks/handlers/teams";
-import { todosHandlers } from "@/mocks/handlers/todos";
 
 export const handlers = [
   ...postsHandlers,

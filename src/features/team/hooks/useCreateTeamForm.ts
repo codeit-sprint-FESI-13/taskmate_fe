@@ -4,9 +4,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { ComponentProps, useState } from "react";
 
-import { useCreateTeamMutation } from "@/features/team/hooks/mutation/useCreateTeamMutation";
+import { createTeamSchema } from "@/entities/team/types/types";
+import { useCreateTeamMutation } from "@/features/team/mutation/useCreateTeamMutation";
 import { teamQueries } from "@/features/team/query/team.queryKey";
-import { createTeamSchema } from "@/features/team/types";
 import { useToast } from "@/hooks/useToast";
 import type { ApiError } from "@/shared/utils/api/types";
 

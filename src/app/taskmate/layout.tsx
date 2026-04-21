@@ -1,6 +1,6 @@
-import { NavigationBar } from "@/components/NavigationBar";
-import NavigationBarProvider from "@/components/NavigationBar/provider";
 import NotificationSubscriber from "@/features/notification/NotificationSubscriber";
+import { NavigationBar } from "@/widgets/NavigationBar";
+import NavigationBarProvider from "@/widgets/NavigationBar/provider";
 
 export default function TaskmateLayout({
   children,

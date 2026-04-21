@@ -1,4 +1,4 @@
-import type { TodoListSort } from "../types";
+import type { TodoListSort } from "../../../entities/todo/types/types";
 
 const TODO_LIST_SORT_BY_LABEL_CONST = {
   "마감일 순": "DUE_DATE",

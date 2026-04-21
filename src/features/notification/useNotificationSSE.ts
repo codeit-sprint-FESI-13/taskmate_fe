@@ -3,7 +3,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 
-import { userQueries } from "@/constants/queryKeys/user.queryKey";
+import { userQueries } from "@/features/user/user.queryKey";
 
 import { NotificationApi } from "./api";
 

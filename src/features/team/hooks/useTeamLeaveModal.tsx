@@ -6,7 +6,7 @@ import Button from "@/shared/ui/Button/Button/Button";
 import { Modal } from "@/shared/ui/Modal";
 import { ApiError } from "@/shared/utils/api/types";
 
-import { teamApi } from "../api";
+import { teamApi } from "../../../entities/team/api/req/api";
 
 const LEAVE_TEAM_MODAL_ID = "leave-team-confirm-modal";
 

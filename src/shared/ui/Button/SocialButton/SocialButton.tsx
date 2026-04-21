@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 // @TODO: Icon Convention 위반
 // import GoogleIcon from "@/components/common/Icons/GoogleIcon";
 // import KakaoIcon from "@/components/common/Icons/KakaoIcon";
-import { AuthFormType } from "@/features/auth/types/auth.type";
+import { AuthFormType } from "@/entities/auth/types/auth.type";
 import { cn } from "@/shared/utils/styles/cn";
 
 const SOCIAL_CONFIG = {
