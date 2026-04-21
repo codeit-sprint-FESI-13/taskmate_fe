@@ -3,12 +3,13 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-import { progressApi } from "@/entities/goal/api/goal.api";
-import { userQueries } from "@/features/user/user.queryKey";
+import { userQueries } from "@/entities/auth/query/user.queryKey";
 import { CircularProgress } from "@/shared/ui/CircularProgress";
 import { Icon } from "@/shared/ui/Icon";
 import Slider from "@/widgets/home/Slider/Slider";
 import { ProgressItem } from "@/widgets/home/types";
+
+import { progressApi } from "../api";
 
 // @TODO: Loading/Error 상태 처리 필요
 // @TODO: 데이터가 없을 때 처리 확인 필요

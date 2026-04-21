@@ -1,7 +1,7 @@
 import z from "zod";
 
 import { TEAM_NAME_MAX_LENGTH } from "@/entities/team/types/team";
-import { ApiResponse } from "@/shared/utils/api/types";
+import { ApiResponse } from "@/shared/lib/api/types";
 
 export const createTeamSchema = z.object({
   name: z

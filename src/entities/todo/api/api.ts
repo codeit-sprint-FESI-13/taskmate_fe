@@ -5,7 +5,7 @@ import type {
   TodoListResponse,
   UpdateTodoInput,
 } from "@/entities/todo/types/types";
-import { apiClient } from "@/shared/utils/api/client";
+import { apiClient } from "@/shared/lib/api/client";
 
 function todoListSearchParams(params: TodoListQueryParams) {
   const optional = Object.fromEntries(

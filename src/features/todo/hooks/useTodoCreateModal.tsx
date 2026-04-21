@@ -3,11 +3,11 @@
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
+import { userQueries } from "@/entities/auth/query/user.queryKey";
 import { goalQueries } from "@/entities/goal/query/goal.queryKey";
 import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { Member } from "@/entities/team/types/types";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { userQueries } from "@/features/user/user.queryKey";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input";

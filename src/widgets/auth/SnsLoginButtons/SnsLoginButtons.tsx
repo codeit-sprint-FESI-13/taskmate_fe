@@ -1,6 +1,6 @@
 "use client";
 import { AuthFormType } from "@/entities/auth/types/auth.type";
-import SocialButton from "@/shared/ui/Button/SocialButton/SocialButton";
+import SocialButton from "@/widgets/auth/SocialButton/SocialButton";
 
 const SnsLoginButtons = ({
   label,

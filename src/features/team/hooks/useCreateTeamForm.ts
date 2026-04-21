@@ -8,7 +8,7 @@ import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { createTeamSchema } from "@/entities/team/types/types";
 import { useCreateTeamMutation } from "@/features/team/mutation/useCreateTeamMutation";
 import { useToast } from "@/shared/hooks/useToast";
-import type { ApiError } from "@/shared/utils/api/types";
+import type { ApiError } from "@/shared/lib/api/types";
 
 export const useCreateTeamForm = () => {
   const router = useRouter();

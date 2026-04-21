@@ -14,7 +14,9 @@
     "dev:full": "concurrently \"next dev\" \"pnpm run mock\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_c93820598942000"
+    "chromatic": "npx chromatic --project-token=chpt_c93820598942000",
+    "steiger": "npx steiger ./src",
+    "steiger:watch": "npx steiger ./src --watch"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.0.1",
+    "@feature-sliced/steiger-plugin": "^0.5.7",
     "@storybook/addon-a11y": "^10.2.19",
     "@storybook/addon-docs": "^10.2.19",
     "@storybook/addon-onboarding": "^10.2.19",
@@ -77,6 +80,7 @@
     "playwright": "^1.58.2",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "steiger": "^0.5.11",
     "storybook": "^10.2.19",
     "tailwindcss": "^4",
     "ts-node": "^10.9.2",

@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { userQueries } from "@/entities/auth/query/user.queryKey";
 import { memberListApi } from "@/entities/team/api/management.api";
 import { memberApi } from "@/entities/team/api/management.api";
 import { memberRoleApi } from "@/entities/team/api/management.api";
 import { MemberData } from "@/entities/team/types/management.types";
 import { MemberRole } from "@/entities/team/types/management.types";
 import { formatMemberList } from "@/features/team/utils/formatMemberList";
-import { userQueries } from "@/features/user/user.queryKey";
 import Dropdown from "@/shared/hooks/useDropdown/Dropdown";
 import Button from "@/shared/ui/Button/Button/Button";
 import ConfirmModal from "@/widgets/management/ConfirmModal";

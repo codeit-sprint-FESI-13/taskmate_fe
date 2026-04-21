@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { logoutAction } from "@/features/auth/logout/actions/logoutAction";
 import { useToast } from "@/shared/hooks/useToast";
 
-import { deleteMe } from "../../api/myInfo.api";
+import { deleteMe } from "../../../../entities/auth/api/myInfo.api";
 
 export function useDeleteMeMutation() {
   const { toast } = useToast();

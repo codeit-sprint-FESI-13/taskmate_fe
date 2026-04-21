@@ -2,7 +2,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import React from "react";
 
-import { userQueries } from "@/features/user/user.queryKey";
+import { userQueries } from "@/entities/auth/query/user.queryKey";
 
 const WelcomeBanner = () => {
   const { data } = useSuspenseQuery(userQueries.myInfo());

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { uploadProfileImage } from "@/features/user/api/myInfo.api";
-import { userQueries } from "@/features/user/user.queryKey";
+import { uploadProfileImage } from "@/entities/auth/api/myInfo.api";
+import { userQueries } from "@/entities/auth/query/user.queryKey";
 import { useToast } from "@/shared/hooks/useToast";
 
 export function useUploadProfileImageMutation() {

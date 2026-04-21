@@ -3,9 +3,9 @@
 import { teamApi } from "@/entities/team/api/api";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import { useToast } from "@/shared/hooks/useToast";
+import { ApiError } from "@/shared/lib/api/types";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Modal } from "@/shared/ui/Modal";
-import { ApiError } from "@/shared/utils/api/types";
 
 const LEAVE_TEAM_MODAL_ID = "leave-team-confirm-modal";
 

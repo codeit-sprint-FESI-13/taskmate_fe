@@ -1,4 +1,4 @@
-import { apiClient } from "@/shared/utils/api/client";
+import { apiClient } from "@/shared/lib/api/client";
 
 import type { TeamDeleteResponseSuccess } from "../types/management.types";
 import type { MemberDeleteSuccessResponse } from "../types/management.types";

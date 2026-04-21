@@ -1,8 +1,8 @@
 import { UserProfile } from "@/entities/auth/types/auth.type";
-import { apiClient } from "@/shared/utils/api/client";
-import { ApiResponse } from "@/shared/utils/api/types";
+import { apiClient } from "@/shared/lib/api/client";
+import { ApiResponse } from "@/shared/lib/api/types";
 
-import { MyProfileFormData } from "../types/myProfile.type";
+import { MyProfileFormData } from "../../../features/user/types/myProfile.type";
 
 export async function getMyInfo() {
   const res = await apiClient.get<ApiResponse<UserProfile>>("/api/users/me");

@@ -2,9 +2,9 @@
 
 import { useSuspenseQueries } from "@tanstack/react-query";
 
+import { userQueries } from "@/entities/auth/query/user.queryKey";
 import { goalQueries } from "@/entities/goal/query/goal.queryKey";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { userQueries } from "@/features/user/user.queryKey";
 import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
 import { CircularProgress } from "@/shared/ui/CircularProgress";
 import { cn } from "@/shared/utils/styles/cn";

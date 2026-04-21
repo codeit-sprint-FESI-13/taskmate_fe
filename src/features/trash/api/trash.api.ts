@@ -1,5 +1,5 @@
-import { apiClient } from "@/shared/utils/api/client";
-import { ApiResponse } from "@/shared/utils/api/types";
+import { apiClient } from "@/shared/lib/api/client";
+import { ApiResponse } from "@/shared/lib/api/types";
 
 import { TrashActionParam, TrashListData } from "../types/trash.types";
 

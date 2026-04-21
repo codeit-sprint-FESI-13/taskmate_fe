@@ -1,6 +1,6 @@
 import { CheckEmailResponse } from "@/entities/auth/types/auth.type";
 import { SignupFormData } from "@/features/auth/signup/types/signup.type";
-import { apiClient } from "@/shared/utils/api/client";
+import { apiClient } from "@/shared/lib/api/client";
 
 import { UserProfile } from "../types/auth.type";
 

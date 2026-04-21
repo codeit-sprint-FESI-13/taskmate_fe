@@ -2,7 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { userQueries } from "@/features/user/user.queryKey";
+import { userQueries } from "@/entities/auth/query/user.queryKey";
 import defaultAvatar from "@/shared/assets/images/avatar.png";
 import { Icon } from "@/shared/ui/Icon";
 
