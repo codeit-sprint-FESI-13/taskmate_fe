@@ -8,3 +8,5 @@ export const createGoalSchema = z.object({
     .max(30, "목표 이름은 30자 이내로 입력해주세요."),
   dueDate: z.string().min(1, "날짜를 선택해주세요."),
 });
+
+export type CreateGoalInput = z.infer<typeof createGoalSchema>;

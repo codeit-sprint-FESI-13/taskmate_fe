@@ -46,7 +46,7 @@ export const goalApi = {
     );
   },
 
-  toggleFavorite: (goalId: number) =>
+  toggleFavorite: (goalId: string) =>
     apiClient.post<ApiResponse<ToggleGoalFavoriteResponse>>(
       `/api/goals/${goalId}/favorite`,
     ),

@@ -6,7 +6,7 @@ export function useToggleGoalFavoriteMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (goalId: number) => goalApi.toggleFavorite(goalId),
+    mutationFn: (goalId: number) => goalApi.toggleFavorite(String(goalId)),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["favoriteGoals"] });
     },

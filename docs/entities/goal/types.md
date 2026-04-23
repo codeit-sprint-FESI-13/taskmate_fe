@@ -38,6 +38,7 @@ type ApiResponse<T> = {
 | `GoalSummaryResponse`        | `{ goalId, goalName, dueDate, dDay, progressPercent }`         |
 
 폼 유효성 검사용 Zod 스키마: `createGoalSchema` — `name`(1~30자), `dueDate`(필수).
+파생 타입: `CreateGoalInput = z.infer<typeof createGoalSchema>`.
 
 ---
 

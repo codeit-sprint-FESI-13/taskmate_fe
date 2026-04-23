@@ -21,7 +21,7 @@ type ApiResponse<T> = {
 | POST   | `createGoal(data)`                       | `POST /api/goals`                   | `CreatePersonalGoalRequest \| CreateTeamGoalRequest` → `ApiResponse<CreateGoalResponse>` |
 | GET    | `getPersonalGoalList()`                  | `GET /api/goals/personal`           | → `ApiResponse<PersonalGoalListResponse>`                                                |
 | GET    | `getTeamGoalList(teamId, sort, cursor?)` | `GET /api/teams/{teamId}/goals`     | `SortType`, `GoalListCursor?` → `ApiResponse<TeamGoalListResponse>`                      |
-| POST   | `toggleFavorite(goalId)`                 | `POST /api/goals/{goalId}/favorite` | → `ApiResponse<ToggleGoalFavoriteResponse>`                                              |
+| POST   | `toggleFavorite(goalId: string)`         | `POST /api/goals/{goalId}/favorite` | → `ApiResponse<ToggleGoalFavoriteResponse>`                                              |
 | GET    | `getSummary(goalId)`                     | `GET /api/goals/{goalId}/summary`   | → `ApiResponse<GoalSummaryResponse>`                                                     |
 | DELETE | `deleteGoal(goalId)`                     | `DELETE /api/goals/{goalId}`        | → `ApiResponse<DeleteGoalResponse>`                                                      |
 | PATCH  | `updateGoal(goalId, body)`               | `PATCH /api/goals/{goalId}`         | `UpdateGoalRequest` → `ApiResponse<UpdateGoalResponse>`                                  |
