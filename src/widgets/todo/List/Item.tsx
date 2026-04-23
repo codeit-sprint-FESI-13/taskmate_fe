@@ -1,6 +1,6 @@
 "use client";
 
-import { Todo } from "@/entities/todo/types/types";
+import type { Todo } from "@/entities/todo";
 import { useTodoDeleteModal } from "@/features/todo/hooks/useTodoDeleteModal";
 import { useTodoDetailModal } from "@/features/todo/hooks/useTodoDetailModal";
 import { formatDDay } from "@/features/todo/utils/formatDDay";

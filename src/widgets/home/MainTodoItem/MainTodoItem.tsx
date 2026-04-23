@@ -1,5 +1,5 @@
+import type { TodoItem } from "@/entities/todo";
 import { formatDDay } from "@/features/todo/utils/formatDDay";
-import { TodoItem } from "@/widgets/home/types";
 
 type Props = TodoItem;
 

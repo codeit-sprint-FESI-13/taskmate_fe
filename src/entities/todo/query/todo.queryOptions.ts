@@ -1,16 +1,18 @@
+import { infiniteQueryOptions } from "@tanstack/react-query";
+
 import { STALE_TIME } from "@/shared/constants/query/staleTime";
 
-import { todoApi } from "../api/api";
+import { todoApi } from "../api/todo.api";
 import type {
   TodoListQueryParams,
   TodoListResponse,
   TodoListSort,
   TodoListStatus,
-} from "../types/types";
+} from "../types/todo.types";
 
 const TODO_LIST_PAGE_LIMIT = 10;
 
-type TodoCursor = Pick<
+type TodoListCursor = Pick<
   TodoListQueryParams,
   "cursorDueDate" | "cursorCreatedAt" | "cursorId"
 >;
@@ -22,8 +24,8 @@ export type TodoListInfiniteFilters = {
 };
 
 function getTodoListInfiniteNextPageParam(
-  lastPage: TodoListResponse["data"],
-): TodoCursor | undefined {
+  lastPage: TodoListResponse,
+): TodoListCursor | undefined {
   if (!lastPage.hasNext || !lastPage.nextCursorId) return undefined;
   if (lastPage.sort === "DUE_DATE") {
     return {
@@ -41,12 +43,9 @@ function todoListInfiniteOptions(
   goalId: string,
   status: TodoListStatus,
   filters: TodoListInfiniteFilters,
-  fetchPage: (
-    goalId: string,
-    params: TodoListQueryParams,
-  ) => ReturnType<(typeof todoApi)["getTodoList"]>,
+  fetchPage: typeof todoApi.getTodoList,
 ) {
-  return {
+  return infiniteQueryOptions({
     queryKey: [
       "todo",
       goalId,
@@ -58,8 +57,8 @@ function todoListInfiniteOptions(
         sort: filters.sort,
       },
     ] as const,
-    initialPageParam: {} as TodoCursor,
-    queryFn: async ({ pageParam }: { pageParam: TodoCursor }) => {
+    initialPageParam: {} as TodoListCursor,
+    queryFn: async ({ pageParam }: { pageParam: TodoListCursor }) => {
       const response = await fetchPage(goalId, {
         sort: filters.sort,
         mineOnly: filters.isMyTodo,
@@ -69,13 +68,12 @@ function todoListInfiniteOptions(
       });
       return response.data;
     },
-    getNextPageParam: (lastPage: TodoListResponse["data"]) =>
-      getTodoListInfiniteNextPageParam(lastPage),
+    getNextPageParam: getTodoListInfiniteNextPageParam,
     staleTime: STALE_TIME.DEFAULT,
-  };
+  });
 }
 
-export const todoQueries = {
+export const todoQueryOptions = {
   todoListInfinite: (goalId: string, filters: TodoListInfiniteFilters) =>
     todoListInfiniteOptions(goalId, "TODO", filters, todoApi.getTodoList),
 

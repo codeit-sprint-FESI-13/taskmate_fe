@@ -3,7 +3,7 @@
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
 
-import type { Todo, TodoStatus } from "@/entities/todo/types/types";
+import type { Todo, TodoStatus } from "@/entities/todo";
 import { usePatchTodoStatusMutation } from "@/features/todo/mutation/usePatchTodoStatusMutation";
 import { useDropdown } from "@/shared/hooks/useDropdown";
 import { Icon } from "@/shared/ui/Icon";

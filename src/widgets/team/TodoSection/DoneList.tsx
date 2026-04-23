@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import { todoQueries } from "@/entities/todo/query/todo.queryKey";
+import { todoQueryOptions } from "@/entities/todo";
 import {
   TODO_COLUMN_DEFAULT_SORT_LABEL,
   TODO_COLUMN_SORT_LABEL_ORDER,
@@ -27,7 +27,7 @@ export const DoneList = ({ goalId, keyword, isMyTodo }: DoneListProps) => {
 
   const infiniteQueryOptions = useMemo(
     () =>
-      todoQueries.doneListInfinite(goalId, {
+      todoQueryOptions.doneListInfinite(goalId, {
         keyword,
         isMyTodo,
         sort,

@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 
 import { goalQueryOptions } from "@/entities/goal";
 import { teamQueries } from "@/entities/team/query/team.queryKey";
-import { Todo } from "@/entities/todo/types/types";
+import type { Todo } from "@/entities/todo";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import defaultAvatar from "@/shared/assets/images/avatar.png";
 import { useOverlay } from "@/shared/hooks/useOverlay";

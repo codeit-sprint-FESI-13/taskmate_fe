@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import type { Todo } from "@/entities/todo/types/types";
+import type { Todo } from "@/entities/todo";
 import defaultAvatar from "@/shared/assets/images/avatar.png";
 
 interface TodoAssigneeAvatarsProps {
