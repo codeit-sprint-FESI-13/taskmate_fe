@@ -54,6 +54,27 @@ shared      (최하위)
 - `types/` — 도메인 타입 정의 (Request/Response)
 - 예: `entities/todo/`, `entities/user/`, `entities/auth/`
 
+#### entities/api 작성 규칙
+
+```ts
+// ✅ apiClient 호출 결과를 그대로 return
+export const goalApi = {
+  toggleFavorite: (goalId: number) =>
+    apiClient.post<{ success: boolean }>(`/api/goals/${goalId}/favorite`),
+};
+
+// ❌ async/await 래핑 금지 — 불필요한 Promise 중첩, return 누락 위험
+// ❌ window.dispatchEvent, queryClient.invalidateQueries 등 사이드 이펙트 금지
+//    → 캐시 무효화·이벤트 발행은 호출 측(features/widgets)에서 처리
+export const goalApi = {
+  toggleFavorite: async (goalId: number) => {
+    const result = await apiClient.post(...);
+    window.dispatchEvent(new CustomEvent("goal-favorite-toggled", ...)); // ❌
+    return result;
+  },
+};
+```
+
 ### `shared/`
 
 - 도메인 무관한 재사용 가능한 원시 단위
@@ -102,6 +123,91 @@ src/
     └── utils/
         └── formatDate.ts
 ```
+
+---
+
+## Public API Rule (index.ts)
+
+FSD에서 모든 slice/segment는 반드시 `index.ts`를 통해서만 외부에 노출한다.
+**내부 경로 직접 import는 어떤 경우에도 금지.**
+
+#### ❌ / ✅ 기본 규칙
+
+```ts
+// ❌ 내부 경로 직접 import 금지
+import { CreateTodoForm } from "@/features/create-todo/ui/CreateTodoForm";
+import { todoQueryOptions } from "@/entities/todo/query/todo.queryOptions";
+import { Button } from "@/shared/ui/Button/Button";
+
+// ✅ 반드시 index.ts를 통해 import
+import { CreateTodoForm } from "@/features/create-todo";
+import { todoQueryOptions } from "@/entities/todo";
+import { Button } from "@/shared/ui/Button";
+```
+
+#### index.ts 위치 기준
+
+| 레이어         | index.ts 위치 | 설명                              |
+| -------------- | ------------- | --------------------------------- |
+| `shared/ui`    | segment 단위  | `shared/ui/Button/index.ts`       |
+| `shared/hooks` | segment 단위  | `shared/hooks/useToggle/index.ts` |
+| `shared/lib`   | segment 단위  | `shared/lib/api/index.ts`         |
+| `entities`     | slice 단위    | `entities/todo/index.ts`          |
+| `features`     | slice 단위    | `features/create-todo/index.ts`   |
+| `widgets`      | slice 단위    | `widgets/todo-board/index.ts`     |
+
+#### index.ts 작성 규칙
+
+```ts
+// ✅ named export 명시적으로 작성
+// entities/todo/index.ts
+export { getTodos, getTodoById, createTodo } from "./api/todoApi";
+export { todoQueryOptions } from "./query/todo.queryOptions";
+export type { Todo, TodoResponse, CreateTodoRequest } from "./types";
+
+// ❌ export * 남용 금지 — 외부에 뭐가 노출되는지 불명확해짐
+export * from "./api/todoApi";
+export * from "./types";
+```
+
+#### 레이어별 index.ts 예시
+
+```ts
+// shared/ui/Button/index.ts
+export { Button } from "./Button";
+export type { ButtonProps } from "./Button";
+
+// entities/todo/index.ts
+export { getTodos, createTodo, updateTodo, deleteTodo } from "./api/todoApi";
+export { todoQueryOptions } from "./query/todo.queryOptions";
+export type {
+  Todo,
+  TodoResponse,
+  TodoListResponse,
+  CreateTodoRequest,
+  UpdateTodoRequest,
+} from "./types";
+
+// features/create-todo/index.ts
+export { CreateTodoForm } from "./ui/CreateTodoForm";
+export { useCreateTodo } from "./hooks/useCreateTodo";
+
+// widgets/todo-board/index.ts
+export { TodoBoard } from "./ui/TodoBoard";
+```
+
+#### steiger로 위반 감지
+
+```bash
+pnpm steiger        # FSD 규칙 위반 전체 검사
+pnpm steiger:watch  # 파일 변경 시 자동 검사
+```
+
+steiger가 자동 감지하는 항목:
+
+- 내부 경로 직접 import
+- 상위 레이어 → 하위 레이어 역방향 import
+- 같은 레이어 cross-slice import
 
 ---
 

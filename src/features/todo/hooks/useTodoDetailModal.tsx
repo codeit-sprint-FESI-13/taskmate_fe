@@ -4,7 +4,7 @@ import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
-import { goalQueries } from "@/entities/goal/query/goal.queryKey";
+import { goalQueryOptions } from "@/entities/goal";
 import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { Todo } from "@/entities/todo/types/types";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
@@ -136,7 +136,7 @@ export const useTodoDetailModal = ({ todo }: { todo: Todo }) => {
   const goalId = useGoalId();
   const {
     data: { goalName },
-  } = useSuspenseQuery(goalQueries.getSummary(goalId));
+  } = useSuspenseQuery(goalQueryOptions.getSummary(goalId));
   const { data: teamSummary } = useQuery({
     ...teamQueries.summary(teamId ?? ""),
     enabled: Boolean(teamId),

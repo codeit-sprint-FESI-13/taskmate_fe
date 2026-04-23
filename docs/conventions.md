@@ -9,6 +9,7 @@
 | utils / helpers | camelCase                   | `formatDate.ts`, `validateEmail.ts`    |
 | constants       | UPPER_SNAKE_CASE            | `MAX_RETRY_COUNT`, `API_BASE_URL`      |
 | Zustand store   | camelCase + `.store.ts`     | `user.store.ts`, `auth.store.ts`       |
+| 도메인 타입     | camelCase + `.types.ts`     | `goal.types.ts`, `goalList.types.ts`   |
 | Zod schema      | camelCase + `Schema` suffix | `emailSchema`, `createTodoSchema`      |
 | Test 파일       | 원본 파일 옆에 위치         | `UserCard.test.tsx`, `useAuth.test.ts` |
 

@@ -4,7 +4,7 @@ import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
-import { goalQueries } from "@/entities/goal/query/goal.queryKey";
+import { goalQueryOptions } from "@/entities/goal";
 import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { Member } from "@/entities/team/types/types";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
@@ -207,7 +207,7 @@ export const useTodoCreateModal = () => {
   const goalId = useGoalId();
   const {
     data: { goalName },
-  } = useSuspenseQuery(goalQueries.getSummary(goalId));
+  } = useSuspenseQuery(goalQueryOptions.getSummary(goalId));
   const { data: teamSummary } = useQuery({
     ...teamQueries.summary(teamId ?? ""),
     enabled: Boolean(teamId),

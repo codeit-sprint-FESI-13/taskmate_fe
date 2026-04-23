@@ -4,8 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { goalApi } from "@/entities/goal/api/api";
-import { createGoalCreateSchema } from "@/entities/goal/types/types";
+import { createGoalSchema, goalApi } from "@/entities/goal";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 import Input from "@/shared/ui/Input/Input";
@@ -20,7 +19,7 @@ export const PersonalCreateForm = () => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const parsed = createGoalCreateSchema.safeParse({
+    const parsed = createGoalSchema.safeParse({
       name: String(formData.get("name") ?? ""),
       date: String(formData.get("date") ?? ""),
     });

@@ -2,8 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import { goalQueries } from "@/entities/goal/query/goal.queryKey";
-import { SortType } from "@/entities/goal/types/types";
+import { goalQueryOptions, SortType } from "@/entities/goal";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import { Icon } from "@/shared/ui/Icon";
@@ -22,7 +21,7 @@ export default function GoalList() {
   const sort = sortTypeByLabel[selectedSort] ?? "LATEST";
 
   const { ref, data } = useInfiniteScroll(
-    goalQueries.getTeamGoalListInfinite(teamId, sort),
+    goalQueryOptions.getTeamGoalListInfinite(teamId, sort),
   );
 
   const size = data.pages[0].size;

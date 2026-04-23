@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { createGoalCreateSchema } from "@/entities/goal/types/types";
+import { createGoalSchema } from "@/entities/goal";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 import Input from "@/shared/ui/Input/Input";
@@ -30,7 +30,7 @@ export function GoalEditModal({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const parsed = createGoalCreateSchema.safeParse({
+    const parsed = createGoalSchema.safeParse({
       name,
       date: dueDate,
     });

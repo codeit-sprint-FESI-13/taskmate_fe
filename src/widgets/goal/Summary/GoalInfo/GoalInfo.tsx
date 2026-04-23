@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 
-import { goalQueries } from "@/entities/goal/query/goal.queryKey";
+import { goalQueryOptions } from "@/entities/goal";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useDeleteGoalMutation } from "@/features/goal/mutation/useDeleteGoalMutation";
 import { useUpdateGoalMutation } from "@/features/goal/mutation/useUpdateGoalMutation";
@@ -30,7 +30,9 @@ export function GoalInfo() {
   const [optionOpen, setOptionOpen] = useState(false);
   const optionRef = useRef<HTMLDivElement>(null);
 
-  const { data: summary } = useSuspenseQuery(goalQueries.getSummary(goalId));
+  const { data: summary } = useSuspenseQuery(
+    goalQueryOptions.getSummary(goalId),
+  );
 
   const deleteMutation = useDeleteGoalMutation({
     goalId,

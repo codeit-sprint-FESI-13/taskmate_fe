@@ -1,25 +1,36 @@
 import { apiClient } from "@/shared/lib/api/client";
+import { ApiResponse } from "@/shared/lib/api/types";
 
+import {
+  FavoriteGoalsQueryParams,
+  FavoriteGoalsSuccessResponse,
+} from "../types/favorite.types";
 import type {
   CreateGoalResponse,
-  CreatePersonalGoalInput,
-  CreateTeamGoalInput,
-  GoalListCursor,
+  CreatePersonalGoalRequest,
+  CreateTeamGoalRequest,
+  DeleteGoalResponse,
   GoalSummaryResponse,
+  ToggleGoalFavoriteResponse,
+  UpdateGoalRequest,
+  UpdateGoalResponse,
+} from "../types/goal.types";
+import type {
+  GoalListCursor,
   PersonalGoalListResponse,
   SortType,
   TeamGoalListResponse,
-} from "../types/types";
+} from "../types/goalList.types";
 
 export const goalApi = {
-  createPersonalGoal: (data: CreatePersonalGoalInput) =>
-    apiClient.post<CreateGoalResponse>("/api/goals", data),
+  createPersonalGoal: (data: CreatePersonalGoalRequest) =>
+    apiClient.post<ApiResponse<CreateGoalResponse>>("/api/goals", data),
 
-  createTeamGoal: (data: CreateTeamGoalInput) =>
-    apiClient.post<CreateGoalResponse>("/api/goals", data),
+  createTeamGoal: (data: CreateTeamGoalRequest) =>
+    apiClient.post<ApiResponse<CreateGoalResponse>>("/api/goals", data),
 
   getPersonalGoalList: () =>
-    apiClient.get<PersonalGoalListResponse>("/api/goals/personal"),
+    apiClient.get<ApiResponse<PersonalGoalListResponse>>("/api/goals/personal"),
 
   getTeamGoalList: (
     teamId: string,
@@ -42,47 +53,38 @@ export const goalApi = {
       params.cursorId = cursor.cursorId;
     }
 
-    return apiClient.get<TeamGoalListResponse>(`/api/teams/${teamId}/goals`, {
-      params,
-    });
-  },
-
-  toggleFavorite: async (goalId: number) => {
-    const result = await apiClient.post<{ success: boolean }>(
-      `/api/goals/${goalId}/favorite`,
+    return apiClient.get<ApiResponse<TeamGoalListResponse>>(
+      `/api/teams/${teamId}/goals`,
+      {
+        params,
+      },
     );
-
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent("goal-favorite-toggled", { detail: { goalId } }),
-      );
-    }
-
-    return result;
   },
+
+  toggleFavorite: (goalId: number) =>
+    apiClient.post<ApiResponse<ToggleGoalFavoriteResponse>>(
+      `/api/goals/${goalId}/favorite`,
+    ),
 
   getSummary: (goalId: string) =>
-    apiClient.get<GoalSummaryResponse>(`/api/goals/${goalId}/summary`),
+    apiClient.get<ApiResponse<GoalSummaryResponse>>(
+      `/api/goals/${goalId}/summary`,
+    ),
 
   deleteGoal: (goalId: string) =>
-    apiClient.delete<{
-      success: boolean;
-      code: string;
-      message: string;
-      data: null;
-      timestamp: string;
-    }>(`/api/goals/${goalId}`),
+    apiClient.delete<ApiResponse<DeleteGoalResponse>>(`/api/goals/${goalId}`),
 
-  updateGoal: (goalId: string, body: { name: string; dueDate: string }) =>
-    apiClient.patch<{
-      success: boolean;
-      code: string;
-      message: string;
-      data: {
-        id: number;
-        name: string;
-        dueDate: string;
-      };
-      timestamp: string;
-    }>(`/api/goals/${goalId}`, body),
+  updateGoal: (goalId: string, body: UpdateGoalRequest) =>
+    apiClient.patch<ApiResponse<UpdateGoalResponse>>(
+      `/api/goals/${goalId}`,
+      body,
+    ),
+
+  getFavoriteGoalList: (params: FavoriteGoalsQueryParams = {}) =>
+    apiClient.get<ApiResponse<FavoriteGoalsSuccessResponse>>(
+      "/api/main/favorite-goals",
+      {
+        params,
+      },
+    ),
 };

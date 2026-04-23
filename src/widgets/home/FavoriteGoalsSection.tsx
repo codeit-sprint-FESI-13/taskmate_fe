@@ -1,20 +1,18 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { FavoriteGoalItem } from "@/entities/goal";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Icon } from "@/shared/ui/Icon";
 import { Spacing } from "@/shared/ui/Spacing";
 import { FavoriteGoalsItem } from "@/widgets/home/FavoriteGoalsItem";
 import { mainInfiniteQueries } from "@/widgets/home/query/mainInfiniteQueries";
-import { FavoriteGoalItem } from "@/widgets/home/types";
 
 export function FavoriteGoalsSection() {
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const { ref, data, isFetchingNextPage } = useInfiniteScroll(
     mainInfiniteQueries.favoriteGoalsInfinite(),
@@ -76,19 +74,20 @@ export function FavoriteGoalsSection() {
     return () => container.removeEventListener("scroll", updateScrollState);
   }, []);
 
-  useEffect(() => {
-    const handleFavoriteToggled = () => {
-      queryClient.invalidateQueries({ queryKey: ["favoriteGoals"] });
-    };
+  // useEffect(() => {
+  //   const handleFavoriteToggled = () => {
+  //     queryClient.invalidateQueries({ queryKey: ["favoriteGoals"] });
+  //   };
 
-    window.addEventListener("goal-favorite-toggled", handleFavoriteToggled);
-    return () => {
-      window.removeEventListener(
-        "goal-favorite-toggled",
-        handleFavoriteToggled,
-      );
-    };
-  }, [queryClient]);
+  //   // @TODO: entities에 정의되어있던 부분 제거 > features로 이동 예정
+  //   window.addEventListener("goal-favorite-toggled", handleFavoriteToggled);
+  //   return () => {
+  //     window.removeEventListener(
+  //       "goal-favorite-toggled",
+  //       handleFavoriteToggled,
+  //     );
+  //   };
+  // }, [queryClient]);
 
   if (items.length === 0) {
     return (
