@@ -6,22 +6,14 @@ import { goalApi } from "../api/api";
 import type { FavoriteGoalsQueryParams } from "../types/favorite.types";
 import type { GoalListCursor, SortType } from "../types/goalList.types";
 
+const FAVORITE_GOALS_PAGE_SIZE = 20;
+
 export const goalQueryOptions = {
   getPersonalGoalList: () =>
     queryOptions({
       queryKey: ["personal", "goals"],
       queryFn: async () => {
         const response = await goalApi.getPersonalGoalList();
-        return response.data;
-      },
-      staleTime: STALE_TIME.DEFAULT,
-    }),
-
-  getTeamGoalList: (teamId: string, sort: SortType = "LATEST") =>
-    queryOptions({
-      queryKey: ["team", teamId, "goals", sort],
-      queryFn: async () => {
-        const response = await goalApi.getTeamGoalList(teamId, sort);
         return response.data;
       },
       staleTime: STALE_TIME.DEFAULT,
@@ -60,11 +52,13 @@ export const goalQueryOptions = {
         const response = await goalApi.getFavoriteGoalList(pageParam ?? {});
         return response.data;
       },
-      initialPageParam: { size: 20 } as FavoriteGoalsQueryParams,
+      initialPageParam: {
+        size: FAVORITE_GOALS_PAGE_SIZE,
+      } as FavoriteGoalsQueryParams,
       getNextPageParam: (lastPage): FavoriteGoalsQueryParams | undefined =>
         lastPage.hasNext
           ? {
-              size: 20,
+              size: FAVORITE_GOALS_PAGE_SIZE,
               cursorId: lastPage.nextCursorId,
               cursorCreatedAt: lastPage.nextCursorCreatedAt,
             }

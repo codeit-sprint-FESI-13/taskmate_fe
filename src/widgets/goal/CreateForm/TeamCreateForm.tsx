@@ -25,7 +25,7 @@ export const TeamCreateForm = () => {
     const formData = new FormData(e.currentTarget);
     const parsed = createGoalSchema.safeParse({
       name: String(formData.get("name") ?? ""),
-      date: String(formData.get("date") ?? ""),
+      dueDate: String(formData.get("dueDate") ?? ""),
     });
 
     if (!parsed.success) {
@@ -37,7 +37,7 @@ export const TeamCreateForm = () => {
     setGoalNameError("");
     createGoal({
       name: parsed.data.name,
-      dueDate: parsed.data.date,
+      dueDate: parsed.data.dueDate,
       teamId: Number(teamId),
     });
   };
@@ -69,7 +69,7 @@ export const TeamCreateForm = () => {
         <div className="flex w-full flex-col items-start gap-1">
           <div className="w-full">
             <Input
-              name="date"
+              name="dueDate"
               required
               type="date"
               placeholder="날짜를 선택해주세요"

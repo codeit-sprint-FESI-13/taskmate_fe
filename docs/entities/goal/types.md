@@ -37,7 +37,7 @@ type ApiResponse<T> = {
 | `TeamGoalListResponse`       | `{ items, nextCursor, size }`                                  |
 | `GoalSummaryResponse`        | `{ goalId, goalName, dueDate, dDay, progressPercent }`         |
 
-폼 유효성 검사용 Zod 스키마: `createGoalSchema` — `name`(1~30자), `date`(필수).
+폼 유효성 검사용 Zod 스키마: `createGoalSchema` — `name`(1~30자), `dueDate`(필수).
 
 ---
 

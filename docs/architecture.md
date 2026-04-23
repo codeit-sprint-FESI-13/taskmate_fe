@@ -90,10 +90,6 @@ export const goalApi = {
     window.dispatchEvent(new CustomEvent("goal-favorite-toggled", ...)); // ❌
     return result;
   },
-  getTeamGoalList: (teamId: string, sort: SortType, cursor?: Partial<GoalListCursor>) => {
-    if (!cursor?.cursorCreatedAt && cursor?.cursorId != null) throw new Error(...); // ❌
-    return apiClient.get(...);
-  },
 };
 ```
 
