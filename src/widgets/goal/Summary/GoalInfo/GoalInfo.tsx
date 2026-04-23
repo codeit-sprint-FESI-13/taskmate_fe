@@ -1,79 +1,32 @@
 "use client";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import { goalQueryOptions } from "@/entities/goal";
+import { useGoalActions } from "@/features/goal/hooks/useGoalActions";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { useDeleteGoalMutation } from "@/features/goal/mutation/useDeleteGoalMutation";
-import { useUpdateGoalMutation } from "@/features/goal/mutation/useUpdateGoalMutation";
-import { useOverlay } from "@/shared/hooks/useOverlay";
-import ConfirmModal from "@/shared/ui/ConfirmModal";
+import { useOptionalTeamId } from "@/features/team/hooks/useOptionalTeamId";
 import { Icon } from "@/shared/ui/Icon";
 import { cn } from "@/shared/utils/styles/cn";
 
-import { GoalEditModal } from "./GoalEditModal";
-
-const GOAL_ACTIONS = ["목표 수정", "목표 삭제"] as const;
-const GOAL_EDIT_MODAL_ID = "goal-edit-modal";
-const GOAL_DELETE_MODAL_ID = "goal-delete-confirm-modal";
-
 export function GoalInfo() {
   const goalId = useGoalId();
-  const params = useParams();
-  const overlay = useOverlay();
-
-  // TeamId가 없는 경우도 있음 ( personal 페이지 )
-  const teamId = params.teamId != null ? String(params.teamId) : null;
+  const teamId = useOptionalTeamId();
 
   const [optionOpen, setOptionOpen] = useState(false);
-  const optionRef = useRef<HTMLDivElement>(null);
 
   const { data: summary } = useSuspenseQuery(
     goalQueryOptions.getSummary(goalId),
   );
 
-  const deleteMutation = useDeleteGoalMutation({
-    goalId,
-    teamId,
-    onDeleted: () => overlay.close(),
-  });
-
-  const updateMutation = useUpdateGoalMutation({
-    goalId,
-    teamId,
-    onUpdated: () => overlay.close(),
-  });
-
-  const openEditModal = () => {
-    setOptionOpen(false);
-    overlay.open(
-      GOAL_EDIT_MODAL_ID,
-      <GoalEditModal
-        initialName={summary.goalName}
-        initialDueDate={summary.dueDate}
-        onClose={() => overlay.close()}
-        isPending={updateMutation.isPending}
-        onSave={(input) => updateMutation.mutate(input)}
-      />,
-    );
-  };
-
-  const openDeleteConfirm = () => {
-    setOptionOpen(false);
-    overlay.open(
-      GOAL_DELETE_MODAL_ID,
-      <ConfirmModal
-        title="목표를 휴지통으로 이동할까요?"
-        description="이동한 목표는 휴지통에서 복구하거나 완전히 삭제할 수 있어요."
-        confirmLabel="휴지통으로 이동"
-        cancelLabel="취소"
-        onClose={() => overlay.close()}
-        onConfirm={() => deleteMutation.mutate()}
-      />,
-    );
-  };
+  const { openEditModal, openDeleteConfirm, isMutationPending } =
+    useGoalActions({
+      goalId,
+      teamId,
+      summary,
+      onMenuClose: () => setOptionOpen(false),
+    });
 
   return (
     <div
@@ -125,53 +78,97 @@ export function GoalInfo() {
           </span>
         </div>
 
-        <div
-          ref={optionRef}
-          className={cn(
-            "absolute top-7 right-5 shrink-0",
-            "desktop:top-[60px] desktop:right-8",
-          )}
-        >
-          <button
-            type="button"
-            className="flex cursor-pointer items-center justify-center rounded-lg p-1 hover:bg-gray-100"
-            aria-expanded={optionOpen}
-            aria-haspopup="menu"
-            aria-label="목표 옵션"
-            onClick={() => setOptionOpen((open) => !open)}
-          >
-            <Icon
-              name="Kebab"
-              size={24}
-              className="text-gray-300"
-            />
-          </button>
-
-          {optionOpen && (
-            <ul
-              role="menu"
-              aria-label="목표 옵션"
-              className="absolute top-full right-0 z-20 mt-2 w-max rounded-2xl border border-gray-200 bg-white px-2 py-1 shadow-sm"
-            >
-              {GOAL_ACTIONS.map((label) => (
-                <li
-                  key={label}
-                  role="menuitem"
-                  className="group cursor-pointer rounded-xl px-3 py-2 text-center hover:bg-blue-800"
-                  onClick={() => {
-                    if (label === "목표 수정") openEditModal();
-                    else openDeleteConfirm();
-                  }}
-                >
-                  <span className="typography-body-2 font-semibold text-gray-500 group-hover:text-white">
-                    {label}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <GoalOptionMenu
+          isOpen={optionOpen}
+          isPending={isMutationPending}
+          onToggle={() => setOptionOpen((prev) => !prev)}
+          onEdit={openEditModal}
+          onDelete={openDeleteConfirm}
+        />
       </div>
+    </div>
+  );
+}
+
+// --- internal component ---
+
+type GoalOptionMenuProps = {
+  isOpen: boolean;
+  isPending: boolean;
+  onToggle: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
+};
+
+const GOAL_ACTIONS: { key: "edit" | "delete"; label: string }[] = [
+  { key: "edit", label: "목표 수정" },
+  { key: "delete", label: "목표 삭제" },
+];
+
+function GoalOptionMenu({
+  isOpen,
+  isPending,
+  onToggle,
+  onEdit,
+  onDelete,
+}: GoalOptionMenuProps) {
+  const handleAction = (key: "edit" | "delete") => {
+    if (key === "edit") onEdit();
+    else onDelete();
+  };
+
+  return (
+    <div
+      className={cn(
+        "absolute top-7 right-5 shrink-0",
+        "desktop:top-[60px] desktop:right-8",
+      )}
+    >
+      <button
+        type="button"
+        className="flex cursor-pointer items-center justify-center rounded-lg p-1 hover:bg-gray-100"
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+        aria-label="목표 옵션"
+        disabled={isPending}
+        onClick={onToggle}
+      >
+        <Icon
+          name="Kebab"
+          size={24}
+          className="text-gray-300"
+        />
+      </button>
+
+      {isOpen && (
+        <ul
+          role="menu"
+          aria-label="목표 옵션"
+          className="absolute top-full right-0 z-20 mt-2 w-max rounded-2xl border border-gray-200 bg-white px-2 py-1 shadow-sm"
+        >
+          {GOAL_ACTIONS.map(({ key, label }) => (
+            <li
+              key={key}
+              className="rounded-xl"
+            >
+              <button
+                type="button"
+                role="menuitem"
+                disabled={isPending}
+                className={cn(
+                  "group w-full cursor-pointer rounded-xl px-3 py-2 text-center hover:bg-blue-800",
+                  "disabled:cursor-not-allowed disabled:opacity-50",
+                )}
+                onClick={() => handleAction(key)}
+              >
+                <span className="typography-body-2 font-semibold text-gray-500 group-hover:text-white">
+                  {label}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

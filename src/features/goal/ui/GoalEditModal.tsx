@@ -31,11 +31,13 @@ export function GoalEditModal({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const parsed = createGoalSchema.safeParse({ name, dueDate });
+
     if (!parsed.success) {
       const fieldErrors = parsed.error.flatten().fieldErrors;
       setNameError(fieldErrors.name?.[0] ?? "");
       return;
     }
+
     setNameError("");
     onSave({ name: parsed.data.name, dueDate: parsed.data.dueDate });
   };
