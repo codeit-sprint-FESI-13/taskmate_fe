@@ -16,32 +16,35 @@ jest.mock("@/shared/hooks/useBreakpoint", () => ({
   useBreakpoint: () => "desktop",
 }));
 
-jest.mock("@/components/NavigationBar/Personal", () => ({
+jest.mock("@/widgets/NavigationBar/Personal", () => ({
   Personal: Object.assign(() => null, {
     Loading: () => null,
     Error: () => null,
   }),
 }));
 
-jest.mock("@/components/NavigationBar/Team", () => ({
-  Team: Object.assign(() => null, { Loading: () => null }),
+jest.mock("@/widgets/NavigationBar/Team", () => ({
+  Team: Object.assign(() => null, {
+    Loading: () => null,
+    Error: () => null,
+  }),
 }));
 
-jest.mock("@/components/NavigationBar/UserProfile", () => ({
+jest.mock("@/widgets/NavigationBar/UserProfile", () => ({
   UserProfile: Object.assign(() => null, { Loading: () => null }),
 }));
 
-jest.mock("@/components/common/LogoutButton", () => ({
+jest.mock("@/widgets/common/LogoutButton", () => ({
   __esModule: true,
   default: () => null,
 }));
 
-jest.mock("@/components/NavigationBar/NotificationPopover", () => ({
+jest.mock("@/widgets/NavigationBar/NotificationPopover", () => ({
   __esModule: true,
   default: () => null,
 }));
 
-jest.mock("@/components/common/Icon", () => ({
+jest.mock("@/shared/ui/Icon", () => ({
   Icon: ({ name }: { name: string }) => <span data-testid={`icon-${name}`} />,
 }));
 

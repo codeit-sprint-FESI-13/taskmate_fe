@@ -33,6 +33,8 @@ arguments: [path]
 | `shared/hooks`, `shared/store`        | Jest + RTL (`renderHook`)        |
 | `shared/ui`                           | Jest + RTL + Storybook play 검토 |
 | `entities/model`                      | Jest + RTL                       |
+| `entities/api`                        | Jest + RTL (apiClient 모킹)      |
+| `entities/query`                      | **테스트 작성 금지**             |
 | `features/mutation`, `features/hooks` | Jest + RTL (MSW 모킹)            |
 | `widgets/`                            | Jest + RTL (핵심 인터랙션만)     |
 
