@@ -5,8 +5,8 @@ import { useParams } from "next/navigation";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
 import { goalQueryOptions } from "@/entities/goal";
-import { teamQueries } from "@/entities/team/query/team.queryKey";
-import { Member } from "@/entities/team/types/types";
+import type { Member } from "@/entities/team";
+import { teamQueryOptions } from "@/entities/team";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { AssigneeSelect } from "@/features/todo/ui/AssigneeSelect";
 import { useOverlay } from "@/shared/hooks/useOverlay";
@@ -209,7 +209,7 @@ export const useTodoCreateModal = () => {
     data: { goalName },
   } = useSuspenseQuery(goalQueryOptions.getSummary(goalId));
   const { data: teamSummary } = useQuery({
-    ...teamQueries.summary(teamId ?? ""),
+    ...teamQueryOptions.summary(teamId ?? ""),
     enabled: Boolean(teamId),
   });
 
@@ -219,7 +219,7 @@ export const useTodoCreateModal = () => {
   });
 
   const { data: teamMemberList } = useQuery({
-    ...teamQueries.memberList(teamId ?? ""),
+    ...teamQueryOptions.memberList(teamId ?? ""),
     enabled: Boolean(teamId),
   });
 

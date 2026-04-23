@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import { teamDetailApi } from "@/entities/team/api/management.api";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { validateEmail } from "@/features/team/management.utils";
 import Button from "@/shared/ui/Button/Button/Button";

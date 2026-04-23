@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { teamDetailApi } from "@/entities/team/api/management.api";
+import { teamApi } from "@/entities/team";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input/Input";
@@ -19,8 +19,8 @@ const TeamNameEditor = () => {
     if (Number.isNaN(teamId)) return;
 
     // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
-    teamDetailApi
-      .read(teamId)
+    teamApi
+      .getDetail(teamId)
       .then((res) => {
         if (res?.data?.name) setValue(res.data.name);
         setInitialName(res.data.name);
@@ -39,7 +39,7 @@ const TeamNameEditor = () => {
 
     // @TODO: useMutation 으로 리팩토링
     try {
-      await teamDetailApi.create(teamId, nextName);
+      await teamApi.update(teamId, nextName);
       setValue(nextName);
       // @TODO: window.location.reload() 사용 금지, router.refresh() 사용
       window.location.reload();

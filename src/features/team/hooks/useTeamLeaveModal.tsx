@@ -1,6 +1,6 @@
 "use client";
 
-import { teamApi } from "@/entities/team/api/api";
+import { teamApi } from "@/entities/team";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import { useToast } from "@/shared/hooks/useToast";
 import { ApiError } from "@/shared/lib/api/types";

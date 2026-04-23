@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 
 import { goalQueryOptions } from "@/entities/goal";
-import { teamQueries } from "@/entities/team/query/team.queryKey";
+import { teamQueryOptions } from "@/entities/team";
 import type { Todo } from "@/entities/todo";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import defaultAvatar from "@/shared/assets/images/avatar.png";
@@ -138,7 +138,7 @@ export const useTodoDetailModal = ({ todo }: { todo: Todo }) => {
     data: { goalName },
   } = useSuspenseQuery(goalQueryOptions.getSummary(goalId));
   const { data: teamSummary } = useQuery({
-    ...teamQueries.summary(teamId ?? ""),
+    ...teamQueryOptions.summary(teamId ?? ""),
     enabled: Boolean(teamId),
   });
 

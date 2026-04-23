@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { Member } from "@/entities/team/types/types";
+import type { Member } from "@/entities/team";
 import defaultAvatar from "@/shared/assets/images/avatar.png";
 import { useDropdown } from "@/shared/hooks/useDropdown";
 import { Icon } from "@/shared/ui/Icon";
