@@ -23,6 +23,9 @@ arguments: [path]
 `$path` 경로 아래의 모든 소스 파일을 읽는다.
 이미 존재하는 `*.test.ts(x)`, `*.stories.tsx`가 있으면 함께 읽어 커버된 케이스를 파악한다.
 
+테스트 대상 파일의 import 경로를 확인해, mock 경로도 **반드시 현재 실제 import 경로와 동일하게** 맞춘다.
+(예: `@/components/...` 구경로가 아니라 `@/widgets/...` 등 현재 경로 사용)
+
 ### 2단계 — FSD 레이어 판단 및 도구 선택
 
 경로에서 레이어를 확인하고 `docs/testing-guide.md`의 기준으로 도구를 결정한다.
@@ -53,9 +56,14 @@ const createWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   });
-  return ({ children }: { children: React.ReactNode }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
+
+  function Wrapper({ children }: { children: React.ReactNode }) {
+    return (
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    );
+  }
+
+  return Wrapper;
 };
 ```
 
@@ -66,6 +74,26 @@ jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: jest.fn(), replace: jest.fn(), back: jest.fn() }),
   useParams: () => ({}),
 }));
+```
+
+`useParams`, `useRouter`를 테스트 내에서 케이스별로 바꾸어야 하면 `jest.fn()`으로 모킹하고 `mockReturnValue`로 제어한다.
+
+```ts
+const mockUseParams = useParams as jest.MockedFunction<typeof useParams>;
+mockUseParams.mockReturnValue({ teamId: "1" } as ReturnType<typeof useParams>);
+```
+
+**커스텀 훅 테스트 (renderHook) 기본 패턴:**
+
+```ts
+import { renderHook } from "@testing-library/react";
+
+describe("useSomething", () => {
+  test("조건 A에서 기대값을 반환한다", () => {
+    const { result } = renderHook(() => useSomething());
+    expect(result.current).toBe(...);
+  });
+});
 ```
 
 **테스트 케이스 선정 기준:**
@@ -95,6 +123,7 @@ pnpm test -- {작성한 테스트 파일 경로}
 ```
 
 실패하면 에러를 읽고 수정한다. 모든 케이스가 통과할 때까지 반복한다.
+테스트 통과 후, 수정 파일에 대한 lint 에러도 확인한다.
 
 ### 5단계 — 결과 보고
 
