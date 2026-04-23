@@ -27,7 +27,7 @@ export const Error = ({ error, onReset }: TodoSectionErrorProps) => {
           <p className="typography-heading-2 font-semibold text-gray-500">
             할 일 목록을 불러오지 못했어요
           </p>
-          <p className="text-body-1 font-medium wrap-break-word text-gray-400">
+          <p className="typography-body-1 font-medium wrap-break-word text-gray-400">
             {error.message}
           </p>
         </div>

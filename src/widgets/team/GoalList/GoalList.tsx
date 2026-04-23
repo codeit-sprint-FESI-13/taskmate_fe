@@ -4,10 +4,10 @@ import { useMemo, useState } from "react";
 
 import { goalQueryOptions, SortType } from "@/entities/goal";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { Order } from "@/features/todo/ui/List/Order";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import { Icon } from "@/shared/ui/Icon";
 import { MainSecondaryProgressCard } from "@/widgets/team/MainSecondaryProgressCard";
-import { Order } from "@/widgets/todo/List/Order";
 
 const sortTypeByLabel: Record<string, SortType> = {
   최신순: "LATEST",

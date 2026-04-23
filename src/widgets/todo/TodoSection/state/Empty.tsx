@@ -23,7 +23,7 @@ export const Empty = () => {
           <p className="typography-heading-2 font-semibold text-gray-500">
             생성된 할 일이 없어요
           </p>
-          <p className="text-body-1 font-medium text-gray-400">
+          <p className="typography-body-1 font-medium text-gray-400">
             새로운 할 일을 만들고 관리해보세요
           </p>
         </div>

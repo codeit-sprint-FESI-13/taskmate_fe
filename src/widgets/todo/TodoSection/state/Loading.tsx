@@ -12,7 +12,7 @@ export const Loading = () => {
           size={48}
           aria-label="할 일 목록 로딩 중"
         />
-        <p className="text-label-1 text-label-normal text-center font-medium">
+        <p className="typography-label-1 text-label-normal text-center font-medium">
           할 일 목록을 불러오고 있어요
         </p>
       </div>

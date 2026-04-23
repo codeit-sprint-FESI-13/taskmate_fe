@@ -1,6 +1,6 @@
 import { Spacing } from "@/shared/ui/Spacing";
 import { Heading, Summary } from "@/widgets/goal";
-import { TodoSection } from "@/widgets/team/TodoSection";
+import { TodoSection } from "@/widgets/todo/TodoSection";
 
 export default function Page() {
   return (

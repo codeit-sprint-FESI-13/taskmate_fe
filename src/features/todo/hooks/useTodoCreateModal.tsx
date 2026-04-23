@@ -8,12 +8,12 @@ import { goalQueryOptions } from "@/entities/goal";
 import { teamQueries } from "@/entities/team/query/team.queryKey";
 import { Member } from "@/entities/team/types/types";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
+import { AssigneeSelect } from "@/features/todo/ui/AssigneeSelect";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input";
 import { Modal } from "@/shared/ui/Modal";
 import { Spacing } from "@/shared/ui/Spacing";
-import { AssigneeSelect } from "@/widgets/todo/AssigneeSelect";
 
 import { useCreateTodoForm } from "./useCreateTodoForm";
 
