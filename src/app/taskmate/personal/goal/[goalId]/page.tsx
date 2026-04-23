@@ -3,8 +3,7 @@
 import AsyncBoundary from "@/shared/ui/AsyncBoundary";
 import { Spacing } from "@/shared/ui/Spacing";
 import Spinner from "@/shared/ui/Spinner";
-import { Heading } from "@/widgets/goal/Heading";
-import Summary from "@/widgets/goal/Summary";
+import { Heading, Summary } from "@/widgets/goal";
 import { TodoSection } from "@/widgets/team/TodoSection";
 
 export default function Page() {

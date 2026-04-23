@@ -1,7 +1,7 @@
 import { apiClient } from "@/shared/lib/api/client";
 import { ApiResponse } from "@/shared/lib/api/types";
 
-import {
+import type {
   FavoriteGoalsQueryParams,
   FavoriteGoalsSuccessResponse,
 } from "../types/favorite.types";
@@ -23,10 +23,7 @@ import type {
 } from "../types/goalList.types";
 
 export const goalApi = {
-  createPersonalGoal: (data: CreatePersonalGoalRequest) =>
-    apiClient.post<ApiResponse<CreateGoalResponse>>("/api/goals", data),
-
-  createTeamGoal: (data: CreateTeamGoalRequest) =>
+  createGoal: (data: CreatePersonalGoalRequest | CreateTeamGoalRequest) =>
     apiClient.post<ApiResponse<CreateGoalResponse>>("/api/goals", data),
 
   getPersonalGoalList: () =>
@@ -37,16 +34,6 @@ export const goalApi = {
     sort: SortType,
     cursor?: Partial<GoalListCursor>,
   ) => {
-    if (
-      cursor &&
-      ((cursor.cursorCreatedAt && cursor.cursorId == null) ||
-        (!cursor.cursorCreatedAt && cursor.cursorId != null))
-    ) {
-      throw new Error(
-        "cursorCreatedAt와 cursorId는 다음 페이지 요청 시 함께 전달해야 합니다.",
-      );
-    }
-
     const params: Record<string, string | number> = { sort };
     if (cursor?.cursorCreatedAt && cursor.cursorId != null) {
       params.cursorCreatedAt = cursor.cursorCreatedAt;
@@ -55,9 +42,7 @@ export const goalApi = {
 
     return apiClient.get<ApiResponse<TeamGoalListResponse>>(
       `/api/teams/${teamId}/goals`,
-      {
-        params,
-      },
+      { params },
     );
   },
 
@@ -83,8 +68,6 @@ export const goalApi = {
   getFavoriteGoalList: (params: FavoriteGoalsQueryParams = {}) =>
     apiClient.get<ApiResponse<FavoriteGoalsSuccessResponse>>(
       "/api/main/favorite-goals",
-      {
-        params,
-      },
+      { params },
     ),
 };

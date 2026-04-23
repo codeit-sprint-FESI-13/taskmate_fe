@@ -36,14 +36,30 @@ shared      (최하위)
 - 여러 feature/entity를 조합한 독립적인 UI 블록
 - 페이지에 바로 배치될 수 있는 단위
 - 예: `TodoBoard`, `UserProfileCard`, `NotificationDrawer`
-- widget 내부에서 직접 API 호출 금지 → features/entities의 hook 사용
+- **직접 API 호출 금지** — `goalApi.createGoal(...)` 같은 호출은 widget 내부에 두지 않는다
+- 데이터 조회: `entities/{domain}/query/` queryOptions 사용
+- 데이터 변경(mutation): `features/{domain}/mutation/` 훅 사용
+
+```ts
+// ❌ widget에서 goalApi 직접 호출
+const handleSubmit = async () => {
+  await goalApi.createGoal({ ... });
+  queryClient.invalidateQueries({ queryKey: ["personal", "goals"] });
+};
+
+// ✅ features의 mutation 훅 사용
+const { mutate: createGoal } = useCreatePersonalGoalMutation({ onSuccess: () => router.back() });
+const handleSubmit = () => createGoal({ name, dueDate });
+```
 
 ### `features/`
 
 - 사용자 행동(mutation, form submit, 비즈니스 액션) 단위
 - 예: `CreateTodo`, `DeleteTodo`, `LoginForm`, `ToggleTodoComplete`
-- 구성: `ui/`, `model/`, `store/`, `hooks/`
-- **직접 fetch/axios 호출 금지** → 반드시 `entities/{domain}/query/` 사용
+- 구성: `ui/`, `model/`, `store/`, `hooks/`, `mutation/`
+- **직접 fetch/axios 호출 금지** → 반드시 `entities/{domain}/api/` 경유
+- mutation 훅은 `features/{domain}/mutation/use{Action}Mutation.ts`에 작성
+- `onSuccess`에서 `queryClient.invalidateQueries`로 캐시 무효화, navigation 등 side effect는 `onSuccess` 콜백으로 위임
 
 ### `entities/`
 
@@ -65,12 +81,18 @@ export const goalApi = {
 
 // ❌ async/await 래핑 금지 — 불필요한 Promise 중첩, return 누락 위험
 // ❌ window.dispatchEvent, queryClient.invalidateQueries 등 사이드 이펙트 금지
-//    → 캐시 무효화·이벤트 발행은 호출 측(features/widgets)에서 처리
+//    → 캐시 무효화·이벤트 발행은 features/mutation 훅에서 처리
+// ❌ throw new Error(...) 등 유효성 검사 금지
+//    → 인자 유효성은 호출 측(features)에서 보장, api 함수는 순수 HTTP 호출만
 export const goalApi = {
   toggleFavorite: async (goalId: number) => {
     const result = await apiClient.post(...);
     window.dispatchEvent(new CustomEvent("goal-favorite-toggled", ...)); // ❌
     return result;
+  },
+  getTeamGoalList: (teamId: string, sort: SortType, cursor?: Partial<GoalListCursor>) => {
+    if (!cursor?.cursorCreatedAt && cursor?.cursorId != null) throw new Error(...); // ❌
+    return apiClient.get(...);
   },
 };
 ```
@@ -269,6 +291,30 @@ export const todoQueryOptions = {
 - sort mode에 따라 cursor 필드 다름:
   - 마감일 정렬: `cursorDueDate`
   - 생성일 정렬: `cursorCreatedAt` + `cursorId`
+- infinite query도 반드시 `entities/{domain}/query/` 에 `infiniteQueryOptions`로 정의
+
+```ts
+// entities/goal/query/goal.queryOptions.ts
+getFavoriteGoalListInfinite: () =>
+  infiniteQueryOptions({
+    queryKey: ["favoriteGoals", "infinite"],
+    queryFn: async ({ pageParam }) => {
+      const response = await goalApi.getFavoriteGoalList(pageParam ?? {});
+      return response.data;
+    },
+    initialPageParam: { size: 20 } as FavoriteGoalsQueryParams,
+    getNextPageParam: (lastPage): FavoriteGoalsQueryParams | undefined =>
+      lastPage.hasNext
+        ? { size: 20, cursorId: lastPage.nextCursorId, cursorCreatedAt: lastPage.nextCursorCreatedAt }
+        : undefined,
+    staleTime: STALE_TIME.DEFAULT,
+  }),
+
+// 사용 (widgets)
+const { ref, data, isFetchingNextPage } = useInfiniteScroll(
+  goalQueryOptions.getFavoriteGoalListInfinite(),
+);
+```
 
 ### Error Handling
 

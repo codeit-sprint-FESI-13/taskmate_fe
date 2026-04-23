@@ -249,21 +249,39 @@ export const todoQueryOptions = {
 const { data } = useSuspenseQuery(todoQueryOptions.list(params));
 ```
 
-Mutation은 `features/{domain}/hooks/` 에 작성:
+Mutation은 `features/{domain}/mutation/use{Action}Mutation.ts` 에 작성:
 
 ```ts
-// features/create-todo/hooks/useCreateTodo.ts
-export function useCreateTodo() {
+// features/goal/mutation/useCreatePersonalGoalMutation.ts
+type UseCreatePersonalGoalMutationOptions = {
+  onSuccess?: () => void;
+};
+
+export function useCreatePersonalGoalMutation({
+  onSuccess,
+}: UseCreatePersonalGoalMutationOptions = {}) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: CreateTodoRequest) => createTodo(data),
+    mutationFn: ({ name, dueDate }: { name: string; dueDate: string }) =>
+      goalApi.createGoal({ name, dueDate, type: "PERSONAL" }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todo"] });
+      queryClient.invalidateQueries({ queryKey: ["personal", "goals"] });
+      onSuccess?.();
     },
   });
 }
+
+// 사용 (widgets)
+const { mutate: createGoal } = useCreatePersonalGoalMutation({
+  onSuccess: () => router.back(),
+});
 ```
+
+규칙:
+
+- navigation, modal 닫기 등 UI side effect는 `onSuccess` 콜백으로 위임 — 훅 내부에서 처리 금지
+- `queryClient.invalidateQueries`는 훅 내부 `onSuccess`에서 처리
 
 ---
 

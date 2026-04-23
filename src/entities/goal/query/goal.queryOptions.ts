@@ -1,8 +1,10 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
-import { goalApi } from "@/entities/goal/api/api";
-import { GoalListCursor, SortType } from "@/entities/goal/types/goalList.types";
 import { STALE_TIME } from "@/shared/constants/query/staleTime";
+
+import { goalApi } from "../api/api";
+import type { FavoriteGoalsQueryParams } from "../types/favorite.types";
+import type { GoalListCursor, SortType } from "../types/goalList.types";
 
 export const goalQueryOptions = {
   getPersonalGoalList: () =>
@@ -48,6 +50,25 @@ export const goalQueryOptions = {
         const response = await goalApi.getSummary(goalId);
         return response.data;
       },
+      staleTime: STALE_TIME.DEFAULT,
+    }),
+
+  getFavoriteGoalListInfinite: () =>
+    infiniteQueryOptions({
+      queryKey: ["favoriteGoals", "infinite"],
+      queryFn: async ({ pageParam }) => {
+        const response = await goalApi.getFavoriteGoalList(pageParam ?? {});
+        return response.data;
+      },
+      initialPageParam: { size: 20 } as FavoriteGoalsQueryParams,
+      getNextPageParam: (lastPage): FavoriteGoalsQueryParams | undefined =>
+        lastPage.hasNext
+          ? {
+              size: 20,
+              cursorId: lastPage.nextCursorId,
+              cursorCreatedAt: lastPage.nextCursorCreatedAt,
+            }
+          : undefined,
       staleTime: STALE_TIME.DEFAULT,
     }),
 };

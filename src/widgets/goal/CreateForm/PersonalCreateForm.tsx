@@ -1,10 +1,10 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { createGoalSchema, goalApi } from "@/entities/goal";
+import { createGoalSchema } from "@/entities/goal";
+import { useCreatePersonalGoalMutation } from "@/features/goal/mutation/useCreatePersonalGoalMutation";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 import Input from "@/shared/ui/Input/Input";
@@ -12,10 +12,12 @@ import { Spacing } from "@/shared/ui/Spacing";
 
 export const PersonalCreateForm = () => {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const [goalNameError, setGoalNameError] = useState<string>("");
+  const { mutate: createGoal } = useCreatePersonalGoalMutation({
+    onSuccess: () => router.back(),
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -29,14 +31,7 @@ export const PersonalCreateForm = () => {
       return;
     }
 
-    await goalApi.createPersonalGoal({
-      name: formData.get("name") as string,
-      dueDate: formData.get("date") as string,
-      type: "PERSONAL",
-    });
-    await queryClient.invalidateQueries({ queryKey: ["personal", "goals"] });
-
-    router.back();
+    createGoal({ name: parsed.data.name, dueDate: parsed.data.date });
   };
 
   return (

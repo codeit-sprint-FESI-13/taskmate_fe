@@ -17,6 +17,6 @@ export interface FavoriteGoalItem {
 export interface FavoriteGoalsSuccessResponse {
   items: FavoriteGoalItem[];
   hasNext: boolean;
-  nextCursorCreatedAt: string;
-  nextCursorId: number;
+  nextCursorCreatedAt?: string;
+  nextCursorId?: number;
 }

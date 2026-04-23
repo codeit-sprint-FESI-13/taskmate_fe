@@ -1,10 +1,10 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { createGoalSchema, goalApi } from "@/entities/goal";
+import { createGoalSchema } from "@/entities/goal";
+import { useCreateTeamGoalMutation } from "@/features/goal/mutation/useCreateTeamGoalMutation";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
@@ -13,11 +13,13 @@ import { Spacing } from "@/shared/ui/Spacing";
 
 export const TeamCreateForm = () => {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const teamId = useTeamId();
   const [goalNameError, setGoalNameError] = useState<string>("");
+  const { mutate: createGoal } = useCreateTeamGoalMutation({
+    onSuccess: () => router.back(),
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -33,16 +35,11 @@ export const TeamCreateForm = () => {
     }
 
     setGoalNameError("");
-
-    await goalApi.createTeamGoal({
+    createGoal({
       name: parsed.data.name,
       dueDate: parsed.data.date,
       teamId: Number(teamId),
-      type: "TEAM",
     });
-    await queryClient.invalidateQueries({ queryKey: ["teams", "all"] });
-
-    router.back();
   };
 
   return (

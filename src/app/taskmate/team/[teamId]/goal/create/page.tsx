@@ -1,5 +1,5 @@
 import { Spacing } from "@/shared/ui/Spacing";
-import { TeamCreateForm } from "@/widgets/goal/CreateForm/TeamCreateForm";
+import { TeamCreateForm } from "@/widgets/goal";
 
 export default function Page() {
   return (
