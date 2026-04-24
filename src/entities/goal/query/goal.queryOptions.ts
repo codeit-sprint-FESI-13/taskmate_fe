@@ -1,0 +1,68 @@
+import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
+
+import { STALE_TIME } from "@/shared/constants/query/staleTime";
+
+import { goalApi } from "../api/api";
+import type { FavoriteGoalsQueryParams } from "../types/favorite.types";
+import type { GoalListCursor, SortType } from "../types/goalList.types";
+
+const FAVORITE_GOALS_PAGE_SIZE = 20;
+
+export const goalQueryOptions = {
+  getPersonalGoalList: () =>
+    queryOptions({
+      queryKey: ["personal", "goals"],
+      queryFn: async () => {
+        const response = await goalApi.getPersonalGoalList();
+        return response.data;
+      },
+      staleTime: STALE_TIME.DEFAULT,
+    }),
+
+  getTeamGoalListInfinite: (teamId: string, sort: SortType = "LATEST") =>
+    infiniteQueryOptions({
+      queryKey: ["team", teamId, "goals", "infinite", sort],
+      queryFn: async ({ pageParam }) => {
+        const response = await goalApi.getTeamGoalList(
+          teamId,
+          sort,
+          pageParam ?? undefined,
+        );
+        return response.data;
+      },
+      initialPageParam: null as GoalListCursor | null,
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+      staleTime: STALE_TIME.DEFAULT,
+    }),
+
+  getSummary: (goalId: string) =>
+    queryOptions({
+      queryKey: ["goal", goalId, "summary"],
+      queryFn: async () => {
+        const response = await goalApi.getSummary(goalId);
+        return response.data;
+      },
+      staleTime: STALE_TIME.DEFAULT,
+    }),
+
+  getFavoriteGoalListInfinite: () =>
+    infiniteQueryOptions({
+      queryKey: ["favoriteGoals", "infinite"],
+      queryFn: async ({ pageParam }) => {
+        const response = await goalApi.getFavoriteGoalList(pageParam ?? {});
+        return response.data;
+      },
+      initialPageParam: {
+        size: FAVORITE_GOALS_PAGE_SIZE,
+      } as FavoriteGoalsQueryParams,
+      getNextPageParam: (lastPage): FavoriteGoalsQueryParams | undefined =>
+        lastPage.hasNext
+          ? {
+              size: FAVORITE_GOALS_PAGE_SIZE,
+              cursorId: lastPage.nextCursorId,
+              cursorCreatedAt: lastPage.nextCursorCreatedAt,
+            }
+          : undefined,
+      staleTime: STALE_TIME.DEFAULT,
+    }),
+};

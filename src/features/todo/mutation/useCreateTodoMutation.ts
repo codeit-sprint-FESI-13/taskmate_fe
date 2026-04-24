@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { todoApi } from "@/entities/todo/api/api";
-import { CreateTodoInput } from "@/entities/todo/types/types";
+import type { CreateTodoRequest } from "@/entities/todo";
+import { todoApi } from "@/entities/todo";
 import { useToast } from "@/shared/hooks/useToast";
 import type { ApiError } from "@/shared/lib/api/types";
 
 type CreateTodoVariables = {
   goalId: string;
-  todoData: CreateTodoInput;
+  todoData: CreateTodoRequest;
 };
 
 export const useCreateTodoMutation = () => {

@@ -1,12 +1,11 @@
-import { favoriteGoalsApi } from "@/entities/goal/api/goal.api";
-import { dueSoonApi, recentApi } from "@/entities/todo/api/todo.api";
+import { goalQueryOptions } from "@/entities/goal";
+import { todoApi } from "@/entities/todo";
 import { createPaginationOptions } from "@/features/notification/utils";
 
 export const mainInfiniteQueries = {
-  favoriteGoalsInfinite: () =>
-    createPaginationOptions("favoriteGoals", favoriteGoalsApi.read),
+  favoriteGoalsInfinite: () => goalQueryOptions.getFavoriteGoalListInfinite(),
   recentInfiniteOptions: () =>
-    createPaginationOptions("recent", recentApi.read),
+    createPaginationOptions("recent", todoApi.getRecent),
   dueSoonInfiniteOptions: () =>
-    createPaginationOptions("dueSoon", dueSoonApi.read),
+    createPaginationOptions("dueSoon", todoApi.getDueSoon),
 };

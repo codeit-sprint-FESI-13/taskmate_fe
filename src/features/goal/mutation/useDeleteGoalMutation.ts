@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { goalApi } from "@/entities/goal/api/api";
+import { goalApi } from "@/entities/goal";
 
 type UseDeleteGoalMutationOptions = {
   goalId: string;

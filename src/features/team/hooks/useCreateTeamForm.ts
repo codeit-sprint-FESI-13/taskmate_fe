@@ -4,8 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { ComponentProps, useState } from "react";
 
-import { teamQueries } from "@/entities/team/query/team.queryKey";
-import { createTeamSchema } from "@/entities/team/types/types";
+import { createTeamSchema, teamQueryOptions } from "@/entities/team";
 import { useCreateTeamMutation } from "@/features/team/mutation/useCreateTeamMutation";
 import { useToast } from "@/shared/hooks/useToast";
 import type { ApiError } from "@/shared/lib/api/types";
@@ -19,7 +18,9 @@ export const useCreateTeamForm = () => {
 
   const createMutation = useCreateTeamMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: teamQueries.all().queryKey });
+      queryClient.invalidateQueries({
+        queryKey: teamQueryOptions.all().queryKey,
+      });
       toast({
         variant: "success",
         title: "팀 생성 완료",

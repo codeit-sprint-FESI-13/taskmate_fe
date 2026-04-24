@@ -2,17 +2,13 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { todoApi } from "@/entities/todo/api/api";
-import type {
-  Todo,
-  TodoStatus,
-  UpdateTodoInput,
-} from "@/entities/todo/types/types";
+import type { Todo, TodoStatus, UpdateTodoRequest } from "@/entities/todo";
+import { todoApi } from "@/entities/todo";
 
 type PatchTodoStatusVariables = {
   goalId: string;
   todoId: string;
-  todoData: UpdateTodoInput;
+  todoData: UpdateTodoRequest;
 };
 
 export const usePatchTodoStatusMutation = () => {

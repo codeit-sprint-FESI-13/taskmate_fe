@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { goalApi } from "@/entities/goal/api/api";
+import { goalApi } from "@/entities/goal";
 
 type UpdateGoalVariables = {
   name: string;

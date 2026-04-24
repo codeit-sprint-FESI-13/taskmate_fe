@@ -1,11 +1,10 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { goalApi } from "@/entities/goal/api/api";
-import { createGoalCreateSchema } from "@/entities/goal/types/types";
+import { createGoalSchema } from "@/entities/goal";
+import { useCreatePersonalGoalMutation } from "@/features/goal/mutation/useCreatePersonalGoalMutation";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 import Input from "@/shared/ui/Input/Input";
@@ -13,16 +12,18 @@ import { Spacing } from "@/shared/ui/Spacing";
 
 export const PersonalCreateForm = () => {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const [goalNameError, setGoalNameError] = useState<string>("");
+  const { mutate: createGoal } = useCreatePersonalGoalMutation({
+    onSuccess: () => router.back(),
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const parsed = createGoalCreateSchema.safeParse({
+    const parsed = createGoalSchema.safeParse({
       name: String(formData.get("name") ?? ""),
-      date: String(formData.get("date") ?? ""),
+      dueDate: String(formData.get("dueDate") ?? ""),
     });
     if (!parsed.success) {
       const fieldErrors = parsed.error.flatten().fieldErrors;
@@ -30,14 +31,7 @@ export const PersonalCreateForm = () => {
       return;
     }
 
-    await goalApi.createPersonalGoal({
-      name: formData.get("name") as string,
-      dueDate: formData.get("date") as string,
-      type: "PERSONAL",
-    });
-    await queryClient.invalidateQueries({ queryKey: ["personal", "goals"] });
-
-    router.back();
+    createGoal({ name: parsed.data.name, dueDate: parsed.data.dueDate });
   };
 
   return (
@@ -67,7 +61,7 @@ export const PersonalCreateForm = () => {
         <div className="flex w-full flex-col items-start gap-1">
           <div className="w-full">
             <Input
-              name="date"
+              name="dueDate"
               required
               type="date"
               placeholder="날짜를 선택해주세요"

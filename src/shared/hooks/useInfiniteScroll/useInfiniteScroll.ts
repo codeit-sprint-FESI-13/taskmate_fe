@@ -29,7 +29,7 @@ import { useEffect, useRef } from "react";
  *
  * @example
  * const { ref, data, isFetchingNextPage } = useInfiniteScroll(
- *   goalQueries.teamGoalListInfinite(teamId),
+ *   goalQueryOptions.getTeamGoalListInfinite(teamId),
  *   0.5, // threshold 커스텀 (기본값 1.0)
  * );
  *

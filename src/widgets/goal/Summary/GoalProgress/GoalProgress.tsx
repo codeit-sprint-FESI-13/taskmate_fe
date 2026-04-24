@@ -3,7 +3,7 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
-import { goalQueries } from "@/entities/goal/query/goal.queryKey";
+import { goalQueryOptions } from "@/entities/goal";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
 import { CircularProgress } from "@/shared/ui/CircularProgress";
@@ -20,7 +20,7 @@ export function GoalProgress() {
       data: { nickname },
     },
   ] = useSuspenseQueries({
-    queries: [goalQueries.getSummary(goalId), userQueries.myInfo()],
+    queries: [goalQueryOptions.getSummary(goalId), userQueries.myInfo()],
   });
 
   return (

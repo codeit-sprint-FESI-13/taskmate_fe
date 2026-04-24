@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { goalQueries } from "@/entities/goal/query/goal.queryKey";
+import { goalQueryOptions } from "@/entities/goal";
 import { Spacing } from "@/shared/ui/Spacing";
 import { formatNavigationKey } from "@/widgets/NavigationBar/utils/formatNavigationKey";
 
@@ -12,7 +12,7 @@ export const Personal = () => {
   const router = useRouter();
 
   const { data: goalList } = useSuspenseQuery(
-    goalQueries.getPersonalGoalList(),
+    goalQueryOptions.getPersonalGoalList(),
   );
 
   return (

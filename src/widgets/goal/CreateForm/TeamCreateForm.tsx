@@ -1,11 +1,10 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { goalApi } from "@/entities/goal/api/api";
-import { createGoalCreateSchema } from "@/entities/goal/types/types";
+import { createGoalSchema } from "@/entities/goal";
+import { useCreateTeamGoalMutation } from "@/features/goal/mutation/useCreateTeamGoalMutation";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
@@ -14,17 +13,19 @@ import { Spacing } from "@/shared/ui/Spacing";
 
 export const TeamCreateForm = () => {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const teamId = useTeamId();
   const [goalNameError, setGoalNameError] = useState<string>("");
+  const { mutate: createGoal } = useCreateTeamGoalMutation({
+    onSuccess: () => router.back(),
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const parsed = createGoalCreateSchema.safeParse({
+    const parsed = createGoalSchema.safeParse({
       name: String(formData.get("name") ?? ""),
-      date: String(formData.get("date") ?? ""),
+      dueDate: String(formData.get("dueDate") ?? ""),
     });
 
     if (!parsed.success) {
@@ -34,16 +35,11 @@ export const TeamCreateForm = () => {
     }
 
     setGoalNameError("");
-
-    await goalApi.createTeamGoal({
+    createGoal({
       name: parsed.data.name,
-      dueDate: parsed.data.date,
+      dueDate: parsed.data.dueDate,
       teamId: Number(teamId),
-      type: "TEAM",
     });
-    await queryClient.invalidateQueries({ queryKey: ["teams", "all"] });
-
-    router.back();
   };
 
   return (
@@ -73,7 +69,7 @@ export const TeamCreateForm = () => {
         <div className="flex w-full flex-col items-start gap-1">
           <div className="w-full">
             <Input
-              name="date"
+              name="dueDate"
               required
               type="date"
               placeholder="날짜를 선택해주세요"

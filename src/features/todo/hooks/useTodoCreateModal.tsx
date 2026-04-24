@@ -4,16 +4,16 @@ import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
-import { goalQueries } from "@/entities/goal/query/goal.queryKey";
-import { teamQueries } from "@/entities/team/query/team.queryKey";
-import { Member } from "@/entities/team/types/types";
+import { goalQueryOptions } from "@/entities/goal";
+import type { Member } from "@/entities/team";
+import { teamQueryOptions } from "@/entities/team";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
+import { AssigneeSelect } from "@/features/todo/ui/AssigneeSelect";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input";
 import { Modal } from "@/shared/ui/Modal";
 import { Spacing } from "@/shared/ui/Spacing";
-import { AssigneeSelect } from "@/widgets/todo/AssigneeSelect";
 
 import { useCreateTodoForm } from "./useCreateTodoForm";
 
@@ -207,9 +207,9 @@ export const useTodoCreateModal = () => {
   const goalId = useGoalId();
   const {
     data: { goalName },
-  } = useSuspenseQuery(goalQueries.getSummary(goalId));
+  } = useSuspenseQuery(goalQueryOptions.getSummary(goalId));
   const { data: teamSummary } = useQuery({
-    ...teamQueries.summary(teamId ?? ""),
+    ...teamQueryOptions.summary(teamId ?? ""),
     enabled: Boolean(teamId),
   });
 
@@ -219,7 +219,7 @@ export const useTodoCreateModal = () => {
   });
 
   const { data: teamMemberList } = useQuery({
-    ...teamQueries.memberList(teamId ?? ""),
+    ...teamQueryOptions.memberList(teamId ?? ""),
     enabled: Boolean(teamId),
   });
 

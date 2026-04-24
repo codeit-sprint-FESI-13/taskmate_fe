@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 
-import { goalApi } from "@/entities/goal/api/api";
+import { useToggleGoalFavoriteMutation } from "@/features/goal/mutation/useToggleGoalFavoriteMutation";
 import { cn } from "@/shared/utils/styles/cn";
 
 import { ProgressBar } from "../../shared/ui/ProgressBar";
@@ -38,12 +38,8 @@ export const MainSecondaryProgressCard = ({
   goalId,
 }: MainSecondaryProgressCardProps) => {
   const router = useRouter();
+  const { mutate: toggleFavorite } = useToggleGoalFavoriteMutation();
   const theme = THEME[color];
-
-  // @TODO: 낙관적 업데이트 추가 필요 ( 중간 이후 )
-  const handleToggleFavorite = async () => {
-    await goalApi.toggleFavorite(goalId);
-  };
 
   return (
     <section
@@ -69,7 +65,7 @@ export const MainSecondaryProgressCard = ({
           />
         ) : (
           <StarToggleButton
-            onToggle={handleToggleFavorite}
+            onToggle={() => toggleFavorite(goalId)}
             initialState={isFavorite}
           />
         )}
