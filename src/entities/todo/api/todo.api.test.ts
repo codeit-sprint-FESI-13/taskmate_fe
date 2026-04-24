@@ -58,7 +58,7 @@ describe("todoApi", () => {
       await todoApi.getTodoList("1", BASE_LIST_PARAMS);
 
       expect(mockApiClient.get).toHaveBeenCalledWith(
-        "/api/goals/1/todos",
+        "/api/goals/1/todos/paged",
         expect.objectContaining({
           params: expect.objectContaining({ status: "TODO" }),
         }),
@@ -71,7 +71,7 @@ describe("todoApi", () => {
       await todoApi.getTodoList("1", { ...BASE_LIST_PARAMS, mineOnly: true });
 
       expect(mockApiClient.get).toHaveBeenCalledWith(
-        "/api/goals/1/todos",
+        "/api/goals/1/todos/paged",
         expect.objectContaining({
           params: expect.objectContaining({ mineOnly: "true" }),
         }),
@@ -84,7 +84,7 @@ describe("todoApi", () => {
       await todoApi.getTodoList("1", { ...BASE_LIST_PARAMS, mineOnly: false });
 
       expect(mockApiClient.get).toHaveBeenCalledWith(
-        "/api/goals/1/todos",
+        "/api/goals/1/todos/paged",
         expect.objectContaining({
           params: expect.objectContaining({ mineOnly: "false" }),
         }),
@@ -102,7 +102,7 @@ describe("todoApi", () => {
       });
 
       expect(mockApiClient.get).toHaveBeenCalledWith(
-        "/api/goals/1/todos",
+        "/api/goals/1/todos/paged",
         expect.objectContaining({
           params: expect.objectContaining({
             cursorDueDate: "2026-05-01",
@@ -143,7 +143,7 @@ describe("todoApi", () => {
       await todoApi.getTodoList("1", { ...BASE_LIST_PARAMS, limit: 10 });
 
       expect(mockApiClient.get).toHaveBeenCalledWith(
-        "/api/goals/1/todos",
+        "/api/goals/1/todos/paged",
         expect.objectContaining({
           params: expect.objectContaining({ limit: 10 }),
         }),
@@ -158,7 +158,7 @@ describe("todoApi", () => {
       await todoApi.getDoingList("2", BASE_LIST_PARAMS);
 
       expect(mockApiClient.get).toHaveBeenCalledWith(
-        "/api/goals/2/todos",
+        "/api/goals/2/todos/paged",
         expect.objectContaining({
           params: expect.objectContaining({ status: "DOING" }),
         }),
@@ -173,7 +173,7 @@ describe("todoApi", () => {
       await todoApi.getDoneList("3", BASE_LIST_PARAMS);
 
       expect(mockApiClient.get).toHaveBeenCalledWith(
-        "/api/goals/3/todos",
+        "/api/goals/3/todos/paged",
         expect.objectContaining({
           params: expect.objectContaining({ status: "DONE" }),
         }),
