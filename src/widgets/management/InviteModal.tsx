@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { teamApi } from "@/entities/team";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { validateEmail } from "@/features/team/management.utils";
 import Button from "@/shared/ui/Button/Button/Button";
@@ -53,8 +54,8 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
     if (Number.isNaN(teamId)) return;
 
     // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
-    teamDetailApi
-      .read(teamId)
+    teamApi
+      .getDetail(teamId)
       .then((res) => {
         if (res?.data?.name) setValue(res.data.name);
         setInitialName(res.data.name);
