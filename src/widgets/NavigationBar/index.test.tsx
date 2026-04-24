@@ -113,3 +113,5 @@
 //     expect(screen.queryByText("홈")).not.toBeInTheDocument();
 //   });
 // });
+
+test("Naviagation Bar Test", () => {});
