@@ -1,10 +1,10 @@
-import AsyncBoundary from "@/components/common/AsyncBoundary";
-import { Icon } from "@/components/common/Icon";
-import { Spacing } from "@/components/common/Spacing";
-import { FavoriteGoalsSection } from "@/components/home/FavoriteGoalsSection";
-import ProgressSection from "@/components/home/ProgressSection";
-import TodoOverviewSection from "@/components/home/TodoOverviewSection";
-import WelcomeBanner from "@/components/home/WelcomeBanner";
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
+import { Icon } from "@/shared/ui/Icon";
+import { Spacing } from "@/shared/ui/Spacing";
+import { FavoriteGoalsSection } from "@/widgets/home/FavoriteGoalsSection";
+import ProgressSection from "@/widgets/home/ProgressSection";
+import TodoOverviewSection from "@/widgets/home/TodoOverviewSection";
+import WelcomeBanner from "@/widgets/home/WelcomeBanner";
 
 export default function TaskmatePage() {
   return (

@@ -3,17 +3,17 @@
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
-import Button from "@/components/common/Button/Button";
-import Input from "@/components/common/Input";
-import { Modal } from "@/components/common/Modal";
-import { Spacing } from "@/components/common/Spacing";
-import { AssigneeSelect } from "@/components/todo/AssigneeSelect";
-import { userQueries } from "@/constants/queryKeys";
+import { userQueries } from "@/entities/auth/query/user.queryKey";
+import { goalQueries } from "@/entities/goal/query/goal.queryKey";
+import { teamQueries } from "@/entities/team/query/team.queryKey";
+import { Member } from "@/entities/team/types/types";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { goalQueries } from "@/features/goal/query/goal.queryKey";
-import { teamQueries } from "@/features/team/query/team.queryKey";
-import { Member } from "@/features/team/types";
-import { useOverlay } from "@/hooks/useOverlay";
+import { useOverlay } from "@/shared/hooks/useOverlay";
+import Button from "@/shared/ui/Button/Button/Button";
+import Input from "@/shared/ui/Input";
+import { Modal } from "@/shared/ui/Modal";
+import { Spacing } from "@/shared/ui/Spacing";
+import { AssigneeSelect } from "@/widgets/todo/AssigneeSelect";
 
 import { useCreateTodoForm } from "./useCreateTodoForm";
 

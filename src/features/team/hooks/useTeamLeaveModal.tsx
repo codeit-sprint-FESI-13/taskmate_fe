@@ -1,12 +1,11 @@
 "use client";
 
-import Button from "@/components/common/Button/Button";
-import { Modal } from "@/components/common/Modal";
-import { useOverlay } from "@/hooks/useOverlay";
-import { useToast } from "@/hooks/useToast";
-import { ApiError } from "@/lib/api/types";
-
-import { teamApi } from "../api";
+import { teamApi } from "@/entities/team/api/api";
+import { useOverlay } from "@/shared/hooks/useOverlay";
+import { useToast } from "@/shared/hooks/useToast";
+import { ApiError } from "@/shared/lib/api/types";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Modal } from "@/shared/ui/Modal";
 
 const LEAVE_TEAM_MODAL_ID = "leave-team-confirm-modal";
 

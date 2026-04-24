@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import { deleteTokenCookies, setTokenCookies } from "@/lib/auth/cookies";
+import { deleteTokenCookies, setTokenCookies } from "@/shared/lib/auth/cookies";
 
 async function refreshAndRetry({
   refreshToken,

@@ -7,14 +7,14 @@ import {
 } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 
-import Button from "@/components/common/Button/Button";
-import { Spacing } from "@/components/common/Spacing";
-import { teamInvitationApi } from "@/features/team/invitation.api";
-import type { TeamInvitationDetail } from "@/features/team/invitation.types";
+import { teamInvitationApi } from "@/entities/team/api/invitation.api";
 import {
   invitationQueries,
   invitationQueryKey,
-} from "@/features/team/query/invitation.queryKey";
+} from "@/entities/team/query/invitation.queryKey";
+import type { TeamInvitationDetail } from "@/entities/team/types/invitation.types";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Spacing } from "@/shared/ui/Spacing";
 
 function errorMessage(err: unknown, fallback: string) {
   if (err && typeof err === "object" && "message" in err) {

@@ -1,11 +1,10 @@
 "use client";
 
-import Button from "@/components/common/Button/Button";
-import { Modal } from "@/components/common/Modal";
+import { todoApi } from "@/entities/todo/api/api";
 import { useGoalId } from "@/features/goal/hooks/useGoalId";
-import { useOverlay } from "@/hooks/useOverlay";
-
-import { todoApi } from "../api";
+import { useOverlay } from "@/shared/hooks/useOverlay";
+import Button from "@/shared/ui/Button/Button/Button";
+import { Modal } from "@/shared/ui/Modal";
 
 const TODO_DELETE_MODAL_ID = "todo-delete-confirm-modal";
 

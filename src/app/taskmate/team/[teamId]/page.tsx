@@ -1,9 +1,9 @@
 "use client";
 
-import AsyncBoundary from "@/components/common/AsyncBoundary";
-import { GoalList } from "@/components/team/GoalList";
-import { MemberList } from "@/components/team/MemberList";
-import { Summary } from "@/components/team/Summary";
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
+import { GoalList } from "@/widgets/team/GoalList";
+import { MemberList } from "@/widgets/team/MemberList";
+import { Summary } from "@/widgets/team/Summary";
 
 export default function Page() {
   return (

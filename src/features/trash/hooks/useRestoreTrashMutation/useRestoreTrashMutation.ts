@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { restoreTrash } from "@/features/trash/api/trash.api";
 import { TrashActionParam } from "@/features/trash/types/trash.types";
-import { useToast } from "@/hooks/useToast";
-import { ApiError } from "@/lib/api/types";
+import { useToast } from "@/shared/hooks/useToast";
+import { ApiError } from "@/shared/lib/api/types";
 
 export const useRestoreTrashMutation = () => {
   const queryClient = useQueryClient();

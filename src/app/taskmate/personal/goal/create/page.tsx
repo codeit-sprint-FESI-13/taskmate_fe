@@ -1,5 +1,5 @@
-import { Spacing } from "@/components/common/Spacing";
-import { PersonalCreateForm } from "@/components/goal/CreateForm/PersonalCreateForm";
+import { Spacing } from "@/shared/ui/Spacing";
+import { PersonalCreateForm } from "@/widgets/goal/CreateForm/PersonalCreateForm";
 
 export default function Page() {
   return (

@@ -2,15 +2,23 @@ import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import localFont from "next/font/local";
 
-import ToastProvider from "@/components/common/Toast";
-import Overlay from "@/hooks/useOverlay/Overlay";
-import { pretendard } from "@/lib/fonts";
-import { initMocks } from "@/mocks";
-import MSWInitializer from "@/mocks/MSWInitializer";
-import { ReactQueryClientProvider } from "@/providers/ReactQueryProvider";
+import { ReactQueryClientProvider } from "@/shared/providers/ReactQueryProvider";
+import ToastProvider from "@/shared/providers/ToastProvider";
+import Overlay from "@/shared/ui/Overlay/Overlay";
+
+import { initMocks } from "../shared/mock";
+import MSWInitializer from "../shared/mock/MSWInitializer";
 
 initMocks();
+
+const pretendard = localFont({
+  src: "../shared/assets/fonts/PretendardVariable.woff2",
+  display: "swap",
+  weight: "45 920",
+  variable: "--font-pretendard",
+});
 
 export default function RootLayout({
   children,

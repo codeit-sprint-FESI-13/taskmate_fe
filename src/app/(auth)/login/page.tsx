@@ -1,7 +1,7 @@
 import React from "react";
 
-import LoginForm from "@/components/auth/Login/LoginForm";
-import SnsLoginButtons from "@/components/auth/SnsLoginButtons";
+import LoginForm from "@/widgets/auth/Login/LoginForm";
+import SnsLoginButtons from "@/widgets/auth/SnsLoginButtons";
 
 const LoginPage = () => {
   return (
