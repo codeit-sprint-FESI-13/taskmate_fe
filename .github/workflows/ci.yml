@@ -34,8 +34,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 테스트 실행하기
-        run: pnpm run test
-        
+        run: pnpm run test --coverage
+
       - name: 빌드 실행하기
         run: pnpm run build
 
