@@ -116,7 +116,7 @@ const mockTodos = [
 ];
 
 export const todosHandlers = [
-  apiMock.get("*/api/goals/:goalId/todos", ({ params, request }) => {
+  apiMock.get("*/api/goals/:goalId/todos/paged", ({ params, request }) => {
     const goalId = Number(params.goalId);
     const resolvedGoalId = Number.isNaN(goalId) ? 1 : goalId;
     const url = new URL(request.url);

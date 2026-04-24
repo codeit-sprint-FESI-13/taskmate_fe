@@ -40,19 +40,28 @@ export const todoApi = {
     apiClient.post<ApiResponse<null>>(`/api/goals/${goalId}/todos`, todoData),
 
   getTodoList: (goalId: string, params: TodoListQueryParams) =>
-    apiClient.get<ApiResponse<TodoListResponse>>(`/api/goals/${goalId}/todos`, {
-      params: { status: "TODO", ...todoListSearchParams(params) },
-    }),
+    apiClient.get<ApiResponse<TodoListResponse>>(
+      `/api/goals/${goalId}/todos/paged`,
+      {
+        params: { status: "TODO", ...todoListSearchParams(params) },
+      },
+    ),
 
   getDoingList: (goalId: string, params: TodoListQueryParams) =>
-    apiClient.get<ApiResponse<TodoListResponse>>(`/api/goals/${goalId}/todos`, {
-      params: { status: "DOING", ...todoListSearchParams(params) },
-    }),
+    apiClient.get<ApiResponse<TodoListResponse>>(
+      `/api/goals/${goalId}/todos/paged`,
+      {
+        params: { status: "DOING", ...todoListSearchParams(params) },
+      },
+    ),
 
   getDoneList: (goalId: string, params: TodoListQueryParams) =>
-    apiClient.get<ApiResponse<TodoListResponse>>(`/api/goals/${goalId}/todos`, {
-      params: { status: "DONE", ...todoListSearchParams(params) },
-    }),
+    apiClient.get<ApiResponse<TodoListResponse>>(
+      `/api/goals/${goalId}/todos/paged`,
+      {
+        params: { status: "DONE", ...todoListSearchParams(params) },
+      },
+    ),
 
   patch: (goalId: string, todoId: string, todoData: UpdateTodoRequest) =>
     apiClient.patch<ApiResponse<null>>(
