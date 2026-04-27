@@ -38,24 +38,21 @@ const ListComponent = ({
 
       <Spacing size={20} />
 
-      {footer != null ? (
-        <div
-          style={{ height }}
-          className="flex w-full flex-col overflow-hidden rounded-4xl bg-white px-5 py-8"
-        >
-          <ul className="relative min-h-0 flex-1 overflow-y-auto">
-            {children}
-          </ul>
-          <div className="shrink-0 px-5 pb-8">{footer}</div>
-        </div>
-      ) : (
-        <div
-          style={{ height }}
-          className="flex w-full flex-col overflow-hidden rounded-4xl bg-white px-5 py-8"
-        >
+      <div
+        style={{ height }}
+        className="flex w-full flex-col overflow-hidden rounded-4xl bg-white px-5 py-8"
+      >
+        {footer != null ? (
+          <>
+            <ul className="relative min-h-0 flex-1 overflow-y-auto">
+              {children}
+            </ul>
+            <div className="shrink-0 px-5 pb-8">{footer}</div>
+          </>
+        ) : (
           <ul className="relative w-full overflow-y-scroll">{children}</ul>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

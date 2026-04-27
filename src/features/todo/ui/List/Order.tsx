@@ -29,7 +29,7 @@ export const Order = ({ options, selected, onSelect }: OrderProps) => {
         onClick={toggle}
       >
         <span className="typography-body-2 font-semibold text-gray-500">
-          {selectedSort || "최신순"}
+          {selectedSort}
         </span>
         <Icon
           name={isOpen ? "UpFilledArrow" : "DownFilledArrow"}
