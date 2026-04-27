@@ -1,5 +1,3 @@
-"use client";
-
 import Spinner from "@/shared/ui/Spinner";
 
 import { Wrapper } from "./Wrapper";
