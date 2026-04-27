@@ -30,18 +30,37 @@ arguments: [path]
 
 경로에서 레이어를 확인하고 `docs/testing-guide.md`의 기준으로 도구를 결정한다.
 
-| 경로 패턴                             | 도구                             |
-| ------------------------------------- | -------------------------------- |
-| `shared/lib`, `shared/utils`          | Jest + RTL (필수)                |
-| `shared/hooks`, `shared/store`        | Jest + RTL (`renderHook`)        |
-| `shared/ui`                           | Jest + RTL + Storybook play 검토 |
-| `entities/model`                      | Jest + RTL                       |
-| `entities/api`                        | Jest + RTL (apiClient 모킹)      |
-| `entities/query`                      | **테스트 작성 금지**             |
-| `features/mutation`, `features/hooks` | Jest + RTL (MSW 모킹)            |
-| `widgets/`                            | Jest + RTL (핵심 인터랙션만)     |
+**도구 선택 전 판단 기준 (Jest + RTL):**
 
-Chromatic은 CI 설정이므로 코드로 작성하지 않는다. 해당 컴포넌트라면 주석으로 언급만 한다.
+다음 중 하나라도 해당되면 Jest + RTL 테스트를 작성한다.
+
+- 버그가 생기면 치명적인가?
+- 이 코드가 바뀔 가능성이 높은가?
+- 로직이 복잡한가?
+
+**도구 선택 전 판단 기준 (Story 정의):**
+
+다음 중 하나라도 해당되면 Story를 작성한다.
+
+- 다른 UI에서 재사용될 가능성이 있는가?
+- props나 상태 변경에 따른 UI 변화가 있는가?
+
+**레이어별 도구 선택표:**
+
+| 경로 패턴                             | Jest + RTL            | Storybook Chromatic | Storybook play() |
+| ------------------------------------- | --------------------- | ------------------- | ---------------- |
+| `shared/lib`, `shared/utils`          | 반드시                | —                   | —                |
+| `shared/hooks`, `shared/store`        | 반드시 (`renderHook`) | —                   | —                |
+| `shared/ui`                           | 내부 로직이 있을 때만 | 항상                | 검토             |
+| `entities/model`, `entities/api`      | 반드시                | —                   | —                |
+| `entities/ui`                         | 검토                  | 항상                | 항상             |
+| `entities/query`                      | **작성 금지**         | —                   | —                |
+| `features/ui`                         | 반드시                | 검토                | 검토             |
+| `features/mutation`, `features/hooks` | 반드시 (MSW 모킹)     | —                   | —                |
+| `widgets/`                            | 핵심 인터랙션만       | 검토                | 검토             |
+
+> `entities/query` — React Query 훅처럼 외부 라이브러리에 의존하는 레이어는 테스트 작성 금지.  
+> Chromatic은 CI 설정이므로 코드로 작성하지 않는다. 해당 레이어라면 주석으로 언급만 한다.
 
 ### 3단계 — 테스트 작성
 
@@ -130,4 +149,4 @@ pnpm test -- {작성한 테스트 파일 경로}
 - 작성한 파일 목록
 - 파일별 커버한 시나리오 요약
 - 의도적으로 제외한 케이스가 있으면 이유 명시
-- Storybook play가 추가로 필요하다 판단되면 언급
+- Storybook play / Chromatic이 추가로 필요하다 판단되면 언급
