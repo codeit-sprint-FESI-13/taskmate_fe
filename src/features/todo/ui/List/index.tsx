@@ -50,7 +50,7 @@ const ListComponent = ({
             <div className="shrink-0 px-5 pb-8">{footer}</div>
           </>
         ) : (
-          <ul className="relative w-full overflow-y-scroll">{children}</ul>
+          <ul className="relative w-full overflow-y-auto">{children}</ul>
         )}
       </div>
     </div>

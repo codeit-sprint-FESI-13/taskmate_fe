@@ -57,7 +57,7 @@ export const TodoStatusSelect = ({ todo }: TodoStatusSelectProps) => {
 
   const { mutate: patchTodoStatus, isPending } = usePatchTodoStatusMutation();
 
-  const currentStatus = (selected || todo.status) as TodoStatus;
+  const currentStatus = selected as TodoStatus;
 
   const handleSelect = (value: string) => {
     if (isPending) return;
