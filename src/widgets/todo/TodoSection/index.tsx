@@ -15,31 +15,6 @@ import { Error as ListError } from "./state/Error";
 import { Loading } from "./state/Loading";
 import { TodoColumnList } from "./TodoColumnList";
 
-type TodoColumnSectionProps = {
-  className?: string;
-  children: React.ReactNode;
-};
-
-function TodoColumnSection({ className, children }: TodoColumnSectionProps) {
-  return (
-    <section className={cn("flex min-h-0 w-full flex-col", className)}>
-      <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
-        <AsyncBoundary
-          loadingFallback={<Loading />}
-          errorFallback={(error, onReset) => (
-            <ListError
-              error={error}
-              onReset={onReset}
-            />
-          )}
-        >
-          {children}
-        </AsyncBoundary>
-      </div>
-    </section>
-  );
-}
-
 export const TodoSection = () => {
   const goalId = useGoalId();
   const breakpoint = useBreakpoint();
@@ -68,8 +43,8 @@ export const TodoSection = () => {
           />
         </div>
 
-        <div className="tablet:w-auto flex w-full shrink-0 items-center justify-between justify-end gap-[10px]">
-          <span className="text-label-1 tablet:typography-body-1 min-w-0 pr-2 text-left font-semibold text-blue-800">
+        <div className="tablet:w-auto tablet:justify-end flex w-full shrink-0 items-center justify-between gap-2.5">
+          <span className="typography-label-1 tablet:typography-body-1 min-w-0 pr-2 text-left font-semibold text-blue-800">
             내 할일만 보기
           </span>
 
@@ -107,3 +82,28 @@ export const TodoSection = () => {
     </div>
   );
 };
+
+type TodoColumnSectionProps = {
+  className?: string;
+  children: React.ReactNode;
+};
+
+function TodoColumnSection({ className, children }: TodoColumnSectionProps) {
+  return (
+    <section className={cn("flex min-h-0 w-full flex-col", className)}>
+      <div className="flex h-full min-h-0 min-w-0 flex-1 flex-col">
+        <AsyncBoundary
+          loadingFallback={<Loading />}
+          errorFallback={(error, onReset) => (
+            <ListError
+              error={error}
+              onReset={onReset}
+            />
+          )}
+        >
+          {children}
+        </AsyncBoundary>
+      </div>
+    </section>
+  );
+}

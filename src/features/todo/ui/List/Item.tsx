@@ -22,7 +22,7 @@ export const Item = ({ todo }: ItemProps) => {
 
   return (
     <li
-      className="flex w-full items-center justify-between px-3 py-[10px]"
+      className="flex w-full items-center justify-between px-3 py-2.5"
       onClick={openTodoDetailModal}
     >
       <div className="flex min-w-0 flex-1 items-center justify-start gap-2">

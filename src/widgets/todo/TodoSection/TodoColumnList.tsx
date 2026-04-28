@@ -102,11 +102,21 @@ export function TodoColumnList({
           todo={todo}
         />
       ))}
-      <div
-        ref={ref}
-        className="h-1 w-full"
-      />
-      {!config.showCreateButton && <Spacing size={24} />}
+      <li
+        className="h-1 w-full list-none"
+        aria-hidden
+      >
+        <div
+          ref={ref}
+          className="h-full w-full"
+        />
+      </li>
+      {!config.showCreateButton && (
+        <li
+          className="h-6 list-none"
+          aria-hidden
+        />
+      )}
     </TodoListUi.List>
   );
 }

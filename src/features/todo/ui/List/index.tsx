@@ -1,10 +1,11 @@
 "use client";
 
+import { Order } from "@/shared/ui/Order";
 import { Spacing } from "@/shared/ui/Spacing";
+import { cn } from "@/shared/utils/styles/cn";
 
 import { CreateButton } from "./CreateButton";
 import { Item } from "./Item";
-import { Order } from "./Order";
 
 interface ListProps {
   name: string;
@@ -38,24 +39,20 @@ const ListComponent = ({
 
       <Spacing size={20} />
 
-      {footer != null ? (
-        <div
-          style={{ height }}
-          className="flex w-full flex-col overflow-hidden rounded-4xl bg-white px-5 py-8"
+      <div
+        style={{ height }}
+        className="flex w-full flex-col overflow-hidden rounded-4xl bg-white px-5 py-8"
+      >
+        <ul
+          className={cn(
+            "relative overflow-y-auto",
+            footer != null ? "min-h-0 flex-1" : "w-full",
+          )}
         >
-          <ul className="relative min-h-0 flex-1 overflow-y-auto">
-            {children}
-          </ul>
-          <div className="shrink-0 px-5 pb-8">{footer}</div>
-        </div>
-      ) : (
-        <div
-          style={{ height }}
-          className="flex w-full flex-col overflow-hidden rounded-4xl bg-white px-5 py-8"
-        >
-          <ul className="relative w-full overflow-y-scroll">{children}</ul>
-        </div>
-      )}
+          {children}
+        </ul>
+        {footer != null && <div className="shrink-0 px-5 pb-8">{footer}</div>}
+      </div>
     </div>
   );
 };

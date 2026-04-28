@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/nextjs-vite";
+import path from "path";
 import svgr from "vite-plugin-svgr";
 
 const config: StorybookConfig = {
@@ -29,6 +30,13 @@ const config: StorybookConfig = {
         include: "**/*.svg",
       }),
     ];
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve?.alias,
+        "@": path.resolve(__dirname, "../src"),
+      },
+    };
     return config;
   },
   staticDirs: ["../public"],

@@ -31,6 +31,14 @@
 - 시각적으로 올바르게 보이는지
 - 반응형 레이아웃
 
+### 작성 판단 기준
+
+다음 중 하나라도 해당되면 Jest + RTL 테스트를 작성한다.
+
+- 버그가 생기면 치명적인가?
+- 이 코드가 바뀔 가능성이 높은가?
+- 로직이 복잡한가?
+
 ### 예시
 
 ```tsx
@@ -52,42 +60,41 @@ test("이메일 형식이 틀리면 에러 메시지가 표시된다", async () 
 });
 ```
 
-### FSD 기준 작성 대상
-
-```
-shared/lib      → 반드시 (순수 함수, 유틸)
-shared/api      → 반드시 (MSW + RTL)
-entities/model  → 반드시 (상태 로직, 셀렉터)
-features/       → 반드시 (비즈니스 로직 핵심)
-widgets/        → 핵심 인터랙션만
-shared/ui       → 내부 로직이 있을 때만
-pages/          → 통합 테스트로 대체
-```
-
 ---
 
-## 2. Storybook play()
+## 2. Storybook
 
-### 무엇인가
+### Story 정의 기준
+
+다음 중 하나라도 해당되면 Story를 작성한다.
+
+- 다른 UI에서 재사용될 가능성이 있는가?
+- props나 상태 변경에 따른 UI 변화가 있는가?
+
+### Storybook play()
+
+#### 무엇인가
 
 Story 안에 `play` 함수를 작성하면 **브라우저에서 인터랙션을 자동으로 실행**하고 결과를 검증할 수 있다.  
 RTL과 거의 동일한 문법(`within`, `userEvent`, `expect`)을 사용하지만, 실제 브라우저에서 실행된다는 점이 다르다.
 
 `@storybook/addon-vitest` 를 사용하면 `play()` 함수가 Vitest 테스트로도 실행된다. 즉, **Story 하나가 문서이자 테스트**가 된다.
 
-### 왜 쓰는가
+#### 왜 쓰는가
 
 - 별도의 `.test.tsx` 없이 Story의 `play()` 만으로 인터랙션 검증 가능
 - 실행되는 과정을 Storybook UI에서 **눈으로 볼 수 있음**
 - CSS, 레이아웃, 실제 렌더링까지 반영됨 (RTL의 jsdom과 다른 점)
 
-### 무엇을 검증하는가
+#### 무엇을 검증하는가
+
+클릭, 포커스 등 인터랙션 후 UI가 바뀌는가
 
 - 버튼 클릭 후 UI가 바뀌는가
 - 폼 제출 후 에러 메시지가 표시되는가
 - 특정 상태에서 올바른 요소가 보이는가
 
-### 예시
+#### 예시
 
 ```tsx
 // LoginForm.stories.tsx
@@ -116,50 +123,32 @@ export const SubmitWithValidData: Story = {
 };
 ```
 
-### Jest + RTL과의 차이
+### Storybook Chromatic
 
-|                  | Jest + RTL | Storybook play()        |
-| ---------------- | ---------- | ----------------------- |
-| 실행 환경        | jsdom      | 실제 브라우저           |
-| CSS 반영         | 안됨       | 됨                      |
-| 속도             | 빠름       | 느림                    |
-| 시각 확인        | 불가       | 가능                    |
-| 별도 테스트 파일 | 필요       | 불필요 (Story가 테스트) |
-
-### FSD 기준 작성 대상
-
-```
-shared/ui      → 인터랙션이 있는 컴포넌트 (Modal, Dropdown 등)
-entities/ui    → 상태에 따른 UI 변화가 있는 것
-features/      → 폼 제출, 버튼 인터랙션 등
-```
-
----
-
-## 3. Storybook Chromatic
-
-### 무엇인가
+#### 무엇인가
 
 Storybook과 연동하는 **시각적 회귀 테스트(Visual Regression Test) 서비스**다.  
 각 Story의 스크린샷을 찍어 이전 버전과 픽셀 단위로 비교하고, 변경된 부분을 PR 코멘트로 알려준다.
 
-### 왜 쓰는가
+#### 왜 쓰는가
 
 CSS 한 줄을 수정했을 때 의도치 않게 다른 컴포넌트의 스타일이 바뀌는 것을 **배포 전에 감지**하기 위해 쓴다.  
 코드 리뷰만으로는 시각적 변경을 확인하기 어렵기 때문에, Chromatic이 자동으로 diff를 만들어 리뷰어가 로컬 실행 없이 확인할 수 있게 해준다.
 
-### 무엇을 검증하는가
+#### 무엇을 검증하는가
+
+시각적으로 올바르게 렌더링되는가
 
 - 컴포넌트의 시각적 상태가 이전과 동일한가
 - 의도치 않은 스타일 변경이 없는가
 - 반응형 레이아웃이 깨지지 않았는가
 
-### 할 수 없는 것
+#### 할 수 없는 것
 
 - 로직/동작 검증 (스크린샷 비교만 함)
 - 인터랙션 후 상태 검증 (정적 스냅샷)
 
-### 동작 방식
+#### 동작 방식
 
 ```
 PR 생성
@@ -176,7 +165,7 @@ GitHub Actions에서 Chromatic 실행
 리뷰어가 변경 승인 or 거부
 ```
 
-### CI 설정 예시
+#### CI 설정 예시
 
 ```yaml
 # .github/workflows/ci.yml
@@ -187,14 +176,15 @@ GitHub Actions에서 Chromatic 실행
     storybookBuildDir: storybook-static
 ```
 
-### FSD 기준 작성 대상
+### Jest + RTL과의 차이
 
-```
-shared/ui      → 반드시 (디자인 시스템의 핵심)
-entities/ui    → 반드시 (도메인 상태별 시각 검증)
-features/      → 복잡한 UI 상태가 있는 것만
-widgets/       → 레이아웃이 복잡한 것만
-```
+|                  | Jest + RTL | Storybook play()        |
+| ---------------- | ---------- | ----------------------- |
+| 실행 환경        | jsdom      | 실제 브라우저           |
+| CSS 반영         | 안됨       | 됨                      |
+| 속도             | 빠름       | 느림                    |
+| 시각 확인        | 불가       | 가능                    |
+| 별도 테스트 파일 | 필요       | 불필요 (Story가 테스트) |
 
 ---
 
@@ -229,6 +219,45 @@ widgets/       → 레이아웃이 복잡한 것만
 "로딩/에러/빈 상태를 디자이너에게 보여줘야 한다"
   → Storybook Story + Chromatic
 ```
+
+---
+
+## FSD 기준 테스트 작성 대상
+
+### shared
+
+| 레이어                  | Jest + RTL            | Storybook Chromatic | Storybook play() |
+| ----------------------- | --------------------- | ------------------- | ---------------- |
+| `shared/lib`, `utils`   | 반드시                | —                   | —                |
+| `shared/hooks`, `store` | 반드시                | —                   | —                |
+| `shared/ui`             | 내부 로직이 있을 때만 | 항상                | 검토             |
+
+### entities
+
+| 레이어                  | Jest + RTL | Storybook Chromatic | Storybook play() |
+| ----------------------- | ---------- | ------------------- | ---------------- |
+| `entities/model`, `api` | 반드시     | —                   | —                |
+| `entities/ui`           | 검토       | 항상                | 항상             |
+| `entities/query`        | 작성 금지  | —                   | —                |
+
+> `entities/query` — React Query 훅처럼 외부 라이브러리에 의존하는 레이어는 테스트 작성 금지. 라이브러리 자체를 테스트하는 것이 되기 때문.
+
+### features
+
+| 레이어                       | Jest + RTL | Storybook Chromatic | Storybook play() |
+| ---------------------------- | ---------- | ------------------- | ---------------- |
+| `features/ui`                | 반드시     | 검토                | 검토             |
+| `features/mutation`, `hooks` | 반드시     | —                   | —                |
+
+### widgets
+
+| 레이어    | Jest + RTL      | Storybook Chromatic | Storybook play() |
+| --------- | --------------- | ------------------- | ---------------- |
+| `widgets` | 핵심 인터랙션만 | 검토                | 검토             |
+
+### pages
+
+통합 테스트로 대체한다.
 
 ---
 
