@@ -16,15 +16,24 @@ const mockOnKeywordChange = jest.fn();
 jest.mock("@/shared/hooks/useDebouncedKeyword", () => ({
   useDebouncedKeyword: () => ({
     keywordInput: "",
-    keyword: "",
+    keyword: "검색어",
     onKeywordChange: mockOnKeywordChange,
   }),
 }));
 
+type CapturedProps = {
+  status: string;
+  goalId: string;
+  keyword: string;
+  isMyTodo: boolean;
+};
+const capturedProps: CapturedProps[] = [];
+
 jest.mock("./TodoColumnList", () => ({
-  TodoColumnList: ({ status }: { status: string }) => (
-    <div data-testid={`todo-column-${status}`} />
-  ),
+  TodoColumnList: (props: CapturedProps) => {
+    capturedProps.push(props);
+    return <div data-testid={`todo-column-${props.status}`} />;
+  },
 }));
 
 jest.mock("@/shared/ui/AsyncBoundary", () => ({
@@ -35,6 +44,10 @@ jest.mock("@/shared/ui/AsyncBoundary", () => ({
 jest.mock("@/shared/ui/Icon", () => ({
   Icon: ({ name }: { name: string }) => <span data-testid={`icon-${name}`} />,
 }));
+
+beforeEach(() => {
+  capturedProps.length = 0;
+});
 
 describe("TodoSection", () => {
   describe("초기 렌더링", () => {
@@ -87,6 +100,40 @@ describe("TodoSection", () => {
         screen.getByPlaceholderText("할 일을 이름으로 검색해보세요.");
       await userEvent.type(input, "테스트");
       expect(mockOnKeywordChange).toHaveBeenCalled();
+    });
+  });
+
+  describe("TodoColumnList 로 props 전파", () => {
+    test("세 컬럼 모두 useGoalId에서 반환된 goalId를 전달받는다", () => {
+      render(<TodoSection />);
+      const columns = capturedProps.filter((p) =>
+        ["TODO", "DOING", "DONE"].includes(p.status),
+      );
+      expect(columns).toHaveLength(3);
+      columns.forEach((p) => expect(p.goalId).toBe("1"));
+    });
+
+    test("세 컬럼 모두 useDebouncedKeyword에서 반환된 keyword를 전달받는다", () => {
+      render(<TodoSection />);
+      capturedProps
+        .filter((p) => ["TODO", "DOING", "DONE"].includes(p.status))
+        .forEach((p) => expect(p.keyword).toBe("검색어"));
+    });
+
+    test("초기에 세 컬럼 모두 isMyTodo=false를 전달받는다", () => {
+      render(<TodoSection />);
+      capturedProps
+        .filter((p) => ["TODO", "DOING", "DONE"].includes(p.status))
+        .forEach((p) => expect(p.isMyTodo).toBe(false));
+    });
+
+    test("토글 클릭 후 세 컬럼 모두 isMyTodo=true를 전달받는다", async () => {
+      render(<TodoSection />);
+      await userEvent.click(screen.getByRole("button"));
+      const latest = ["TODO", "DOING", "DONE"].map(
+        (status) => capturedProps.filter((p) => p.status === status).at(-1)!,
+      );
+      latest.forEach((p) => expect(p.isMyTodo).toBe(true));
     });
   });
 });
