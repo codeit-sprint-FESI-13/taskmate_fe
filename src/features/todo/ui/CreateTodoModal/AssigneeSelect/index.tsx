@@ -25,10 +25,7 @@ export function AssigneeSelect({
     members.map((member) => String(member.userId)),
   );
 
-  const selectedMembers = () => {
-    const byId = new Map(members.map((member) => [member.userId, member]));
-    return value.map((id) => byId.get(id)).filter(Boolean) as Member[];
-  };
+  const selectedMembers = members.filter((m) => value.includes(m.userId));
 
   const toggleMember = (id: number) => {
     if (value.includes(id)) {
@@ -50,17 +47,17 @@ export function AssigneeSelect({
   return (
     <div
       ref={containerRef}
-      className={"relative w-full"}
+      className="relative w-full"
     >
       <div
         onClick={toggle}
         className="text-label-normal flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-xl border border-gray-300 bg-white py-3 pr-3 pl-4 text-sm leading-5 font-medium"
       >
         <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">
-          {selectedMembers().length === 0 ? (
+          {selectedMembers.length === 0 ? (
             <span className="text-label-alternative">{placeholder}</span>
           ) : (
-            selectedMembers().map((member) => (
+            selectedMembers.map((member) => (
               <span
                 key={member.userId}
                 className="flex items-center gap-1"

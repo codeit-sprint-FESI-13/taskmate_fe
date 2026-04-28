@@ -3,7 +3,7 @@ import type { StoryObj } from "@storybook/nextjs-vite";
 import { Order } from "./Order";
 
 const meta = {
-  title: "features/todo/List/Order",
+  title: "shared/ui/Order",
   component: Order,
   tags: ["autodocs"],
   args: {

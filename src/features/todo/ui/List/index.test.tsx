@@ -7,7 +7,7 @@ jest.mock("@/shared/ui/Spacing", () => ({
   Spacing: () => null,
 }));
 
-jest.mock("./Order", () => ({
+jest.mock("@/shared/ui/Order", () => ({
   Order: ({
     selected,
     onSelect,
