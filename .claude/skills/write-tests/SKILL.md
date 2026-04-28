@@ -268,6 +268,9 @@ pnpm test -- {작성한 테스트 파일 경로}
 - 파일별 커버한 시나리오 요약
 - 의도적으로 제외한 케이스가 있으면 이유 명시
   <<<<<<< HEAD
+  <<<<<<< HEAD
   =======
 - Storybook play / Chromatic이 추가로 필요하다 판단되면 언급
-  > > > > > > > 626bc7b (docs(#245): test 기준 수정)
+  > > > > > > > # 626bc7b (docs(#245): test 기준 수정)
+  > > > > > > >
+  > > > > > > > 7bebb57 (test(#245): features/todo/ui/List 내부 story 및 test 작성)
