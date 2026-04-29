@@ -1,6 +1,9 @@
 import type { StorybookConfig } from "@storybook/nextjs-vite";
 import path from "path";
+import { fileURLToPath } from "url";
 import svgr from "vite-plugin-svgr";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: [
