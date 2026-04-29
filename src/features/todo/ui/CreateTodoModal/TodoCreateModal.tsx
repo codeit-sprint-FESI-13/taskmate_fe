@@ -20,8 +20,6 @@ interface TodoCreateModalProps {
   initialAssigneeIds: number[];
 }
 
-// @TODO: 할일 생성 실패 시, 처리 빠짐
-// @TODO: 멤버 리스트 가져와서 처리하기 ( 효진님 작업 이후 )
 export function TodoCreateModal({
   onClose,
   goalName,
