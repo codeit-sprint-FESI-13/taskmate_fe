@@ -4,8 +4,8 @@ import { useSuspenseQueries } from "@tanstack/react-query";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
 import { goalQueryOptions } from "@/entities/goal";
-import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
+import { useGoalId } from "@/shared/hooks/useGoalId";
 import { CircularProgress } from "@/shared/ui/CircularProgress";
 import { cn } from "@/shared/utils/styles/cn";
 

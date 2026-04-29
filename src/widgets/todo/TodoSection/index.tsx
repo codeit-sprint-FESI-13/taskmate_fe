@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
-import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useBreakpoint } from "@/shared/hooks/useBreakpoint";
 import { useDebouncedKeyword } from "@/shared/hooks/useDebouncedKeyword";
+import { useGoalId } from "@/shared/hooks/useGoalId";
 import AsyncBoundary from "@/shared/ui/AsyncBoundary";
 import { Icon } from "@/shared/ui/Icon";
 import Input from "@/shared/ui/Input";
