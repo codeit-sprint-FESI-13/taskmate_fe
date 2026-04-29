@@ -7,9 +7,9 @@ import {
   TODO_COLUMN_DEFAULT_SORT_LABEL,
   TODO_COLUMN_SORT_LABEL_ORDER,
   TODO_LIST_SORT_BY_LABEL,
+  TodoList as TodoListUi,
   type TodoListSortLabel,
-} from "@/features/todo/constants/todoColumnSort";
-import { TodoList as TodoListUi } from "@/features/todo/ui/List";
+} from "@/features/todo";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll";
 import { Spacing } from "@/shared/ui/Spacing";
 

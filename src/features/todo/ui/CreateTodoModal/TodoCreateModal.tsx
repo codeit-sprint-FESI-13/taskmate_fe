@@ -1,8 +1,8 @@
 "use client";
 
 import type { Member } from "@/entities/team";
-import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useCreateTodoForm } from "@/features/todo/hooks/useCreateTodoForm";
+import { useGoalId } from "@/shared/hooks/useGoalId";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input";
 import { Modal } from "@/shared/ui/Modal";

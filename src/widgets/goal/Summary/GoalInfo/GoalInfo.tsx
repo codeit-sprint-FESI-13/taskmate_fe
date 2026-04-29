@@ -5,8 +5,8 @@ import { useState } from "react";
 
 import { goalQueryOptions } from "@/entities/goal";
 import { useGoalActions } from "@/features/goal/hooks/useGoalActions";
-import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useOptionalTeamId } from "@/features/team/hooks/useOptionalTeamId";
+import { useGoalId } from "@/shared/hooks/useGoalId";
 import { Icon } from "@/shared/ui/Icon";
 import { cn } from "@/shared/utils/styles/cn";
 
