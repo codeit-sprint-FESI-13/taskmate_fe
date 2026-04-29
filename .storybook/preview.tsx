@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense } from "react";
 
 import { worker } from "@/shared/mock/browser";
+import ToastProvider from "@/shared/providers/ToastProvider";
 
 const preview: Preview = {
   beforeAll: async () => {
@@ -17,9 +18,11 @@ const preview: Preview = {
       });
       return (
         <QueryClientProvider client={queryClient}>
-          <Suspense fallback={null}>
-            <Story />
-          </Suspense>
+          <ToastProvider>
+            <Suspense fallback={null}>
+              <Story />
+            </Suspense>
+          </ToastProvider>
         </QueryClientProvider>
       );
     },
