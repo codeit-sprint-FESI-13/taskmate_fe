@@ -5,7 +5,7 @@ import {
   NotificationReadAllSuccessResponse,
   NotificationReadSuccessResponse,
   NotificationSSETokenSuccessResponse,
-} from "./types";
+} from "../types/notification.types";
 
 type GetParams = {
   cursorId?: number;

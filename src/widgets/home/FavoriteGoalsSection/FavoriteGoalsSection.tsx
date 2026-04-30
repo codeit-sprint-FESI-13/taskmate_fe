@@ -8,7 +8,7 @@ import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteS
 import Button from "@/shared/ui/Button/Button/Button";
 import { Icon } from "@/shared/ui/Icon";
 import { Spacing } from "@/shared/ui/Spacing";
-import { FavoriteGoalsItem } from "@/widgets/home/FavoriteGoalsItem";
+import { FavoriteGoalsItem } from "@/widgets/home/FavoriteGoalsSection/FavoriteGoalsItem";
 import { mainInfiniteQueries } from "@/widgets/home/query/mainInfiniteQueries";
 
 export function FavoriteGoalsSection() {

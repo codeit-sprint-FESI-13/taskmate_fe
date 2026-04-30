@@ -1,5 +1,5 @@
-import { NotificationApi } from "../api";
-import { createPaginationOptions } from "../utils";
+import { NotificationApi } from "@/entities/notification";
+import { createPaginationOptions } from "@/shared/utils/createPaginationOptions";
 
 export const notificationInfiniteQueries = {
   notificationsInfinite: () =>

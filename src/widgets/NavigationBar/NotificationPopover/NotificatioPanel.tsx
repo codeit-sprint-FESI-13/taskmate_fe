@@ -1,13 +1,13 @@
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 
-import { NotificationApi } from "@/features/notification/api";
-import { notificationInfiniteQueries } from "@/features/notification/query/notificationInfiniteQueries";
+import { NotificationApi } from "@/entities/notification";
 import {
   buildNotificationUrl,
   formatNotificationType,
   formatRelativeTime,
-} from "@/features/notification/utils";
+  notificationInfiniteQueries,
+} from "@/features/notification";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 

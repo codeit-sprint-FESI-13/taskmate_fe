@@ -1,6 +1,6 @@
 import { goalQueryOptions } from "@/entities/goal";
 import { todoApi } from "@/entities/todo";
-import { createPaginationOptions } from "@/features/notification/utils";
+import { createPaginationOptions } from "@/shared/utils/createPaginationOptions";
 
 export const mainInfiniteQueries = {
   favoriteGoalsInfinite: () => goalQueryOptions.getFavoriteGoalListInfinite(),
