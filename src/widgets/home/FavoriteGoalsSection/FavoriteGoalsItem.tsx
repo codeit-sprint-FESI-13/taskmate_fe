@@ -1,6 +1,6 @@
 "use client";
 
-import { GoalProgressCard } from "@/widgets/team/GoalProgressCard";
+import { GoalProgressCard } from "@/widgets/team/GoalProgressCard/GoalProgressCard";
 
 export interface FavoriteGoalsItemProps {
   teamId: number;
