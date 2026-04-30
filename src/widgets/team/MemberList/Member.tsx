@@ -1,15 +1,12 @@
 import Image from "next/image";
 
 import defaultAvatar from "@/shared/assets/images/avatar.png";
-// @TODO: Icon Convention 위반
-// import Crown from "@/components/common/Icons/Crown";
 import { cn } from "@/shared/utils/styles/cn";
 
 export type MemberProps = {
   avatar: string;
   nickName: string;
   email: string;
-  isAdmin?: boolean;
   isMe?: boolean;
   className?: string;
 };
@@ -18,7 +15,6 @@ export default function Member({
   avatar,
   nickName,
   email,
-  isAdmin = false,
   isMe = false,
   className,
 }: MemberProps) {
@@ -27,7 +23,7 @@ export default function Member({
   return (
     <div
       className={cn(
-        "flex w-full min-w-0 gap-2 rounded-2xl bg-white py-4 pr-5 pl-[14px]",
+        "flex w-full min-w-0 gap-2 rounded-2xl bg-white py-4 pr-5 pl-3.5",
         className,
       )}
     >
@@ -39,25 +35,17 @@ export default function Member({
           height={40}
           className="rounded-full object-cover"
         />
-        {/* {isAdmin && (
-          <span className="absolute -top-0.75 -right-0.75 h-4 w-4">
-            <Crown />
-          </span>
-        )} */}
       </div>
 
       <div className="flex min-w-0 flex-col">
         <div
-          className={cn(
-            "inline-flex min-w-0 items-center",
-            isMe && "gap-[4px]",
-          )}
+          className={cn("inline-flex min-w-0 items-center", isMe && "gap-1")}
         >
           <span className="typography-label-1 text-label-neutral truncate font-semibold">
             {nickName}
           </span>
           {isMe ? (
-            <span className="shrink-0 rounded-lg bg-gray-100 px-2.5 py-1 text-[12px] text-gray-400">
+            <span className="typography-caption-1 shrink-0 rounded-lg bg-gray-100 px-2.5 py-1 text-gray-400">
               나
             </span>
           ) : null}
