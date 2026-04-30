@@ -12,9 +12,9 @@ interface OrderProps {
 export const Order = ({ options, selected, onSelect }: OrderProps) => {
   const {
     isOpen,
-    selected: selectedSort,
+    selected: current,
     toggle,
-    selectItem,
+    close,
     containerRef,
   } = useDropdown(options, selected);
 
@@ -27,9 +27,10 @@ export const Order = ({ options, selected, onSelect }: OrderProps) => {
         type="button"
         className="flex shrink-0 cursor-pointer items-center gap-1"
         onClick={toggle}
+        aria-expanded={isOpen}
       >
         <span className="typography-body-2 font-semibold text-gray-500">
-          {selectedSort}
+          {current}
         </span>
         <Icon
           name={isOpen ? "UpFilledArrow" : "DownFilledArrow"}
@@ -46,9 +47,11 @@ export const Order = ({ options, selected, onSelect }: OrderProps) => {
           {options.map((option) => (
             <li
               key={option}
+              role="option"
+              aria-selected={option === current}
               className="group cursor-pointer rounded-xl px-3 py-2 text-center hover:bg-blue-800"
               onClick={() => {
-                selectItem(option);
+                close();
                 onSelect(option);
               }}
             >
