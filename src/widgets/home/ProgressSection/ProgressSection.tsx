@@ -8,6 +8,8 @@ import { CircularProgress } from "@/shared/ui/CircularProgress";
 import { Icon } from "@/shared/ui/Icon";
 import Slider from "@/widgets/home/Slider/Slider";
 
+// @TODO: Loading/Error 상태 처리 필요
+// @TODO: 데이터가 없을 때 처리 확인 필요
 export default function ProgressSection() {
   const { data: me } = useSuspenseQuery(userQueries.myInfo());
   const { data: progress } = useSuspenseQuery(dashboardQueryOptions.progress());
