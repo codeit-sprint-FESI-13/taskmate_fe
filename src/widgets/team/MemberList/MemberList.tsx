@@ -41,15 +41,18 @@ export default function MemberListComponent() {
         </div>
 
         {isMeAdmin && (
-          <TextButton onClick={openLeaveTeamModal}>
-            <span className="typography-body-2 flex shrink-0 items-center justify-center gap-[5px] font-semibold">
+          <TextButton
+            size="lg"
+            leftIcon={
               <Icon
                 name="Out"
                 size={16}
                 className="text-gray-500"
               />
-              팀 나가기
-            </span>
+            }
+            onClick={openLeaveTeamModal}
+          >
+            팀 나가기
           </TextButton>
         )}
       </div>
@@ -61,7 +64,6 @@ export default function MemberListComponent() {
             avatar={member.profileImageUrl ?? ""}
             nickName={member.userNickname}
             email={member.userEmail}
-            isAdmin={member.role === "ADMIN"}
             isMe={member.userId === me.id}
           />
         ))}
