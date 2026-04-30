@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { teamDetailApi } from "@/entities/team/api/management.api";
+import { teamDetailApi } from "@/entities/team";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import AsyncBoundary from "@/shared/ui/AsyncBoundary";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";

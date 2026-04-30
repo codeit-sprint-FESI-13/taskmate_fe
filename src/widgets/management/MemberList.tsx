@@ -6,8 +6,8 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
+import type { MemberRole } from "@/entities/team";
 import { managementQueryOptions } from "@/entities/team";
-import { MemberRole } from "@/entities/team/types/management.types";
 import {
   useDeleteMemberMutation,
   useUpdateMemberRoleMutation,
