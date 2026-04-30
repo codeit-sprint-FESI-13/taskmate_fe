@@ -14,8 +14,8 @@ jest.mock("@/shared/hooks/useInfiniteScroll", () => ({
   useInfiniteScroll: jest.fn(),
 }));
 
-jest.mock("@/widgets/team/MainSecondaryProgressCard", () => ({
-  MainSecondaryProgressCard: ({ title }: { title: string }) => (
+jest.mock("@/widgets/team/GoalProgressCard", () => ({
+  GoalProgressCard: ({ title }: { title: string }) => (
     <div data-testid="goal-card">{title}</div>
   ),
 }));
