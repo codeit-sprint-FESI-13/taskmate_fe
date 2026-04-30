@@ -5,7 +5,7 @@ export const formatNotificationType = (type: string) => {
       return "마감일 알림";
 
     case "TEAM_TODO_CREATED":
-      return "새 알림";
+      return "할 일 생성 알림";
   }
 };
 

@@ -31,7 +31,7 @@ const NotificationItem = ({
         <div className="hover:bg-background-normal-alternative flex w-70 cursor-pointer items-start gap-2 rounded-2xl px-3 py-5">
           <div
             className={cn(
-              "my-0.75 mt-1 h-1.5 w-1.5 rounded-full",
+              "mx-0.75 my-0.75 mt-1 h-2 w-2 rounded-full",
               isRead ? "bg-transparent" : "bg-blue-700",
             )}
           />
