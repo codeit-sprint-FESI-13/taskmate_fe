@@ -4,9 +4,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
+import { NotificationApi } from "@/entities/notification";
 import { useToast } from "@/shared/hooks/useToast";
-
-import { NotificationApi } from "./api";
 
 const SSE_BASE_URL = (process.env.NEXT_PUBLIC_SSE_BASE_URL ?? "").replace(
   /\/$/,

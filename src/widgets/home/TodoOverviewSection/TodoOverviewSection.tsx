@@ -7,7 +7,7 @@ import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteS
 import { Icon } from "@/shared/ui/Icon";
 import { mainInfiniteQueries } from "@/widgets/home/query/mainInfiniteQueries";
 
-import MainTodoItem from "../MainTodoItem/MainTodoItem";
+import MainTodoItem from "./MainTodoItem";
 
 export default function TodoOverviewSection() {
   //  최근 등록한 할 일 - 무한 스크롤

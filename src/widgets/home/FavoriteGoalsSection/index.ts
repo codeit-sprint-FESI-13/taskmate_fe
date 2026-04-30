@@ -1,0 +1,1 @@
+export { FavoriteGoalsSection } from "./FavoriteGoalsSection";

@@ -4,7 +4,7 @@ import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { cva } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
 
-import { notificationInfiniteQueries } from "@/features/notification/query/notificationInfiniteQueries";
+import { notificationInfiniteQueries } from "@/features/notification";
 import { Icon } from "@/shared/ui/Icon";
 import { cn } from "@/shared/utils/styles/cn";
 

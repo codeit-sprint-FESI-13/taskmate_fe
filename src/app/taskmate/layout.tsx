@@ -1,4 +1,4 @@
-import NotificationSubscriber from "@/features/notification/NotificationSubscriber";
+import { NotificationSubscriber } from "@/features/notification";
 import { NavigationBar } from "@/widgets/NavigationBar";
 import NavigationBarProvider from "@/widgets/NavigationBar/provider";
 
