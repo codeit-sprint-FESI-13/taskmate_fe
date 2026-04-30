@@ -79,7 +79,6 @@ describe("MemberList", () => {
     mockUseTeamId.mockReturnValue("1");
     mockUseTeamLeaveModal.mockReturnValue({
       openLeaveTeamModal: mockOpenLeaveTeamModal,
-      closeLeaveTeamModal: jest.fn(),
     });
   });
 
