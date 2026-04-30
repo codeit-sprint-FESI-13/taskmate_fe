@@ -11,8 +11,6 @@ import { GoalProgressCard } from "@/widgets/team/GoalProgressCard";
 
 const sortOptions = ["최신순", "오래된순"];
 
-const sortOptions = ["최신순", "오래된순"];
-
 const sortTypeByLabel: Record<string, SortType> = {
   최신순: "LATEST",
   오래된순: "OLDEST",
