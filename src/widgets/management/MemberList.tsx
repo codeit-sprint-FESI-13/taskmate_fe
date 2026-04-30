@@ -6,11 +6,8 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
-import { memberListApi } from "@/entities/team/api/management.api";
-import { memberApi } from "@/entities/team/api/management.api";
-import { memberRoleApi } from "@/entities/team/api/management.api";
-import { MemberData } from "@/entities/team/types/management.types";
-import { MemberRole } from "@/entities/team/types/management.types";
+import type { MemberData, MemberRole } from "@/entities/team";
+import { memberApi, memberListApi, memberRoleApi } from "@/entities/team";
 import { formatMemberList } from "@/features/team/utils/formatMemberList";
 import Dropdown from "@/shared/hooks/useDropdown/Dropdown";
 import Button from "@/shared/ui/Button/Button/Button";

@@ -1,6 +1,6 @@
 "use client";
 
-import { TEAM_NAME_MAX_LENGTH } from "@/entities/team/types/team";
+import { TEAM_NAME_MAX_LENGTH } from "@/entities/team";
 import { useCreateTeamForm } from "@/features/team/hooks/useCreateTeamForm";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input/Input";
