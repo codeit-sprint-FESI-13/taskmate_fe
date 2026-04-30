@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
+import { useToast } from "@/shared/hooks/useToast";
 
 import { NotificationApi } from "./api";
 
@@ -18,6 +19,7 @@ const SSE_STREAM_URL = SSE_BASE_URL
 
 export function useNotificationSSE() {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
   const esRef = useRef<EventSource | null>(null);
   const timerRef = useRef<number | null>(null);
 
@@ -59,6 +61,7 @@ export function useNotificationSSE() {
 
         es.addEventListener("NOTIFICATION", () => {
           queryClient.invalidateQueries({ queryKey: ["notifications"] });
+          toast({ title: "새로운 알림이 도착하였습니다." });
         });
 
         es.onerror = async () => {
