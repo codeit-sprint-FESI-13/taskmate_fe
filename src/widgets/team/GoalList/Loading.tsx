@@ -1,5 +1,3 @@
-"use client";
-
 import { Icon } from "@/shared/ui/Icon";
 import Spinner from "@/shared/ui/Spinner";
 
