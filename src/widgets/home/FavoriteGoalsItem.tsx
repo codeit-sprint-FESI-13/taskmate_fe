@@ -1,6 +1,6 @@
 "use client";
 
-import { MainSecondaryProgressCard } from "@/widgets/team/MainSecondaryProgressCard";
+import { GoalProgressCard } from "@/widgets/team/GoalProgressCard";
 
 export interface FavoriteGoalsItemProps {
   teamId: number;
@@ -23,7 +23,7 @@ export function FavoriteGoalsItem({
       <span className="text-xl leading-7.5 font-semibold tracking-tight text-slate-800">
         {teamName}
       </span>
-      <MainSecondaryProgressCard
+      <GoalProgressCard
         teamId={String(teamId)}
         goalId={goal.goalId}
         title={goal.goalName}

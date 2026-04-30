@@ -7,7 +7,7 @@ import { useTeamId } from "@/features/team/hooks/useTeamId";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll";
 import { Icon } from "@/shared/ui/Icon";
 import { Order } from "@/shared/ui/Order";
-import { MainSecondaryProgressCard } from "@/widgets/team/MainSecondaryProgressCard";
+import { GoalProgressCard } from "@/widgets/team/GoalProgressCard";
 
 const sortOptions = ["최신순", "오래된순"];
 
@@ -57,7 +57,7 @@ export default function GoalList() {
       <div className="custom-scroll max-h-[300px] w-full overflow-y-auto pr-1">
         <div className="tablet:grid-cols-2 desktop:grid-cols-3 grid w-full grid-cols-1 gap-4">
           {goalList.map((goal) => (
-            <MainSecondaryProgressCard
+            <GoalProgressCard
               teamId={teamId}
               key={goal.goalId}
               goalId={goal.goalId}
