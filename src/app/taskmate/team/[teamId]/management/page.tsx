@@ -3,8 +3,9 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { inviteApi, teamDetailApi } from "@/entities/team";
+import { teamDetailApi } from "@/entities/team";
 import { useOverlay } from "@/shared/hooks/useOverlay";
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 import DeleteModal from "@/widgets/management/DeleteModal";
 import ErrorModal from "@/widgets/management/ErrorModal";
@@ -22,15 +23,7 @@ const TeamManagement = () => {
   const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   const handleOpenInvite = () => {
-    open(
-      "invite-modal",
-      <InviteModal
-        onClose={() => close()}
-        onSubmitInvite={async (email: string) => {
-          await inviteApi.create(teamId, email); // string 전달
-        }}
-      />,
-    );
+    open("invite-modal", <InviteModal onClose={() => close()} />);
   };
 
   const handleOpenDelete = () => {
@@ -38,11 +31,6 @@ const TeamManagement = () => {
       "delete-modal",
       <DeleteModal
         onClose={() => close()}
-        onSubmitDelete={async () => {
-          await teamDetailApi.delete(Number(teamId));
-          close();
-          router.replace("/taskmate");
-        }}
         onError={(message) => {
           setErrorMessage(message);
           setErrorModalOpen(true);
@@ -80,8 +68,12 @@ const TeamManagement = () => {
             팀 정보 수정
           </h1>
           <div className="flex w-full flex-col gap-4">
-            <TeamNameEditor />
-            <MemberList onInviteClick={handleOpenInvite} />
+            <AsyncBoundary errorFallback={<div>error</div>}>
+              <TeamNameEditor />
+            </AsyncBoundary>
+            <AsyncBoundary errorFallback={<div>error</div>}>
+              <MemberList onInviteClick={handleOpenInvite} />
+            </AsyncBoundary>
             <TextButton
               onClick={handleOpenDelete}
               className="tablet:w-fit ml-auto w-full"

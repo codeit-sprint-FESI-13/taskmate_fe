@@ -1,13 +1,17 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
-import type { MemberData, MemberRole } from "@/entities/team";
-import { memberApi, memberListApi, memberRoleApi } from "@/entities/team";
+import type { MemberRole } from "@/entities/team";
+import { managementQueryOptions } from "@/entities/team";
+import {
+  useDeleteMemberMutation,
+  useUpdateMemberRoleMutation,
+} from "@/features/management";
 import { formatMemberList } from "@/features/team";
 import Dropdown from "@/shared/hooks/useDropdown/Dropdown";
 import Button from "@/shared/ui/Button/Button/Button";
@@ -23,12 +27,15 @@ interface MemberListProps {
 }
 
 const MemberList = ({ onInviteClick }: MemberListProps) => {
-  const [members, setMembers] = useState<MemberData[]>([]);
   const router = useRouter();
 
   // @TODO: useTeamId 에서 처리
   const params = useParams<{ teamId: string }>();
   const teamId = Number(params.teamId);
+
+  const { data: memberListData } = useSuspenseQuery(
+    managementQueryOptions.memberList(teamId),
+  );
 
   const [confirmMessage, setConfirmMessage] = useState("");
   const [roleChangeModalOpen, setRoleChangeModalOpen] = useState(false);
@@ -73,47 +80,56 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
 
   const myUserId = me?.id;
 
-  // 드롭다운 선택시
-  const openRoleChangeModal = (memberId: number, value: "어드민" | "팀원") => {
-    const role: MemberRole = value === "어드민" ? "ADMIN" : "MEMBER";
-    setPending({ memberId, role }); //
-    setConfirmMessage("팀원의 권한을 변경 하시겠습니까?");
-    setRoleChangeModalOpen(true);
-  };
+  const members =
+    typeof myUserId === "number"
+      ? formatMemberList(memberListData, myUserId)
+      : memberListData;
 
-  // 모달 확인 버튼에서 Api 호출
-  const handleUpdateRole = async () => {
-    if (!pending || !pending.role) return;
-
-    // @TODO: useMutation 으로 리팩토링
-    try {
-      await memberRoleApi.update(teamId, pending.memberId, pending.role);
-
-      // 권한 변경시 배지 업데이트
-      const { memberId, role } = pending;
-      setMembers((prev) =>
-        prev.map((member) =>
-          member.id === memberId ? { ...member, role } : member,
-        ),
-      );
-
-      // 나의 권한을 admin > member로 변경시 메인페이지로 이동
-      const response = await memberListApi.read(teamId);
+  const { mutate: updateMemberRole } = useUpdateMemberRoleMutation({
+    teamId,
+    onSuccess: () => {
+      if (!pending) return;
       const memberUserId =
-        response?.data?.find((member) => member.id == pending.memberId)
-          ?.userId ?? pending.memberId;
+        members.find((m) => m.id === pending.memberId)?.userId ??
+        pending.memberId;
 
       if (myUserId === memberUserId && pending.role !== "ADMIN") {
         router.push("/taskmate");
       }
-    } catch (error) {
-      setErrorMessage(
-        getApiErrorMessage(error, "유효하지 않은 권한 설정 입니다."),
-      );
-      setErrorModalOpen(true);
-    } finally {
+
       setRoleChangeModalOpen(false);
-    }
+    },
+  });
+
+  const { mutate: deleteMember } = useDeleteMemberMutation({
+    teamId,
+    onSuccess: () => {
+      setMemberDeleteModalOpen(false);
+    },
+  });
+
+  // 드롭다운 선택시
+  const openRoleChangeModal = (memberId: number, value: "어드민" | "팀원") => {
+    const role: MemberRole = value === "어드민" ? "ADMIN" : "MEMBER";
+    setPending({ memberId, role });
+    setConfirmMessage("팀원의 권한을 변경 하시겠습니까?");
+    setRoleChangeModalOpen(true);
+  };
+
+  const handleUpdateRole = () => {
+    if (!pending || !pending.role) return;
+    updateMemberRole(
+      { memberId: pending.memberId, role: pending.role },
+      {
+        onError: (error) => {
+          setErrorMessage(
+            getApiErrorMessage(error, "유효하지 않은 권한 설정 입니다."),
+          );
+          setErrorModalOpen(true);
+          setRoleChangeModalOpen(false);
+        },
+      },
+    );
   };
 
   /* @TODO: useOverlay 공통 hooks 로 적용 */
@@ -123,58 +139,21 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
     setMemberDeleteModalOpen(true);
   };
 
-  const handleDeleteMember = async () => {
+  const handleDeleteMember = () => {
     if (!pending) return;
-
-    // @TODO: useMutation 으로 리팩토링
-    try {
-      await memberApi.delete(teamId, pending.memberId);
-      setMembers((prev) =>
-        prev.filter((member) => member.id !== pending.memberId),
-      );
-    } catch (error) {
-      setErrorMessage(
-        getApiErrorMessage(error, "관리자는 본인을 팀에서 삭제할 수 없습니다."),
-      );
-      setErrorModalOpen(true);
-    } finally {
-      setMemberDeleteModalOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
-    const loadMemberList = async () => {
-      const res = await memberListApi.read(teamId);
-      setMembers(Array.isArray(res.data) ? res.data : []);
-    };
-
-    if (Number.isFinite(teamId)) loadMemberList();
-  }, [teamId]);
-
-  useEffect(() => {
-    // @TODO: useTeamId 에서 처리
-    if (!Number.isFinite(teamId)) return;
-
-    // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
-    const loadMemberList = async (): Promise<void> => {
-      try {
-        const res = await memberListApi.read(teamId);
-        const list = Array.isArray(res.data) ? res.data : [];
-
-        setMembers(
-          typeof myUserId === "number"
-            ? formatMemberList(list, myUserId)
-            : list,
+    deleteMember(pending.memberId, {
+      onError: (error) => {
+        setErrorMessage(
+          getApiErrorMessage(
+            error,
+            "관리자는 본인을 팀에서 삭제할 수 없습니다.",
+          ),
         );
-      } catch (error) {
-        // @TODO: console 제거
-        console.error("member list error", error);
-      }
-    };
-
-    loadMemberList();
-  }, [teamId, myUserId]);
+        setErrorModalOpen(true);
+        setMemberDeleteModalOpen(false);
+      },
+    });
+  };
 
   return (
     <section className="bg-inverse-normal tablet:w-full relative h-183.25 w-83.75 overflow-hidden rounded-4xl">
@@ -190,7 +169,7 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
                   avatar={member.profileImageUrl ?? ""}
                   hasCrownIcon={member.role === "ADMIN"}
                   name={member.userNickname}
-                  tag={member.id === myUserId ? "나" : undefined} // isMe 판정 여기서
+                  tag={member.id === myUserId ? "나" : undefined}
                   email={member.userEmail}
                 />
               </div>
@@ -198,9 +177,8 @@ const MemberList = ({ onInviteClick }: MemberListProps) => {
                 <div className="flex items-center self-center">
                   <Dropdown
                     options={["어드민", "팀원"]}
-                    // 개선 가능
                     selected={member.role === "ADMIN" ? "어드민" : "팀원"}
-                    onSelect={(value) => openRoleChangeModal(member.id, value)} // member.id 를 준다.
+                    onSelect={(value) => openRoleChangeModal(member.id, value)}
                   />
                 </div>
                 <Button

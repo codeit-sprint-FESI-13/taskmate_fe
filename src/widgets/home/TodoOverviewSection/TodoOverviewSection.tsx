@@ -5,7 +5,7 @@ import Image from "next/image";
 import emptyImg from "@/shared/assets/images/empty.png";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import { Icon } from "@/shared/ui/Icon";
-import { mainInfiniteQueries } from "@/widgets/home/query/mainInfiniteQueries";
+import { homeQueryOptions } from "@/widgets/home/query/home.queryOptions";
 
 import MainTodoItem from "./MainTodoItem";
 
@@ -15,7 +15,7 @@ export default function TodoOverviewSection() {
     data: recentData,
     isFetchingNextPage: recentIsFetchingNextPage,
     ref: recentRef,
-  } = useInfiniteScroll(mainInfiniteQueries.recentInfiniteOptions());
+  } = useInfiniteScroll(homeQueryOptions.recentInfiniteOptions());
   const recentItems =
     recentData?.pages.flatMap((page) =>
       page.items.map((item) => ({
@@ -32,7 +32,7 @@ export default function TodoOverviewSection() {
     data: dueSoonData,
     isFetchingNextPage: dueSoonIsFetchingNextPage,
     ref: dueSoonRef,
-  } = useInfiniteScroll(mainInfiniteQueries.dueSoonInfiniteOptions());
+  } = useInfiniteScroll(homeQueryOptions.dueSoonInfiniteOptions());
 
   const dueSoonItems =
     dueSoonData?.pages.flatMap((page) =>

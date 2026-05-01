@@ -9,13 +9,13 @@ import Button from "@/shared/ui/Button/Button/Button";
 import { Icon } from "@/shared/ui/Icon";
 import { Spacing } from "@/shared/ui/Spacing";
 import { FavoriteGoalsItem } from "@/widgets/home/FavoriteGoalsSection/FavoriteGoalsItem";
-import { mainInfiniteQueries } from "@/widgets/home/query/mainInfiniteQueries";
+import { homeQueryOptions } from "@/widgets/home/query/home.queryOptions";
 
 export function FavoriteGoalsSection() {
   const router = useRouter();
 
   const { ref, data, isFetchingNextPage } = useInfiniteScroll(
-    mainInfiniteQueries.favoriteGoalsInfinite(),
+    homeQueryOptions.favoriteGoalsInfinite(),
   );
 
   const items = data.pages.flatMap((page) =>

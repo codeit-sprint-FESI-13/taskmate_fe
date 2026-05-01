@@ -13,6 +13,7 @@ export {
   invitationQueries,
   invitationQueryKey,
 } from "./query/invitation.queryKey";
+export { managementQueryOptions } from "./query/management.queryOptions";
 export { teamQueries } from "./query/team.queryKey";
 export { teamQueryOptions } from "./query/team.queryOptions";
 export type { TeamInvitationDetail } from "./types/invitation.types";

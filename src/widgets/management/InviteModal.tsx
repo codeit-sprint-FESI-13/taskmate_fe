@@ -1,45 +1,54 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-import { teamApi } from "@/entities/team";
-import { useTeamId, validateEmail } from "@/features/team";
+import { managementQueryOptions } from "@/entities/team";
+import {
+  inviteEmailSchema,
+  useInviteMemberMutation,
+} from "@/features/management";
+import { useTeamId } from "@/features/team";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input/Input";
 
 interface InviteModalProps {
   onClose: () => void;
-  onSubmitInvite: (email: string) => Promise<void>;
 }
 
-const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
+const InviteModal = ({ onClose }: InviteModalProps) => {
+  const teamId = useTeamId();
+  const { data: teamDetail } = useQuery(
+    managementQueryOptions.teamDetail(Number(teamId)),
+  );
+
   const [email, setEmail] = useState("");
-  const emailError = validateEmail(email);
-  const isDisabled = Boolean(emailError);
-  const teamId = Number(useTeamId());
-  const [value, setValue] = useState("");
-  const [initialName, setInitialName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const isDisabled = !inviteEmailSchema.safeParse({ email }).success;
 
-  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const { mutate: inviteMember } = useInviteMemberMutation({
+    onSuccess: onClose,
+  });
+
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const error = validateEmail(email);
-    if (error) return;
+    const result = inviteEmailSchema.safeParse({ email });
+    if (!result.success) return;
 
-    // @TODO: useMutation 으로 리팩토링
-    try {
-      await onSubmitInvite(email);
-      onClose();
-    } catch (err) {
-      setErrorMessage(
-        (err as { message?: string }).message ??
-          "알 수 없는 오류가 발생했습니다.",
-      );
-    }
+    inviteMember(
+      { teamId: String(teamId), email: result.data.email },
+      {
+        onError: (err) => {
+          setErrorMessage(
+            (err as { message?: string }).message ??
+              "알 수 없는 오류가 발생했습니다.",
+          );
+        },
+      },
+    );
   };
 
   // @TODO: useOverlay 또는 Modal.BackDrop 처리
-  // @TODO: 중복코드
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -47,22 +56,6 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
       document.body.style.overflow = prevOverflow;
     };
   }, []);
-
-  useEffect(() => {
-    // @TODO: useTeamId 에서 처리
-    if (Number.isNaN(teamId)) return;
-
-    // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
-    teamApi
-      .getDetail(teamId)
-      .then((res) => {
-        if (res?.data?.name) setValue(res.data.name);
-        setInitialName(res.data.name);
-      })
-      .catch(() => {
-        setValue("팀명");
-      });
-  }, [teamId]);
 
   // @TODO: Modal 공통 컴포넌트로 리팩토링
   return (
@@ -77,7 +70,7 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
           {/* @TODO: label 태그 사용 */}
           <p>소속 팀</p>
           <Input
-            value={value}
+            value={teamDetail?.name ?? ""}
             className="rounded-4 bg-background-normal-alternative border border-gray-200 p-4 text-gray-400 hover:border-gray-200"
             disabled
           />
@@ -91,7 +84,6 @@ const InviteModal = ({ onClose, onSubmitInvite }: InviteModalProps) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {/* @TODO: "errorMessage && 로 처리하기" 랑 지금 코드랑 비교후 적용 */}
           <p className={errorMessage ? "text-red-normal visible" : "invisible"}>
             {errorMessage || " "}
           </p>
