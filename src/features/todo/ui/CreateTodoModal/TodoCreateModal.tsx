@@ -1,8 +1,8 @@
 "use client";
 
 import type { Member } from "@/entities/team";
-import { useGoalId } from "@/features/goal/hooks/useGoalId";
 import { useCreateTodoForm } from "@/features/todo/hooks/useCreateTodoForm";
+import { useGoalId } from "@/shared/hooks/useGoalId";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input";
 import { Modal } from "@/shared/ui/Modal";
@@ -20,8 +20,6 @@ interface TodoCreateModalProps {
   initialAssigneeIds: number[];
 }
 
-// @TODO: 할일 생성 실패 시, 처리 빠짐
-// @TODO: 멤버 리스트 가져와서 처리하기 ( 효진님 작업 이후 )
 export function TodoCreateModal({
   onClose,
   goalName,

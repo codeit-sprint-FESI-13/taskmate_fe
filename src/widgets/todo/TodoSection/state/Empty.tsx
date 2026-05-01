@@ -1,6 +1,6 @@
 "use client";
 
-import { useTodoCreateModal } from "@/features/todo/hooks/useTodoCreateModal";
+import { useTodoCreateModal } from "@/features/todo";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Icon } from "@/shared/ui/Icon";
 

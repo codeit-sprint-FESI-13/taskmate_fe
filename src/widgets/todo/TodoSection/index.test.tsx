@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import { TodoSection } from ".";
 
-jest.mock("@/features/goal/hooks/useGoalId", () => ({
+jest.mock("@/shared/hooks/useGoalId", () => ({
   useGoalId: jest.fn().mockReturnValue("1"),
 }));
 
