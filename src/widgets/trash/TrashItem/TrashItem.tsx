@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TrashItemData } from "@/features/trash/types/trash.types";
+import { TrashItemData } from "@/entities/trash/types/trash.types";
 import { Icon } from "@/shared/ui/Icon";
 import TrashBadge from "@/widgets/trash/TrashItem/TrashBadge";
 

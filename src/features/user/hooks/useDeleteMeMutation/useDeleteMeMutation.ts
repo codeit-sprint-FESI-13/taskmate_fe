@@ -1,10 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+import { deleteMe } from "@/entities/auth/api/myInfo.api";
 import { logoutAction } from "@/features/auth/logout/actions/logoutAction";
 import { useToast } from "@/shared/hooks/useToast";
-
-import { deleteMe } from "../../../../entities/auth/api/myInfo.api";
 
 export function useDeleteMeMutation() {
   const { toast } = useToast();
