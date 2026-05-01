@@ -2,7 +2,6 @@ import { HttpResponse } from "msw";
 
 import { apiMock } from "@/shared/mock/apiMock";
 
-// @TODO: ?
 const now = "2026-04-02T00:00:00Z";
 
 const teamDetail = {
@@ -13,7 +12,7 @@ const teamDetail = {
   updatedAt: now,
 };
 
-const members = [
+const INITIAL_MEMBERS = [
   {
     id: 1,
     userId: 101,
@@ -150,6 +149,12 @@ const members = [
     joinedAt: now,
   },
 ];
+
+const members = [...INITIAL_MEMBERS];
+
+export const resetMembers = () => {
+  members.splice(0, members.length, ...INITIAL_MEMBERS);
+};
 
 export const managementHandler = [
   // 팀 상세 조회

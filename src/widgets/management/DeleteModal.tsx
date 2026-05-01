@@ -1,39 +1,44 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
+import { useDeleteTeamMutation } from "@/features/management";
+import { useTeamId } from "@/features/team/hooks/useTeamId";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 
 interface DeleteModalProps {
   onClose: () => void;
-  onSubmitDelete: () => Promise<void>;
   onError: (message: string) => void;
 }
 
-// @TODO: onSubmitDelete 함수를 Page에서 받아오는 방식 제거 ( Page가 갖는 책임 아님 )
-const DeleteModal = ({
-  onClose,
-  onSubmitDelete,
-  onError,
-}: DeleteModalProps) => {
-  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const DeleteModal = ({ onClose, onError }: DeleteModalProps) => {
+  const router = useRouter();
+  const teamId = Number(useTeamId());
 
-    // @TODO: useMutation 으로 리팩토링
-    try {
-      await onSubmitDelete();
+  const { mutate: deleteTeam } = useDeleteTeamMutation({
+    onSuccess: () => {
       onClose();
-    } catch (error: unknown) {
-      onClose();
-      const message =
-        typeof error === "object" &&
-        error !== null &&
-        "data" in error &&
-        typeof (error as { data?: { message?: unknown } }).data?.message ===
-          "string"
-          ? ((error as { data: { message: string } }).data.message ?? "")
-          : "팀 삭제에 실패했습니다.";
-      onError(message);
-    }
+      router.replace("/taskmate");
+    },
+  });
+
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    deleteTeam(teamId, {
+      onError: (error: unknown) => {
+        onClose();
+        const message =
+          typeof error === "object" &&
+          error !== null &&
+          "data" in error &&
+          typeof (error as { data?: { message?: unknown } }).data?.message ===
+            "string"
+            ? ((error as { data: { message: string } }).data.message ?? "")
+            : "팀 삭제에 실패했습니다.";
+        onError(message);
+      },
+    });
   };
 
   // @TODO: Modal 공통 컴포넌트로 리팩토링

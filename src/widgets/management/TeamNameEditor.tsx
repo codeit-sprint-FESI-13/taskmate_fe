@@ -1,52 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-import { teamApi } from "@/entities/team";
+import { createTeamSchema, managementQueryOptions } from "@/entities/team";
+import { useUpdateTeamNameMutation } from "@/features/management";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input/Input";
 
 const TeamNameEditor = () => {
-  const [value, setValue] = useState("");
-  const [initialName, setInitialName] = useState("");
   const teamId = Number(useTeamId());
-  const isDisabled = value.trim() === initialName.trim();
+  const { data: teamDetail } = useSuspenseQuery(
+    managementQueryOptions.teamDetail(teamId),
+  );
 
-  // teamId로 팀명 가져오기
-  useEffect(() => {
-    // @TODO: useTeamId 에서 처리
-    if (Number.isNaN(teamId)) return;
+  const [value, setValue] = useState(teamDetail.name);
+  const isDisabled = value.trim() === teamDetail.name;
 
-    // @TODO: useSuspenseQuery 및 AsyncBoundary 사용
-    teamApi
-      .getDetail(teamId)
-      .then((res) => {
-        if (res?.data?.name) setValue(res.data.name);
-        setInitialName(res.data.name);
-      })
-      .catch(() => {
-        setValue("팀명");
-      });
-  }, [teamId]);
+  const { mutate: updateTeamName } = useUpdateTeamNameMutation({
+    onSuccess: () => window.location.reload(),
+  });
 
-  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const nextName = value.trim();
-    // @TODO: useTeamId 에서 처리될 부분 분리
-    if (Number.isNaN(teamId) || !nextName) return;
-
-    // @TODO: useMutation 으로 리팩토링
-    try {
-      await teamApi.update(teamId, nextName);
-      setValue(nextName);
-      // @TODO: window.location.reload() 사용 금지, router.refresh() 사용
-      window.location.reload();
-    } catch (error) {
-      // @TODO: console 제거
-      console.log("팀명 수정 실패", error);
-    }
+    if (Number.isNaN(teamId)) return;
+    const result = createTeamSchema.safeParse({ name: value });
+    if (!result.success) return;
+    updateTeamName({ teamId, name: result.data.name });
   };
 
   return (
@@ -61,7 +42,6 @@ const TeamNameEditor = () => {
           onChange={(e) => setValue(e.target.value)}
           className="typhography-label-1 tablet:typography-body-2"
         />
-
         <Button
           className="ml-auto w-fit rounded-xl"
           type="submit"

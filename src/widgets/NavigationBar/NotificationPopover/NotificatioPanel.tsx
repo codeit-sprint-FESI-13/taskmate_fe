@@ -1,12 +1,10 @@
-import { useQueryClient } from "@tanstack/react-query";
-import React from "react";
-
-import { NotificationApi } from "@/entities/notification";
+import { notificationQueryOptions } from "@/entities/notification";
 import {
   buildNotificationUrl,
   formatNotificationType,
   formatRelativeTime,
-  notificationInfiniteQueries,
+  useReadAllNotificationMutation,
+  useReadNotificationMutation,
 } from "@/features/notification";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
@@ -18,11 +16,8 @@ interface Props {
 }
 
 const NotificationPanel = ({ onClose }: Props) => {
-  const queryClient = useQueryClient();
-
-  // 내 알림 목록 무한 스크롤
   const { data, isFetchingNextPage, ref } = useInfiniteScroll(
-    notificationInfiniteQueries.notificationsInfinite(),
+    notificationQueryOptions.notificationsInfinite(),
   );
 
   const notifications =
@@ -39,30 +34,26 @@ const NotificationPanel = ({ onClose }: Props) => {
       })),
     ) ?? [];
 
-  // 모두 읽기 핸들러
-  const handleReadAll = async () => {
-    try {
-      await NotificationApi.readAll();
-      await queryClient.invalidateQueries({ queryKey: ["notifications"] });
-    } catch (e) {
-      console.error("알림 전체 읽음 처리 실패:", e);
-    }
-  };
+  const { mutate: readAll } = useReadAllNotificationMutation();
+  const { mutate: readOne } = useReadNotificationMutation();
 
-  // 알림 아이템 클릭 핸들러
-  const handleItemClick = async (item: {
+  const handleReadAll = () => readAll();
+
+  const handleItemClick = (item: {
     id: number;
     isRead: boolean;
     url: string;
   }) => {
-    try {
-      if (!item.isRead) {
-        await NotificationApi.read(item.id);
-        await queryClient.invalidateQueries({ queryKey: ["notifications"] });
-      }
-    } finally {
+    if (!item.isRead) {
+      readOne(item.id, {
+        onSettled: () => {
+          onClose();
+          window.location.assign(item.url);
+        },
+      });
+    } else {
       onClose();
-      window.location.assign(item.url); // 또는 router.push(item.url)
+      window.location.assign(item.url);
     }
   };
 

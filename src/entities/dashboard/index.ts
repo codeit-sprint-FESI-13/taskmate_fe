@@ -1,4 +1,5 @@
 export { progressApi } from "./api/dashboard.api";
+export { dashboardQueryOptions } from "./query/dashboard.queryOptions";
 export type {
   ProgressData,
   ProgressErrorResponse,

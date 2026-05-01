@@ -7,7 +7,7 @@ import {
   NotificationSSETokenSuccessResponse,
 } from "../types/notification.types";
 
-type GetParams = {
+export type GetParams = {
   cursorId?: number;
   cursorCreatedAt?: string;
   size?: number;
