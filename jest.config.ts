@@ -23,6 +23,12 @@ const config: Config = {
     customExportConditions: [""],
   },
 
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "/src/.*/mock/",
+    "/src/.*\\.stories\\.",
+  ],
+
   coverageThreshold: {
     global: {
       branches: 70,
