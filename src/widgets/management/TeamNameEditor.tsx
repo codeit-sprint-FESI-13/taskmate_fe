@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { createTeamSchema, managementQueryOptions } from "@/entities/team";
 import { useUpdateTeamNameMutation } from "@/features/management";
-import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { useTeamId } from "@/features/team";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input/Input";
 

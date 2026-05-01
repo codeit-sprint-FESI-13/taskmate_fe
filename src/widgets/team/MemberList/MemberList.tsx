@@ -4,9 +4,11 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
 import { teamQueries } from "@/entities/team/query/team.queryKey";
-import { useTeamId } from "@/features/team/hooks/useTeamId";
-import { useTeamLeaveModal } from "@/features/team/hooks/useTeamLeaveModal";
-import { formatMemberList } from "@/features/team/utils/formatMemberList";
+import {
+  formatMemberList,
+  useTeamId,
+  useTeamLeaveModal,
+} from "@/features/team";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 import { Icon } from "@/shared/ui/Icon";
 

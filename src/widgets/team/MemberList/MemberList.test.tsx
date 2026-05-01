@@ -2,8 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { useTeamId } from "@/features/team/hooks/useTeamId";
-import { useTeamLeaveModal } from "@/features/team/hooks/useTeamLeaveModal";
+import { useTeamId, useTeamLeaveModal } from "@/features/team";
 
 import MemberListComponent from "./MemberList";
 
@@ -12,15 +11,9 @@ jest.mock("@tanstack/react-query", () => ({
   useSuspenseQuery: jest.fn(),
 }));
 
-jest.mock("@/features/team/hooks/useTeamId", () => ({
+jest.mock("@/features/team", () => ({
   useTeamId: jest.fn(),
-}));
-
-jest.mock("@/features/team/hooks/useTeamLeaveModal", () => ({
   useTeamLeaveModal: jest.fn(),
-}));
-
-jest.mock("@/features/team/utils/formatMemberList", () => ({
   formatMemberList: jest.fn(<T,>(members: T[]) => members),
 }));
 

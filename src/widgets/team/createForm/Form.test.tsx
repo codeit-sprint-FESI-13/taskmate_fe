@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-import { useCreateTeamForm } from "@/features/team/hooks/useCreateTeamForm";
+import { useCreateTeamForm } from "@/features/team";
 import ToastProvider from "@/shared/providers/ToastProvider";
 
 import Form from "./Form";
@@ -29,7 +29,7 @@ jest.mock("next/navigation", () => ({
 }));
 
 const handleSubmitMock = jest.fn();
-jest.mock("@/features/team/hooks/useCreateTeamForm", () => ({
+jest.mock("@/features/team", () => ({
   useCreateTeamForm: () => ({
     handleSubmit: handleSubmitMock,
     nameError: "",

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import { teamQueryOptions } from "@/entities/team";
-import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { useTeamId } from "@/features/team";
 import SettingIcon from "@/shared/assets/images/setting.png";
 import { ProgressBar } from "@/shared/ui/ProgressBar";
 import { cn } from "@/shared/utils/styles/cn";

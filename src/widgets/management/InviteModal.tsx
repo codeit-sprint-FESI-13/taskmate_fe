@@ -8,7 +8,7 @@ import {
   inviteEmailSchema,
   useInviteMemberMutation,
 } from "@/features/management";
-import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { useTeamId } from "@/features/team";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input/Input";
 

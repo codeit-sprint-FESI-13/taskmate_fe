@@ -1,9 +1,9 @@
 "use client";
 
-import { teamApi } from "@/entities/team";
+import { useLeaveTeamMutation } from "@/features/team/mutation/useLeaveTeamMutation";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import { useToast } from "@/shared/hooks/useToast";
-import { ApiError } from "@/shared/lib/api/types";
+import type { ApiError } from "@/shared/lib/api/types";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Modal } from "@/shared/ui/Modal";
 
@@ -48,42 +48,35 @@ export const useTeamLeaveModal = (teamId: string) => {
   const overlay = useOverlay();
   const { toast } = useToast();
 
-  const closeLeaveTeamModal = () => {
-    overlay.close();
-  };
+  const leaveMutation = useLeaveTeamMutation({
+    onSuccess: () => {
+      toast({
+        title: "팀 나가기 성공",
+        description: "팀 나가기에 성공했습니다.",
+        variant: "success",
+      });
+      overlay.close();
+    },
+    onError: (error: ApiError) => {
+      toast({
+        title: "팀 나가기 실패",
+        description: error.message ?? "팀 나가기에 실패했습니다.",
+        variant: "error",
+      });
+    },
+  });
 
   const openLeaveTeamModal = () => {
-    const handleConfirm = async () => {
-      try {
-        await teamApi.quitTeam(teamId);
-        toast({
-          title: "팀 나가기 성공",
-          description: "팀 나가기에 성공했습니다.",
-          variant: "success",
-        });
-        closeLeaveTeamModal();
-      } catch (error) {
-        const apiError = error as ApiError;
-
-        toast({
-          title: "팀 나가기 실패",
-          description: apiError.message ?? "팀 나가기에 실패했습니다.",
-          variant: "error",
-        });
-      }
-    };
-
     overlay.open(
       LEAVE_TEAM_MODAL_ID,
       <TeamLeaveModal
-        onClose={closeLeaveTeamModal}
-        onConfirm={handleConfirm}
+        onClose={() => overlay.close()}
+        onConfirm={() => leaveMutation.mutate(teamId)}
       />,
     );
   };
 
   return {
     openLeaveTeamModal,
-    closeLeaveTeamModal,
   };
 };

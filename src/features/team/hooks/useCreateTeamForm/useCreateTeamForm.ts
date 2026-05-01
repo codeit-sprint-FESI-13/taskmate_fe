@@ -1,26 +1,21 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { ComponentProps, useState } from "react";
 
-import { createTeamSchema, teamQueryOptions } from "@/entities/team";
+import { createTeamSchema } from "@/entities/team";
 import { useCreateTeamMutation } from "@/features/team/mutation/useCreateTeamMutation";
 import { useToast } from "@/shared/hooks/useToast";
 import type { ApiError } from "@/shared/lib/api/types";
 
 export const useCreateTeamForm = () => {
   const router = useRouter();
-  const queryClient = useQueryClient();
   const { toast } = useToast();
 
   const [nameError, setNameError] = useState("");
 
   const createMutation = useCreateTeamMutation({
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: teamQueryOptions.all().queryKey,
-      });
       toast({
         variant: "success",
         title: "팀 생성 완료",

@@ -12,7 +12,7 @@ import {
   useDeleteMemberMutation,
   useUpdateMemberRoleMutation,
 } from "@/features/management";
-import { formatMemberList } from "@/features/team/utils/formatMemberList";
+import { formatMemberList } from "@/features/team";
 import Dropdown from "@/shared/hooks/useDropdown/Dropdown";
 import Button from "@/shared/ui/Button/Button/Button";
 import ConfirmModal from "@/widgets/management/ConfirmModal";
