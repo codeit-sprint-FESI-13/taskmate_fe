@@ -1,7 +1,7 @@
 "use client";
 
 import { TEAM_NAME_MAX_LENGTH } from "@/entities/team";
-import { useCreateTeamForm } from "@/features/team/hooks/useCreateTeamForm";
+import { useCreateTeamForm } from "@/features/team";
 import Button from "@/shared/ui/Button/Button/Button";
 import Input from "@/shared/ui/Input/Input";
 
@@ -10,13 +10,18 @@ export default function Form() {
 
   return (
     <form
-      className="flex flex-col items-start justify-start gap-8"
+      className="flex flex-col gap-8"
       onSubmit={handleSubmit}
     >
-      <label className="typography-heading-2 font-semibold">팀 이름</label>
-
-      <div className="w-full">
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor="team-name"
+          className="typography-heading-2 font-semibold"
+        >
+          팀 이름
+        </label>
         <Input
+          id="team-name"
           name="name"
           required
           type="text"

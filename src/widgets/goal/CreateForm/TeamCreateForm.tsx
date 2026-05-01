@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { createGoalSchema } from "@/entities/goal";
 import { useCreateTeamGoalMutation } from "@/features/goal/mutation/useCreateTeamGoalMutation";
-import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { useTeamId } from "@/features/team";
 import Button from "@/shared/ui/Button/Button/Button";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 import Input from "@/shared/ui/Input/Input";

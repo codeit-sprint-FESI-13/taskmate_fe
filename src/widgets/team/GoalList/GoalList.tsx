@@ -3,11 +3,11 @@
 import { useMemo, useState } from "react";
 
 import { goalQueryOptions, SortType } from "@/entities/goal";
-import { useTeamId } from "@/features/team/hooks/useTeamId";
+import { useTeamId } from "@/features/team";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll";
 import { Icon } from "@/shared/ui/Icon";
 import { Order } from "@/shared/ui/Order";
-import { GoalProgressCard } from "@/widgets/team/GoalProgressCard/GoalProgressCard";
+import { GoalProgressCard } from "@/widgets/team/GoalProgressCard";
 
 const sortOptions = ["최신순", "오래된순"];
 

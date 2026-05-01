@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { userQueries } from "@/entities/auth/query/user.queryKey";
 import type { MemberData, MemberRole } from "@/entities/team";
 import { memberApi, memberListApi, memberRoleApi } from "@/entities/team";
-import { formatMemberList } from "@/features/team/utils/formatMemberList";
+import { formatMemberList } from "@/features/team";
 import Dropdown from "@/shared/hooks/useDropdown/Dropdown";
 import Button from "@/shared/ui/Button/Button/Button";
 import ConfirmModal from "@/widgets/management/ConfirmModal";
