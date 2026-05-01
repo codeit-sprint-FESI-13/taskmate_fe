@@ -11,7 +11,7 @@ export default function MSWInitializer({
 
   useEffect(() => {
     // 개발 환경이 아니면 즉시 종료
-    if (process.env.NODE_ENV !== "development") return;
+    // if (process.env.NODE_ENV !== "development") return;
 
     // async 함수를 내부에서 정의하고 실행
     const initMSW = async () => {
