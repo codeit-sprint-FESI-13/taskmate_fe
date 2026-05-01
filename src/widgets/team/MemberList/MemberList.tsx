@@ -4,9 +4,11 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { userQueries } from "@/entities/auth/query/user.queryKey";
 import { teamQueries } from "@/entities/team/query/team.queryKey";
-import { useTeamId } from "@/features/team/hooks/useTeamId";
-import { useTeamLeaveModal } from "@/features/team/hooks/useTeamLeaveModal";
-import { formatMemberList } from "@/features/team/utils/formatMemberList";
+import {
+  formatMemberList,
+  useTeamId,
+  useTeamLeaveModal,
+} from "@/features/team";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 import { Icon } from "@/shared/ui/Icon";
 
@@ -41,15 +43,18 @@ export default function MemberListComponent() {
         </div>
 
         {isMeAdmin && (
-          <TextButton onClick={openLeaveTeamModal}>
-            <span className="typography-body-2 flex shrink-0 items-center justify-center gap-[5px] font-semibold">
+          <TextButton
+            size="lg"
+            leftIcon={
               <Icon
                 name="Out"
                 size={16}
                 className="text-gray-500"
               />
-              팀 나가기
-            </span>
+            }
+            onClick={openLeaveTeamModal}
+          >
+            팀 나가기
           </TextButton>
         )}
       </div>
@@ -61,7 +66,6 @@ export default function MemberListComponent() {
             avatar={member.profileImageUrl ?? ""}
             nickName={member.userNickname}
             email={member.userEmail}
-            isAdmin={member.role === "ADMIN"}
             isMe={member.userId === me.id}
           />
         ))}

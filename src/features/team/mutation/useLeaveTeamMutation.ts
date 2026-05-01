@@ -5,19 +5,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { teamApi, teamQueryOptions } from "@/entities/team";
 import type { ApiError } from "@/shared/lib/api/types";
 
-type UseCreateTeamMutationOptions = {
+type UseLeaveTeamMutationOptions = {
   onSuccess?: () => void;
   onError?: (error: ApiError) => void;
 };
 
-export const useCreateTeamMutation = ({
+export const useLeaveTeamMutation = ({
   onSuccess,
   onError,
-}: UseCreateTeamMutationOptions = {}) => {
+}: UseLeaveTeamMutationOptions = {}) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: teamApi.create,
+    mutationFn: (teamId: string) => teamApi.quitTeam(teamId),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: teamQueryOptions.all().queryKey,

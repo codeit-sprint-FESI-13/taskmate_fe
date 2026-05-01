@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { inviteApi, teamDetailApi } from "@/entities/team/api/management.api";
+import { inviteApi, teamDetailApi } from "@/entities/team";
 import { useOverlay } from "@/shared/hooks/useOverlay";
 import TextButton from "@/shared/ui/Button/TextButton/TextButton";
 import DeleteModal from "@/widgets/management/DeleteModal";

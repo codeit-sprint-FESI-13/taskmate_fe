@@ -2,7 +2,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 
-import { teamQueries } from "@/entities/team/query/team.queryKey";
+import { teamQueries } from "@/entities/team";
 import PersonalTrash from "@/widgets/trash/PersonalTrash";
 import TeamTrash from "@/widgets/trash/TeamTrash";
 import TeamTrashDropdown from "@/widgets/trash/TeamTrash/TeamTrashDropdown";

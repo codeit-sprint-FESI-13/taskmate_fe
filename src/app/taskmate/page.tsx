@@ -1,3 +1,5 @@
+"use client";
+
 import AsyncBoundary from "@/shared/ui/AsyncBoundary";
 import { Icon } from "@/shared/ui/Icon";
 import { Spacing } from "@/shared/ui/Spacing";

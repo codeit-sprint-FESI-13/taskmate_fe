@@ -4,14 +4,13 @@ import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
 
 import { useToggleGoalFavoriteMutation } from "@/features/goal/mutation/useToggleGoalFavoriteMutation";
+import { ProgressBar } from "@/shared/ui/ProgressBar";
 import { cn } from "@/shared/utils/styles/cn";
-
-import { ProgressBar } from "../../shared/ui/ProgressBar";
-import { StarToggleButton } from "../common/StarToggleButton";
+import { StarToggleButton } from "@/widgets/common/StarToggleButton";
 
 type SecondaryColor = "blue" | "green";
 
-interface MainSecondaryProgressCardProps {
+interface GoalProgressCardProps {
   teamId: string;
   goalId: number;
   title: string;
@@ -23,11 +22,11 @@ interface MainSecondaryProgressCardProps {
 }
 
 const THEME = {
-  blue: { text: "text-[var(--color-blue-800)]" },
-  green: { text: "text-[var(--color-green-800)]" },
+  blue: { text: "text-blue-800" },
+  green: { text: "text-green-800" },
 } as const;
 
-export const MainSecondaryProgressCard = ({
+export const GoalProgressCard = ({
   teamId,
   title,
   progress,
@@ -36,7 +35,7 @@ export const MainSecondaryProgressCard = ({
   isFavorite,
   iconSrc,
   goalId,
-}: MainSecondaryProgressCardProps) => {
+}: GoalProgressCardProps) => {
   const router = useRouter();
   const { mutate: toggleFavorite } = useToggleGoalFavoriteMutation();
   const theme = THEME[color];
@@ -52,7 +51,7 @@ export const MainSecondaryProgressCard = ({
       }}
     >
       <div className="mb-5 flex items-center justify-between gap-4">
-        <h3 className="truncate text-lg font-semibold text-zinc-900">
+        <h3 className="typography-body-1 text-label-normal truncate font-semibold">
           {title}
         </h3>
         {iconSrc ? (

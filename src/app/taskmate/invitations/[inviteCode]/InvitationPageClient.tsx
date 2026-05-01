@@ -7,12 +7,12 @@ import {
 } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 
-import { teamInvitationApi } from "@/entities/team/api/invitation.api";
+import type { TeamInvitationDetail } from "@/entities/team";
 import {
   invitationQueries,
   invitationQueryKey,
-} from "@/entities/team/query/invitation.queryKey";
-import type { TeamInvitationDetail } from "@/entities/team/types/invitation.types";
+  teamInvitationApi,
+} from "@/entities/team";
 import Button from "@/shared/ui/Button/Button/Button";
 import { Spacing } from "@/shared/ui/Spacing";
 
