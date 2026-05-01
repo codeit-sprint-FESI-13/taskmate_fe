@@ -137,5 +137,6 @@ MSW runs in `development` only. Initialized via `initMocks()` in `app/layout.tsx
 
 ## References
 
-- Architecture & layer rules: [@docs/architecture.md](@docs/architecture.md)
-- Naming & code conventions: [@docs/conventions.md](@docs/conventions.md)
+- Architecture & layer rules: @docs/architecture.md
+- Naming & code conventions: @docs/conventions.md
+- Code quality: @docs/code-quality.md

@@ -1,16 +1,20 @@
+const MS_PER_DAY = 86_400_000;
+
 export function formatDDay(dueDate: string): string {
   const parts = dueDate.split("-").map(Number);
-  if (parts.length !== 3 || parts.some((n) => Number.isNaN(n))) return "D-?";
+  const isInvalidFormat = parts.length !== 3 || parts.some(Number.isNaN);
+  if (isInvalidFormat) return "D-?";
 
-  const [y, m, d] = parts;
-  const due = new Date(y, m - 1, d);
+  const [year, month, day] = parts;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  const due = new Date(year, month - 1, day);
   due.setHours(0, 0, 0, 0);
 
-  const diffDays = Math.round((due.getTime() - today.getTime()) / 86_400_000);
+  const diffDays = Math.round((due.getTime() - today.getTime()) / MS_PER_DAY);
 
-  if (diffDays < 0) return `D+${-diffDays}`;
+  if (diffDays < 0) return `D+${Math.abs(diffDays)}`;
   if (diffDays === 0) return "D-day";
   return `D-${diffDays}`;
 }

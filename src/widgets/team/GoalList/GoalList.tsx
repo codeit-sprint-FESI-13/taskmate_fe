@@ -4,9 +4,9 @@ import { useMemo, useState } from "react";
 
 import { goalQueryOptions, SortType } from "@/entities/goal";
 import { useTeamId } from "@/features/team/hooks/useTeamId";
-import { Order } from "@/features/todo/ui/List/Order";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll/useInfiniteScroll";
 import { Icon } from "@/shared/ui/Icon";
+import { Order } from "@/shared/ui/Order";
 import { MainSecondaryProgressCard } from "@/widgets/team/MainSecondaryProgressCard";
 
 const sortTypeByLabel: Record<string, SortType> = {
