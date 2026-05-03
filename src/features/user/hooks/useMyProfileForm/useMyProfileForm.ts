@@ -6,7 +6,7 @@ import {
   myProfileSchema,
 } from "@/features/user/types/myProfile.type";
 
-import { useUpdateProfileMutation } from "../useUpdateProfileMutation";
+import { useUpdateProfileMutation } from "../../mutation/useUpdateProfileMutation";
 
 export function useMyProfileForm(initialNickname: string) {
   const [values, setValues] = useState<MyProfileFormData>({
