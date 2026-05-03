@@ -17,3 +17,9 @@ export type CheckEmailResponse = {
   data: { exists: boolean };
   timestamp: string;
 };
+
+export type UpdateProfileRequest = {
+  nickname: string;
+  currentPassword?: string | null;
+  password?: string | null;
+};

@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 
-import { useDeleteTrashMutation } from "@/features/trash/hooks/useDeleteTrashMutation";
-import { useRestoreTrashMutation } from "@/features/trash/hooks/useRestoreTrashMutation";
-import { TrashItemData } from "@/features/trash/types/trash.types";
+import { TrashItemData } from "@/entities/trash";
+import { useDeleteTrashMutation } from "@/features/trash/mutation/useDeleteTrashMutation";
+import { useRestoreTrashMutation } from "@/features/trash/mutation/useRestoreTrashMutation";
 import SoftButton from "@/shared/ui/Button/SoftButton";
 
 import TrashItem from "../TrashItem";
@@ -15,30 +15,34 @@ interface TrashListProps {
 }
 
 function TrashList({ items, bottomRef, isFetchingNextPage }: TrashListProps) {
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
   const { mutate: restoreMutate, isPending: isRestore } =
     useRestoreTrashMutation();
   const { mutate: deleteMutate, isPending: isDeleting } =
     useDeleteTrashMutation();
 
-  const handleToggle = (id: number) => {
-    setSelectedIds((prev) => {
+  const getItemKey = (item: TrashItemData) => `${item.itemType}-${item.id}`;
+
+  const handleToggle = (key: string) => {
+    setSelectedKeys((prev) => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      next.has(key) ? next.delete(key) : next.add(key);
       return next;
     });
   };
 
   const handleSelectAll = () => {
-    if (selectedIds.size === items.length) {
-      setSelectedIds(new Set());
+    if (selectedKeys.size === items.length) {
+      setSelectedKeys(new Set());
     } else {
-      setSelectedIds(new Set(items.map((item) => item.id)));
+      setSelectedKeys(new Set(items.map(getItemKey)));
     }
   };
 
   const getSelectedTrashItems = () => {
-    const selectedItems = items.filter((item) => selectedIds.has(item.id));
+    const selectedItems = items.filter((item) =>
+      selectedKeys.has(getItemKey(item)),
+    );
     return {
       goalIds: selectedItems
         .filter((item) => item.itemType === "GOAL")
@@ -50,13 +54,13 @@ function TrashList({ items, bottomRef, isFetchingNextPage }: TrashListProps) {
   };
   const handleRestore = () => {
     restoreMutate(getSelectedTrashItems(), {
-      onSuccess: () => setSelectedIds(new Set()),
+      onSuccess: () => setSelectedKeys(new Set()),
     });
   };
 
   const handleDelete = () => {
     deleteMutate(getSelectedTrashItems(), {
-      onSuccess: () => setSelectedIds(new Set()),
+      onSuccess: () => setSelectedKeys(new Set()),
     });
   };
 
@@ -65,8 +69,8 @@ function TrashList({ items, bottomRef, isFetchingNextPage }: TrashListProps) {
       <div className="bg-inverse-normal tablet:rounded-4xl tablet:h-[733px] tablet:pr-5 h-[646px] w-full overflow-y-auto rounded-3xl pt-4 pr-2 pl-5">
         {items.map((item) => (
           <TrashItem
-            key={item.id}
-            isSelected={selectedIds.has(item.id)}
+            key={getItemKey(item)}
+            isSelected={selectedKeys.has(getItemKey(item))}
             onToggle={handleToggle}
             {...item}
           />
@@ -91,7 +95,7 @@ function TrashList({ items, bottomRef, isFetchingNextPage }: TrashListProps) {
             variant={"grayActive"}
             className="tablet:w-[90px] w-20 whitespace-nowrap"
             onClick={handleRestore}
-            disabled={selectedIds.size === 0 || isRestore || isDeleting}
+            disabled={selectedKeys.size === 0 || isRestore || isDeleting}
           >
             복구
           </SoftButton>
@@ -99,7 +103,7 @@ function TrashList({ items, bottomRef, isFetchingNextPage }: TrashListProps) {
             variant={"grayActive"}
             className="tablet:w-[90px] w-20 whitespace-nowrap"
             onClick={handleDelete}
-            disabled={selectedIds.size === 0 || isRestore || isDeleting}
+            disabled={selectedKeys.size === 0 || isRestore || isDeleting}
           >
             삭제
           </SoftButton>

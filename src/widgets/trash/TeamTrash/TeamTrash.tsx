@@ -1,6 +1,6 @@
 import React from "react";
 
-import { trashQueries } from "@/features/trash/trash.queryKey";
+import { trashQueries } from "@/entities/trash";
 import { useInfiniteScroll } from "@/shared/hooks/useInfiniteScroll";
 import TrashEmpty from "@/widgets/trash/TrashEmpty";
 import TrashList from "@/widgets/trash/TrashList";

@@ -1,12 +1,12 @@
 import React from "react";
 
-import { TrashItemData } from "@/features/trash/types/trash.types";
+import { TrashItemData } from "@/entities/trash";
 import { Icon } from "@/shared/ui/Icon";
 import TrashBadge from "@/widgets/trash/TrashItem/TrashBadge";
 
 interface TrashItemProps extends TrashItemData {
   isSelected: boolean;
-  onToggle: (id: number) => void;
+  onToggle: (key: string) => void;
 }
 
 function TrashItem({ isSelected, onToggle, ...item }: TrashItemProps) {
@@ -16,7 +16,7 @@ function TrashItem({ isSelected, onToggle, ...item }: TrashItemProps) {
         <Icon
           name={isSelected ? "ActiveFilledCheckBox" : "InactiveFilledCheckBox"}
           className="tablet:size-6 size-5 cursor-pointer"
-          onClick={() => onToggle(item.id)}
+          onClick={() => onToggle(`${item.itemType}-${item.id}`)}
         />
       </div>
       <div className="flex min-w-0 flex-col">

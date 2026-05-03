@@ -3,9 +3,8 @@ import { infiniteQueryOptions } from "@tanstack/react-query";
 import {
   getPersonalTrashList,
   getTeamTrashList,
-} from "@/features/trash/api/trash.api";
-
-import { STALE_TIME } from "../../shared/constants/query/staleTime";
+} from "@/entities/trash/api/trash.api";
+import { STALE_TIME } from "@/shared/constants/query/staleTime";
 
 const SIZE = 20;
 

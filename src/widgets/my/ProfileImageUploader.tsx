@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 
-import { useUploadProfileImageMutation } from "@/features/user/hooks/useUploadProfileImageMutation";
+import { useUploadProfileImageMutation } from "@/features/user/mutation/useUploadProfileImageMutation";
 import { useToast } from "@/shared/hooks/useToast";
 
 import ActionButton from "../../shared/ui/Button/ActionButton/ActionButton";

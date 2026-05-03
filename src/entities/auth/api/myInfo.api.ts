@@ -1,8 +1,9 @@
-import { UserProfile } from "@/entities/auth/types/auth.type";
+import {
+  UpdateProfileRequest,
+  UserProfile,
+} from "@/entities/auth/types/auth.type";
 import { apiClient } from "@/shared/lib/api/client";
 import { ApiResponse } from "@/shared/lib/api/types";
-
-import { MyProfileFormData } from "../../../features/user/types/myProfile.type";
 
 export async function getMyInfo() {
   const res = await apiClient.get<ApiResponse<UserProfile>>("/api/users/me");
@@ -19,7 +20,7 @@ export async function uploadProfileImage(file: File) {
   return res.data;
 }
 
-export async function updateProfile(data: MyProfileFormData) {
+export async function updateProfile(data: UpdateProfileRequest) {
   const res = await apiClient.put<ApiResponse<UserProfile>>("/api/users", data);
   return res.data;
 }
