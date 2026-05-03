@@ -33,7 +33,7 @@ export async function loginAction(
     };
   }
 
-  if (process.env.NEXT_PUBLIC_USE_MSW === "true") {
+  if (process.env.USE_MSW === "true") {
     if (
       result.data.email === "admin@admin.com" &&
       result.data.password === "admin123!"
