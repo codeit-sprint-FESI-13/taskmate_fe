@@ -33,6 +33,23 @@ export async function loginAction(
     };
   }
 
+  if (process.env.NEXT_PUBLIC_USE_MSW === "true") {
+    if (
+      result.data.email === "admin@admin.com" &&
+      result.data.password === "admin123!"
+    ) {
+      await setTokenCookiesServerAction(
+        "mock-access-token",
+        "mock-refresh-token",
+      );
+    } else {
+      return {
+        errors: { password: "이메일 또는 비밀번호가 올바르지 않습니다." },
+      };
+    }
+    redirect("/taskmate");
+  }
+
   // TODO: 백엔드 배포 후 테스트 필요
   try {
     const response = await fetch(`${process.env.BACKEND_URL}/api/auth/login`, {

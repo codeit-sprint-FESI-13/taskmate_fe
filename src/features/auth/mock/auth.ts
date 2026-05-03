@@ -3,6 +3,38 @@ import { HttpResponse } from "msw";
 import { apiMock } from "@/shared/mock/apiMock";
 
 export const authHandlers = [
+  // 로그인
+  apiMock.post("/api/auth/login", async ({ request }) => {
+    const { email, password } = (await request.json()) as {
+      email: string;
+      password: string;
+    };
+
+    if (email === "admin@admin.com" && password === "admin123!") {
+      return HttpResponse.json({
+        success: true,
+        code: "SUCCESS",
+        message: "로그인에 성공했습니다.",
+        data: {
+          accessToken: "mock-access-token",
+          refreshToken: "mock-refresh-token",
+        },
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    return HttpResponse.json(
+      {
+        success: false,
+        code: "USER_LOGIN_PASSWORD_INCORRECT",
+        message: "이메일 또는 비밀번호가 올바르지 않습니다.",
+        data: null,
+        timestamp: new Date().toISOString(),
+      },
+      { status: 401 },
+    );
+  }),
+
   // 내 정보 조회
   apiMock.get("/api/users/me", () => {
     return HttpResponse.json({
