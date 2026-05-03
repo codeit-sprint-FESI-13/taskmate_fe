@@ -22,6 +22,21 @@ const config: Config = {
   testEnvironmentOptions: {
     customExportConditions: [""],
   },
+
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "/src/.*/mock/",
+    "/src/.*\\.stories\\.",
+  ],
+
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+  },
 };
 
 // createJestConfig는 비동기 방식으로 next/jest가 내부적으로 설정을 로드할 수 있도록 내보내짐

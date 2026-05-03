@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 
-import { server } from "@/mocks/server";
+import { server } from "@/shared/mock/server";
 
 // 모든 테스트가 시작하기 전 MSW 서버를 시작
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }));

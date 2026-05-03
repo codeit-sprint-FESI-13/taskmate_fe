@@ -1,13 +1,13 @@
 import { ComponentProps, useState } from "react";
 import z from "zod";
 
+import { useSignupMutation } from "@/features/auth/mutation/useSignupMutation";
 import { useEmailDuplicate } from "@/features/auth/signup/hooks/useEmailDuplicate";
-import { useSignupMutation } from "@/features/auth/signup/hooks/useSignupMutation";
 import {
   SignupFormData,
   signupSchema,
 } from "@/features/auth/signup/types/signup.type";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/shared/hooks/useToast";
 
 const useSignupForm = () => {
   const [values, setValues] = useState<SignupFormData>({

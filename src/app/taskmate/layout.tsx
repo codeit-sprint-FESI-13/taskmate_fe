@@ -1,5 +1,6 @@
-import { NavigationBar } from "@/components/NavigationBar";
-import NavigationBarProvider from "@/components/NavigationBar/provider";
+import { NotificationSubscriber } from "@/features/notification";
+import { NavigationBar } from "@/widgets/NavigationBar";
+import NavigationBarProvider from "@/widgets/NavigationBar/provider";
 
 export default function TaskmateLayout({
   children,
@@ -7,11 +8,14 @@ export default function TaskmateLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex">
+    <>
+      <NotificationSubscriber />
       <NavigationBarProvider>
-        <NavigationBar />
+        <div className="flex">
+          <NavigationBar />
+          <div className="mobile:pt-0 mx-auto w-full pt-14">{children}</div>
+        </div>
       </NavigationBarProvider>
-      {children}
-    </div>
+    </>
   );
 }

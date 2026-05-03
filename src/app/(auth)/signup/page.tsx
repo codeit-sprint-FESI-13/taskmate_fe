@@ -1,5 +1,5 @@
-import SignupForm from "@/components/auth/Signup/SignupForm";
-import SnsLoginButtons from "@/components/auth/SnsLoginButtons";
+import SignupForm from "@/widgets/auth/Signup/SignupForm";
+import SnsLoginButtons from "@/widgets/auth/SnsLoginButtons";
 
 export default function SignupPage() {
   return (

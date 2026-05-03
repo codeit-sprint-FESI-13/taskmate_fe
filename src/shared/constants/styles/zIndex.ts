@@ -1,0 +1,3 @@
+export const OVERLAY_ZINDEX_BASE = 1000;
+
+export const NAVIGATION_BAR_ZINDEX = 100;

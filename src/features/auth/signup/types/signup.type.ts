@@ -27,26 +27,3 @@ export const signupSchema = z
   });
 
 export type SignupFormData = z.infer<typeof signupSchema>;
-
-export type CheckEmailResponse = {
-  success: boolean;
-  code: string;
-  message: string;
-  data: { exists: boolean };
-  timestamp: string;
-};
-
-export type SignupResponse = {
-  success: boolean;
-  code: string;
-  message: string;
-  data: {
-    id: number;
-    email: string;
-    nickname: string;
-    profileImageUrl: string | null;
-    provider: string;
-    createdAt: string;
-  };
-  timestamp: string;
-};

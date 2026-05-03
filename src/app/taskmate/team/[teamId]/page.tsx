@@ -1,31 +1,45 @@
-import AsyncBoundary from "@/components/common/AsyncBoundary";
-import { GoalList } from "@/components/team/GoalList";
-import { MemberList } from "@/components/team/MemberList";
-import { Summary } from "@/components/team/Summary";
+"use client";
+
+import AsyncBoundary from "@/shared/ui/AsyncBoundary";
+import { GoalList } from "@/widgets/team/GoalList";
+import { MemberList } from "@/widgets/team/MemberList";
+import { Summary } from "@/widgets/team/Summary";
 
 export default function Page() {
   return (
-    <div className="mx-auto w-full space-y-6 px-[40px] py-[80px]">
-      {/* @TODO: Loading & Error 처리 */}
+    <div className="mobile:py-8 flex flex-col gap-10 px-6 pt-[88px]">
       <AsyncBoundary
-        loadingFallback={<div>Loading...</div>}
-        errorFallback={<div>Error</div>}
+        loadingFallback={<Summary.Loading />}
+        errorFallback={(error, onReset) => (
+          <Summary.Error
+            error={error}
+            onReset={onReset}
+          />
+        )}
       >
         <Summary />
       </AsyncBoundary>
 
-      {/* @TODO: Loading & Error 처리 */}
       <AsyncBoundary
-        loadingFallback={<div>Loading...</div>}
-        errorFallback={<div>Error</div>}
+        loadingFallback={<GoalList.Loading />}
+        errorFallback={(error, onReset) => (
+          <GoalList.Error
+            error={error}
+            onReset={onReset}
+          />
+        )}
       >
         <GoalList />
       </AsyncBoundary>
 
-      {/* @TODO: Loading & Error 처리 */}
       <AsyncBoundary
-        loadingFallback={<div>Loading...</div>}
-        errorFallback={<div>Error</div>}
+        loadingFallback={<MemberList.Loading />}
+        errorFallback={(error, onReset) => (
+          <MemberList.Error
+            error={error}
+            onReset={onReset}
+          />
+        )}
       >
         <MemberList />
       </AsyncBoundary>
