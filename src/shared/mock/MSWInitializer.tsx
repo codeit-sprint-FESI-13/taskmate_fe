@@ -7,11 +7,13 @@ export default function MSWInitializer({
 }: {
   children: React.ReactNode;
 }) {
-  // const [ready, setReady] = useState(process.env.NEXT_PUBLIC_USE_MSW !== "true");
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(process.env.NODE_ENV !== "development");
 
   useEffect(() => {
-    // if (process.env.NEXT_PUBLIC_USE_MSW !== "true") return;
+    // 개발 환경이 아니면 즉시 종료
+    if (process.env.NODE_ENV !== "development") return;
+
+    // async 함수를 내부에서 정의하고 실행
 
     const initMSW = async () => {
       try {
