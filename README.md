@@ -4,8 +4,8 @@
 <!-- ![readme_mockup](대표이미지_URL) -->
 
 - 배포 URL : https://taskmate-fe.vercel.app/login
-- Test ID : test@test.com
-- Test PW : test1234!
+- Test ID : admin@admin.com
+- Test PW : admin123!
 
 <br>
 
